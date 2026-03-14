@@ -1,0 +1,67 @@
+\documentclass[a4paper,12pt]{scrreprt}
+
+%\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage[T1]{fontenc}
+
+\usepackage{setspace}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{csquotes}
+%usepackage[backend=biber,style=numeric]{biblatex}
+\usepackage[backend=biber]{biblatex}
+\addbibresource{literatur.bib}
+\usepackage{lastpage}
+\usepackage{hyperref}
+
+\geometry{
+	left = 3cm,
+	right = 2.5cm,
+	top = 2.5cm,
+	bottom = 2.5cm
+}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+\fancyhf{} % alles löschen
+
+% Kopfzeile
+\fancyhead[L]{\rightmark}
+\fancyhead[C]{IRIS}
+\fancyhead[R]{\includegraphics[width=0.8cm]{images/BulmeLogo.png}}
+\renewcommand{\headrulewidth}{0.4pt}
+% Fußzeile
+\fancyfoot[L]{Kalcher Linda\\ Tartler Katrin} 
+\fancyfoot[C]{Diplomarbeit\\ 2025/26, 5AHEL}
+\fancyfoot[R]{Seite \thepage \ von \pageref{LastPage}}
+\renewcommand{\footrulewidth}{0.4pt}
+
+\fancypagestyle{plain}{
+\fancyhf{}
+% Kopfzeile
+\fancyhead[L]{\leftmark}
+\fancyhead[C]{IRIS}
+\fancyhead[R]{\includegraphics[width=0.8cm]{images/BulmeLogo.png}}
+\renewcommand{\headrulewidth}{0.4pt}
+% Fußzeile
+\fancyfoot[L]{Kalcher Linda\\ Tartler Katrin} 
+\fancyfoot[C]{Diplomarbeit\\ 2025/26, 5AHEL}
+\fancyfoot[R]{Seite \thepage \ von \pageref{LastPage}}
+\renewcommand{\footrulewidth}{0.4pt}
+}
+
+\begin{document}
+
+\input{sections/titlepage}
+\input{sections/kurzbeschreibung_abstract.tex}
+\input{sections/erklärung_danksagung.tex}
+
+\input{sections/theorie.tex}
+
+
+
+
+\end{document}
+

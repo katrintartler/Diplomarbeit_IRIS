@@ -1,0 +1,316 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.3 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{nty/global//global/global/global}
+    \entry{der-ploetzliche-saeuglingstod-epidemiologie-aetiologie-pathophysiologie-und-differenzialdiagnostik}{article}{}{}
+      \name{author}{2}{}{%
+        {{hash=2fc3b37cb2b71006be32acfc04c3f939}{%
+           family={Bajanowski},
+           familyi={B\bibinitperiod},
+           given={Thomas},
+           giveni={T\bibinitperiod}}}%
+        {{hash=2aa16323a6d44f54b5fc6e30fa323a6e}{%
+           family={Poets},
+           familyi={P\bibinitperiod},
+           given={Christian},
+           giveni={C\bibinitperiod}}}%
+      }
+      \strng{namehash}{65a36f18ea9e700a43fd5a775116088b}
+      \strng{fullhash}{65a36f18ea9e700a43fd5a775116088b}
+      \strng{fullhashraw}{65a36f18ea9e700a43fd5a775116088b}
+      \strng{bibnamehash}{65a36f18ea9e700a43fd5a775116088b}
+      \strng{authorbibnamehash}{65a36f18ea9e700a43fd5a775116088b}
+      \strng{authornamehash}{65a36f18ea9e700a43fd5a775116088b}
+      \strng{authorfullhash}{65a36f18ea9e700a43fd5a775116088b}
+      \strng{authorfullhashraw}{65a36f18ea9e700a43fd5a775116088b}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{{Zusammenfassung Die auch international gebräuchliche Diagnose „plötzlicher Säuglingstod“ (SIDS) ist nur nach kompletter Obduktion, Analyse der Todesumstände und Auswertung der klinischen Vorgeschichte (sämtliche Ereignisse mit negativem Ergebnis bezüglich der Todesursache) gerechtfertigt. Die Inzidenz lag 2002 in Deutschland bei 0,46/1 000 Lebendgeborene. Im Interesse betroffener Eltern sollte der Leichenschauarzt eine ungeklärte Todesart bescheinigen und den Eltern die Vorteile einer Obduktion und der damit verbundenen Todesursachenklärung nahe bringen (Obduktionsfrequenz bei plötzlichem Säuglingstod in Deutschland gegenwärtig circa 50 Prozent). Nach Identifikation vermeidbarer Risikofaktoren (Schlafen in Bauchlage, Stillverzicht, Rauchen während der Schwangerschaft, Überwärmung) und diesbezüglicher Aufklärung der Bevölkerung ging die Inzidenz unter Veränderung des epidemiologischen Profils zurück (zum Beispiel Abflachung des Wintergipfels, instabile Seitenlage als neuer Risikofaktor). Bei nach wie vor ungeklärter Ätiologie und Pathophysiologie zielt die ärztliche Beratung darauf, das Auftreten kritischer Situationen beim Kind durch Vermeiden von Risikofaktoren zu verhindern. Schlüsselwörter: plötzlicher Säuglingstod, Todesursache, Prävention, Epidemiologie, Differenzialdiagnose Summary Sudden Infant Death Syndrome Sudden infant death syndrome (SIDS) may be diagnosed after a full autopsy, death scene investigation and review of the medical history have failed to demonstrate an adequate cause of death. Its incidence in Germany in 2002 was 0.46 per 1000 life births. Physicians called to an infant who died suddenly and unexpectedly should define the mode of death as “undetermined“ and explain to parents that an autopsy is a prerequisite to determine the cause of death. Current autopsy rates in Germany are only at around 50 per cent. Following the identification of avoidable risk factors such as the prone sleep position, bottle feeding, smoking and overheating, and the subsequent Reduction-The-Risk campaigns, the incidence and epidemiological profile of SIDS has changed (e.g., loss of the characteristic winter peak, identification of side sleeping as a risk factor). As long as the exact pathophysiology remains unknown, physicians should strive to advice parents to prevent potentially life-threatening situations in their babies by avoiding the above risk factors. Key words: sudden infant death, cause of death, prevention, epidemiology, differential diagnosis}}
+      \field{journaltitle}{Deutsches Ärzteblatt}
+      \field{month}{10}
+      \field{number}{47}
+      \field{title}{{Der plötzliche Säuglingstod: Epidemiologie, Ätiologie, Pathophysiologie und Differenzialdiagnostik}}
+      \field{volume}{101}
+      \field{year}{2004}
+      \field{pages}{-6815-}
+      \range{pages}{-1}
+      \verb{eprint}
+      \verb https://www.aerzteblatt.de/archiv/pdf/6e55d777-a594-4b62-adaf-e1a9486b428d
+      \endverb
+      \warn{\item Range field 'pages' in entry 'der-ploetzliche-saeuglingstod-epidemiologie-aetiologie-pathophysiologie-und-differenzialdiagnostik' is malformed, falling back to literal}
+    \endentry
+    \entry{espressif_ble_intro}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=66589871a3c3f27bcbf3891133af42b1}{%
+           family={{Espressif Systems}},
+           familyi={E\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {Espressif Systems}%
+      }
+      \strng{namehash}{66589871a3c3f27bcbf3891133af42b1}
+      \strng{fullhash}{66589871a3c3f27bcbf3891133af42b1}
+      \strng{fullhashraw}{66589871a3c3f27bcbf3891133af42b1}
+      \strng{bibnamehash}{66589871a3c3f27bcbf3891133af42b1}
+      \strng{authorbibnamehash}{66589871a3c3f27bcbf3891133af42b1}
+      \strng{authornamehash}{66589871a3c3f27bcbf3891133af42b1}
+      \strng{authorfullhash}{66589871a3c3f27bcbf3891133af42b1}
+      \strng{authorfullhashraw}{66589871a3c3f27bcbf3891133af42b1}
+      \field{extraname}{1}
+      \field{sortinit}{E}
+      \field{sortinithash}{8da8a182d344d5b9047633dfc0cc9131}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Bluetooth Low Energy Introduction}
+      \field{urlday}{7}
+      \field{urlmonth}{3}
+      \field{urlyear}{2026}
+      \field{year}{2024}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-guides/ble/get-started/ble-introduction.html
+      \endverb
+      \verb{url}
+      \verb https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-guides/ble/get-started/ble-introduction.html
+      \endverb
+    \endentry
+    \entry{espressif_bluetooth_architecture}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=66589871a3c3f27bcbf3891133af42b1}{%
+           family={{Espressif Systems}},
+           familyi={E\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {Espressif Systems}%
+      }
+      \strng{namehash}{66589871a3c3f27bcbf3891133af42b1}
+      \strng{fullhash}{66589871a3c3f27bcbf3891133af42b1}
+      \strng{fullhashraw}{66589871a3c3f27bcbf3891133af42b1}
+      \strng{bibnamehash}{66589871a3c3f27bcbf3891133af42b1}
+      \strng{authorbibnamehash}{66589871a3c3f27bcbf3891133af42b1}
+      \strng{authornamehash}{66589871a3c3f27bcbf3891133af42b1}
+      \strng{authorfullhash}{66589871a3c3f27bcbf3891133af42b1}
+      \strng{authorfullhashraw}{66589871a3c3f27bcbf3891133af42b1}
+      \field{extraname}{2}
+      \field{sortinit}{E}
+      \field{sortinithash}{8da8a182d344d5b9047633dfc0cc9131}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Bluetooth Protocol Stack}
+      \field{urlday}{8}
+      \field{urlmonth}{3}
+      \field{urlyear}{2026}
+      \field{year}{2024}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-guides/bt-architecture/overview.html#bluetooth-protocol-stack
+      \endverb
+      \verb{url}
+      \verb https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-guides/bt-architecture/overview.html#bluetooth-protocol-stack
+      \endverb
+    \endentry
+    \entry{espressif_bluetooth_security}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=66589871a3c3f27bcbf3891133af42b1}{%
+           family={{Espressif Systems}},
+           familyi={E\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {Espressif Systems}%
+      }
+      \strng{namehash}{66589871a3c3f27bcbf3891133af42b1}
+      \strng{fullhash}{66589871a3c3f27bcbf3891133af42b1}
+      \strng{fullhashraw}{66589871a3c3f27bcbf3891133af42b1}
+      \strng{bibnamehash}{66589871a3c3f27bcbf3891133af42b1}
+      \strng{authorbibnamehash}{66589871a3c3f27bcbf3891133af42b1}
+      \strng{authornamehash}{66589871a3c3f27bcbf3891133af42b1}
+      \strng{authorfullhash}{66589871a3c3f27bcbf3891133af42b1}
+      \strng{authorfullhashraw}{66589871a3c3f27bcbf3891133af42b1}
+      \field{extraname}{3}
+      \field{sortinit}{E}
+      \field{sortinithash}{8da8a182d344d5b9047633dfc0cc9131}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{SMP}
+      \field{urlday}{8}
+      \field{urlmonth}{3}
+      \field{urlyear}{2026}
+      \field{year}{2024}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-guides/ble/smp.html
+      \endverb
+      \verb{url}
+      \verb https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-guides/ble/smp.html
+      \endverb
+    \endentry
+    \entry{meinmed_sids}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=f66d07d20bee5c93bd179fa93d4eaa63}{%
+           family={{MeinMed Redaktion}},
+           familyi={M\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {MeinMed}%
+      }
+      \strng{namehash}{f66d07d20bee5c93bd179fa93d4eaa63}
+      \strng{fullhash}{f66d07d20bee5c93bd179fa93d4eaa63}
+      \strng{fullhashraw}{f66d07d20bee5c93bd179fa93d4eaa63}
+      \strng{bibnamehash}{f66d07d20bee5c93bd179fa93d4eaa63}
+      \strng{authorbibnamehash}{f66d07d20bee5c93bd179fa93d4eaa63}
+      \strng{authornamehash}{f66d07d20bee5c93bd179fa93d4eaa63}
+      \strng{authorfullhash}{f66d07d20bee5c93bd179fa93d4eaa63}
+      \strng{authorfullhashraw}{f66d07d20bee5c93bd179fa93d4eaa63}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Plötzlicher Kindstod (SIDS): Ursachen, Risikofaktoren und Prävention}
+      \field{urlday}{7}
+      \field{urlmonth}{3}
+      \field{urlyear}{2026}
+      \field{year}{2023}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.meinmed.at/krankheit/ploetzlicher-kindstod/1603
+      \endverb
+      \verb{url}
+      \verb https://www.meinmed.at/krankheit/ploetzlicher-kindstod/1603
+      \endverb
+    \endentry
+    \entry{Poets2020}{inbook}{}{}
+      \name{author}{2}{}{%
+        {{hash=a62e316ebbd8c822257476e96ea01236}{%
+           family={Poets},
+           familyi={P\bibinitperiod},
+           given={Christian\bibnamedelima F.},
+           giveni={C\bibinitperiod\bibinitdelim F\bibinitperiod}}}%
+        {{hash=e1cff4405d8359d34d904e7d360e9324}{%
+           family={Jorch},
+           familyi={J\bibinitperiod},
+           given={Gerhard},
+           giveni={G\bibinitperiod}}}%
+      }
+      \name{editor}{5}{}{%
+        {{hash=46d1ff4f963e9ab78f8a80ebcb51615b}{%
+           family={Hoffmann},
+           familyi={H\bibinitperiod},
+           given={Georg\bibnamedelima F.},
+           giveni={G\bibinitperiod\bibinitdelim F\bibinitperiod}}}%
+        {{hash=c0776ee2f3e8ea62b667145b8946ef8b}{%
+           family={Lentze},
+           familyi={L\bibinitperiod},
+           given={Michael\bibnamedelima J.},
+           giveni={M\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+        {{hash=3599a10b82b60e92e223ae021d88f6b2}{%
+           family={Spranger},
+           familyi={S\bibinitperiod},
+           given={Jürgen},
+           giveni={J\bibinitperiod}}}%
+        {{hash=e13c3cec01a82c04cb7aa048d840fe1f}{%
+           family={Zepp},
+           familyi={Z\bibinitperiod},
+           given={Fred},
+           giveni={F\bibinitperiod}}}%
+        {{hash=ff536200b5520defc49741cab86ebef8}{%
+           family={Berner},
+           familyi={B\bibinitperiod},
+           given={Reinhard},
+           giveni={R\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Berlin, Heidelberg}%
+      }
+      \list{publisher}{1}{%
+        {Springer Berlin Heidelberg}%
+      }
+      \strng{namehash}{fc2787bf11956690c9a098a70792f08a}
+      \strng{fullhash}{fc2787bf11956690c9a098a70792f08a}
+      \strng{fullhashraw}{fc2787bf11956690c9a098a70792f08a}
+      \strng{bibnamehash}{fc2787bf11956690c9a098a70792f08a}
+      \strng{authorbibnamehash}{fc2787bf11956690c9a098a70792f08a}
+      \strng{authornamehash}{fc2787bf11956690c9a098a70792f08a}
+      \strng{authorfullhash}{fc2787bf11956690c9a098a70792f08a}
+      \strng{authorfullhashraw}{fc2787bf11956690c9a098a70792f08a}
+      \strng{editorbibnamehash}{280f0f934e0e6ea070b366ad4c9b3f5e}
+      \strng{editornamehash}{280f0f934e0e6ea070b366ad4c9b3f5e}
+      \strng{editorfullhash}{4f8df1a3fb7c0e21a96d93df96d9c855}
+      \strng{editorfullhashraw}{4f8df1a3fb7c0e21a96d93df96d9c855}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Der plötzliche Kindstod wird in den offiziellen Statistiken von Ländern mit gut ausgebauter Gesundheitsversorgung als häufigste Todesart im Säuglingsalter jenseits der Neugeborenenzeit angegeben. Obwohl bereits in der Bibel erwähnt (1. Buch Könige 3:19), wurde erst vor ca. 50 Jahren der Versuch unternommen, ihn als eigenständige Entität zu definieren.}
+      \field{booktitle}{Pädiatrie: Grundlagen und Praxis}
+      \field{isbn}{978-3-662-60300-0}
+      \field{title}{Plötzlicher Kindstod}
+      \field{year}{2020}
+      \field{pages}{219\bibrangedash 226}
+      \range{pages}{8}
+      \verb{doi}
+      \verb 10.1007/978-3-662-60300-0_19
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1007/978-3-662-60300-0_19
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1007/978-3-662-60300-0_19
+      \endverb
+    \endentry
+    \entry{ti_ble_l2cap}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=67e54b1ee931f3f4bddfefa5fbde5fd8}{%
+           family={{Texas Instruments}},
+           familyi={T\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {Texas Instruments}%
+      }
+      \strng{namehash}{67e54b1ee931f3f4bddfefa5fbde5fd8}
+      \strng{fullhash}{67e54b1ee931f3f4bddfefa5fbde5fd8}
+      \strng{fullhashraw}{67e54b1ee931f3f4bddfefa5fbde5fd8}
+      \strng{bibnamehash}{67e54b1ee931f3f4bddfefa5fbde5fd8}
+      \strng{authorbibnamehash}{67e54b1ee931f3f4bddfefa5fbde5fd8}
+      \strng{authornamehash}{67e54b1ee931f3f4bddfefa5fbde5fd8}
+      \strng{authorfullhash}{67e54b1ee931f3f4bddfefa5fbde5fd8}
+      \strng{authorfullhashraw}{67e54b1ee931f3f4bddfefa5fbde5fd8}
+      \field{sortinit}{T}
+      \field{sortinithash}{9af77f0292593c26bde9a56e688eaee9}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Logical Link Control and Adaptation Protocol (L2CAP)}
+      \field{urlday}{8}
+      \field{urlmonth}{3}
+      \field{urlyear}{2026}
+      \field{year}{2024}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://software-dl.ti.com/lprf/sdg-latest/html/ble-stack-3.x/l2cap.html
+      \endverb
+      \verb{url}
+      \verb https://software-dl.ti.com/lprf/sdg-latest/html/ble-stack-3.x/l2cap.html
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+
