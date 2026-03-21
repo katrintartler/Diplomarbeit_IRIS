@@ -1,16 +1,16 @@
 \section{Testroboter}
 \subsection{BLE und Interface}
 \subsubsection{BLE Architektur} 
-Bluetooth Low Energy ist eine Bluetooth Protokoll, das im Vergleich zu Classic Bluetooth einen geringeren Stromverbrauch hat und somit auch einen niedrigere Datentransferrate erreicht.
+Bluetooth Low Energy ist eine Bluetooth Protokoll, das im Vergleich zu Classic Bluetooth einen geringeren Stromverbrauch hat 
+und somit auch einen niedrigere Datentransferrate erreicht.
 Es wird vor allem im Bereich Internet of Things (IoT) und für Kommunikation mit Messsensoren benutzt.
 BLE ist nicht kompatibel mit Classic Bluetooth. 
-Das BLE Protokoll ist in drei Schichten geteilt.
+Das BLE Protokoll ist in drei Schichten geteilt. siehe Abbildung \ref{fig:ble_architektur}
 \begin{itemize}
 \item Application Layer
 \item Host Layer
-\item und Controller Layer
-\item \end{itemize}
-siehe Abbildung \ref{fig:ble_architektur}
+\item Controller Layer
+\end{itemize}
 
 \begin{figure}[htbp]
 \centering
@@ -20,27 +20,36 @@ siehe Abbildung \ref{fig:ble_architektur}
 \end{figure}
 
 \noindent
-In der Application Layer können wir unsere Anwendung mit BLE realisieren. Hier implementiert man seine Anforderungen.In der Host Layer findet die Kommunikation zwischen Benutzeranwendung und Controllinterface der Hardware statt, man nennt diese Ebene auch Host Stack. Der in Kombination mit dem Controller Stack den Bluetooth Stack bildet. Alle relevanten Bluetooth LE Protokolle der Hostseite sind hier implementiert.\cite{espressif_bluetooth_architecture} In der letzten Schicht, der Controller Layer finden die physical und die link Layer ihren Platz. Sie interagieren direkt mit der Hardware. Die BLE-Protokolle der Host Schicht sind GAP, ATT, GATT, SMP und L2CAP.\cite{espressif_ble_intro}
+In der Application Layer können wir unsere Anwendung mit BLE realisieren.
+Hier implementiert man seine Anforderungen. In der Host Layer findet die Kommunikation zwischen Benutzeranwendung und Controllinterface
+der Hardware statt, man nennt diese Ebene auch Host Stack. Der in Kombination mit dem Controller Stack den Bluetooth Stack bildet.
+Alle relevanten Bluetooth LE Protokolle der Hostseite sind hier implementiert.
+In der letzten Schicht, der Controller Layer finden die physical und die link Layer ihren Platz.
+Sie interagieren direkt mit der Hardware. Die BLE-Protokolle der Host Schicht sind GAP, ATT, GATT, SMP und L2CAP.\cite{espressif_ble_intro}\cite{espressif_bluetooth_architecture}
 \newpage
 
 \subsubsection{GAP (Generic Accsess Profile)}
-Ist für die Verbindung von zwei BLE-Geräten verantwortlich. Das Protokoll ist in 3 verschiedene Modi geteilt je nachdem welcher Verbindungsgrad erfüllt ist. Innerhalb dieser gibt es Rollen die den Geräten zugeteilt sind. 
+Ist für die Verbindung von zwei BLE-Geräten verantwortlich. 
+Das Protokoll ist in 3 verschiedene Modi geteilt je nachdem welcher Verbindungsgrad erfüllt ist. 
+Innerhalb dieser gibt es Rollen die den Geräten zugeteilt sind. Dies wird in Abbildung \ref{fig:ble_gap} veranschaulicht. 
  
 \begin{figure}[h]
 \centering
-\includegraphics[width = 4cm]{images/ble-gap.png}
+\includegraphics[width = 5cm]{images/ble-gap.png}
 \caption{BLE GAP}
 \label{fig:ble_gap}
 \end{figure}
 \noindent
 In unserem Projekt übernimmt der ESP32 die Rolle des Servers, und der Laptop ist der Client. 
-Im GAP werden diese Rollen mit Peripheral (Server) und Central (Client) bezeichnet. \cite{espressif_ble_intro} Anhand von Abbildung \ref{fig:ble_gap_bsp} lässt sich der Verbindungsaufbau und die unterschiedlichen Rollen welche die Teilnehmener dabei annehmen nachvollziehen.
+Im GAP werden diese Rollen mit Peripheral (Server) und Central (Client) bezeichnet. \cite{espressif_ble_intro}
+Anhand von Abbildung \ref{fig:ble_gap_bsp} lässt sich der Verbindungsaufbau und die unterschiedlichen Rollen welche die Teilnehmener dabei annehmen nachvollziehen.
 \begin{figure}[h]
 \centering
-\includegraphics[width = 6cm]{images/ble-gap_bsp.png}
+\includegraphics[width = 5cm]{images/ble-gap_bsp.png}
 \caption{GAP Verbindungsaufbau}
 \label{fig:ble_gap_bsp}
 \end{figure}
+\newpage
 
 
 \subsubsection{GATT (Generic Attribute Profile)}
@@ -61,10 +70,31 @@ Profiles sind die übergeordnetesten Instanzen. Sie müssen gewisse Services hab
 Auf dieser Ebene passiert die technische Umsetzung des GATT. Eine dort erzeugt Charakteristik wird am Server Device als Attribute gespeichert. Attribute sind strukturiert in Type, Value und Permission. Dabei werden sie im Speicher meist als Arrays angelegt- Attribute Table. Der Type eines Attributs ist ein 32- oder öfter benutzte 128bit langer UUID (Universally Unique IDentifier). \cite{espressif_ble_intro}
 
 \subsubsection{L2CAP (Logic Link Control and Adaption Layer Protocol)}
-L2CAP ist für die Datenpaketverwaltung zuständig. Es wird auf Client- sowie auf Hostseite benutzt. Zu den Aufgaben gehören unter anderem Multiplexing, Segementierung und Wiederzusammensetzung der Daten. \cite{ti_ble_l2cap}
+L2CAP ist für die Datenpaketverwaltung zuständig. Es wird auf Client- sowie auf Hostseite benutzt. Zu den Aufgaben gehören unter anderem Multiplexing, Segementierung und Wiederzusammensetzung der Daten. \cite{texas_ins_ble_l2cap}
 
 \subsubsection{SMP (Security Manager Protocol )}
 Ist das Sicherheitsprotokoll von BLE, es ist ein Untermodul von GAP. \cite{espressif_bluetooth_security}
+
+\subsubsection{NimBLE}
+NimBLE ist neben Bluedroid eines der von Espressif empfohlenen Bluetooth APIs (Application Programming Interface).
+Diese dienen den Programmieren als Schnittstellen, um mit der Bluetoothhardware interagieren zu können.
+Die Bezeichnung NimBLE spielt auf das englische Wort „nimble“ (flink, effizient) an und verrät so schon einiges über seine Eigenschaften.
+Im Vergleich zu Bluedroid ist NimBLE eine kompaktere Anwendung, welche weniger Speichernutzung und einfacheren Code unterstützt. Somit ist 
+NimBLE ressourcenschonender und effizienter. Es ist nur für BLE geeignet und kann nicht zur Kommunikation mit Classic Bluetooth benutzt werden. \cite{espressif_nimble} \cite{apache_nimble}
+
+\subsubsection{Bleak}
+Bleak ist ein ist ein Python API die es ermöglicht mit BLE-Geräten in Verbindung zu treten und zu kommunizieren.
+Auch hier ist der Name Programm. Bleak steht für Bluetooth Low Energy Platform Agnostik Klient. 
+Das bedeutet das egal welche Plattform oder Betriebssystem genutzt wird, die Anwendung funktioniert flexibel. \cite{bleak_docu}
+
+\subsubsection{Dear PyGui}
+Mit der Python Bibliothek Dear PyGui (DPG) lassen sich einfache GUI (Graphical User Interface) Anforderungen in Python realisieren.
+Man nutzt sie zur Erstellung von Diagrammen, Tabellen und einfachen bis komplexen User Interfaces.
+DPG ist dynamisch, GPU-beschleunigt und sehr anwenderfreundlich. \cite{dpg_docu}
+
+
+
+
 
 
 
