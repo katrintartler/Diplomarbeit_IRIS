@@ -98,8 +98,42 @@ DPG ist dynamisch, GPU-beschleunigt und sehr anwenderfreundlich. \cite{dpg_docu}
 \subsection{Realtime System}
 
 \subsection{Bewegungssimulation}
-%Motortheorie
-%Vergleich Stepper vs. Servo
+\subsubsection{Bewegungsabläufe} %Bewegungstheorie
+In einer Studie der Segawa Neurological Clinic for Children aus dem Jahr 1980 sammelten die Forschenden Daten über das Bewegungsverhalten von 25 Säuglingen.
+Mithilfe EKG Messungen und visuelen Beobachtungen kategoriesierten sie die Bewegungen der Kinder in drei Gruppen.
+\begin{itemize}
+    \item GM(gross movements)
+    was die größten Bewegungen des Kinder beschreibt. Ganze Gliedmaßen werden länger als 0,5s bewegt.
+    \item LM(localized movements)
+    Diese etwas kleineren Bewegungen dauerten auch länger als 0,5s. 
+    \item TM(twitch movements)
+    Kleine Muskelzuckungen die weniger als 0,5s andauerten. 
+\end{itemize}
+Mit der Zeit nimmt die Anzahl an Bewegungen in einer Nacht immer weiter ab.
+Angefagen bei dem zuckenden TM Bewegungen bis hin zu den GMs. 
+Diese Bewegungsabläufe sind eng mit der motorischen Entwicklung eines Kindes und 
+der generellen Entwicklung des Zentralennervensystems verbunden.
+Die Forscher sehen darin einen Methode um neurologische Auffälligkeiten bei Säuglingen frühest möglich zu erkennen. \cite{FUKUMOTO198137}
+\subsubsection{Servomotoren} % Motortheorie 
+Ein Servomotor ist ein Elektromotor welcher über eine interne Sensorik verfügt, die zur Regelung der Position, Geschwindigkeit oder des Drehmoments
+verwendet wird. 
+Der Motor besteht aus vier Hauptkomponenten, die auch in Abb \ref{fig:servoMotor} veranschaulicht sind. 
+\begin{itemize}
+    \item DC-Motor
+    \item Getriebe
+    \item Positionsmessung
+    \item Steuerplatine 
+\end{itemize}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=8cm]{images/servoMotor.jpg}
+\caption{Servo Motor Aufbau}
+\label{fig:servoMotor}
+\end{figure}
+
+
+
 
 \subsection{Geräuschsimulation}
 %Modul erklären
