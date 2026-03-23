@@ -155,10 +155,10 @@ Sollwert erhalten und regelt den Servo genau zu diesem hin.
 Die Ansteuerung des Servomotors durch den Microcontroller erfolgt mittels PWM
 (Pulsweitenmodulation, engl. pulse width modulation). Die Logik des Servos bekommt den entsprechenden 
 Winkelwert nicht durch eine bestimmte Spannung sondern durch die Länge eines Pulses. 
-Diese Länge berechnet der ESP je nach gewünschtem Winkel und sendet sie über PWM-Pins an die Servomotoren. 
+Diese Länge berechnet der ESP je nach gewünschtem Winkel und sendet sie über PWM-Pins an die Servomotoren. \cite{servomotor} \cite{pwm_servo}
 
 \subsection{Geräuschsimulation} %1.6.4
-%Modul erklären
+%Modul erklären oder is das mehr Methodik? 
 %Lautsprecher Theorie
 
 \subsection{Wärmesimulation} %1.6.5
@@ -172,8 +172,15 @@ Im Vergleich zu anderen Widerstandstypen, die auch oft Keramikkomponenten aufwei
 (elektrischer Leiter) und Keramikmaterial (Isolator) gefertigt. Dabei bestimmt das Verhältnis den Widerstandswert, 
 befindet sich viel Kohlenstoffpartikel in der Mischung wird der Widerstand geringer und umgekehrt.
 Die fertige Masse wird in Form gepresst, oft mit einer zusätzlichen Schicht Keramik überzogen und im Ofen gebrannt. \cite{ohmite2024ceramic} \cite{nugar2026ceramic}
+
+\subsubsection{PT100}
+Der PT100 ist ein temperaturabhängigier Widerstand der Kategorie der PTCs (Positive Temperature Coefficient). Temperaturabhängige Widerstände verändern ihren 
+Widerstandswert je nach gegebener Umgebungstemperatur. Ein positiver Temperaturkoeffizient bedeutet, dass der Widerstand bei steigender Temperatur 
+auch steigt. Pro Grad ändert sich der Widerstandswert des 
+PT100 um 0,385$\Omega$ \cite{yageo_pt100}. Den PT100 zeichnet aus, dass er bei einer Temperatur von 0 Grad eine Widerstand von 100 $\Omega$ hat.
+Aufgrund dieser physikalischen berechenbarkeit eignet sich der PT100 perfekt als Messkomponente zur Bestimmung von Temperturwerten. 
 %PT100 Regelung? das was mc geyappt hat
-%Keramikwiderstände vs. Heizelemente
+%Keramikwiderstände vs. Heizelemente Methodik eher ig? 
 
 
 
