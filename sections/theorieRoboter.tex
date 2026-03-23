@@ -1,5 +1,6 @@
 \section{Testroboter}
-\subsection{BLE und Interface}
+
+\subsection{BLE und Interface} %1.6.1
 \subsubsection{BLE Architektur} 
 Bluetooth Low Energy ist eine Bluetooth Protokoll, das im Vergleich zu Classic Bluetooth einen geringeren Stromverbrauch hat 
 und somit auch einen niedrigere Datentransferrate erreicht.
@@ -92,22 +93,22 @@ Mit der Python Bibliothek Dear PyGui (DPG) lassen sich einfache GUI (Graphical U
 Man nutzt sie zur Erstellung von Diagrammen, Tabellen und einfachen bis komplexen User Interfaces.
 DPG ist dynamisch, GPU-beschleunigt und sehr anwenderfreundlich. \cite{dpg_docu}
 
+\subsection{Realtime System} %1.6.2
 
-%\subsection{JLC ?}
-
-\subsection{Realtime System}
-
-\subsection{Bewegungssimulation}
+\subsection{Bewegungssimulation} %1.6.3
 \subsubsection{Bewegungsabläufe} %Bewegungstheorie
 In einer Studie der Segawa Neurological Clinic for Children aus dem Jahr 1980 sammelten die Forschenden Daten über das Bewegungsverhalten von 25 Säuglingen.
 Mithilfe EKG Messungen und visuelen Beobachtungen kategoriesierten sie die Bewegungen der Kinder in drei Gruppen.
 \begin{itemize}
     \item GM(gross movements)
-    was die größten Bewegungen des Kinder beschreibt. Ganze Gliedmaßen werden länger als 0,5s bewegt.
+
+    \noindent Die größten Bewegungen, ganze Gliedmaßen werden länger als 0,5s bewegt.
     \item LM(localized movements)
-    Diese etwas kleineren Bewegungen dauerten auch länger als 0,5s. 
+    
+    \noindent Diese etwas kleineren Bewegungen dauerten auch länger als 0,5s. 
     \item TM(twitch movements)
-    Kleine Muskelzuckungen die weniger als 0,5s andauerten. 
+    
+    \noindent Kleine Muskelzuckungen die weniger als 0,5s andauerten. 
 \end{itemize}
 Mit der Zeit nimmt die Anzahl an Bewegungen in einer Nacht immer weiter ab.
 Angefagen bei dem zuckenden TM Bewegungen bis hin zu den GMs. 
@@ -117,12 +118,13 @@ Die Forscher sehen darin einen Methode um neurologische Auffälligkeiten bei Sä
 \subsubsection{Servomotoren} % Motortheorie 
 Ein Servomotor ist ein Elektromotor welcher über eine interne Sensorik verfügt, die zur Regelung der Position, Geschwindigkeit oder des Drehmoments
 verwendet wird. 
-Der Motor besteht aus vier Hauptkomponenten, die auch in Abb \ref{fig:servoMotor} veranschaulicht sind. 
+Der Motor besteht aus vier Hauptkomponenten, die auch in Abb \ref{fig:servoMotor} (bezogen auf unsere verwendeten Servos, es könnte auch ein AC-Motor, oder andere Senorik verwendet werden)
+veranschaulicht sind sind. 
 \begin{itemize}
-    \item DC-Motor
-    \item Getriebe
-    \item Positionsmessung
-    \item Steuerplatine 
+    \item DC-Motor => sorgt für den Antrieb
+    \item Getriebe => reduziert Drehzahl und erhöht Drehmoment 
+    \item Positionsmessung => Messkomponente der Reglung
+    \item Steuerplatine => regelt den Motor nach 
 \end{itemize}
 
 \begin{figure}[htbp]
@@ -132,15 +134,34 @@ Der Motor besteht aus vier Hauptkomponenten, die auch in Abb \ref{fig:servoMotor
 \label{fig:servoMotor}
 \end{figure}
 
+\noindent
+Die Kombination dieser einzelnen Komponenten erzeugt die typische Servofunktion.
 
+\noindent
+Der DC-Motor funktioniert durch das physikalische Prinzip der Lorentzkraft. Die Kraft die ein Magnetfeld auf bewegte elekrische Ladungen
+(z.B. Elektronen) ausübt. Aufgebaut wird der Motor mittels Stator-Rotor-Prinzip.
+Der Stator (ein Magnet) ist nicht in Bewegung und erzeugt ein konstantes Magnetfeld. Der Rotor (eine Spule), auch
+Anker genannt muss drehbar montiert sein. Wird der Motor nun mit Spannung versetzt, 
+fließt Strom über die sogennaten Bürsten, zu den Spulen. So beginnt der Anker zu 
+rotieren, getrieben durch die Lorentzkraft. Das funktioniert nur bis zu einer gewissen 
+Position. Ist der Anker dort angelangt, kommt der Kommutator ins Spiel. Er ändert die Phase des Stroms um 
+180°, dadurch bleibt die Drehbewegung kontinuierlich erhalten. 
+\noindent
+Das Potentiometer und die Steuerplatine sorgen für die Regelung des Servomotors. 
+Das Potentiometer erfasst die momentane Position (in Form eines Winkels) und gibt diese an die 
+Regelung der Platine weiter. Diese hat durch einen Microcontroller (z.B. ESP32) einen 
+Sollwert erhalten und regelt den Servo genau zu diesem hin. 
+\noindent
+Die Ansteuerung des Servomotors durch den Microcontroller erfolgt mittels PWM
+(Pulsweitenmodulation, engl. pulse width modulation). Die Logik des Servos bekommt den entsprechenden 
+Winkelwert nicht durch eine bestimmte Spannung sondern durch die Länge eines Pulses. 
+Diese Länge berechnet der ESP je nach gewünschtem Winkel und sendet sie über PWM-Pins an die Servomotoren. 
 
-
-\subsection{Geräuschsimulation}
+\subsection{Geräuschsimulation} %1.6.4
 %Modul erklären
 %Lautsprecher Theorie
 
-
-\subsection{Wärmesimulation}
+\subsection{Wärmesimulation} %1.6.5
 \subsubsection{Keramikwiderstände}
 Keramikwiderstände sind im Vergleich zu herkömmlichen ¼-Watt Widerständen mechanisch und thermisch viel stabiler.
 Sie werden überall dort eingesetzt, wo starke Verlustleistungen auftreten, da sie oft ein Vielfaches der Leistung aushalten.
@@ -159,4 +180,3 @@ Die fertige Masse wird in Form gepresst, oft mit einer zusätzlichen Schicht Ker
 
 
 
-\section{3D Druck}
