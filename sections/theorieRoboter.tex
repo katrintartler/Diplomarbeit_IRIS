@@ -1,7 +1,24 @@
 \section{Testroboter}
 
 \subsection{BLE und Interface} %1.6.1
-\subsubsection{BLE Architektur} 
+
+\subsubsection{ESP32}
+Der ESP32 ist das zentrale Streuerungselement des Testroboters. Damit wird die Bewegungs-, Geräusch- und Wärmesimulation angesteuert. Der ESP32 ist ein
+system-on-chip (SOC) Microcontroller. Das bedeutet er umfasst viele Funktionen wie CPU, RAM, Microcontroller, und unterstützender Hardware, aufgebaut in einem Dev-Board. 
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=8cm]{images/ChipVSSoc.jpg}
+\caption{Microcontroller zu system-on-chip}
+\label{fig:ChipVSSoc}
+\end{figure}
+
+\noindent
+Damit der Testroboter für die entsprechenden Tests des Bettchens benutzt werden kann, wird mithilfe von BLE \ref{BLE Architektur} vom ESP32  
+zu einem Laptop eine Verbindung hergestellt. Dort kann man zu Testzwecken die verschiedenenen Simulationsparameter in beliebigen Sequenzen 
+ansteueren. 
+
+
+\subsubsection{BLE Architektur} \label{BLE Architektur}
 Bluetooth Low Energy ist eine Bluetooth Protokoll, das im Vergleich zu Classic Bluetooth einen geringeren Stromverbrauch hat 
 und somit auch einen niedrigere Datentransferrate erreicht.
 Es wird vor allem im Bereich Internet of Things (IoT) und für Kommunikation mit Messsensoren benutzt.
@@ -93,7 +110,7 @@ Mit der Python Bibliothek Dear PyGui (DPG) lassen sich einfache GUI (Graphical U
 Man nutzt sie zur Erstellung von Diagrammen, Tabellen und einfachen bis komplexen User Interfaces.
 DPG ist dynamisch, GPU-beschleunigt und sehr anwenderfreundlich. \cite{dpg_docu}
 
-\subsection{Realtime System} %1.6.2
+%\subsection{Realtime System} %1.6.2 in Methodik 
 
 \subsection{Bewegungssimulation} %1.6.3
 \subsubsection{Bewegungsabläufe} %Bewegungstheorie
@@ -158,6 +175,15 @@ Winkelwert nicht durch eine bestimmte Spannung sondern durch die Länge eines Pu
 Diese Länge berechnet der ESP je nach gewünschtem Winkel und sendet sie über PWM-Pins an die Servomotoren. \cite{servomotor} \cite{pwm_servo}
 
 \subsection{Geräuschsimulation} %1.6.4
+\subsubsection{DFPlayer Module}
+Das DFPlayer Module von Az-Delivery ist ein eigenständiger Audio-Decoder, der die Wiedergabe 
+von MP3- und WAV-Dateien von einer micro SD-Karte ermöglicht. Es lässt sich über 
+eine UART-Schnittstelle oder manuell über eine Taststeuerung der digitalen Eingänge. 
+
+
+\subsubsection{UART Kommunikation}
+\subsubsection{Lautsprecher}
+ Der Lautsprecher und Theorie dazu. 
 %Modul erklären oder is das mehr Methodik? 
 %Lautsprecher Theorie
 
