@@ -178,10 +178,15 @@ Diese Länge berechnet der ESP je nach gewünschtem Winkel und sendet sie über 
 \subsubsection{DFPlayer Module}
 Das DFPlayer Module von Az-Delivery ist ein eigenständiger Audio-Decoder, der die Wiedergabe 
 von MP3- und WAV-Dateien von einer micro SD-Karte ermöglicht. Es lässt sich über 
-eine UART-Schnittstelle oder manuell über eine Taststeuerung der digitalen Eingänge. 
-
-
+eine UART-Schnittstelle oder manuell über eine Taststeuerung der digitalen Eingänge ansteuern. 
 \subsubsection{UART Kommunikation}
+Für die UART (Universal Asynchronous Receiver/Transmitter) Kommunikation werden die Daten bitweise über 
+eine Leitung gesendet. Asynchron bedeutet es gibt kein gemeinsames Taktsignal, baudrate von Modul und ESP32 müssen jedoch
+die gleiche sein, standardgemäß 9600. Die Daten werden in
+festen Formaten gesendet die durch Start- und Stoppbit abgerenzt werden. 
+Aus dem Datenblatt des DFPlayer Moduls kann man die commands für die einzelnen 
+Funktionen des Moduls herauslesen. Zur Programmierung ist es nicht erforderlich die commands manuell 
+zu codieren da die Library DFRobotDFPlayerMini \cite{dfplayer_lib} diese in Funktionen implementiert hat. 
 \subsubsection{Lautsprecher}
  Der Lautsprecher und Theorie dazu. 
 %Modul erklären oder is das mehr Methodik? 
