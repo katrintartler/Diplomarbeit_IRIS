@@ -2,15 +2,61 @@
 
 \section{Drucksensorik testen}
 %pullup pulldown
-
-\section{Wärmesensorik testen}
-
+\section{Geräuschsensorik}
+%Zur Geräuscherkennung ist des INMP441 vorgesehen. Das ist ein omni-direktionales 
+%MEMS Mikrophon.  
 \section{Code (PWA)}
-
 \section{ESP für PWA}
 
-\section{Code (Babyroboter)}
+
+
+\section{Code (Testroboter)}
+Der Code zur Steuerung des Testroboters besteht aus einem pythonbasierten Programm 
+welches das Graphical User Interface (GUI) und die BLE Backend Kommunikation implementiert. Damit werden die
+Client-Funktionen des Laptops abgedeckt. Der Code für den ESP32 muss die Funktionen der Serverrolle im BLE Aufbau 
+erfüllen. Also gesendete Commands müssen eine Funktion starten. Siehe Abbildung \ref{fig:Roboter_Code_Aufbau}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=12cm]{images/BabycodeDiagramm.png}
+\caption{Oberflächliche Beschreibung des Testroboter Codes}
+\label{fig:Roboter_Code_Aufbau}
+\end{figure}
+
+\subsubsection{Interface}
+Für die Installation der Pakete Bleak und Dear PyGui wird ein virtual enviornment verwendet. Das virtual enviornment (venv)
+ist eine generiert Umgebung die bei der Entwicklung von eigenständiger Software viele
+Vorteile bringt. In unserem Fall ist es vor allem um ein sauberes System zu belassen. Die Pakete die 
+wir für das Interface und die Kommunikation brauchen werden nicht global installiert, sondern sind nur 
+in dem entsprechenden Projekt zu finden. In weiterer Folge wäre es möglich das GUI in eine Programmdatei 
+unzuwandeln. Hier ist es auch von Vorteil mit einem venv zu arbeiten. 
+\noindent
+Das graphische Interface ist mithilfe der Pythonlibray Dear PyGui (DPG) erstellt worden.
+Der Aufbau des Graphischen Interfaces ist primär mit Buttons ausgestattet die bei einem Klick, eine Callback Funktion ausführen.
+
+\begin{lstlisting}[language=C++]
+    dpg.add_button[label = "Babycrying", callback = ble.backend.crying]
+\end{lstlisting}
+
+Damit DGP ein Fenster erzuegen kann, müssen 6 Funktionen unbedingt im Programm enthalten sein. 
+\begin{itemize}
+    \item create context
+    \item create viewpoint
+    \item setup dearpygui
+    \item show viewpoint
+    \item start dearpygui
+    \item destroy context
+\end{itemize}
+
+\noindent 
+Ist eine dieser nicht enthalten funtioniert das Programm nicht.
+
+
 \subsubsection{ServoEasing Library}
+\begin{lstlisting}[language=C++]
+    
+
+    
+\end{lstlisting}
 
 \section{HF sicher layouten}
 %Antenne von ESP wo und warum
