@@ -2,6 +2,36 @@
 
 \section{Drucksensorik testen}
 %pullup pulldown
+
+\section{Wärmesensotik testen}
+Für die Simulation der Temperatur des Kindes, wurden im Testroboter Keramikwiderstände eingebaut, welche als Wärmequellen
+genutzt werden. Dazu wurde der Aufbau und die Verschaltung mittels Steckbrett getestet. Besonders zu beachten ist die hohe Leistung 
+die für eine Wärmesimulation nötig ist. Dementsprechend ist ein Test auf dem Steckbrett schwierig, da diese meisten nicht für hohe 
+Leistung ausgelegt sind. Weiters ist auch die Vesorgung ein Problem, weil die Leistung über eine hohe Stromstärke erbracht werden muss.
+\begin{align}
+P &= I^2 \cdot R \notag \\
+P &= \frac{U^2}{R}
+\end{align}
+Die verwendeten Keramikwiderstände haben einen Widerstandswert von 2,2$\Omega$. Die Verschaltung erfolgt mit 2 in Serie 
+geschalteten Strängen mit jeweils 3 parallel geschalteten Keramikwiderständen. Siehe Abbildung \ref{fig:VerschaltungKRs}, einem Ausschnitt 
+des Schaltplans der Platine aus \ref{Testroboter Platinen}. Somit ergibt sich ein Gesamtwiderstand von ca. 1,5$\Omega$. Als Spannungswert werden 7,4V eingesetzt. Diese entsprechen dem Spannungswert eines 2 Zellen 
+Lithium-Ionen Akkus. Somit ist ein Nachrüsten auf eine eigenständige Spannungsversorgung möglich siehe \ref{Spannungsversorgung Testroboter}. 
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=10cm]{images/VerschaltungKRs.png}
+\caption{Verschaltung der Wärmekomponenten}
+\label{fig:VerschaltungKRs}
+\end{figure}
+\noindent
+\begin{align}
+P &= \frac{7,4^2}{1,5} = 36,507 W \notag \\ 
+I &= \sqrt{\frac{36,507}{1,5}} = 5,0004 A
+\end{align}
+Der benötigte Strombedarf liegt bei unserer Leistung von 36,507W also bei ca 5A. 
+Dieser Bedarf wird von einem 20A Labornetzteil gedeckt. Aufgrund der Wahl dieser Spannungsversorgung wurde beschlossen die weiteren 
+Komponenten des Testroboters ebenfalls mit dem Netzteil zu betreiben. 
+
+
 \section{Geräuschsensorik}
 %Zur Geräuscherkennung ist des INMP441 vorgesehen. Das ist ein omni-direktionales 
 %MEMS Mikrophon.  
@@ -37,7 +67,8 @@ Der Aufbau des Graphischen Interfaces ist primär mit Buttons ausgestattet die b
     dpg.add_button[label = "Babycrying", callback = ble.backend.crying]
 \end{lstlisting}
 
-Damit DGP ein Fenster erzuegen kann, müssen 6 Funktionen unbedingt im Programm enthalten sein. 
+\noindent
+Damit DGP ein Fenster erzuegen kann, müssen 6 Funktionen unbedingt im Programmcode enthalten sein. 
 \begin{itemize}
     \item create context
     \item create viewpoint
@@ -48,7 +79,9 @@ Damit DGP ein Fenster erzuegen kann, müssen 6 Funktionen unbedingt im Programm 
 \end{itemize}
 
 \noindent 
-Ist eine dieser nicht enthalten funtioniert das Programm nicht.
+Wird eine dieser Funktionen nicht korrekt aufgerufen, führt das zu Problemen, weil das Interface nicht 
+richtig durchlaufen kann. Die Initialisierung, Darstellung und Interaktion des GUI könnten sonst 
+nicht realisiert werden. \cite{dpg_docu}
 
 
 \subsubsection{ServoEasing Library}
@@ -69,4 +102,4 @@ Ist eine dieser nicht enthalten funtioniert das Programm nicht.
 
 \section{Main Platine}
 
-\section{Testroboter Platinen}
+\section{Testroboter Platinen} \label{Testroboter Platinen}
