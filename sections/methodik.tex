@@ -34,15 +34,15 @@ Komponenten des Testroboters ebenfalls mit dem Netzteil zu betreiben.
 
 \section{Geräuschsensorik}
 %Zur Geräuscherkennung ist des INMP441 vorgesehen. Das ist ein omni-direktionales 
-%MEMS Mikrophon.  
+%MEMS Mikrophon
 \section{Code (PWA)}
 \section{ESP für PWA}
 
 
 
 \section{Code (Testroboter)}
-Der Code zur Steuerung des Testroboters besteht aus einem pythonbasierten Programm 
-welches das Graphical User Interface (GUI) und die BLE Backend Kommunikation implementiert. Damit werden die
+Der Code zur Steuerung des Testroboters besteht aus zwei pythonbasierten Programmen.
+Welche die Darstellung das Graphical User Interface (gui.py) und die BLE Backend Kommunikation (ble\_backend.py) implementieren. Damit werden die
 Client-Funktionen des Laptops abgedeckt. Der Code für den ESP32 muss die Funktionen der Serverrolle im BLE Aufbau 
 erfüllen. Also gesendete Commands müssen eine Funktion starten. Siehe Abbildung \ref{fig:Roboter_Code_Aufbau}
 \begin{figure}[htbp]
@@ -52,7 +52,79 @@ erfüllen. Also gesendete Commands müssen eine Funktion starten. Siehe Abbildun
 \label{fig:Roboter_Code_Aufbau}
 \end{figure}
 
-\subsubsection{Interface}
+\subsubsection{Interface Darstellung}
+Das Interface ist vor allem für den Testbetrieb von großer Wichtigkeit, es wird benutzt um die einzelnen Simulationsparameter anzusteuern.
+Für den Aufbau des Interfaces wird die Pythonlibray Dear PyGui (DPG) verwendet. Siehe auch \ref{Dear PyGui} %GUI
+Der Aufbau des Graphischen Interfaces ist primär mit Buttons ausgestattet die bei einem Klick, eine Callback Funktion ausführen. Es gibt eine Spalte für jeden
+ansteuerbaren Parameter, siehe Abbildung \ref{fig:Interface}
+\begin{figure}
+    \centering
+    \includegraphics[width = 12cm]{images/Interface}
+    \caption{GUI des Testroboters}
+    \label{fig:Interface}
+\end{figure}
+\noindent
+Die Buttons in der Wärmespalte, triggern das Ausschalten bzw. Einschalten der Wärmequellen. In der nächsten Spalte ist die Bewegungssteuerun abgebildet, hier kann
+man aus verschiedenen Bewegungssequenze auswählen. Die Sequenzen sind an die beschriebenen Bewegungsmuster aus \ref{Bewegungstheorie} angelehnt. 
+In der Audio-Spalte gibt es Buttons welche unterschiedliche Babygeräusche triggern. Es gibt die Auswahl zwischen weinen, brabbeln, husten und niesen. Diese
+30 Sekunden Audioinhalte wurden KI genriert. 
+Für das Erstellen des Spalten Layouts werden bestimmte Funktionen angewendet, siehe Listing \ref{lst:gui.py:table}
+
+\begin{lstlisting}[language=Python, caption={Tabellen Layout Interface}, label={lst:gui.py:table}, firstnumber=10]
+with dpg.table(header_row = False): 
+    dpg.addtablecolumn(); 
+    dpg.addtablecolumn(); 
+    dpg.addtablecolumn(); 
+
+    with dpg.table_row():
+         with dpg.group():
+\end{lstlisting}
+\noindent
+In der "Gruppe" (group) die in Zeile 16 implementiert ist, werden nun die Buttons für eine Spalte und somit für einen bestimmten
+Simulationsparameter erstellt. Zu sehen am Beispiel für die Wärmesimulation in Listing \ref{lst:gui.py:buttons}
+\begin{lstlisting}[language=Python, caption={Buttons implemetieren}, label={lst:gui.py:buttons}, firstnumber=16]
+with dpg.group():
+    dpg.add_text("Heat")
+    dpg.add_button(label="ON", callback = ble_backend.heat_on)
+    dpg.add_button(label= "OFF", callback = ble_backend.heat_off)
+\end{lstlisting}
+\noindent
+Das erste was dem Button übergeben wird ist ein label, dies ist nicht zwingend erforderlich, aber für die Verwendung von einem Testinterface natürlich 
+sehr von Vorteil. Damit kann man wissen welche Aktion der Button ausführt. 
+Der zweite Parameter ist die Callback-Funktion, erst mit dieser kann der Button bei Klick auch eine Aktion auslösen. 
+Da die Buttons des GUIs über BLE verschiedene Kommandos an den ESP im Testroboter schicken (welcher dann die genaue Ansteuerung der
+Komponenten übernimmt) sind die Callbackfunktionen im zweiten Programm in der Client Architektur implementiert, in der Datei ble\_backend.  
+
+\subsubsection{Interface BLE Kommunikation}
+Die Kommunikation die per Button Klick gestartet wird is in der Datei ble\_backend.py beschrieben. Die wichtigsten Module dazu in Listing \ref{lst:ble.py:module}.
+\begin{lstlisting}[language=Python, caption={Module}, label={lst:ble.py:module}, firstnumber=1]
+import threading
+import asyncio
+from bleak import BleakClient
+\end{lstlisting}
+\noindent
+
+
+
+\noindent
+Damit DGP ein Fenster erzuegen kann, müssen 6 Funktionen unbedingt im Programmcode enthalten sein. 
+\begin{itemize}
+    \item createcontext()
+    \item createviewpoint()
+    \item setupdearpygui()
+    \item showviewpoint()
+    \item startdearpygui()
+    \item destroycontext()
+\end{itemize}
+\noindent 
+Wird eine dieser Funktionen nicht korrekt aufgerufen, führt das zu Problemen, weil das Interface nicht 
+richtig durchlaufen kann. Die Initialisierung, Darstellung und Interaktion des GUI könnten sonst 
+nicht realisiert werden. \cite{dpg_docu}
+
+%BLE Bleak
+
+%venv blabla 
+\noindent 
 Für die Installation der Pakete Bleak und Dear PyGui wird ein virtual enviornment verwendet. Das virtual enviornment (venv)
 ist eine generiert Umgebung die bei der Entwicklung von eigenständiger Software viele
 Vorteile bringt. In unserem Fall ist es vor allem um ein sauberes System zu belassen. Die Pakete die 
@@ -60,28 +132,8 @@ wir für das Interface und die Kommunikation brauchen werden nicht global instal
 in dem entsprechenden Projekt zu finden. In weiterer Folge wäre es möglich das GUI in eine Programmdatei 
 unzuwandeln. Hier ist es auch von Vorteil mit einem venv zu arbeiten. 
 \noindent
-Das graphische Interface ist mithilfe der Pythonlibray Dear PyGui (DPG) erstellt worden.
-Der Aufbau des Graphischen Interfaces ist primär mit Buttons ausgestattet die bei einem Klick, eine Callback Funktion ausführen.
 
-\begin{lstlisting}[language=C++]
-    dpg.add_button[label = "Babycrying", callback = ble.backend.crying]
-\end{lstlisting}
 
-\noindent
-Damit DGP ein Fenster erzuegen kann, müssen 6 Funktionen unbedingt im Programmcode enthalten sein. 
-\begin{itemize}
-    \item create context
-    \item create viewpoint
-    \item setup dearpygui
-    \item show viewpoint
-    \item start dearpygui
-    \item destroy context
-\end{itemize}
-
-\noindent 
-Wird eine dieser Funktionen nicht korrekt aufgerufen, führt das zu Problemen, weil das Interface nicht 
-richtig durchlaufen kann. Die Initialisierung, Darstellung und Interaktion des GUI könnten sonst 
-nicht realisiert werden. \cite{dpg_docu}
 
 
 \subsubsection{ServoEasing Library}

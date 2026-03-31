@@ -4,7 +4,8 @@
 
 \subsubsection{ESP32}
 Der ESP32 ist das zentrale Streuerungselement des Testroboters. Damit wird die Bewegungs-, Geräusch- und Wärmesimulation angesteuert. Der ESP32 ist ein
-system-on-chip (SOC) Microcontroller. Das bedeutet er umfasst viele Funktionen wie CPU, RAM, Microcontroller, und unterstützender Hardware, aufgebaut in einem Dev-Board. 
+system-on-chip (SOC) Microcontroller. Das bedeutet er umfasst viele Funktionen wie CPU, RAM, Microcontroller, und unterstützender Hardware, aufgebaut in einem Dev-Board.
+Wir benutzten den ESP32 DevKit C4
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=8cm]{images/ChipVSSoc.jpg}
@@ -15,7 +16,7 @@ system-on-chip (SOC) Microcontroller. Das bedeutet er umfasst viele Funktionen w
 \noindent
 Damit der Testroboter für die entsprechenden Tests des Bettchens benutzt werden kann, wird mithilfe von BLE \ref{BLE Architektur} vom ESP32  
 zu einem Laptop eine Verbindung hergestellt. Dort kann man zu Testzwecken die verschiedenenen Simulationsparameter in beliebigen Sequenzen 
-ansteueren. 
+ansteueren. \cite{esp32_devkitc_v4_datasheet}
 
 
 \subsubsection{BLE Architektur} \label{BLE Architektur}
@@ -100,12 +101,12 @@ Die Bezeichnung NimBLE spielt auf das englische Wort „nimble“ (flink, effizi
 Im Vergleich zu Bluedroid ist NimBLE eine kompaktere Anwendung, welche weniger Speichernutzung und einfacheren Code unterstützt. Somit ist 
 NimBLE ressourcenschonender und effizienter. Es ist nur für BLE geeignet und kann nicht zur Kommunikation mit Classic Bluetooth benutzt werden. \cite{espressif_nimble} \cite{apache_nimble}
 
-\subsubsection{Bleak}
+\subsubsection{Bleak} \label{Bleak}
 Bleak ist ein ist ein Python API die es ermöglicht mit BLE-Geräten in Verbindung zu treten und zu kommunizieren.
 Auch hier ist der Name Programm. Bleak steht für Bluetooth Low Energy Platform Agnostik Klient. 
 Das bedeutet das egal welche Plattform oder Betriebssystem genutzt wird, die Anwendung funktioniert flexibel. \cite{bleak_docu}
 
-\subsubsection{Dear PyGui}
+\subsubsection{Dear PyGui} \label{Dear PyGui}
 Mit der Python Bibliothek Dear PyGui (DPG) lassen sich einfache GUI (Graphical User Interface) Anforderungen in Python realisieren.
 Man nutzt sie zur Erstellung von Diagrammen, Tabellen und einfachen bis komplexen User Interfaces.
 DPG ist dynamisch, GPU-beschleunigt und sehr anwenderfreundlich. \cite{dpg_docu}
@@ -113,7 +114,7 @@ DPG ist dynamisch, GPU-beschleunigt und sehr anwenderfreundlich. \cite{dpg_docu}
 %\subsection{Realtime System} %1.6.2 in Methodik 
 
 \subsection{Bewegungssimulation} %1.6.3
-\subsubsection{Bewegungsabläufe} %Bewegungstheorie
+\subsubsection{Bewegungsabläufe} \label{Bewegungstheorie}
 In einer Studie der Segawa Neurological Clinic for Children aus dem Jahr 1980 sammelten die Forschenden Daten über das Bewegungsverhalten von 25 Säuglingen.
 Mithilfe EKG Messungen und visuelen Beobachtungen kategoriesierten sie die Bewegungen der Kinder in drei Gruppen.
 \begin{itemize}
