@@ -3,7 +3,7 @@
 \section{Drucksensorik testen}
 %pullup pulldown
 
-\section{Wärmesensotik testen}
+\section[Wärmesensorik testen]{\authorkatrin}
 Für die Simulation der Temperatur des Kindes, wurden im Testroboter Keramikwiderstände eingebaut, welche als Wärmequellen
 genutzt werden. Dazu wurde der Aufbau und die Verschaltung mittels Steckbrett getestet. Besonders zu beachten ist die hohe Leistung 
 die für eine Wärmesimulation nötig ist. Dementsprechend ist ein Test auf dem Steckbrett schwierig, da diese meisten nicht für hohe 
@@ -35,12 +35,12 @@ Komponenten des Testroboters ebenfalls mit dem Netzteil zu betreiben.
 \section{Geräuschsensorik}
 %Zur Geräuscherkennung ist des INMP441 vorgesehen. Das ist ein omni-direktionales 
 %MEMS Mikrophon
+
 \section{Code (PWA)}
 \section{ESP für PWA}
 
 
-
-\section{Code (Testroboter)}
+\section[Code Testroboter]{\authorkatrin}
 Der Code zur Steuerung des Testroboters besteht aus zwei pythonbasierten Programmen.
 Welche die Darstellung das Graphical User Interface (gui.py) und die BLE Backend Kommunikation (ble\_backend.py) implementieren. Damit werden die
 Client-Funktionen des Laptops abgedeckt. Der Code für den ESP32 muss die Funktionen der Serverrolle im BLE Aufbau 
@@ -81,7 +81,8 @@ with dpg.table(header_row = False):
 \end{lstlisting}
 \noindent
 In der "Gruppe" (group) die in Zeile 16 implementiert ist, werden nun die Buttons für eine Spalte und somit für einen bestimmten
-Simulationsparameter erstellt. Zu sehen am Beispiel für die Wärmesimulation in Listing \ref{lst:gui.py:buttons}
+Simulationsparameter erstellt. Zu sehen am Beispiel für die Wärmesimulation in Listing \ref{lst:gui.py:buttons}. Danach noch eine Gruppe
+für Bewegungsknöpfe und eine für Audioknöpfe. 
 \begin{lstlisting}[language=Python, caption={Buttons implemetieren}, label={lst:gui.py:buttons}, firstnumber=16]
 with dpg.group():
     dpg.add_text("Heat")
@@ -96,13 +97,95 @@ Da die Buttons des GUIs über BLE verschiedene Kommandos an den ESP im Testrobot
 Komponenten übernimmt) sind die Callbackfunktionen im zweiten Programm in der Client Architektur implementiert, in der Datei ble\_backend.  
 
 \subsubsection{Interface BLE Kommunikation}
-Die Kommunikation die per Button Klick gestartet wird is in der Datei ble\_backend.py beschrieben. Die wichtigsten Module dazu in Listing \ref{lst:ble.py:module}.
+Die Kommunikation die per Button Klick gestartet wird is in der Datei ble\_backend.py beschrieben.
+Der erste Ansatz war mit der Theorie verbunden, eine normale def callback- Funktion zu schreiben,
+welche eine await Funktion mit dem Schreiben des BLE Kommandos beinhalten sollte siehe Listing \ref{lst:ble.py:await}. 
+Die await Funktion ist in Python ein Werkzeug um einen Task zu pausieren bis ein anderer beendet ist. 
+Das schafft eine Art parallels System \cite{realpython_await}.
+\begin{lstlisting}[language=Python, caption={Beispielcode, Falscher Ansatz}, label={lst:ble.py:await}, firstnumber=1]
+#callback-funktion 
+def heat_on():
+    await client.write_gatt_char(CHAR_UUID,b"heat")
+\end{lstlisting}
+\noindent
+Das ist nicht möglich weil ein await nur in einer asynchronen Funktion in Python benutzt werden darf.
+Die Callback-Funktion ist aber def.
+Daher ist es am Besten mit den Modulen threading und asyncio, als Ergänzung der verwendeten bleak Library 
+zu arbeiten, siehe Listing \ref{lst:ble.py:module}.
 \begin{lstlisting}[language=Python, caption={Module}, label={lst:ble.py:module}, firstnumber=1]
 import threading
 import asyncio
 from bleak import BleakClient
 \end{lstlisting}
 \noindent
+Zu Beginn müssen die MAC-Adresse des ESP und die Charakter UUID, welche im ESP Code defniert sind, 
+auch in der Client Architektur gespeichert werden. Der zweite Schritt ist mithilfe der
+Funktionen des Threading-Moduls einen eigenen Thread für BLE zu erstellen. So wird sicher gestellt, dass auch 
+beim Senden eines Kommandos aus ble\_backend.py gui.py weiterhin parallel dazu laufen kann. Zu sehen sind diese 
+Anforderungen in Listing \ref{lst:ble.py:macusw}.
+\begin{lstlisting}[language=Python, caption={MAC, CHAR\_UUID und BLE Thread},label={lst:ble.py:macusw}, firstnumber=5]
+ESP_MAC = "a0:b7:65:69:9d:3e" 
+CHAR_UUID = "abcd1234-ab12-34cd-56ef-1234567890ab" 
+ble_loop = asyncio.new_event_loop()     
+\end{lstlisting}
+\noindent
+asyncio.new\_event\_loop() erstellt uns eine Eventloop mit dem Namen ble\_loop. Diese ist keine der Funktion der threading libraray
+sondern hilf uns bei der Anwendung der threading Funktionen für unseren Zweck. 
+\noindent
+Als nächstes wird mit den Funktionen der bleak library eine Verbindungsfunktion erstellt, siehe Listing \ref{lst:ble.py:connect}.
+\begin{lstlisting}[language=Python, caption={Funktion zur Verbindung mit ESP über BLE},label={lst:ble.py:connect},firstnumber=9]
+async def ble_connect():
+    global client 
+    client = BleakClient(ESP_MAC)
+    await client.connect()
+    print("client_connected") 
+\end{lstlisting}
+\noindent
+Zuerst wird eine Variable client erstellt, diesem client wird mit der Funktion BleakClient(ESP\_MAC), ein Gerät zugewiesen 
+(über die MAC-Adresse) mit dem es Verbindung aufnehmen soll. Dementsprechend wird der Laptop im BLE Frequenzbreich nach diesem 
+Gerät suchen und dann über das GAP-Protokoll(siehe \ref{GAP}) eine Verbindung aufbauen. Dieser Verbindungsaufbau wird über
+await client.connect() initialisiert.Das debugging comment am Ende ist optional. 
+\noindent 
+
+\begin{lstlisting}[language=Python, caption={Erstellen und Starten des BLE Threads},label={lst:ble.py:thread},firstnumber=16]
+def ble_start_thread():
+    def run():
+        asyncio.set_event_loop(ble_loop)
+        ble_loop.run_until_complete(ble_connect())
+        print("BLE loop running")
+        ble_loop.run_forever()
+    
+    threading.Thread(target=run,daemon=True).start()
+\end{lstlisting}
+\noindent
+Die Funktion ble\_start\_thread (Listing \ref{lst:ble.py:thread}) ist entscheident für die parallel laufenden 
+Eigenschaften des Programms. Zuerst wird eine run() Funktion definiert welche dann dem Thread in Zeile 23 als 
+Argument übergeben werden kann. Zuerst wird hier dem Term event\_loop unsere zuvor erstellte ble\_loop übergeben. 
+Zusätzlich wird sichergestellt das ble\_loop immer läuft. Mit der letzten Zeile der Funktion ble\_start\_thread wird
+der Thread zur BLE Kommunikation schließlich gestartet. 
+Das nicht blockierende, parallele System ist ab diesem Punkt fertig initialisiert und gestartet. Ab diesem Moment
+ist es möglich die eigentliche Funktion (also das Senden der Kommandos) zu implementieren. Die Zeilen davor sind nur eine
+Absicherung damit das System fehlerfrei und sauber laufen kann. 
+\noindent
+Für das Schicken der Kommandos ist die Funktion ble\_send\_cmds verantwortlich. (Listing \ref{lst:ble.py:sending})
+\begin{lstlisting}[language=Python, caption={Kommandos über BLE Schnittstelle versenden},label={lst:ble.py:sending},firstnumber=25]
+async def ble_send_cmds(data: bytes):   
+    if not client.is_connected:
+        print("not connected")
+        await client.connect()
+    
+    await client.write_gatt_char(CHAR_UUID, data)
+    print(f"sent{data}cmd") 
+\end{lstlisting}
+\noindent
+Zuerst folgt eine Absicherung auf eine aufrechte Verbindung zwischen ESP und Laptop (Zeilen 26-28).
+Für das Versenden eines Kommandos wird nur die Funktion client.write\_gatt\_char(CHAR\_UUID, data)
+aus der bleak library benötigt. Hier wird das Kommando das als data Parameter übergebn werden muss, an
+die entsprechende Characteristic des Servers (ESPs) geschickt. 
+
+
+
+
 
 
 
