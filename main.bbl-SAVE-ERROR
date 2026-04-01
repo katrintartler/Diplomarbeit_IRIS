@@ -16,5 +16,928 @@
   {}
 \endgroup
 
+
+\refsection{0}
+  \datalist[entry]{nty/global//global/global/global}
+    \entry{ablcircuits_pcb_etching}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=cbbca533d9c37946a546d80a8eab5561}{%
+           family={{ABL Circuits}},
+           familyi={A\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {ABL Circuits}%
+      }
+      \strng{namehash}{cbbca533d9c37946a546d80a8eab5561}
+      \strng{fullhash}{cbbca533d9c37946a546d80a8eab5561}
+      \strng{fullhashraw}{cbbca533d9c37946a546d80a8eab5561}
+      \strng{bibnamehash}{cbbca533d9c37946a546d80a8eab5561}
+      \strng{authorbibnamehash}{cbbca533d9c37946a546d80a8eab5561}
+      \strng{authornamehash}{cbbca533d9c37946a546d80a8eab5561}
+      \strng{authorfullhash}{cbbca533d9c37946a546d80a8eab5561}
+      \strng{authorfullhashraw}{cbbca533d9c37946a546d80a8eab5561}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{day}{18}
+      \field{month}{3}
+      \field{title}{PCB Etching 101}
+      \field{urlday}{31}
+      \field{urlmonth}{3}
+      \field{urlyear}{2026}
+      \field{year}{2022}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.ablcircuits.co.uk/blog/blog-pcb-etching#:~:text=It%20involves%20removing%20copper%20from,and%20the%20copper%20is%20cleaned.
+      \endverb
+      \verb{url}
+      \verb https://www.ablcircuits.co.uk/blog/blog-pcb-etching#:~:text=It%20involves%20removing%20copper%20from,and%20the%20copper%20is%20cleaned.
+      \endverb
+    \endentry
+    \entry{apache_nimble}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=8b499b5be8914246b406785e1327dbb3}{%
+           family={{Apache Software Foundation}},
+           familyi={A\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {Apache Software Foundation}%
+      }
+      \strng{namehash}{8b499b5be8914246b406785e1327dbb3}
+      \strng{fullhash}{8b499b5be8914246b406785e1327dbb3}
+      \strng{fullhashraw}{8b499b5be8914246b406785e1327dbb3}
+      \strng{bibnamehash}{8b499b5be8914246b406785e1327dbb3}
+      \strng{authorbibnamehash}{8b499b5be8914246b406785e1327dbb3}
+      \strng{authornamehash}{8b499b5be8914246b406785e1327dbb3}
+      \strng{authorfullhash}{8b499b5be8914246b406785e1327dbb3}
+      \strng{authorfullhashraw}{8b499b5be8914246b406785e1327dbb3}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{BLE User Guide}
+      \field{urlday}{21}
+      \field{urlmonth}{3}
+      \field{urlyear}{2026}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://mynewt.apache.org/latest/network/index.html
+      \endverb
+      \verb{url}
+      \verb https://mynewt.apache.org/latest/network/index.html
+      \endverb
+    \endentry
+    \entry{der-ploetzliche-saeuglingstod-epidemiologie-aetiologie-pathophysiologie-und-differenzialdiagnostik}{article}{}{}
+      \name{author}{2}{}{%
+        {{hash=2fc3b37cb2b71006be32acfc04c3f939}{%
+           family={Bajanowski},
+           familyi={B\bibinitperiod},
+           given={Thomas},
+           giveni={T\bibinitperiod}}}%
+        {{hash=2aa16323a6d44f54b5fc6e30fa323a6e}{%
+           family={Poets},
+           familyi={P\bibinitperiod},
+           given={Christian},
+           giveni={C\bibinitperiod}}}%
+      }
+      \strng{namehash}{65a36f18ea9e700a43fd5a775116088b}
+      \strng{fullhash}{65a36f18ea9e700a43fd5a775116088b}
+      \strng{fullhashraw}{65a36f18ea9e700a43fd5a775116088b}
+      \strng{bibnamehash}{65a36f18ea9e700a43fd5a775116088b}
+      \strng{authorbibnamehash}{65a36f18ea9e700a43fd5a775116088b}
+      \strng{authornamehash}{65a36f18ea9e700a43fd5a775116088b}
+      \strng{authorfullhash}{65a36f18ea9e700a43fd5a775116088b}
+      \strng{authorfullhashraw}{65a36f18ea9e700a43fd5a775116088b}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{{Zusammenfassung Die auch international gebräuchliche Diagnose „plötzlicher Säuglingstod“ (SIDS) ist nur nach kompletter Obduktion, Analyse der Todesumstände und Auswertung der klinischen Vorgeschichte (sämtliche Ereignisse mit negativem Ergebnis bezüglich der Todesursache) gerechtfertigt. Die Inzidenz lag 2002 in Deutschland bei 0,46/1 000 Lebendgeborene. Im Interesse betroffener Eltern sollte der Leichenschauarzt eine ungeklärte Todesart bescheinigen und den Eltern die Vorteile einer Obduktion und der damit verbundenen Todesursachenklärung nahe bringen (Obduktionsfrequenz bei plötzlichem Säuglingstod in Deutschland gegenwärtig circa 50 Prozent). Nach Identifikation vermeidbarer Risikofaktoren (Schlafen in Bauchlage, Stillverzicht, Rauchen während der Schwangerschaft, Überwärmung) und diesbezüglicher Aufklärung der Bevölkerung ging die Inzidenz unter Veränderung des epidemiologischen Profils zurück (zum Beispiel Abflachung des Wintergipfels, instabile Seitenlage als neuer Risikofaktor). Bei nach wie vor ungeklärter Ätiologie und Pathophysiologie zielt die ärztliche Beratung darauf, das Auftreten kritischer Situationen beim Kind durch Vermeiden von Risikofaktoren zu verhindern. Schlüsselwörter: plötzlicher Säuglingstod, Todesursache, Prävention, Epidemiologie, Differenzialdiagnose Summary Sudden Infant Death Syndrome Sudden infant death syndrome (SIDS) may be diagnosed after a full autopsy, death scene investigation and review of the medical history have failed to demonstrate an adequate cause of death. Its incidence in Germany in 2002 was 0.46 per 1000 life births. Physicians called to an infant who died suddenly and unexpectedly should define the mode of death as “undetermined“ and explain to parents that an autopsy is a prerequisite to determine the cause of death. Current autopsy rates in Germany are only at around 50 per cent. Following the identification of avoidable risk factors such as the prone sleep position, bottle feeding, smoking and overheating, and the subsequent Reduction-The-Risk campaigns, the incidence and epidemiological profile of SIDS has changed (e.g., loss of the characteristic winter peak, identification of side sleeping as a risk factor). As long as the exact pathophysiology remains unknown, physicians should strive to advice parents to prevent potentially life-threatening situations in their babies by avoiding the above risk factors. Key words: sudden infant death, cause of death, prevention, epidemiology, differential diagnosis}}
+      \field{journaltitle}{Deutsches Ärzteblatt}
+      \field{month}{10}
+      \field{number}{47}
+      \field{title}{{Der plötzliche Säuglingstod: Epidemiologie, Ätiologie, Pathophysiologie und Differenzialdiagnostik}}
+      \field{volume}{101}
+      \field{year}{2004}
+      \field{pages}{6815}
+      \range{pages}{1}
+      \verb{eprint}
+      \verb https://www.aerzteblatt.de/archiv/pdf/6e55d777-a594-4b62-adaf-e1a9486b428d
+      \endverb
+    \endentry
+    \entry{espressif_nimble}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=66589871a3c3f27bcbf3891133af42b1}{%
+           family={{Espressif Systems}},
+           familyi={E\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {Espressif Systems}%
+      }
+      \strng{namehash}{66589871a3c3f27bcbf3891133af42b1}
+      \strng{fullhash}{66589871a3c3f27bcbf3891133af42b1}
+      \strng{fullhashraw}{66589871a3c3f27bcbf3891133af42b1}
+      \strng{bibnamehash}{66589871a3c3f27bcbf3891133af42b1}
+      \strng{authorbibnamehash}{66589871a3c3f27bcbf3891133af42b1}
+      \strng{authornamehash}{66589871a3c3f27bcbf3891133af42b1}
+      \strng{authorfullhash}{66589871a3c3f27bcbf3891133af42b1}
+      \strng{authorfullhashraw}{66589871a3c3f27bcbf3891133af42b1}
+      \field{extraname}{1}
+      \field{sortinit}{E}
+      \field{sortinithash}{8da8a182d344d5b9047633dfc0cc9131}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Bluetooth API}
+      \field{urlday}{21}
+      \field{urlmonth}{3}
+      \field{urlyear}{2026}
+      \field{year}{2024}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/bluetooth/index.html
+      \endverb
+      \verb{url}
+      \verb https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/bluetooth/index.html
+      \endverb
+    \endentry
+    \entry{espressif_ble_intro}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=66589871a3c3f27bcbf3891133af42b1}{%
+           family={{Espressif Systems}},
+           familyi={E\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {Espressif Systems}%
+      }
+      \strng{namehash}{66589871a3c3f27bcbf3891133af42b1}
+      \strng{fullhash}{66589871a3c3f27bcbf3891133af42b1}
+      \strng{fullhashraw}{66589871a3c3f27bcbf3891133af42b1}
+      \strng{bibnamehash}{66589871a3c3f27bcbf3891133af42b1}
+      \strng{authorbibnamehash}{66589871a3c3f27bcbf3891133af42b1}
+      \strng{authornamehash}{66589871a3c3f27bcbf3891133af42b1}
+      \strng{authorfullhash}{66589871a3c3f27bcbf3891133af42b1}
+      \strng{authorfullhashraw}{66589871a3c3f27bcbf3891133af42b1}
+      \field{extraname}{2}
+      \field{sortinit}{E}
+      \field{sortinithash}{8da8a182d344d5b9047633dfc0cc9131}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Bluetooth Low Energy Introduction}
+      \field{urlday}{7}
+      \field{urlmonth}{3}
+      \field{urlyear}{2026}
+      \field{year}{2024}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-guides/ble/get-started/ble-introduction.html
+      \endverb
+      \verb{url}
+      \verb https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-guides/ble/get-started/ble-introduction.html
+      \endverb
+    \endentry
+    \entry{espressif_bluetooth_architecture}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=66589871a3c3f27bcbf3891133af42b1}{%
+           family={{Espressif Systems}},
+           familyi={E\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {Espressif Systems}%
+      }
+      \strng{namehash}{66589871a3c3f27bcbf3891133af42b1}
+      \strng{fullhash}{66589871a3c3f27bcbf3891133af42b1}
+      \strng{fullhashraw}{66589871a3c3f27bcbf3891133af42b1}
+      \strng{bibnamehash}{66589871a3c3f27bcbf3891133af42b1}
+      \strng{authorbibnamehash}{66589871a3c3f27bcbf3891133af42b1}
+      \strng{authornamehash}{66589871a3c3f27bcbf3891133af42b1}
+      \strng{authorfullhash}{66589871a3c3f27bcbf3891133af42b1}
+      \strng{authorfullhashraw}{66589871a3c3f27bcbf3891133af42b1}
+      \field{extraname}{3}
+      \field{sortinit}{E}
+      \field{sortinithash}{8da8a182d344d5b9047633dfc0cc9131}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Bluetooth Protocol Stack}
+      \field{urlday}{8}
+      \field{urlmonth}{3}
+      \field{urlyear}{2026}
+      \field{year}{2024}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-guides/bt-architecture/overview.html#bluetooth-protocol-stack
+      \endverb
+      \verb{url}
+      \verb https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-guides/bt-architecture/overview.html#bluetooth-protocol-stack
+      \endverb
+    \endentry
+    \entry{espressif_bluetooth_security}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=66589871a3c3f27bcbf3891133af42b1}{%
+           family={{Espressif Systems}},
+           familyi={E\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {Espressif Systems}%
+      }
+      \strng{namehash}{66589871a3c3f27bcbf3891133af42b1}
+      \strng{fullhash}{66589871a3c3f27bcbf3891133af42b1}
+      \strng{fullhashraw}{66589871a3c3f27bcbf3891133af42b1}
+      \strng{bibnamehash}{66589871a3c3f27bcbf3891133af42b1}
+      \strng{authorbibnamehash}{66589871a3c3f27bcbf3891133af42b1}
+      \strng{authornamehash}{66589871a3c3f27bcbf3891133af42b1}
+      \strng{authorfullhash}{66589871a3c3f27bcbf3891133af42b1}
+      \strng{authorfullhashraw}{66589871a3c3f27bcbf3891133af42b1}
+      \field{extraname}{4}
+      \field{sortinit}{E}
+      \field{sortinithash}{8da8a182d344d5b9047633dfc0cc9131}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{SMP}
+      \field{urlday}{8}
+      \field{urlmonth}{3}
+      \field{urlyear}{2026}
+      \field{year}{2024}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-guides/ble/smp.html
+      \endverb
+      \verb{url}
+      \verb https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-guides/ble/smp.html
+      \endverb
+    \endentry
+    \entry{FUKUMOTO198137}{article}{}{}
+      \name{author}{5}{}{%
+        {{hash=d3619ea5509ce90679931df2b4ec0897}{%
+           family={Fukumoto},
+           familyi={F\bibinitperiod},
+           given={Mikiko},
+           giveni={M\bibinitperiod}}}%
+        {{hash=6c58602c08351eecba9f207c4a22787b}{%
+           family={Mochizuki},
+           familyi={M\bibinitperiod},
+           given={Nobuko},
+           giveni={N\bibinitperiod}}}%
+        {{hash=24b7f2f38248d5909beaf7613715bb5e}{%
+           family={Takeishi},
+           familyi={T\bibinitperiod},
+           given={Masahiro},
+           giveni={M\bibinitperiod}}}%
+        {{hash=c3d6e969193d9ddb4fedc3eed0187ca4}{%
+           family={Nomura},
+           familyi={N\bibinitperiod},
+           given={Yoshiko},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=75b9be04e2a51d3493fe9960b6c15cbc}{%
+           family={Segawa},
+           familyi={S\bibinitperiod},
+           given={Masaya},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{b748e19d16192c8275caf18b9647d098}
+      \strng{fullhash}{f06fd215e394988afdd96dc9489c2f47}
+      \strng{fullhashraw}{f06fd215e394988afdd96dc9489c2f47}
+      \strng{bibnamehash}{b748e19d16192c8275caf18b9647d098}
+      \strng{authorbibnamehash}{b748e19d16192c8275caf18b9647d098}
+      \strng{authornamehash}{b748e19d16192c8275caf18b9647d098}
+      \strng{authorfullhash}{f06fd215e394988afdd96dc9489c2f47}
+      \strng{authorfullhashraw}{f06fd215e394988afdd96dc9489c2f47}
+      \field{sortinit}{F}
+      \field{sortinithash}{2638baaa20439f1b5a8f80c6c08a13b4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{0387-7604}
+      \field{journaltitle}{Brain and Development}
+      \field{number}{1}
+      \field{title}{Studies of body movements during night sleep in infancy}
+      \field{volume}{3}
+      \field{year}{1981}
+      \field{pages}{37\bibrangedash 43}
+      \range{pages}{7}
+      \verb{doi}
+      \verb https://doi.org/10.1016/S0387-7604(81)80004-6
+      \endverb
+      \verb{urlraw}
+      \verb https://www.sciencedirect.com/science/article/pii/S0387760481800046
+      \endverb
+      \verb{url}
+      \verb https://www.sciencedirect.com/science/article/pii/S0387760481800046
+      \endverb
+      \keyw{Body movements,night sleep,development,infants,maturation}
+    \endentry
+    \entry{yageo_pt100}{manual}{}{}
+      \name{author}{1}{}{%
+        {{hash=1812570a13b7a0c6b913c84c95e161c6}{%
+           family={GmbH},
+           familyi={G\bibinitperiod},
+           given={YAGEO\bibnamedelima Nexensos},
+           giveni={Y\bibinitperiod\bibinitdelim N\bibinitperiod}}}%
+      }
+      \strng{namehash}{1812570a13b7a0c6b913c84c95e161c6}
+      \strng{fullhash}{1812570a13b7a0c6b913c84c95e161c6}
+      \strng{fullhashraw}{1812570a13b7a0c6b913c84c95e161c6}
+      \strng{bibnamehash}{1812570a13b7a0c6b913c84c95e161c6}
+      \strng{authorbibnamehash}{1812570a13b7a0c6b913c84c95e161c6}
+      \strng{authornamehash}{1812570a13b7a0c6b913c84c95e161c6}
+      \strng{authorfullhash}{1812570a13b7a0c6b913c84c95e161c6}
+      \strng{authorfullhashraw}{1812570a13b7a0c6b913c84c95e161c6}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Temperature coefficient TK = 3850 ppm/K}
+      \field{title}{M422 Pt-Temperature Sensor Datasheet}
+      \field{year}{2024}
+      \verb{urlraw}
+      \verb https://cdn-reichelt.de/documents/datenblatt/D700/M_422_B_PT100_DB-DE.pdf
+      \endverb
+      \verb{url}
+      \verb https://cdn-reichelt.de/documents/datenblatt/D700/M_422_B_PT100_DB-DE.pdf
+      \endverb
+    \endentry
+    \entry{gong_agocn_2025}{article}{}{}
+      \name{author}{13}{}{%
+        {{hash=1079bec22584acb80b0e91d7fd8259b9}{%
+           family={Gong},
+           familyi={G\bibinitperiod},
+           given={He},
+           giveni={H\bibinitperiod}}}%
+        {{hash=a3f1962ea58bf35a94ffe27b6283c510}{%
+           family={Chao},
+           familyi={C\bibinitperiod},
+           given={Hongli},
+           giveni={H\bibinitperiod}}}%
+        {{hash=7d51878175367c28630eb6198f6bc24a}{%
+           family={Ni},
+           familyi={N\bibinitperiod},
+           given={Lingyun},
+           giveni={L\bibinitperiod}}}%
+        {{hash=bec5e6e4ddd93c61bd281e176a4cc608}{%
+           family={Zhu},
+           familyi={Z\bibinitperiod},
+           given={Hang},
+           giveni={H\bibinitperiod}}}%
+        {{hash=eb18991bd19194ec5aa75da5e2384d26}{%
+           family={Chen},
+           familyi={C\bibinitperiod},
+           given={Mengchao},
+           giveni={M\bibinitperiod}}}%
+        {{hash=6a0d227ad7ca9ef50d38a1cde8e76f0a}{%
+           family={Hu},
+           familyi={H\bibinitperiod},
+           given={Jinghuan},
+           giveni={J\bibinitperiod}}}%
+        {{hash=f8efa803d024b969acc0e9bbf51c6b59}{%
+           family={Zhang},
+           familyi={Z\bibinitperiod},
+           given={Daming},
+           giveni={D\bibinitperiod}}}%
+        {{hash=a1fd7f367ca5f9b7cb0943516586bce4}{%
+           family={Hu},
+           familyi={H\bibinitperiod},
+           given={Tianli},
+           giveni={T\bibinitperiod}}}%
+        {{hash=17b6a43f5598c7efd897f9d254090fdd}{%
+           family={Sun},
+           familyi={S\bibinitperiod},
+           given={Yu},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=42a56c6b0e65ac7611a19a45a84858c7}{%
+           family={Guo},
+           familyi={G\bibinitperiod},
+           given={Ying},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=58649f613453ee1dd01029c57a573590}{%
+           family={Li},
+           familyi={L\bibinitperiod},
+           given={Shijun},
+           giveni={S\bibinitperiod}}}%
+        {{hash=c749abd40af154f6b15b471a2b45c0dc}{%
+           family={Mu},
+           familyi={M\bibinitperiod},
+           given={Ye},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=4b0481bc6ae55a9f6bc00404ad932c88}{%
+           family={Yu},
+           familyi={Y\bibinitperiod},
+           given={Xiuling},
+           giveni={X\bibinitperiod}}}%
+      }
+      \strng{namehash}{ec67321547fabfa90d2ea5e9b8768ca0}
+      \strng{fullhash}{bb390c5a37417bec5e74a177defaa894}
+      \strng{fullhashraw}{bb390c5a37417bec5e74a177defaa894}
+      \strng{bibnamehash}{ec67321547fabfa90d2ea5e9b8768ca0}
+      \strng{authorbibnamehash}{ec67321547fabfa90d2ea5e9b8768ca0}
+      \strng{authornamehash}{ec67321547fabfa90d2ea5e9b8768ca0}
+      \strng{authorfullhash}{bb390c5a37417bec5e74a177defaa894}
+      \strng{authorfullhashraw}{bb390c5a37417bec5e74a177defaa894}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{day}{24}
+      \field{journaltitle}{ACS Omega}
+      \field{month}{5}
+      \field{title}{AgOCN Piezoresistive Sensor for Human Motion Signal Detection Based on Electrospinning Method}
+      \field{urlday}{1}
+      \field{urlmonth}{4}
+      \field{urlyear}{2026}
+      \field{volume}{10}
+      \field{year}{2025}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{23836\bibrangedash 23847}
+      \range{pages}{12}
+      \verb{doi}
+      \verb 10.1021/acsomega.5c03381
+      \endverb
+      \verb{urlraw}
+      \verb https://pubs.acs.org/doi/10.1021/acsomega.5c03381
+      \endverb
+      \verb{url}
+      \verb https://pubs.acs.org/doi/10.1021/acsomega.5c03381
+      \endverb
+    \endentry
+    \entry{pwm_servo}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=5622dab52802d34c0a185c59f5affc70}{%
+           family={{HengQing Electronics}},
+           familyi={H\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {HengQing Electronics}%
+      }
+      \strng{namehash}{5622dab52802d34c0a185c59f5affc70}
+      \strng{fullhash}{5622dab52802d34c0a185c59f5affc70}
+      \strng{fullhashraw}{5622dab52802d34c0a185c59f5affc70}
+      \strng{bibnamehash}{5622dab52802d34c0a185c59f5affc70}
+      \strng{authorbibnamehash}{5622dab52802d34c0a185c59f5affc70}
+      \strng{authornamehash}{5622dab52802d34c0a185c59f5affc70}
+      \strng{authorfullhash}{5622dab52802d34c0a185c59f5affc70}
+      \strng{authorfullhashraw}{5622dab52802d34c0a185c59f5affc70}
+      \field{sortinit}{H}
+      \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Mastering PWM Servo Motor Control}
+      \field{urlday}{23}
+      \field{urlmonth}{3}
+      \field{urlyear}{2026}
+      \field{year}{2025}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://heqingele.com/blog/mastering-pwm-servo-motor-control-2025/
+      \endverb
+      \verb{url}
+      \verb https://heqingele.com/blog/mastering-pwm-servo-motor-control-2025/
+      \endverb
+    \endentry
+    \entry{bleak_docu}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=d6fe99c5a72761967fcc7473f6198816}{%
+           family={{Henrik Blidh}},
+           familyi={H\bibinitperiod}}}%
+      }
+      \strng{namehash}{d6fe99c5a72761967fcc7473f6198816}
+      \strng{fullhash}{d6fe99c5a72761967fcc7473f6198816}
+      \strng{fullhashraw}{d6fe99c5a72761967fcc7473f6198816}
+      \strng{bibnamehash}{d6fe99c5a72761967fcc7473f6198816}
+      \strng{authorbibnamehash}{d6fe99c5a72761967fcc7473f6198816}
+      \strng{authornamehash}{d6fe99c5a72761967fcc7473f6198816}
+      \strng{authorfullhash}{d6fe99c5a72761967fcc7473f6198816}
+      \strng{authorfullhashraw}{d6fe99c5a72761967fcc7473f6198816}
+      \field{sortinit}{H}
+      \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Bleak}
+      \field{urlday}{21}
+      \field{urlmonth}{3}
+      \field{urlyear}{2026}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://bleak.readthedocs.io/en/latest/
+      \endverb
+      \verb{url}
+      \verb https://bleak.readthedocs.io/en/latest/
+      \endverb
+    \endentry
+    \entry{dpg_docu}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=431395e3503d65cde1f05f4bfe443271}{%
+           family={{Jonathan Hoffstadt, Preston Cothern}},
+           familyi={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{431395e3503d65cde1f05f4bfe443271}
+      \strng{fullhash}{431395e3503d65cde1f05f4bfe443271}
+      \strng{fullhashraw}{431395e3503d65cde1f05f4bfe443271}
+      \strng{bibnamehash}{431395e3503d65cde1f05f4bfe443271}
+      \strng{authorbibnamehash}{431395e3503d65cde1f05f4bfe443271}
+      \strng{authornamehash}{431395e3503d65cde1f05f4bfe443271}
+      \strng{authorfullhash}{431395e3503d65cde1f05f4bfe443271}
+      \strng{authorfullhashraw}{431395e3503d65cde1f05f4bfe443271}
+      \field{sortinit}{J}
+      \field{sortinithash}{b2f54a9081ace9966a7cb9413811edb4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Dear PyGui}
+      \field{urlday}{21}
+      \field{urlmonth}{3}
+      \field{urlyear}{2026}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://dearpygui.readthedocs.io/en/latest/tutorials/first-steps.html
+      \endverb
+      \verb{url}
+      \verb https://dearpygui.readthedocs.io/en/latest/tutorials/first-steps.html
+      \endverb
+    \endentry
+    \entry{kicad_docs}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=014e7756b1a0fc2d3c473ac40542cba8}{%
+           family={{KiCad Development Team}},
+           familyi={K\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {KiCad Development Team}%
+      }
+      \strng{namehash}{014e7756b1a0fc2d3c473ac40542cba8}
+      \strng{fullhash}{014e7756b1a0fc2d3c473ac40542cba8}
+      \strng{fullhashraw}{014e7756b1a0fc2d3c473ac40542cba8}
+      \strng{bibnamehash}{014e7756b1a0fc2d3c473ac40542cba8}
+      \strng{authorbibnamehash}{014e7756b1a0fc2d3c473ac40542cba8}
+      \strng{authornamehash}{014e7756b1a0fc2d3c473ac40542cba8}
+      \strng{authorfullhash}{014e7756b1a0fc2d3c473ac40542cba8}
+      \strng{authorfullhashraw}{014e7756b1a0fc2d3c473ac40542cba8}
+      \field{sortinit}{K}
+      \field{sortinithash}{c02bf6bff1c488450c352b40f5d853ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{KiCad Documentation}
+      \field{urlday}{22}
+      \field{urlmonth}{3}
+      \field{urlyear}{2026}
+      \field{year}{2024}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://docs.kicad.org/
+      \endverb
+      \verb{url}
+      \verb https://docs.kicad.org/
+      \endverb
+    \endentry
+    \entry{electricity-magnetism_piezoresistive}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=c37139d93134ee87e97e2f7a7249d2a2}{%
+           family={Matan},
+           familyi={M\bibinitperiod}}}%
+      }
+      \list{organization}{2}{%
+        {Electricity}%
+        {Magnetism}%
+      }
+      \strng{namehash}{c37139d93134ee87e97e2f7a7249d2a2}
+      \strng{fullhash}{c37139d93134ee87e97e2f7a7249d2a2}
+      \strng{fullhashraw}{c37139d93134ee87e97e2f7a7249d2a2}
+      \strng{bibnamehash}{c37139d93134ee87e97e2f7a7249d2a2}
+      \strng{authorbibnamehash}{c37139d93134ee87e97e2f7a7249d2a2}
+      \strng{authornamehash}{c37139d93134ee87e97e2f7a7249d2a2}
+      \strng{authorfullhash}{c37139d93134ee87e97e2f7a7249d2a2}
+      \strng{authorfullhashraw}{c37139d93134ee87e97e2f7a7249d2a2}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{day}{26}
+      \field{month}{10}
+      \field{title}{Piezoresistiver Drucksensor}
+      \field{urlday}{1}
+      \field{urlmonth}{4}
+      \field{urlyear}{2026}
+      \field{year}{2023}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.electricity-magnetism.org/de/piezoresistiver-drucksensor/
+      \endverb
+      \verb{url}
+      \verb https://www.electricity-magnetism.org/de/piezoresistiver-drucksensor/
+      \endverb
+    \endentry
+    \entry{meinmed_sids}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=f66d07d20bee5c93bd179fa93d4eaa63}{%
+           family={{MeinMed Redaktion}},
+           familyi={M\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {MeinMed}%
+      }
+      \strng{namehash}{f66d07d20bee5c93bd179fa93d4eaa63}
+      \strng{fullhash}{f66d07d20bee5c93bd179fa93d4eaa63}
+      \strng{fullhashraw}{f66d07d20bee5c93bd179fa93d4eaa63}
+      \strng{bibnamehash}{f66d07d20bee5c93bd179fa93d4eaa63}
+      \strng{authorbibnamehash}{f66d07d20bee5c93bd179fa93d4eaa63}
+      \strng{authornamehash}{f66d07d20bee5c93bd179fa93d4eaa63}
+      \strng{authorfullhash}{f66d07d20bee5c93bd179fa93d4eaa63}
+      \strng{authorfullhashraw}{f66d07d20bee5c93bd179fa93d4eaa63}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Plötzlicher Kindstod (SIDS): Ursachen, Risikofaktoren und Prävention}
+      \field{urlday}{7}
+      \field{urlmonth}{3}
+      \field{urlyear}{2026}
+      \field{year}{2023}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.meinmed.at/krankheit/ploetzlicher-kindstod/1603
+      \endverb
+      \verb{url}
+      \verb https://www.meinmed.at/krankheit/ploetzlicher-kindstod/1603
+      \endverb
+    \endentry
+    \entry{nugar2026ceramic}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=bcc571ad27d1c8062f41d043a949499d}{%
+           family={{Nugar Resistor Technology}},
+           familyi={N\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {Nugar Resistor Technology}%
+      }
+      \strng{namehash}{bcc571ad27d1c8062f41d043a949499d}
+      \strng{fullhash}{bcc571ad27d1c8062f41d043a949499d}
+      \strng{fullhashraw}{bcc571ad27d1c8062f41d043a949499d}
+      \strng{bibnamehash}{bcc571ad27d1c8062f41d043a949499d}
+      \strng{authorbibnamehash}{bcc571ad27d1c8062f41d043a949499d}
+      \strng{authornamehash}{bcc571ad27d1c8062f41d043a949499d}
+      \strng{authorfullhash}{bcc571ad27d1c8062f41d043a949499d}
+      \strng{authorfullhashraw}{bcc571ad27d1c8062f41d043a949499d}
+      \field{sortinit}{N}
+      \field{sortinithash}{22369a73d5f88983a108b63f07f37084}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{2026-03-22}
+      \field{title}{Keramikwiderstände: Merkmale und industrielle Anwendungen}
+      \field{year}{2026}
+      \verb{urlraw}
+      \verb https://nugar-resistor.com/de/resistencias-de-ceramica/
+      \endverb
+      \verb{url}
+      \verb https://nugar-resistor.com/de/resistencias-de-ceramica/
+      \endverb
+    \endentry
+    \entry{ohmite2024ceramic}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=a04517bf53a9ab947a09064e0c442a1c}{%
+           family={{Ohmite Mfg Co}},
+           familyi={O\bibinitperiod}}}%
+      }
+      \strng{namehash}{a04517bf53a9ab947a09064e0c442a1c}
+      \strng{fullhash}{a04517bf53a9ab947a09064e0c442a1c}
+      \strng{fullhashraw}{a04517bf53a9ab947a09064e0c442a1c}
+      \strng{bibnamehash}{a04517bf53a9ab947a09064e0c442a1c}
+      \strng{authorbibnamehash}{a04517bf53a9ab947a09064e0c442a1c}
+      \strng{authornamehash}{a04517bf53a9ab947a09064e0c442a1c}
+      \strng{authorfullhash}{a04517bf53a9ab947a09064e0c442a1c}
+      \strng{authorfullhashraw}{a04517bf53a9ab947a09064e0c442a1c}
+      \field{sortinit}{O}
+      \field{sortinithash}{2cd7140a07aea5341f9e2771efe90aae}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{2026-03-22}
+      \field{title}{Guide to Ceramic Resistors: Types, Functions and Applications}
+      \field{year}{2024}
+      \verb{urlraw}
+      \verb https://www.ohmite.com/guide-to-ceramic-resistors/
+      \endverb
+      \verb{url}
+      \verb https://www.ohmite.com/guide-to-ceramic-resistors/
+      \endverb
+    \endentry
+    \entry{Poets2020}{inbook}{}{}
+      \name{author}{2}{}{%
+        {{hash=a62e316ebbd8c822257476e96ea01236}{%
+           family={Poets},
+           familyi={P\bibinitperiod},
+           given={Christian\bibnamedelima F.},
+           giveni={C\bibinitperiod\bibinitdelim F\bibinitperiod}}}%
+        {{hash=e1cff4405d8359d34d904e7d360e9324}{%
+           family={Jorch},
+           familyi={J\bibinitperiod},
+           given={Gerhard},
+           giveni={G\bibinitperiod}}}%
+      }
+      \name{editor}{5}{}{%
+        {{hash=46d1ff4f963e9ab78f8a80ebcb51615b}{%
+           family={Hoffmann},
+           familyi={H\bibinitperiod},
+           given={Georg\bibnamedelima F.},
+           giveni={G\bibinitperiod\bibinitdelim F\bibinitperiod}}}%
+        {{hash=c0776ee2f3e8ea62b667145b8946ef8b}{%
+           family={Lentze},
+           familyi={L\bibinitperiod},
+           given={Michael\bibnamedelima J.},
+           giveni={M\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+        {{hash=3599a10b82b60e92e223ae021d88f6b2}{%
+           family={Spranger},
+           familyi={S\bibinitperiod},
+           given={Jürgen},
+           giveni={J\bibinitperiod}}}%
+        {{hash=e13c3cec01a82c04cb7aa048d840fe1f}{%
+           family={Zepp},
+           familyi={Z\bibinitperiod},
+           given={Fred},
+           giveni={F\bibinitperiod}}}%
+        {{hash=ff536200b5520defc49741cab86ebef8}{%
+           family={Berner},
+           familyi={B\bibinitperiod},
+           given={Reinhard},
+           giveni={R\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Berlin, Heidelberg}%
+      }
+      \list{publisher}{1}{%
+        {Springer Berlin Heidelberg}%
+      }
+      \strng{namehash}{fc2787bf11956690c9a098a70792f08a}
+      \strng{fullhash}{fc2787bf11956690c9a098a70792f08a}
+      \strng{fullhashraw}{fc2787bf11956690c9a098a70792f08a}
+      \strng{bibnamehash}{fc2787bf11956690c9a098a70792f08a}
+      \strng{authorbibnamehash}{fc2787bf11956690c9a098a70792f08a}
+      \strng{authornamehash}{fc2787bf11956690c9a098a70792f08a}
+      \strng{authorfullhash}{fc2787bf11956690c9a098a70792f08a}
+      \strng{authorfullhashraw}{fc2787bf11956690c9a098a70792f08a}
+      \strng{editorbibnamehash}{280f0f934e0e6ea070b366ad4c9b3f5e}
+      \strng{editornamehash}{280f0f934e0e6ea070b366ad4c9b3f5e}
+      \strng{editorfullhash}{4f8df1a3fb7c0e21a96d93df96d9c855}
+      \strng{editorfullhashraw}{4f8df1a3fb7c0e21a96d93df96d9c855}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Der plötzliche Kindstod wird in den offiziellen Statistiken von Ländern mit gut ausgebauter Gesundheitsversorgung als häufigste Todesart im Säuglingsalter jenseits der Neugeborenenzeit angegeben. Obwohl bereits in der Bibel erwähnt (1. Buch Könige 3:19), wurde erst vor ca. 50 Jahren der Versuch unternommen, ihn als eigenständige Entität zu definieren.}
+      \field{booktitle}{Pädiatrie: Grundlagen und Praxis}
+      \field{isbn}{978-3-662-60300-0}
+      \field{title}{Plötzlicher Kindstod}
+      \field{year}{2020}
+      \field{pages}{219\bibrangedash 226}
+      \range{pages}{8}
+      \verb{doi}
+      \verb 10.1007/978-3-662-60300-0_19
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1007/978-3-662-60300-0_19
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1007/978-3-662-60300-0_19
+      \endverb
+    \endentry
+    \entry{sensocon_piezoresistive}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=a08044357ad1e419b90b55c08139d308}{%
+           family={Sensocon},
+           familyi={S\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {Sensocon}%
+      }
+      \strng{namehash}{a08044357ad1e419b90b55c08139d308}
+      \strng{fullhash}{a08044357ad1e419b90b55c08139d308}
+      \strng{fullhashraw}{a08044357ad1e419b90b55c08139d308}
+      \strng{bibnamehash}{a08044357ad1e419b90b55c08139d308}
+      \strng{authorbibnamehash}{a08044357ad1e419b90b55c08139d308}
+      \strng{authornamehash}{a08044357ad1e419b90b55c08139d308}
+      \strng{authorfullhash}{a08044357ad1e419b90b55c08139d308}
+      \strng{authorfullhashraw}{a08044357ad1e419b90b55c08139d308}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{day}{18}
+      \field{month}{1}
+      \field{title}{Wie funktioniert ein piezoresistiver Drucksensor?}
+      \field{urlday}{1}
+      \field{urlmonth}{4}
+      \field{urlyear}{2026}
+      \field{year}{2024}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://sensocon.online/wie-funktioniert-ein-piezoresistiver-drucksensor/
+      \endverb
+      \verb{url}
+      \verb https://sensocon.online/wie-funktioniert-ein-piezoresistiver-drucksensor/
+      \endverb
+    \endentry
+    \entry{winson_piezoresistive}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=345a0521eeec41a5e209a5ff1dc44445}{%
+           family={sensor},
+           familyi={s\bibinitperiod},
+           given={Pressur},
+           giveni={P\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {Winson Pressure Sensor Solution}%
+      }
+      \strng{namehash}{345a0521eeec41a5e209a5ff1dc44445}
+      \strng{fullhash}{345a0521eeec41a5e209a5ff1dc44445}
+      \strng{fullhashraw}{345a0521eeec41a5e209a5ff1dc44445}
+      \strng{bibnamehash}{345a0521eeec41a5e209a5ff1dc44445}
+      \strng{authorbibnamehash}{345a0521eeec41a5e209a5ff1dc44445}
+      \strng{authornamehash}{345a0521eeec41a5e209a5ff1dc44445}
+      \strng{authorfullhash}{345a0521eeec41a5e209a5ff1dc44445}
+      \strng{authorfullhashraw}{345a0521eeec41a5e209a5ff1dc44445}
+      \field{sortinit}{s}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Piezoresistive Sensors}
+      \field{urlday}{1}
+      \field{urlmonth}{4}
+      \field{urlyear}{2026}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://pressure-sense.com/knowledge/piezoresistive-sensors/
+      \endverb
+      \verb{url}
+      \verb https://pressure-sense.com/knowledge/piezoresistive-sensors/
+      \endverb
+    \endentry
+    \entry{texas_ins_ble_l2cap}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=67e54b1ee931f3f4bddfefa5fbde5fd8}{%
+           family={{Texas Instruments}},
+           familyi={T\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {Texas Instruments}%
+      }
+      \strng{namehash}{67e54b1ee931f3f4bddfefa5fbde5fd8}
+      \strng{fullhash}{67e54b1ee931f3f4bddfefa5fbde5fd8}
+      \strng{fullhashraw}{67e54b1ee931f3f4bddfefa5fbde5fd8}
+      \strng{bibnamehash}{67e54b1ee931f3f4bddfefa5fbde5fd8}
+      \strng{authorbibnamehash}{67e54b1ee931f3f4bddfefa5fbde5fd8}
+      \strng{authornamehash}{67e54b1ee931f3f4bddfefa5fbde5fd8}
+      \strng{authorfullhash}{67e54b1ee931f3f4bddfefa5fbde5fd8}
+      \strng{authorfullhashraw}{67e54b1ee931f3f4bddfefa5fbde5fd8}
+      \field{sortinit}{T}
+      \field{sortinithash}{9af77f0292593c26bde9a56e688eaee9}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Logical Link Control and Adaptation Protocol (L2CAP)}
+      \field{urlday}{8}
+      \field{urlmonth}{3}
+      \field{urlyear}{2026}
+      \field{year}{2024}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://software-dl.ti.com/lprf/sdg-latest/html/ble-stack-3.x/l2cap.html
+      \endverb
+      \verb{url}
+      \verb https://software-dl.ti.com/lprf/sdg-latest/html/ble-stack-3.x/l2cap.html
+      \endverb
+    \endentry
+    \entry{servomotor}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=87df8490d1d3bee3df3afc9b19144b3b}{%
+           family={{Vogel Communications Group}},
+           familyi={V\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {KEM Konstruktion Entwicklung Management}%
+      }
+      \strng{namehash}{87df8490d1d3bee3df3afc9b19144b3b}
+      \strng{fullhash}{87df8490d1d3bee3df3afc9b19144b3b}
+      \strng{fullhashraw}{87df8490d1d3bee3df3afc9b19144b3b}
+      \strng{bibnamehash}{87df8490d1d3bee3df3afc9b19144b3b}
+      \strng{authorbibnamehash}{87df8490d1d3bee3df3afc9b19144b3b}
+      \strng{authornamehash}{87df8490d1d3bee3df3afc9b19144b3b}
+      \strng{authorfullhash}{87df8490d1d3bee3df3afc9b19144b3b}
+      \strng{authorfullhashraw}{87df8490d1d3bee3df3afc9b19144b3b}
+      \field{sortinit}{V}
+      \field{sortinithash}{afb52128e5b4dc4b843768c0113d673b}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Was sind Servomotoren und wie funktionieren sie?}
+      \field{urlday}{23}
+      \field{urlmonth}{3}
+      \field{urlyear}{2026}
+      \field{year}{2024}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://kem.industrie.de/elektromotoren/was-sind-servomotoren-und-wie-funktionieren-sie/
+      \endverb
+      \verb{url}
+      \verb https://kem.industrie.de/elektromotoren/was-sind-servomotoren-und-wie-funktionieren-sie/
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
 \endinput
 

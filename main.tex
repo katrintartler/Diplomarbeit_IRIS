@@ -4,6 +4,8 @@
 \usepackage[ngerman]{babel}
 \usepackage[T1]{fontenc}
 
+\usepackage{listings} % für Code
+\usepackage{xcolor} % für highlighting
 \usepackage{setspace}
 \usepackage{geometry}
 \usepackage{graphicx}
@@ -20,6 +22,17 @@
 	right = 2.5cm,
 	top = 2.5cm,
 	bottom = 3.5cm
+}
+
+\lstset{
+	basicstyle=\ttfamily\small,
+	keywordstyle=\color{blue},
+	commentstyle=\color{gray},
+	stringstyle=\color{red},
+	numbers=left,
+	numberstyle=\tiny,
+	breaklines=true,
+	frame=single
 }
 
 \usepackage{fancyhdr}

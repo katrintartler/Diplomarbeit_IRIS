@@ -3,23 +3,69 @@
 %Grafik (wo ist was usw.)
 %Isolierung und Theorie dazu
 
-\subsection{Drucksensorik}
-%Prinzip, Aufbau, Funktionsweise
+\subsection{Drucksensorik [K]}
+\subsubsection{Piezoresistiver Effekt}
+Der Piezoresistive Effekt bildet die Grundlage der Bewegungserkennung, dieser Effekt bezeichnet die Eigenschaft bestimmter Materialien, welche ihren elektrischen Widerstand unter mechanischen Belastungen verändern. \cite{electricity-magnetism_piezoresistive}
+
+\subsubsection{Grundlagen}
+Der piezoresistive Drucksensor besteht aus einer dünnen, flexiblen Membran, welche unter Druckeinwirkungen verformt wird. 
+Entlang dieser Membran sind Dehnmessstreifen positioniert, die je nachdem wie  sie verformt werden, entweder gedehnt oder gestaucht werden. Was zu einer Widerstandsveränderung der Dehnmessstreifen führt.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width = 5cm]{images/dms_dehnung-stauchung.png}
+\caption{Dehnung und Stauchung eines piezoresistiven Drucksensors}
+\label{fig:dms_dehnung-stauchung}
+\end{figure}
+
+\noindent
+Die Bewegung eines menschlichen Körpers lässt sich durch die zeitliche Veränderung der angewendeten Kraft beschreiben. Diese Kraftänderung wird vom Sensor als eine Druckänderung wahrgenommen und verändert somit den elektrischen Widerstand. 
+Die Veränderung des Widerstands führt dazu, dass die mechanische Belastung, durch ein elektrisches Signal beschrieben werden kann. \cite{sensocon_piezoresistive} \cite{winson_piezoresistive}
+
+\par\vspace{1em}
+
+\noindent
+Je nach der Art der Bewegung entstehen unterschiedliche Belastungsmuster:
+\begin{itemize}
+    \item Kontinuierliche Bewegung
+    \item Punktuelle Belastung
+\end{itemize}
+
+\noindent
+Kontinuierliche Bewegungen, wie Gelenkbewegungen oder Atmen, erzeugen ein langsames, periodisches oder ein gleichmäßig verlaufendes Signal der Druckänderung. Diese entsprechen den erwarteten Widerstandsverläufen und lassen auf die Bewegungsabläufe und -intensität rückfolgern. 
+
+\noindent
+Punktuelle Belastungen, wie kurzes Tippen und Drücken, sorgen für kurzzeitige lokale Kraftspitzen, die als schnelle Widerstandsänderungen erkennbar sind. \cite{gong_agocn_2025}
+
+\subsubsection{Aufbau}
+
+
+\subsubsection{Anwendung}
+Durch die hohe Empfindlichkeit und Genauigkeit der piezoresistiven Drucksensoren können sie bei zahlreichen technischen Anwendungen verbaut werden. Aufgrund ihrer Fähigkeit bereits die kleinsten Druckänderungen zu erkennen und diese in elektrische Signale zu wandeln, finden sie in präzisionsorientieren Bereichen ihre Verwendung. 
+In der Automobilindustrie dienen sie beispielhaft der Drucküberwachung der Bremssysteme und Motoren und in der Medizintechnik ermöglichen sie die Erfassung von Parametern wie Blutdruck oder der Atmung.
+
+\noindent
+Trotz ihrer Sensitivität gegenüber den Messwerten, bieten piezoresistive Drucksensoren eine gute Langezeitstabilität und zeigen keine starken Reaktionen gegenüber Umwelteinflüssen, wie Temperatur und Feuchtigkeit. 
+Dadurch eigenen sie sich besonders für Messumgebungen, in der zuverlässige und robuste Sensorik erforderlich ist. \cite{electricity-magnetism_piezoresistive}
+
+\subsubsection{Elektrische Kennlinie}
+
+\subsubsection{Messschaltung} 
+
+
 %Drucksensoren von Auto, was passiert da im auto
 
-\subsection{Wärmesensorik}
+\subsection{Wärmesensorik [T]}
 %Prinzip, Aufbau, Funktionsweise
 %Kamera?
 %Fiebermessen mit Wärmebildkamera
 
-\subsection{Audiosensorik}
+\subsection{Audiosensorik [T]}
 %Prinzip, Aufbau, Funktionsweise
 %Herausfiltern mit 2 Mikrofonen und Filter
 
-\subsection{Platinen Fertigung}
-%ätzen
-
-\subsection{PWA und alles was da dabei is}
+\subsection{Babybettchen Code}
+\subsubsection{Prinzip}
 %Prinzip, Aufbau, Funktionsweise
 %Flutter vs. PWA
 %WLAN Kommunikation Theorie
