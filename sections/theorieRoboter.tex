@@ -9,7 +9,7 @@ Wir benutzten den ESP32 DevKit C4
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=8cm]{images/ChipVSSoc.jpg}
-\caption{Microcontroller zu system-on-chip}
+\caption{Microcontroller zu system-on-chip \cite{esp32_devkitc_v4_datasheet}}
 \label{fig:ChipVSSoc}
 \end{figure}
 
@@ -24,7 +24,7 @@ Bluetooth Low Energy ist eine Bluetooth Protokoll, das im Vergleich zu Classic B
 und somit auch einen niedrigere Datentransferrate erreicht.
 Es wird vor allem im Bereich Internet of Things (IoT) und für Kommunikation mit Messsensoren benutzt.
 BLE ist nicht kompatibel mit Classic Bluetooth. 
-Das BLE Protokoll ist in drei Schichten geteilt. siehe Abbildung \ref{fig:ble_architektur}
+Das BLE Protokoll ist in drei Schichten geteilt.\cite{espressif_bluetooth_architecture} siehe Abbildung \ref{fig:ble_architektur}
 \begin{itemize}
 \item Application Layer
 \item Host Layer
@@ -34,7 +34,7 @@ Das BLE Protokoll ist in drei Schichten geteilt. siehe Abbildung \ref{fig:ble_ar
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=7cm]{images/ble-architecture.png}
-\caption{BLE Architektur}
+\caption{BLE Architektur \cite{espressif_ble_intro}}
 \label{fig:ble_architektur}
 \end{figure}
 
@@ -50,12 +50,12 @@ Sie interagieren direkt mit der Hardware. Die BLE-Protokolle der Host Schicht si
 \subsubsection{GAP (Generic Accsess Profile)} \label{GAP}
 Ist für die Verbindung von zwei BLE-Geräten verantwortlich. 
 Das Protokoll ist in 3 verschiedene Modi geteilt je nachdem welcher Verbindungsgrad erfüllt ist. 
-Innerhalb dieser gibt es Rollen die den Geräten zugeteilt sind. Dies wird in Abbildung \ref{fig:ble_gap} veranschaulicht. 
+Innerhalb dieser gibt es Rollen die den Geräten zugeteilt sind. Dies wird in Abbildung \ref{fig:ble_gap} veranschaulicht.\cite{espressif_ble_intro}
  
 \begin{figure}[h]
 \centering
 \includegraphics[width = 5cm]{images/ble-gap.png}
-\caption{BLE GAP}
+\caption{BLE GAP \cite{espressif_ble_intro}}
 \label{fig:ble_gap}
 \end{figure}
 \noindent
@@ -72,22 +72,29 @@ Anhand von Abbildung \ref{fig:ble_gap_bsp} lässt sich der Verbindungsaufbau und
 
 
 \subsubsection{GATT (Generic Attribute Profile)}
-Dieses Protokoll basiert auf einer hierarchischen Einteilung von Characteristic, Service und Profile. Hier legt der Benutzter eine Anwendung anhand der vorgegebenen Struktur von BLE an. Diese wird in der ATT Layer technisch umgesetzt und gespeichert. siehe \ref{ATT}.
+Dieses Protokoll basiert auf einer hierarchischen Einteilung von Characteristic, Service und Profile.
+Hier legt der Benutzter eine Anwendung anhand der vorgegebenen Struktur von BLE an. Diese wird in der ATT Layer technisch umgesetzt und gespeichert.
+siehe \ref{ATT}.
 
 \noindent
 Characteristics sind Datenstrukturen die mit Attributen aufgebaut sind. Sie müssen ein Characteristic Declaration Attribute und ein Characteristic Value Attribute beinhalten. Optional gibt es die Möglichkeit noch weitere Descriptor Attributes in einer Characteristic zu implementieren.
-
+\cite{espressif_ble_intro}
 \noindent
 Services sind ebenfalls mit Attributen aufgebaut. Ein sogennates Service Declaration Attribute muss definiert sein. In einem Service sind mehrere Characteristics mit einer ähnlichen Funktion oder zusammenhängenden Funktionen gesammelt.
-
+\cite{espressif_ble_intro}
 \noindent
 Profiles sind die übergeordnetesten Instanzen. Sie müssen gewisse Services haben muss um einen Standard zu erfüllen. Bei der Verwendung von BLE werden sie im Programmcode nicht definiert, wie Characteristics und Services. Ein Profile entsteht in dieser Hinsicht in einem Projekt nur konzeptionell. \cite{espressif_ble_intro}
 
+
 \subsubsection{ATT (Attribute Protocol)} \label{ATT}
-Auf dieser Ebene passiert die technische Umsetzung des GATT. Eine dort erzeugt Charakteristik wird am Server Device als Attribute gespeichert. Attribute sind strukturiert in Type, Value und Permission. Dabei werden sie im Speicher meist als Arrays angelegt- Attribute Table. Der Type eines Attributs ist ein 32- oder öfter benutzte 128bit langer UUID (Universally Unique IDentifier). \cite{espressif_ble_intro}
+Auf dieser Ebene passiert die technische Umsetzung des GATT.
+Eine dort erzeugt Charakteristik wird am Server Device als Attribute gespeichert.
+Attribute sind strukturiert in Type, Value und Permission. Dabei werden sie im Speicher meist als Arrays angelegt- Attribute Table.
+Der Type eines Attributs ist ein 32- oder öfter benutzte 128bit langer UUID (Universally Unique IDentifier). \cite{espressif_ble_intro}
 
 \subsubsection{L2CAP (Logic Link Control and Adaption Layer Protocol)}
-L2CAP ist für die Datenpaketverwaltung zuständig. Es wird auf Client- sowie auf Hostseite benutzt. Zu den Aufgaben gehören unter anderem Multiplexing, Segementierung und Wiederzusammensetzung der Daten. \cite{texas_ins_ble_l2cap}
+L2CAP ist für die Datenpaketverwaltung zuständig. Es wird auf Client- sowie auf Hostseite benutzt.
+Zu den Aufgaben gehören unter anderem Multiplexing, Segementierung und Wiederzusammensetzung der Daten. \cite{texas_ins_ble_l2cap}
 
 \subsubsection{SMP (Security Manager Protocol )}
 Ist das Sicherheitsprotokoll von BLE, es ist ein Untermodul von GAP. \cite{espressif_bluetooth_security}
@@ -114,7 +121,7 @@ DPG ist dynamisch, GPU-beschleunigt und sehr anwenderfreundlich. \cite{dpg_docu}
 \subsection{Bewegungssimulation} %1.6.3
 \subsubsection{Bewegungsabläufe} \label{Bewegungstheorie}
 In einer Studie der Segawa Neurological Clinic for Children aus dem Jahr 1980 sammelten die Forschenden Daten über das Bewegungsverhalten von 25 Säuglingen.
-Mithilfe EKG Messungen und visuelen Beobachtungen kategoriesierten sie die Bewegungen der Kinder in drei Gruppen.
+Mithilfe EKG Messungen und visuelen Beobachtungen kategoriesierten sie die Bewegungen der Kinder in drei Gruppen. \cite{FUKUMOTO198137}
 \begin{itemize}
     \item GM(gross movements)
 
@@ -135,7 +142,7 @@ Die Forscher sehen darin einen Methode um neurologische Auffälligkeiten bei Sä
 Ein Servomotor ist ein Elektromotor welcher über eine interne Sensorik verfügt, die zur Regelung der Position, Geschwindigkeit oder des Drehmoments
 verwendet wird. 
 Der Motor besteht aus vier Hauptkomponenten, die auch in Abb \ref{fig:servoMotor} (bezogen auf unsere verwendeten Servos, es könnte auch ein AC-Motor, oder andere Senorik verwendet werden)
-veranschaulicht sind sind. 
+veranschaulicht sind sind. \cite{servomotor} \cite{pwm_servo}
 \begin{itemize}
     \item DC-Motor => sorgt für den Antrieb
     \item Getriebe => reduziert Drehzahl und erhöht Drehmoment 
@@ -146,10 +153,9 @@ veranschaulicht sind sind.
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=8cm]{images/servoMotor.jpg}
-\caption{Servo Motor Aufbau}
+\caption{Servo Motor Aufbau \cite{pwm_servo}}
 \label{fig:servoMotor}
 \end{figure}
-
 \noindent
 Die Kombination dieser einzelnen Komponenten erzeugt die typische Servofunktion.
 
@@ -177,7 +183,7 @@ Diese Länge berechnet der ESP je nach gewünschtem Winkel und sendet sie über 
 \subsubsection{DFPlayer Module}
 Das DFPlayer Module von Az-Delivery ist ein eigenständiger Audio-Decoder, der die Wiedergabe 
 von MP3- und WAV-Dateien von einer micro SD-Karte ermöglicht. Es lässt sich über 
-eine UART-Schnittstelle oder manuell über eine Taststeuerung der digitalen Eingänge ansteuern. 
+eine UART-Schnittstelle oder manuell über eine Taststeuerung der digitalen Eingänge ansteuern. \cite{dfplayer_datasheet}
 \subsubsection{UART Kommunikation}
 Für die UART (Universal Asynchronous Receiver/Transmitter) Kommunikation werden die Daten bitweise über 
 eine Leitung gesendet. Asynchron bedeutet es gibt kein gemeinsames Taktsignal, baudrate von Modul und ESP32 müssen jedoch
@@ -203,7 +209,6 @@ Im Vergleich zu anderen Widerstandstypen, die auch oft Keramikkomponenten aufwei
 (elektrischer Leiter) und Keramikmaterial (Isolator) gefertigt. Dabei bestimmt das Verhältnis den Widerstandswert, 
 befindet sich viel Kohlenstoffpartikel in der Mischung wird der Widerstand geringer und umgekehrt.
 Die fertige Masse wird in Form gepresst, oft mit einer zusätzlichen Schicht Keramik überzogen und im Ofen gebrannt. \cite{ohmite2024ceramic} \cite{nugar2026ceramic}
-
 \subsubsection{PT100}
 Der PT100 ist ein temperaturabhängigier Widerstand der Kategorie der PTCs (Positive Temperature Coefficient). Temperaturabhängige Widerstände verändern ihren 
 Widerstandswert je nach gegebener Umgebungstemperatur. Ein positiver Temperaturkoeffizient bedeutet, dass der Widerstand bei steigender Temperatur 
