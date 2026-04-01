@@ -3,18 +3,21 @@
 %Grafik (wo ist was usw.)
 %Isolierung und Theorie dazu
 
-\subsection{Drucksensorik [K]}
+\subsection[Drucksensorik]{Drucksensorik\authorlinda}
 \subsubsection{Piezoresistiver Effekt}
 Der Piezoresistive Effekt bildet die Grundlage der Bewegungserkennung, dieser Effekt bezeichnet die Eigenschaft bestimmter Materialien, welche ihren elektrischen Widerstand unter mechanischen Belastungen verändern. \cite{electricity-magnetism_piezoresistive}
 
 \subsubsection{Grundlagen}
 Der piezoresistive Drucksensor besteht aus einer dünnen, flexiblen Membran, welche unter Druckeinwirkungen verformt wird. 
-Entlang dieser Membran sind Dehnmessstreifen positioniert, die je nachdem wie  sie verformt werden, entweder gedehnt oder gestaucht werden. Was zu einer Widerstandsveränderung der Dehnmessstreifen führt.
+Entlang dieser Membran sind Dehnmessstreifen positioniert, die je nachdem wie  sie verformt werden, entweder gedehnt oder gestaucht werden. Dies wird in Abbildung \ref{fig:dms_dehnung-stauchung} dargestellt. 
+
+\noindent
+Diese Verformung der Dehnmessstreifen führt zu einer Widerstandsveränderung. \cite{sensocon_piezoresistive} \cite{winson_piezoresistive}
 
 \begin{figure}[h]
 \centering
-\includegraphics[width = 5cm]{images/dms_dehnung-stauchung.png}
-\caption{Dehnung und Stauchung eines piezoresistiven Drucksensors}
+\includegraphics[width = 10cm]{images/dms_dehnung-stauchung.jpg}
+\caption{Dehnung und Stauchung eines piezoresistiven Drucksensors (Bild: Keller AG)}
 \label{fig:dms_dehnung-stauchung}
 \end{figure}
 
@@ -48,19 +51,44 @@ In der Automobilindustrie dienen sie beispielhaft der Drucküberwachung der Brem
 Trotz ihrer Sensitivität gegenüber den Messwerten, bieten piezoresistive Drucksensoren eine gute Langezeitstabilität und zeigen keine starken Reaktionen gegenüber Umwelteinflüssen, wie Temperatur und Feuchtigkeit. 
 Dadurch eigenen sie sich besonders für Messumgebungen, in der zuverlässige und robuste Sensorik erforderlich ist. \cite{electricity-magnetism_piezoresistive}
 
-\subsubsection{Elektrische Kennlinie}
+\subsubsection{Elektrische Charakteristik}
+Die elektrischen Eigenschaften von piezoresistiven Drucksensoren lassen sich durch den Zusammenhang des elektrischen Widerstandes zur einwirkenden Kraft beschreiben. 
+Dieses Verhältnis hat keinen linearen Verlauf, sondern einen logarithmischen oder exponentiellen Verlauf.\cite{fraden_handbook} (siehe Abbildung \ref{fig:drucksensor-kennlinie}) 
+\begin{figure}[H]
+\centering
+\includegraphics[width = 15cm]{images/drucksensor-kennlinie.png}
+\caption{Drucksensor Kennlinie - Widerstand in Abhängigkeit der Kraft}
+\label{fig:drucksensor-kennlinie}
+\end{figure}
 
-\subsubsection{Messschaltung} 
+\noindent
+Mithilfe der Kennlinie eines Drucksensors, wie beispielsweise in Abbildung \ref{fig:drucksensor-kennlinie}, kann die Empfindlichkeit des Drucksensors abgeleitet werden, also wie stark sich der Widerstand in Abhängigkeit der Kraft verändert. Je höher die Empfindlichkeit ist, desto kleinere Änderungen können wahrgenommen werden.
 
+\begin{figure}[H]
+\centering
+\includegraphics[width = 12cm]{images/piezresistiverDMS-kennlinie.png}
+\caption{Drucksensor Kennlinie - Hysterese}
+\label{fig:piezresistiverDMS-kennlinie}
+\end{figure}
 
-%Drucksensoren von Auto, was passiert da im auto
+\noindent
+In der Abbildung \ref{fig:piezresistiverDMS-kennlinie} wird veranschaulicht wie sich das Ausgangssignal, des Drucksensor, in Abhängigkeit der applizierten Kraft verhält. Es wird klar erkenntlich, dass der reale Verlauf unter Belastung, nicht dem theoretischem, linearen Verlauf entspricht. 
 
-\subsection{Wärmesensorik [T]}
+\noindent
+Wenn man den Sensor bei Entlastung betrachtet ist erkennbar, dass ein hysteretisches Verhalten auftritt. 
+Die Hysterese beschreibt den Effekt, dass die Ausgangsgröße eines Systems nicht nur von der Eingangsgröße beeinflusst wird, 
+sondern auch von dem Anfangszustand des Systems.\cite{studyflix_hysterese} Im Fall des piezoresistiven Drucksensors bedeutet, dass der Wert vom Widerstand bei steigender Belastung nicht mit dem Wert bei sinkender Belastung übereinstimmt. 
+Das kann durch Materialeigenschaften oder Rückverformungen des Sensors entstehen. \cite{fraden_handbook}
+
+\noindent
+Temperaturabhängigkeit??
+
+\subsection[Wärmesensorik]{Wärmesensorik\authorkatrin}
 %Prinzip, Aufbau, Funktionsweise
 %Kamera?
 %Fiebermessen mit Wärmebildkamera
 
-\subsection{Audiosensorik [T]}
+\subsection[Audiosensorik]{Audiosensorik\authorkatrin}
 %Prinzip, Aufbau, Funktionsweise
 %Herausfiltern mit 2 Mikrofonen und Filter
 
