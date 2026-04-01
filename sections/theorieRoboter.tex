@@ -83,8 +83,6 @@ Services sind ebenfalls mit Attributen aufgebaut. Ein sogennates Service Declara
 \noindent
 Profiles sind die übergeordnetesten Instanzen. Sie müssen gewisse Services haben muss um einen Standard zu erfüllen. Bei der Verwendung von BLE werden sie im Programmcode nicht definiert, wie Characteristics und Services. Ein Profile entsteht in dieser Hinsicht in einem Projekt nur konzeptionell. \cite{espressif_ble_intro}
 
-
-
 \subsubsection{ATT (Attribute Protocol)} \label{ATT}
 Auf dieser Ebene passiert die technische Umsetzung des GATT. Eine dort erzeugt Charakteristik wird am Server Device als Attribute gespeichert. Attribute sind strukturiert in Type, Value und Permission. Dabei werden sie im Speicher meist als Arrays angelegt- Attribute Table. Der Type eines Attributs ist ein 32- oder öfter benutzte 128bit langer UUID (Universally Unique IDentifier). \cite{espressif_ble_intro}
 

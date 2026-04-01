@@ -3,7 +3,7 @@
 \section{Drucksensorik testen}
 %pullup pulldown
 
-\section[Wärmesensorik testen]{\authorkatrin}
+\section[Wärmesensorik testen]{Wärmesensorik testen\authorkatrin}
 Für die Simulation der Temperatur des Kindes, wurden im Testroboter Keramikwiderstände eingebaut, welche als Wärmequellen
 genutzt werden. Dazu wurde der Aufbau und die Verschaltung mittels Steckbrett getestet. Besonders zu beachten ist die hohe Leistung 
 die für eine Wärmesimulation nötig ist. Dementsprechend ist ein Test auf dem Steckbrett schwierig, da diese meisten nicht für hohe 
@@ -40,11 +40,11 @@ Komponenten des Testroboters ebenfalls mit dem Netzteil zu betreiben.
 \section{ESP für PWA}
 
 
-\section[Code Testroboter]{\authorkatrin}
-Der Code zur Steuerung des Testroboters besteht aus zwei pythonbasierten Programmen.
+\section[Code Testroboter]{Code Testroboter\authorkatrin}
+Der Code zur Steuerung des Testroboters besteht aus zwei pythonbasierten Programmen siehe \ref{Client Code}.
 Welche die Darstellung das Graphical User Interface (gui.py) und die BLE Backend Kommunikation (ble\_backend.py) implementieren. Damit werden die
-Client-Funktionen des Laptops abgedeckt. Der Code für den ESP32 muss die Funktionen der Serverrolle im BLE Aufbau 
-erfüllen. Also gesendete Commands müssen eine Funktion starten. Siehe Abbildung \ref{fig:Roboter_Code_Aufbau}
+Client-Funktionen des Laptops abgedeckt. Der Code für den ESP32, siehe \ref{Server Code} muss die Funktionen der Serverrolle im BLE Aufbau 
+erfüllen. Also gesendete Commands müssen eine Funktion starten. Der Aufbau der Code Architektur des Testroboters ist in Abbildung \ref{fig:Roboter_Code_Aufbau} veranschaulicht. 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=12cm]{images/BabycodeDiagramm.png}
@@ -52,18 +52,34 @@ erfüllen. Also gesendete Commands müssen eine Funktion starten. Siehe Abbildun
 \label{fig:Roboter_Code_Aufbau}
 \end{figure}
 
-\subsubsection{Interface Darstellung}
+\subsection{Client Code} \label{Client Code}
+\subsubsection{Interface Darstellung} %GUI dear Pygui
 Das Interface ist vor allem für den Testbetrieb von großer Wichtigkeit, es wird benutzt um die einzelnen Simulationsparameter anzusteuern.
-Für den Aufbau des Interfaces wird die Pythonlibray Dear PyGui (DPG) verwendet. Siehe auch \ref{Dear PyGui} %GUI
-Der Aufbau des Graphischen Interfaces ist primär mit Buttons ausgestattet die bei einem Klick, eine Callback Funktion ausführen. Es gibt eine Spalte für jeden
-ansteuerbaren Parameter, siehe Abbildung \ref{fig:Interface}
-\begin{figure}
+Für den Aufbau des Interfaces wird die Pythonlibray Dear PyGui (DPG) verwendet. Siehe auch \ref{Dear PyGui} 
+\noindent
+Damit DGP ein Fenster erzuegen kann, müssen 6 Funktionen unbedingt im Programmcode enthalten sein. 
+\begin{itemize}
+    \item createcontext()
+    \item createviewpoint()
+    \item setupdearpygui()
+    \item showviewpoint()
+    \item startdearpygui()
+    \item destroycontext()
+\end{itemize}
+\noindent 
+Wird eine dieser Funktionen nicht korrekt aufgerufen, führt das zu Problemen, weil das Interface nicht 
+richtig durchlaufen kann. Die Initialisierung, Darstellung und Interaktion des GUI könnten sonst 
+nicht realisiert werden. \cite{dpg_docu} Innerhalb dieser Funktionen wird das Interface dann für die eigenen Anforderungen aufgebaut. 
+
+\begin{figure}[H]
     \centering
-    \includegraphics[width = 12cm]{images/Interface}
+    \includegraphics[width = 12cm]{images/Interface.png}
     \caption{GUI des Testroboters}
     \label{fig:Interface}
 \end{figure}
 \noindent
+Der Aufbau des Graphischen Interfaces ist primär mit Buttons ausgestattet die bei einem Klick, eine Callback Funktion ausführen. Es gibt eine Spalte für jeden
+ansteuerbaren Parameter, siehe Abbildung \ref{fig:Interface}
 Die Buttons in der Wärmespalte, triggern das Ausschalten bzw. Einschalten der Wärmequellen. In der nächsten Spalte ist die Bewegungssteuerun abgebildet, hier kann
 man aus verschiedenen Bewegungssequenze auswählen. Die Sequenzen sind an die beschriebenen Bewegungsmuster aus \ref{Bewegungstheorie} angelehnt. 
 In der Audio-Spalte gibt es Buttons welche unterschiedliche Babygeräusche triggern. Es gibt die Auswahl zwischen weinen, brabbeln, husten und niesen. Diese
@@ -94,9 +110,9 @@ Das erste was dem Button übergeben wird ist ein label, dies ist nicht zwingend 
 sehr von Vorteil. Damit kann man wissen welche Aktion der Button ausführt. 
 Der zweite Parameter ist die Callback-Funktion, erst mit dieser kann der Button bei Klick auch eine Aktion auslösen. 
 Da die Buttons des GUIs über BLE verschiedene Kommandos an den ESP im Testroboter schicken (welcher dann die genaue Ansteuerung der
-Komponenten übernimmt) sind die Callbackfunktionen im zweiten Programm in der Client Architektur implementiert, in der Datei ble\_backend.  
+Komponenten übernimmt) sind die Callback-Funktionenen im zweiten Programm in der Client Architektur implementiert, in der Datei ble\_backend.  
 
-\subsubsection{Interface BLE Kommunikation}
+\subsubsection{Interface BLE Kommunikation} %BLE Bleak
 Die Kommunikation die per Button Klick gestartet wird is in der Datei ble\_backend.py beschrieben.
 Der erste Ansatz war mit der Theorie verbunden, eine normale def callback- Funktion zu schreiben,
 welche eine await Funktion mit dem Schreiben des BLE Kommandos beinhalten sollte siehe Listing \ref{lst:ble.py:await}. 
@@ -152,7 +168,7 @@ def ble_start_thread():
     def run():
         asyncio.set_event_loop(ble_loop)
         ble_loop.run_until_complete(ble_connect())
-        print("BLE loop running")
+        print("BLEloop_running")
         ble_loop.run_forever()
     
     threading.Thread(target=run,daemon=True).start()
@@ -171,7 +187,7 @@ Für das Schicken der Kommandos ist die Funktion ble\_send\_cmds verantwortlich.
 \begin{lstlisting}[language=Python, caption={Kommandos über BLE Schnittstelle versenden},label={lst:ble.py:sending},firstnumber=25]
 async def ble_send_cmds(data: bytes):   
     if not client.is_connected:
-        print("not connected")
+        print("not_connected")
         await client.connect()
     
     await client.write_gatt_char(CHAR_UUID, data)
@@ -180,42 +196,33 @@ async def ble_send_cmds(data: bytes):
 \noindent
 Zuerst folgt eine Absicherung auf eine aufrechte Verbindung zwischen ESP und Laptop (Zeilen 26-28).
 Für das Versenden eines Kommandos wird nur die Funktion client.write\_gatt\_char(CHAR\_UUID, data)
-aus der bleak library benötigt. Hier wird das Kommando das als data Parameter übergebn werden muss, an
+aus der bleak library benötigt. Hier wird das Kommando das als data Parameter übergeben werden muss, an
 die entsprechende Characteristic des Servers (ESPs) geschickt. 
 
-
-
-
-
-
-
-\noindent
-Damit DGP ein Fenster erzuegen kann, müssen 6 Funktionen unbedingt im Programmcode enthalten sein. 
-\begin{itemize}
-    \item createcontext()
-    \item createviewpoint()
-    \item setupdearpygui()
-    \item showviewpoint()
-    \item startdearpygui()
-    \item destroycontext()
-\end{itemize}
+Die verschiedenen Kommdandos die die Callback-Funktionen der Buttons darstellen sind so definiert (Listing \ref{lst:ble.py:callbacks}).
+\begin{lstlisting}[language=Python, caption={Beispiel einer Callback-Funktionen der Buttons},label={lst:ble.py:callbacks},firstnumber=35]
+def heat_on():
+    asyncio.run_coroutine_threadsafe(ble_send_cmds(bytearray([9])), ble_loop)
+def heat_off():
+    asyncio.run_coroutine_threadsafe(ble_send_cmds(bytearray([10])), ble_loop)
+\end{lstlisting}
 \noindent 
-Wird eine dieser Funktionen nicht korrekt aufgerufen, führt das zu Problemen, weil das Interface nicht 
-richtig durchlaufen kann. Die Initialisierung, Darstellung und Interaktion des GUI könnten sonst 
-nicht realisiert werden. \cite{dpg_docu}
+Zu sehen sind die Callback-Funktionen der Wärmesimulation die in der gui.py als Callbacks für die Heat Buttons aufgerufen werden,
+siehe (Listing \ref{lst:gui.py:buttons}). Diese Funktion wird also aufgerufen wenn im Interface jemand einen Heat Button drückt.
+Bei dem Button der die Wärmequelle einschalten soll, wird die Zahl 9, als bytearray übermittelt. Nach diesem Muster sind alles Callback-Funktionen 
+generiert, sie haben nur entsprechend andere Zahlen die übermittelt werden. Der Grund für die Übertragung der Daten mit bytearrays ist, dass
+diese laut ATT Protokoll sowieso in Arrays von Oktets gesendet werden. Wenn man im Code gleiche solche definiert, gibt es 
+keine unnötige hin und her Kovertierung, wie es bei zum Beispiel String Kommandos der Fall wäre. \cite{bluetooth_core}\cite{bleak_docu}
 
-%BLE Bleak
-
-%venv blabla 
-\noindent 
+\subsubsection{virtual enviornment} %venv blabla 
 Für die Installation der Pakete Bleak und Dear PyGui wird ein virtual enviornment verwendet. Das virtual enviornment (venv)
 ist eine generiert Umgebung die bei der Entwicklung von eigenständiger Software viele
 Vorteile bringt. In unserem Fall ist es vor allem um ein sauberes System zu belassen. Die Pakete die 
 wir für das Interface und die Kommunikation brauchen werden nicht global installiert, sondern sind nur 
 in dem entsprechenden Projekt zu finden. In weiterer Folge wäre es möglich das GUI in eine Programmdatei 
 unzuwandeln. Hier ist es auch von Vorteil mit einem venv zu arbeiten. 
-\noindent
 
+\subsection{Server Code} \label{Server Code}
 
 
 
