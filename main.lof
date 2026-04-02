@@ -1,12 +1,15 @@
 \babel@toc {ngerman}{}\relax 
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {1.1}{\ignorespaces Dehnung und Stauchung eines piezoresistiven Drucksensors (Bild: Keller AG)}}{9}{figure.1.1}%
-\contentsline {figure}{\numberline {1.2}{\ignorespaces Drucksensor Kennlinie - Widerstand in Abhängigkeit der Kraft}}{11}{figure.1.2}%
-\contentsline {figure}{\numberline {1.3}{\ignorespaces Drucksensor Kennlinie - Hysterese}}{11}{figure.1.3}%
-\contentsline {figure}{\numberline {1.4}{\ignorespaces BLE Architektur}}{13}{figure.1.4}%
-\contentsline {figure}{\numberline {1.5}{\ignorespaces BLE GAP}}{15}{figure.1.5}%
-\contentsline {figure}{\numberline {1.6}{\ignorespaces GAP Verbindungsaufbau}}{15}{figure.1.6}%
-\contentsline {figure}{\numberline {1.7}{\ignorespaces Servo Motor Aufbau}}{18}{figure.1.7}%
+\contentsline {figure}{\numberline {1.1}{\ignorespaces Dehnung und Stauchung eines piezoresistiven Drucksensors (Bild: Keller AG, URL: https://www.aktuelle-technik.ch/die-piezoresistive-druckmesstechnik-a-1034345/, besucht: 01.04.2026)}}{9}{figure.1.1}%
+\contentsline {figure}{\numberline {1.2}{\ignorespaces Drucksensor Kennlinie - Widerstand in Abhängigkeit der Kraft (Quelle: DFRobot, URL: https://www.dfrobot.com/product-1842.html, besucht: 01.04.2026)}}{11}{figure.1.2}%
+\contentsline {figure}{\numberline {1.3}{\ignorespaces Drucksensor Kennlinie - Hysterese (Quelle: Sensocon, URL: https://sensocon.online/wie-funktioniert-ein-kraftsensor/, besucht: 01.04.2026)}}{11}{figure.1.3}%
+\contentsline {figure}{\numberline {1.4}{\ignorespaces Systemarchitektur des Babybettchens (erstellt mit Lucid Flowchart)}}{12}{figure.1.4}%
+\contentsline {figure}{\numberline {1.5}{\ignorespaces ADC wandelt ein analoges Signal in ein digitales Signal (Quelle: EBV, URL: https://my.avnet.com/ebv/resources/article/analog-to-digital-conversion-in-test-and-measurement-applications/, besucht: 02.04.2026)}}{13}{figure.1.5}%
+\contentsline {figure}{\numberline {1.6}{\ignorespaces Allgemeine Abbildung eines Spannungsteilers (Quelle: QG Wiki, URL: \url {https://wiki.qg-moessingen.de/faecher:nwt:arduino:lernbaustein2:sensoren_spteilung:start} , besucht: 02.04.2026)}}{14}{figure.1.6}%
+\contentsline {figure}{\numberline {1.7}{\ignorespaces BLE Architektur}}{15}{figure.1.7}%
+\contentsline {figure}{\numberline {1.8}{\ignorespaces BLE GAP}}{17}{figure.1.8}%
+\contentsline {figure}{\numberline {1.9}{\ignorespaces GAP Verbindungsaufbau}}{17}{figure.1.9}%
+\contentsline {figure}{\numberline {1.10}{\ignorespaces Servo Motor Aufbau}}{20}{figure.1.10}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
