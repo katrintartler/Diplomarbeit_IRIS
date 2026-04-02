@@ -14,7 +14,7 @@
 \usepackage{amsmath}
 \usepackage{csquotes}
 %usepackage[backend=biber,style=numeric]{biblatex}
-\usepackage[backend=biber]{biblatex}
+\usepackage[backend=biber, sorting=none]{biblatex}
 \addbibresource{literatur.bib}
 \usepackage{lastpage}
 \usepackage{hyperref}
@@ -101,7 +101,14 @@
 \input{sections/ergebnis.tex}
 \input{sections/diskussion.tex}
 
+
 \printbibliography
+
+%Alternativ für MC sortierung aber noch nicht ganz perfekt 
+%\printbibliography[type=book, title={Bücher}]
+%\printbibliography[type=online, title={Onlinequellen}]
+%\printbibliography[type=article, title={Artikel}]
+%\printbibliography[type=misc, titel={Sonstige Quellen}]
 
 \end{document}
 
