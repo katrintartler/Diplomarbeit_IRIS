@@ -3,11 +3,14 @@
 *.out
 *.toc
 *.lof
+*:lol
 *.lot
 *.bbl
 *.blg
 *.bcf
+*.pdf
 *.run.xml
 *.synctex.gz
 *.fls
 *.fdb_latexmk
+*-SAVE-ERROR
