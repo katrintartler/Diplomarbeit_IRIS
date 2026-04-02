@@ -34,7 +34,9 @@
   numbers=left,
   numberstyle=\tiny,
   breaklines=true,
-  frame=single
+  frame=single,
+  xleftmargin=1.5em,
+  framexleftmargin=\parindent
 }
 
 % K und T tiefstellung
@@ -45,7 +47,6 @@
 \pagestyle{fancy}
 
 \fancyhf{} % alles löschen
-
 % Kopfzeile
 \fancyhead[L]{\rightmark}
 \fancyhead[C]{IRIS}
@@ -54,7 +55,7 @@
 % Fußzeile
 \fancyfoot[L]{Kalcher Linda\\ Tartler Katrin} 
 \fancyfoot[C]{Diplomarbeit\\ 2025/26, 5AHEL}
-\fancyfoot[R]{Seite \thepage \ von \pageref{LastPage}}
+\fancyfoot[R]{Seite \thepage}
 \renewcommand{\footrulewidth}{0.4pt}
 
 \fancypagestyle{plain}{
@@ -67,21 +68,38 @@
 % Fußzeile
 \fancyfoot[L]{Kalcher Linda\\ Tartler Katrin} 
 \fancyfoot[C]{Diplomarbeit\\ 2025/26, 5AHEL}
-\fancyfoot[R]{Seite \thepage \ von \pageref{LastPage}}
+\fancyfoot[R]{Seite \thepage}
 \renewcommand{\footrulewidth}{0.4pt}
 }
 
 \begin{document}
+\onehalfspacing % 1,5 zeilen
 
+ 
 \input{sections/titlepage}
+\clearpage
+
+% nummerierung römisch
+\pagenumbering{roman}
 \input{sections/kurzbeschreibung_abstract.tex}
 \input{sections/erklärung_danksagung.tex}
 
+\tableofcontents
+\newpage
+
+\listoffigures
+\newpage
+
+\lstlistoflistings
+\newpage
+
+ \clearpage
+%nummerierung arabisch 
+\pagenumbering{arabic}
 \input{sections/theorie.tex}
 \input{sections/methodik.tex}
 \input{sections/ergebnis.tex}
 \input{sections/diskussion.tex}
-
 
 \printbibliography
 

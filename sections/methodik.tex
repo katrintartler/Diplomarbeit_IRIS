@@ -292,6 +292,15 @@ In den Zeile 142 bis 144 wir nun die GAP-Ebene angesprochen. Zu Beginn wir der G
 Service für den Client dargestellt und dann beginnt der ESP zu werben (adverting), um die Verbindung mit dem Client einzugehen. Verbindungsaufbau in unserem Projekt auch in Abblidung (\ref{fig:ble_gap_bsp})
 veranschaulicht. 
 
+\subsubsection{SchedTask Libray}
+Beim Testen der Anwendungen sind öffter Fehler durch das Blockieren von verschiedenen Komponenten durch einzelne 
+Tasks aufgetreten. War zum Beispiel ein Motorbewegungs-Task aktiv sind andere Untersysteme blockiert gewesen. 
+Für eine Optimierung wurde die library SchedTask \cite{schedtask_lib} verwendet. 
+
+\noindent 
+Multithreading bietet eine angenehme Lösung zu diesem Problem. Beim Multithreading werden 
+ 
+
 \subsubsection{ServoEasing Library}
 \begin{lstlisting}[language=C++]
     

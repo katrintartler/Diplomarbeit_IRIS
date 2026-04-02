@@ -1,14 +1,14 @@
 \babel@toc {ngerman}{}\relax 
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {1.1}{\ignorespaces Microcontroller zu system-on-chip \blx@tocontentsinit {0}\cite {esp32_devkitc_v4_datasheet}}}{11}{figure.1.1}%
-\contentsline {figure}{\numberline {1.2}{\ignorespaces BLE Architektur \blx@tocontentsinit {0}\cite {espressif_ble_intro}}}{12}{figure.1.2}%
-\contentsline {figure}{\numberline {1.3}{\ignorespaces BLE GAP \blx@tocontentsinit {0}\cite {espressif_ble_intro}}}{12}{figure.1.3}%
-\contentsline {figure}{\numberline {1.4}{\ignorespaces GAP Verbindungsaufbau}}{13}{figure.1.4}%
-\contentsline {figure}{\numberline {1.5}{\ignorespaces Servo Motor Aufbau \blx@tocontentsinit {0}\cite {pwm_servo}}}{16}{figure.1.5}%
+\contentsline {figure}{\numberline {1.1}{\ignorespaces Microcontroller zu system-on-chip \blx@tocontentsinit {0}\cite {esp32_devkitc_v4_datasheet}}}{4}{figure.1.1}%
+\contentsline {figure}{\numberline {1.2}{\ignorespaces BLE Architektur \blx@tocontentsinit {0}\cite {espressif_ble_intro}}}{5}{figure.1.2}%
+\contentsline {figure}{\numberline {1.3}{\ignorespaces BLE GAP \blx@tocontentsinit {0}\cite {espressif_ble_intro}}}{6}{figure.1.3}%
+\contentsline {figure}{\numberline {1.4}{\ignorespaces GAP Verbindungsaufbau}}{7}{figure.1.4}%
+\contentsline {figure}{\numberline {1.5}{\ignorespaces Servo Motor Aufbau \blx@tocontentsinit {0}\cite {pwm_servo}}}{10}{figure.1.5}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {2.1}{\ignorespaces Verschaltung der Wärmekomponenten}}{19}{figure.2.1}%
-\contentsline {figure}{\numberline {2.2}{\ignorespaces Oberflächliche Beschreibung des Testroboter Codes}}{20}{figure.2.2}%
-\contentsline {figure}{\numberline {2.3}{\ignorespaces GUI des Testroboters}}{21}{figure.2.3}%
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Verschaltung der Wärmekomponenten}}{15}{figure.2.1}%
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Oberflächliche Beschreibung des Testroboter Codes}}{16}{figure.2.2}%
+\contentsline {figure}{\numberline {2.3}{\ignorespaces GUI des Testroboters}}{16}{figure.2.3}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 
