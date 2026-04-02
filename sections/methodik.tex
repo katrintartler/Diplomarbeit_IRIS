@@ -1,6 +1,6 @@
 \chapter{Methodik}
 
-\section{Drucksensorik testen}
+\section[Drucksensorik testen]{Drucksensorik testen\authorlinda}
 %pullup pulldown
 
 \section[Wärmesensorik testen]{Wärmesensorik testen\authorkatrin}
@@ -32,12 +32,12 @@ Dieser Bedarf wird von einem 20A Labornetzteil gedeckt. Aufgrund der Wahl dieser
 Komponenten des Testroboters ebenfalls mit dem Netzteil zu betreiben. 
 
 
-\section{Geräuschsensorik}
+\section[Geräuschsensorik]{Geräuschsensorik\authorkatrin}
 %Zur Geräuscherkennung ist des INMP441 vorgesehen. Das ist ein omni-direktionales 
 %MEMS Mikrophon
 
-\section{Code (PWA)}
-\section{ESP für PWA}
+\section[Code (PWA)]{Code (PWA)\authorlinda}
+\section[ESP für PWA]{ESP für PWA\authorlinda}
 
 
 \section[Code Testroboter]{Code Testroboter\authorkatrin}
@@ -223,8 +223,74 @@ in dem entsprechenden Projekt zu finden. In weiterer Folge wäre es möglich das
 unzuwandeln. Hier ist es auch von Vorteil mit einem venv zu arbeiten. 
 
 \subsection{Server Code} \label{Server Code}
+Nachdem die Kommandos gesendet wurden ist es die Aufgabe des ESPs die entsprechenden Kompontenten anzusteuern. 
+Für die Programmierung des ESP32 verwenden wir VS-Code mit der Extension PlatformIO. PlatformIO ist eine Entwicklungsumgebung 
+welche die wesentlichen Schritte für das Programmieren eines Microcontrollers, wie Kompilieren, Bibliotheksverwaltung und 
+Hochladen auf diesen in einer Umgebung zusammenfasst \cite{platformio}. Die Anforderungen um ein Projekt zu erstellen sind die Auswahl eines
+gewünschten Frameworks und des Boards welches man verwendet. Der Framework beschreibt die Softwaregrundlage die für die Programmierung 
+genutzt werden soll. Damit ist ein großer Teil der Struktur des Projekts konfiguriert \cite{software_framework_wikipedia}. Wird unser ESP als DevBoard eingestellt stehen zwei Frameworkoptionen
+zur Auswahl. Der Arduino Framework, welcher auch in der ArduinoIDE genutzt wird,
+oder der offizielle Framework von Espressif, ESP-IDF \cite{platformio_frameworks}. Der Framework Arduino stellt die Grundvoraussetzungen bereit, 
+mit einer Optimierung auf ESP-IDF hat man zugriff auf eine genauer auf den Microcontroller abgestimmte Funktion, aber es ist ein viel komplexer \cite{espidf_framework}.
+In diesem Fall wird der Arduino Framework genutzt \cite{arduino_framework}. 
+\noindent
+Die Aufgabe des Server Codes können in fünf unterschiedliche Sektionen geteilt werden. Drei davon entsprechen der Ansteuerung der drei 
+Simulationsparameter, Wärme, Bewegung und Geräusch. Die vierte ist eine BLE Verbindung mit dem Laptop herzustellen und dem fünften Punkt
+einer parallel agierenden Umgebung um blockieren zu verhindern. Zu sehen in Listing \ref{lst:main.c:includes} ist eine Auflistung der verwendeten Zusatzbibliotheken
+um die entsprechenden Funktionen zu erfüllen. 
+\begin{lstlisting}[language=C++,caption={Zusatzbibliotheken}, label={lst:main.c:includes}, firstnumber=1]
+#include <SchedTask.h>
+#include <SchedTaskT.h>
+#include <ServoEasing.hpp>
+#include <NimBLEDevice.h>
+#include <DFRobotDFPlayerMini.h> 
+\end{lstlisting}
+\noindent
 
+\subsubsection{BLE Verbindung und Kommandoauswertung}
+Für die interaktion mit der Bluetoothhardware des ESP wird NimBLE (siehe \ref{NimBLE}) benutzt. Um die Kommunikation richtig 
+aufzusetzten wird zuerst eine Art BLE Setup durchgeführt. Wie der Name schon vermuten lässt befindet sich diese Konfiguration im Setup, 
+also dem Programmteil welcher immer nur einmal zu anfang ausgeführt wird, bzw. bei jedem neuen flashen oder neustarten \cite{arduino_setup}.
+Diese Konfiguration ist in Listing \ref{lst:main.c:blesetup} abgebildet. 
+\newpage
+\begin{lstlisting}[language=C++,caption={BLE Setup}, label={lst:main.c:blesetup}, firstnumber=126]
+  NimBLEDevice::init("Robo"); 
 
+  NimBLEAddress addr = NimBLEDevice::getAddress();
+  Serial.print("BLE MAC:");
+  Serial.print(addr.toString().c_str()); 
+  
+  NimBLEServer * server = NimBLEDevice::createServer(); 
+  NimBLEService * service = server->createService("12345678-1234-1234-1234-1234567890ab"); 
+
+   NimBLECharacteristic* characteristic =
+      service->createCharacteristic(
+          "abcd1234-ab12-34cd-56ef-1234567890ab",
+          NIMBLE_PROPERTY::READ | NIMBLE_PROPERTY::WRITE
+      );
+
+  characteristic->setCallbacks(new CommandCallback());
+  characteristic->setValue("ready");
+
+  service->start(); 
+
+  NimBLEAdvertising* adv = NimBLEDevice::getAdvertising();
+  adv->addServiceUUID(service->getUUID()); 
+  adv->start(); 
+\end{lstlisting}
+Die Sektion BLE Setup folgt dem allgemeinen Standard zur initialisierung eines BLE-Gerätes. Mit NimBLEDevice::init("Robo"), wird dem Gerät
+der von uns gewählte Name Robo zugewiesen. Das Auslesen der MAC-Adresse des ESPs in weiterer Folge ist um die richtige Adresse im ble\_backend.py Code eintragen zu können, wie in Listing 
+\ref{lst:ble.py:macusw} angegeben.
+Danach wird (Zeile 128 und 129) auf GATT Ebene ein Server erstellt und diesem ein Service zugeschrieben.
+Die Erstellung von einem Service ist wichtig für die Funktion der BLE Verbindung (die Funktion eines Services ist in \ref{GATT} nachzulesen), der Service ist mit 12345678-1234-1234-1234-1234567890ab,
+der Service\_UUID identifizierbar. Dies ist eine benutzerdefnierte Service UUID die zufällig erstellt wurde. In diesem Service wird eine Charakteristik für das schreiben und lesen 
+von Daten zwischen der Laptop-ESP Verbindung erstellt (Zeile 131 -135). Die CHAR UUID die hier angegeben ist muss auch im Client Code definiert sein, siehe \ref{lst:ble.py:macusw}. 
+Mit characteristic->setCallbacks(new CommandCallback()) wir festgelegt was passieren soll wenn der Client Nutzdaten schickt. Es wird eine Callback-Funktion defniert die 
+ausgeführt werden soll wenn der Server eine Nachricht empfängt. characteristic->setValue("ready") ist eine Nachricht an den Client, sollte dieser die Characteristic lesen, empfängt er "ready".
+Mit der Funktion service->start() ist die Konfiguration des Services abgeschlossen, er ist nun auf GATT-Ebene registiert und gestartet. 
+In den Zeile 142 bis 144 wir nun die GAP-Ebene angesprochen. Zu Beginn wir der GAP-Zugriff mit  NimBLEAdvertising* adv = NimBLEDevice::getAdvertising() gestartet. Dann der 
+Service für den Client dargestellt und dann beginnt der ESP zu werben (adverting), um die Verbindung mit dem Client einzugehen. Verbindungsaufbau in unserem Projekt auch in Abblidung (\ref{fig:ble_gap_bsp})
+veranschaulicht. 
 
 \subsubsection{ServoEasing Library}
 \begin{lstlisting}[language=C++]
@@ -233,15 +299,15 @@ unzuwandeln. Hier ist es auch von Vorteil mit einem venv zu arbeiten.
     
 \end{lstlisting}
 
-\section{HF sicher layouten}
+\section[HF sicher layouten]{HF sicher layouten\authorkatrin}
 %Antenne von ESP wo und warum
 
-\section{Motoren Switch}
+\section[Motoren Switch]{Motoren Switch\authorkatrin}
 %Stepper auf stärkere Servos
 %3D Designs vergleichen
 
-\section{3D Konstruktionen} \label{3D Konstruktionen}
+\section[3D Konstruktionen]{3D Konstruktionen\authorkatrin} \label{3D Konstruktionen}
 
-\section{Main Platine}
+\section[Main PCB]{Main PCB\authorlinda}
 
-\section{Testroboter Platinen} \label{Testroboter Platinen}
+\section[Testroboter PCBs]{Testroboter PCBs \authorkatrin} \label{Testroboter Platinen}
