@@ -5,8 +5,84 @@
 %Isolierung und Theorie dazu
 
 \subsection[Drucksensorik]{Drucksensorik\authorlinda}
-%Prinzip, Aufbau, Funktionsweise
-%Drucksensoren von Auto, was passiert da im auto
+\subsubsection{Piezoresistiver Effekt}
+Der Piezoresistive Effekt bildet die Grundlage der Bewegungserkennung, dieser Effekt bezeichnet die Eigenschaft bestimmter Materialien, welche ihren elektrischen Widerstand unter mechanischen Belastungen verändern. \cite{electricity-magnetism_piezoresistive}
+
+\subsubsection{Grundlagen}
+Der piezoresistive Drucksensor besteht aus einer dünnen, flexiblen Membran, welche unter Druckeinwirkungen verformt wird. 
+Entlang dieser Membran sind Dehnmessstreifen positioniert, die je nachdem wie  sie verformt werden, entweder gedehnt oder gestaucht werden. Dies wird in Abbildung \ref{fig:dms_dehnung-stauchung} dargestellt. 
+
+\noindent
+Diese Verformung der Dehnmessstreifen führt zu einer Widerstandsveränderung. \cite{sensocon_piezoresistive} \cite{winson_piezoresistive}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width = 10cm]{images/dms_dehnung-stauchung.jpg}
+\caption{Dehnung und Stauchung eines piezoresistiven Drucksensors (Bild: Keller AG, URL: https://www.aktuelle-technik.ch/die-piezoresistive-druckmesstechnik-a-1034345/, besucht: 01.04.2026)}
+\label{fig:dms_dehnung-stauchung}
+\end{figure}
+
+\noindent
+Die Bewegung eines menschlichen Körpers lässt sich durch die zeitliche Veränderung der angewendeten Kraft beschreiben. Diese Kraftänderung wird vom Sensor als eine Druckänderung wahrgenommen und verändert somit den elektrischen Widerstand. 
+Die Veränderung des Widerstands führt dazu, dass die mechanische Belastung, durch ein elektrisches Signal beschrieben werden kann. \cite{sensocon_piezoresistive} \cite{winson_piezoresistive}
+
+\par\vspace{1em}
+
+\noindent
+Je nach der Art der Bewegung entstehen unterschiedliche Belastungsmuster:
+\begin{itemize}
+    \item Kontinuierliche Bewegung
+    \item Punktuelle Belastung
+\end{itemize}
+
+\noindent
+Kontinuierliche Bewegungen, wie Gelenkbewegungen oder Atmen, erzeugen ein langsames, periodisches oder ein gleichmäßig verlaufendes Signal der Druckänderung. Diese entsprechen den erwarteten Widerstandsverläufen und lassen auf die Bewegungsabläufe und -intensität rückfolgern. 
+
+\noindent
+Punktuelle Belastungen, wie kurzes Tippen und Drücken, sorgen für kurzzeitige lokale Kraftspitzen, die als schnelle Widerstandsänderungen erkennbar sind. \cite{gong_agocn_2025}
+
+\subsubsection{Aufbau}
+
+
+\subsubsection{Anwendung}
+Durch die hohe Empfindlichkeit und Genauigkeit der piezoresistiven Drucksensoren können sie bei zahlreichen technischen Anwendungen verbaut werden. Aufgrund ihrer Fähigkeit bereits die kleinsten Druckänderungen zu erkennen und diese in elektrische Signale zu wandeln, finden sie in präzisionsorientieren Bereichen ihre Verwendung. 
+In der Automobilindustrie dienen sie beispielhaft der Drucküberwachung der Bremssysteme und Motoren und in der Medizintechnik ermöglichen sie die Erfassung von Parametern wie Blutdruck oder der Atmung.
+
+\noindent
+Trotz ihrer Sensitivität gegenüber den Messwerten, bieten piezoresistive Drucksensoren eine gute Langezeitstabilität und zeigen keine starken Reaktionen gegenüber Umwelteinflüssen, wie Temperatur und Feuchtigkeit. 
+Dadurch eigenen sie sich besonders für Messumgebungen, in der zuverlässige und robuste Sensorik erforderlich ist. \cite{electricity-magnetism_piezoresistive}
+
+\subsubsection{Elektrische Charakteristik}
+Die elektrischen Eigenschaften von piezoresistiven Drucksensoren lassen sich durch den Zusammenhang des elektrischen Widerstandes zur einwirkenden Kraft beschreiben. 
+Dieses Verhältnis hat keinen linearen Verlauf, sondern einen logarithmischen oder exponentiellen Verlauf.\cite{fraden_handbook} (siehe Abbildung \ref{fig:drucksensor-kennlinie}) 
+\begin{figure}[H]
+\centering
+\includegraphics[width = 15cm]{images/drucksensor-kennlinie.png}
+\caption{Drucksensor Kennlinie - Widerstand in Abhängigkeit der Kraft (Quelle: DFRobot, URL: https://www.dfrobot.com/product-1842.html, besucht: 01.04.2026)}
+\label{fig:drucksensor-kennlinie}
+\end{figure}
+
+\noindent
+Mithilfe der Kennlinie eines Drucksensors, wie beispielsweise in Abbildung \ref{fig:drucksensor-kennlinie}, kann die Empfindlichkeit des Drucksensors abgeleitet werden, also wie stark sich der Widerstand in Abhängigkeit der Kraft verändert. Je höher die Empfindlichkeit ist, desto kleinere Änderungen können wahrgenommen werden.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width = 12cm]{images/piezresistiverDMS-kennlinie.png}
+\caption{Drucksensor Kennlinie - Hysterese (Quelle: Sensocon, URL: https://sensocon.online/wie-funktioniert-ein-kraftsensor/, besucht: 01.04.2026)}
+\label{fig:piezresistiverDMS-kennlinie}
+\end{figure}
+
+\noindent
+In der Abbildung \ref{fig:piezresistiverDMS-kennlinie} wird veranschaulicht wie sich das Ausgangssignal, des Drucksensor, in Abhängigkeit der applizierten Kraft verhält. Es wird klar erkenntlich, dass der reale Verlauf unter Belastung, nicht dem theoretischem, linearen Verlauf entspricht. 
+
+\noindent
+Wenn man den Sensor bei Entlastung betrachtet ist erkennbar, dass ein hysteretisches Verhalten auftritt. 
+Die Hysterese beschreibt den Effekt, dass die Ausgangsgröße eines Systems nicht nur von der Eingangsgröße beeinflusst wird, 
+sondern auch von dem Anfangszustand des Systems.\cite{studyflix_hysterese} Im Fall des piezoresistiven Drucksensors bedeutet, dass der Wert vom Widerstand bei steigender Belastung nicht mit dem Wert bei sinkender Belastung übereinstimmt. 
+Das kann durch Materialeigenschaften oder Rückverformungen des Sensors entstehen. \cite{fraden_handbook}
+
+\noindent
+Temperaturabhängigkeit??
 
 \subsection[Wärmesensorik]{Wärmesensorik\authorkatrin}
 Für die Überwachung von Wärmeparametern in dem Babybett kommen verschiedene Methoden in Frage.
@@ -29,13 +105,118 @@ oberflächlich wiederspiegeln. Ein Beispiel dafür sind die Augeninnenwinkel. \c
 %Kamera?
 %Fiebermessen mit Wärmebildkamera
 
-\subsection[Audiosensorik]{Audiosensorik\authorkatrin}
+\subsection[Audiosensorik][Audiosensorik]{Audiosensorik\authorkatrin\authorkatrin}
 
 %Prinzip, Aufbau, Funktionsweise
 %Herausfiltern mit 2 Mikrofonen und Filter
 
-\subsection{PWA und alles was da dabei is}
+\subsection[Babybettchen Code]{Babybettchen Code}
+\subsubsection{Systemarchitektur\authorlinda}
 %Prinzip, Aufbau, Funktionsweise
-%Flutter vs. PWA
+Die grundlegende Systemarchitektur des Babybettchens ist, dass Sensoren, wie beispielsweise der Drucksensor, Messwerte erfasst, welche anschließend von dem ersten ESP32 eingelesen werden. Dieser erste ESP32 wird fortan als ESP A bezeichnet. Der ESP A sendet die Daten über die serielle Schnittstelle (UART) an den zweiten ESP32, welcher ab sofort als ESP B bezeichnet wird. Die Progressive Web App, ab jetzt durch PWA abgekürzt, erhaltet die Daten vom ESP B via WebSocket, verarbeitet diese Daten und stellt sie visuell dar.
+
+\noindent
+Diese Systemarchitektur wird in der Abbildung \ref{fig:systemarchitektur_flowchart} dargestellt.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width = 15cm]{images/systemarchitektur_flowchart.png}
+\caption{Systemarchitektur des Babybettchens (erstellt mit Lucid Flowchart)}
+\label{fig:systemarchitektur_flowchart}
+\end{figure}
+
+\subsubsection[ESP A - Sensordaten]{ESP A - Sensordaten\authorlinda}
+Der Mikrokontroller ESP A ist ein ESP32 NodeMCU Module WLANWiFi Developement Board mit CP2102, dieser eignet sich aufgrund der 
+integrierten WLAN Funktionalität gut für die spätere Anwendung der drahtlosen Übertragung an die PWA. \cite{azdelivery_esp32} Da der ESP A verantwortlich für die Erfassung und Weiterleitung der Daten an den ESP B ist, bildet er die erste Schicht der Datenerfassung, innerhalb der Systemarchitektur.
+
+%\par\vspace{1em}
+
+\paragraph{Analog-Digital-Converter:}
+Ein Mikrokontroller kann ausschließlich mit digitalen Werten arbeiten, weshalb die Umwandlung von analogen zu digitalen Werten benötigt wird. Die integrierten Analog-Digital-Converter (ADC) eines ESP32, wandeln die anliegende Spannung in digitale Werte und können somit weiter verwendet werden. 
+
+\noindent
+Diese digitalen Werte liegen in einem Bereich von 0-4095, weil ein ESP32 eine Auflösung von 12Bit hat, 
+was wiederum dem Wert 4096 entspricht. \cite{dewesoft_adc} \cite{espressif_adc}
+\begin{itemize}
+    \item Je höher die Spannung ist, desto größer ist der digitale Wert
+\end{itemize}
+
+\noindent
+Dieser Zusammenhang der Messwerte bildet die Grundlage für die Interpretation der Bewegungsmuster und deren Intensität.
+
+\par\vspace{1em}
+
+\noindent
+In der Abbildung \ref{fig:EBV_adc-funktion} wird dargestellt, wie die Umwandlung eines analogen Signals in ein digitales Signal erfolgt. 
+\begin{figure}[H]
+\centering
+\includegraphics[width = 15cm]{images/EBV_adc-funktion.jpg}
+\caption{ADC wandelt ein analoges Signal in ein digitales Signal (Quelle: EBV, URL: https://my.avnet.com/ebv/resources/article/analog-to-digital-conversion-in-test-and-measurement-applications/, besucht: 02.04.2026)}
+\label{fig:EBV_adc-funktion}
+\end{figure}
+
+\paragraph{Hauptaufgabe ESP A:}
+Die Hauptaufgabe des ESP A ist die kontinuierliche Aufnahme von Daten. Die Sensoren liefern analoge Werte, weshalb sie, bevor sie vom Mikrokontroller verarbeitet werden können, in digitale Werte umgewandelt werden müssen. Das geschieht intern im ESP32 NodeMCU, denn der ESP32 NodeMCU hat zwei Analog-Digital-Converter (ADC) verbaut und 
+diese wandeln die analogen Werte in digitale Werte, mit denen der Mikrokontroller arbeiten kann. \cite{azdelivery_esp32} \cite{espressif_adc}
+
+%\par\vspace{1em}
+
+\noindent
+Nachdem der ADC die Messwerte in brauchbare Werte umgewandelt hat, kann der ESP A diese weiterleiten. Da die Werte durch den ESP A kontinuierlich erfasst und weitergegeben werden, ist eine Echtzeit-Datenerfassung möglich. Welche ein wichtige Rolle für das System spielt, denn somit kann man den Eltern den Verlauf der Daten visualisieren und ihnen Live-Updates geben.
+
+%\par\vspace{1em}
+
+\paragraph{Spannungsteiler:}
+Der ESP A kann die Belastungsänderung der Drucksensoren aufnehmen, indem man den Drucksensor in eine Spannungsteiler-Schaltung integriert. Wenn man den Drucksensor mit einem festgelegten Widerstand kombiniert, entsteht eine Spannung, die vom Druck abhängig ist, da der Drucksensor auf dem Prinzip der Widerstandsänderung basiert. 
+Diese Spannung kann der Mikrokontroller messen und auswerten. \cite{wonderfulPCB_spannungsteiler}
+
+\noindent
+Je nachdem wie der Widerstand gewählt wird, ändert sich der Spannungsteiler und die Empfindlichkeit des Drucksensors.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width = 7cm]{images/allgemein-spannungsteiler.png}
+\caption{Allgemeine Abbildung eines Spannungsteilers (Quelle: QG Wiki, URL: \url{https://wiki.qg-moessingen.de/faecher:nwt:arduino:lernbaustein2:sensoren_spteilung:start} , besucht: 02.04.2026)}
+\label{fig:allgemein-spannungsteiler}
+\end{figure}
+
+\par\vspace{1em}
+
+\noindent
+In der Abbildung \ref{fig:allgemein-spannungsteiler} sieht man den Aufbau eines Spannungsteilers. In unserem Falle, wird statt dem Pull-Down Widerstand der Drucksensor eingebaut und der Pin des ESP A kann die Spannung am Drucksensor messen.
+
+%\par\vspace{1em}
+
+\paragraph{Übertragung:}
+Nach der Erfassung und Umwandlung der Daten, kann die Übertragung über die serielle UART-Verbindung (Universal Asynchronous Receiver Transmitter) an den ESP B erfolgen. Es wurde eine serielle Kommunikation zwischen den beiden ESP 32 NodeMCU gewählt, da es einfache und verlässliche Verbindung ermöglicht. 
+Der Verbindungsaufbau ist relativ simpel, da physikalisch:
+\begin{itemize}
+    \item Tx von ESP A + Rx von ESP B
+    \item Rx von ESP A + Tx von ESP B 
+\end{itemize}
+verbunden werden müssen, um die Verbindung aufzubauen. Zusätzlich müssen beide ESPs einen gemeinsamen Ground (GND) haben, 
+da ansonsten die HIGH und LOW Pegel nicht eindeutig erkannt werden können. \cite{wollesElektronikkiste_RxTx}
+
+\par\vspace{1em}
+
+\noindent
+Außerdem eignet sich diese Übertragungsmöglichkeit gut für dieses System, da durch die serielle Schnittstelle eine schnelle Weitergabe der Werte möglich ist. Diese Übertragungsgeschwindigkeit wird durch die Baudrate bestimmt, wenn die Baudrate beispielsweise 115200 beträgt, 
+können 115200 Signaleinheiten pro Sekunde übertragen werden. \cite{riverdi_baudrate} 
+
+\noindent
+Eine Baudrate von 115200 ist groß genug, um für unser System Echtzeit-Daten zu liefern. Diese Erkenntnis wurde durch Testen und Beobachtungen bestätigt.
+
+
+\subsubsection[ESP B - Datenübertragung]{ESP B - Datenübertragung\authorlinda}
 %WLAN Kommunikation Theorie
+
+
+\subsubsection[PWA - Progressive Web App]{PWA - Progressive Web App\authorlinda}
+
+
+\par\vspace{1em}
+
+\noindent
+Flutter vs. PWA ???
+
 \newpage
