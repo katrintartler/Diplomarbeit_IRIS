@@ -44,7 +44,7 @@ Komponenten des Testroboters ebenfalls mit dem Netzteil zu betreiben.
 Der Code zur Steuerung des Testroboters besteht aus zwei pythonbasierten Programmen siehe \ref{Client Code}.
 Welche die Darstellung das Graphical User Interface (gui.py) und die BLE Backend Kommunikation (ble\_backend.py) implementieren. Damit werden die
 Client-Funktionen des Laptops abgedeckt. Der Code für den ESP32, siehe \ref{Server Code} muss die Funktionen der Serverrolle im BLE Aufbau 
-erfüllen. Also gesendete Commands müssen eine Funktion starten. Der Aufbau der Code Architektur des Testroboters ist in Abbildung \ref{fig:Roboter_Code_Aufbau} veranschaulicht. 
+erfüllen. Also gesendete Kommandos müssen eine Funktion starten. Der Aufbau der Code Architektur des Testroboters ist in Abbildung \ref{fig:Roboter_Code_Aufbau} veranschaulicht. 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=12cm]{images/BabycodeDiagramm.png}
@@ -234,7 +234,7 @@ oder der offizielle Framework von Espressif, ESP-IDF \cite{platformio_frameworks
 mit einer Optimierung auf ESP-IDF hat man zugriff auf eine genauer auf den Microcontroller abgestimmte Funktion, aber es ist ein viel komplexer \cite{espidf_framework}.
 In diesem Fall wird der Arduino Framework genutzt \cite{arduino_framework}. 
 \noindent
-Die Aufgabe des Server Codes können in fünf unterschiedliche Sektionen geteilt werden. Drei davon entsprechen der Ansteuerung der drei 
+Die Aufgaben des Server Codes können in fünf unterschiedliche Sektionen geteilt werden. Drei davon entsprechen der Ansteuerung der drei 
 Simulationsparameter, Wärme, Bewegung und Geräusch. Die vierte ist eine BLE Verbindung mit dem Laptop herzustellen und dem fünften Punkt
 einer parallel agierenden Umgebung um blockieren zu verhindern. Zu sehen in Listing \ref{lst:main.c:includes} ist eine Auflistung der verwendeten Zusatzbibliotheken
 um die entsprechenden Funktionen zu erfüllen. 
@@ -285,23 +285,71 @@ Danach wird (Zeile 128 und 129) auf GATT Ebene ein Server erstellt und diesem ei
 Die Erstellung von einem Service ist wichtig für die Funktion der BLE Verbindung (die Funktion eines Services ist in \ref{GATT} nachzulesen), der Service ist mit 12345678-1234-1234-1234-1234567890ab,
 der Service\_UUID identifizierbar. Dies ist eine benutzerdefnierte Service UUID die zufällig erstellt wurde. In diesem Service wird eine Charakteristik für das schreiben und lesen 
 von Daten zwischen der Laptop-ESP Verbindung erstellt (Zeile 131 -135). Die CHAR UUID die hier angegeben ist muss auch im Client Code definiert sein, siehe \ref{lst:ble.py:macusw}. 
-Mit characteristic->setCallbacks(new CommandCallback()) wir festgelegt was passieren soll wenn der Client Nutzdaten schickt. Es wird eine Callback-Funktion defniert die 
+Mit characteristic->setCallbacks(new CommandCallback()) wird festgelegt was passieren soll wenn der Client Nutzdaten schickt. Es wird eine Callback-Funktion defniert die 
 ausgeführt werden soll wenn der Server eine Nachricht empfängt. characteristic->setValue("ready") ist eine Nachricht an den Client, sollte dieser die Characteristic lesen, empfängt er "ready".
 Mit der Funktion service->start() ist die Konfiguration des Services abgeschlossen, er ist nun auf GATT-Ebene registiert und gestartet. 
 In den Zeile 142 bis 144 wir nun die GAP-Ebene angesprochen. Zu Beginn wir der GAP-Zugriff mit  NimBLEAdvertising* adv = NimBLEDevice::getAdvertising() gestartet. Dann der 
 Service für den Client dargestellt und dann beginnt der ESP zu werben (adverting), um die Verbindung mit dem Client einzugehen. Verbindungsaufbau in unserem Projekt auch in Abblidung (\ref{fig:ble_gap_bsp})
 veranschaulicht. 
+\par\vspace{1em}
+\noindent
+Wie schon oben beschrieben ist CommandCallback() was aufgerufen werden soll, wenn der Client Nutzdaten sendet. 
+\begin{lstlisting}[language=C++, caption= {CommandCallback}, label={lst:main.c:commandcb}, firstnumber=53]
+class CommandCallback : 
+  public NimBLECharacteristicCallbacks {
+    void onWrite(NimBLECharacteristic* c, NimBLEConnInfo& coninfo) override {
+      
+      uint8_t cmd = c->getValue()[0];
+      switch(cmd) 
+      {
+        ...
+        case 9:
+          heat_on_flag = true;
+        break; 
 
-\subsubsection{SchedTask Libray}
+        case 10: 
+          heat_off_flag = true; 
+        break; 
+      }
+    }
+  }
+\end{lstlisting}
+
+\subsubsection{SchedTask Bibliothek}
 Beim Testen der Anwendungen sind öffter Fehler durch das Blockieren von verschiedenen Komponenten durch einzelne 
 Tasks aufgetreten. War zum Beispiel ein Motorbewegungs-Task aktiv sind andere Untersysteme blockiert gewesen. 
-Für eine Optimierung wurde die library SchedTask \cite{schedtask_lib} verwendet. 
-
+Zur Verbesserung wurde die Bibliothek SchedTask verwendet. Mit den Funktionen aus SchedTask und in weiterer Folge
+aus SchedTaskT können die einzelnen Anwendungen in verschiedene Tasks ausgelagert werden welche dann zeitgesteuert, zyklisch ausgeführt werden. 
+So werden die Aufgaben zeitlich und ereignisbasiert ausgeführt.\cite{schedtask_lib}
+Dies ist die einfachere Methode im Verglich zur Optimierung auf ein Real-Time System mit FreeRTOS,
+mehr dazu in \ref{RTOS}. 
+In Listing \ref{lst:main.c:SchedTasks} kann man sehen wie einzelne Tasks erstellt werden. In unserem Fall gibt es
+einen Task zur Überprüfung und Auswertung gesendeter Kommandos (dieser beinhaltet auch Audio- und Wärmeansteuerung),
+einen Task zur Ansteuerung der Servos und eine der die Temperaturwerte der Wärmequelle überwacht. Dieser ist eine 
+Vorsichtsmaßnahme welche nicht zur Gänze fertiggestellt werden konnte. 
+\begin{lstlisting}[language=C++, caption= {Loop}, label={lst:main.c:SchedTasks}, firstnumber=184]
+SchedTask BLECommands(0,50,BleCmd); 
+SchedTask Servos(0,200,ServoSM);
+SchedTask Heatcontrol(0, 300, HeatMonitor); 
+\end{lstlisting}
 \noindent 
-Multithreading bietet eine angenehme Lösung zu diesem Problem. Beim Multithreading werden 
+Für die Implementierung eines Tasks, wird diesem ein Name zugewiesen, beispielsweise BLECommands,
+eine Startzeit, in diesem Fall 0. Somit startet der Task bei 0ms Laufzeit. Der zweite Parameter bestimmt in welchem
+Intervall der Task wiederholt werden soll, in diesem Fall alle 50ms. Am Ende wird die Funktion übergeben
+die alle 50ms ab 0ms Laufzeit aufgerufen werden soll. Dadurch haben wir in der klassischen loop() nur eine 
+SchedTask dispatcher() Funktion, wie in Listing \ref{lst:main.c:loop} gezeigt. 
+\begin{lstlisting}[language=C++, caption= {Loop}, label={lst:main.c:loop}, firstnumber=176]
+void loop() {
+
+SchedBase::dispatcher(); 
+
+}
+\end{lstlisting}
+\noindent
+
  
 
-\subsubsection{ServoEasing Library}
+\subsubsection{ServoEasing Bibliothek}
 \begin{lstlisting}[language=C++]
     
 
