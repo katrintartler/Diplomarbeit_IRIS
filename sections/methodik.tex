@@ -3,7 +3,7 @@
 \section[Drucksensorik testen]{Drucksensorik testen\authorlinda}
 %pullup pulldown
 
-\section[Wärmesensorik testen]{Wärmesensorik testen\authorkatrin}
+\section[Wärmesensorik testen]{Wärmesensorik testen\authorkatrin} \label{Wärmequelle}
 Für die Simulation der Temperatur des Kindes, wurden im Testroboter Keramikwiderstände eingebaut, welche als Wärmequellen
 genutzt werden. Dazu wurde der Aufbau und die Verschaltung mittels Steckbrett getestet. Besonders zu beachten ist die hohe Leistung 
 die für eine Wärmesimulation nötig ist. Dementsprechend ist ein Test auf dem Steckbrett schwierig, da diese meisten nicht für hohe 
@@ -14,8 +14,7 @@ P &= \frac{U^2}{R}
 \end{align}
 Die verwendeten Keramikwiderstände haben einen Widerstandswert von 2,2$\Omega$. Die Verschaltung erfolgt mit 2 in Serie 
 geschalteten Strängen mit jeweils 3 parallel geschalteten Keramikwiderständen. Siehe Abbildung \ref{fig:VerschaltungKRs}, einem Ausschnitt 
-des Schaltplans der Platine aus \ref{Testroboter Platinen}. Somit ergibt sich ein Gesamtwiderstand von ca. 1,5$\Omega$. Als Spannungswert werden 7,4V eingesetzt. Diese entsprechen dem Spannungswert eines 2 Zellen 
-Lithium-Ionen Akkus. Somit ist ein Nachrüsten auf eine eigenständige Spannungsversorgung möglich siehe \ref{Spannungsversorgung Testroboter}. 
+des Schaltplans der Platine aus \ref{Heat Platinen}. Somit ergibt sich ein Gesamtwiderstand von ca. 1,5$\Omega$. Als Spannungswert werden 7,4V eingesetzt.
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=10cm]{images/VerschaltungKRs.png}
@@ -29,20 +28,31 @@ I &= \sqrt{\frac{36,507}{1,5}} = 5,0004 A
 \end{align}
 Der benötigte Strombedarf liegt bei unserer Leistung von 36,507W also bei ca 5A. 
 Dieser Bedarf wird von einem 20A Labornetzteil gedeckt. Aufgrund der Wahl dieser Spannungsversorgung wurde beschlossen die weiteren 
-Komponenten des Testroboters ebenfalls mit dem Netzteil zu betreiben. 
-
+Komponenten des Testroboters ebenfalls mit dem Netzteil zu betreiben, siehe \ref{Spannungversorgung}.
 
 \section[Geräuschsensorik]{Geräuschsensorik\authorkatrin}
 %Zur Geräuscherkennung ist des INMP441 vorgesehen. Das ist ein omni-direktionales 
 %MEMS Mikrophon
+
+%Babybettchen 
 \section[Aufbau des Babybettchens]{Aufbau des Babybettchens\authorlinda}
+\subsection{Spannungsversorgung} \label{medizinischtechnisch}
+%maybe so der generelle Konsenz von diesem ganzen medizinisch-technischem Spannungsding und den Richtlinien und sowas? 
+%und dann bei deim PCB punkt nur wie man es dann quasi umgesetzt hat wäre 
+%ich könnte mich dann bei meinem Spannungsversorgungs ding darauf beziehen, queerverweise und so
 
 \section[ESP Wahl - Babybettchen]{ESP Wahl - Babybettchen\authorlinda}
-
 \subsection{ESP: Pin Wahl}
 % Adc1 pins
 % warum 2 esp
 
+\section[Babybettchen PCB]{Babybettchen PCB\authorlinda}
+\subsection{Prinzip}
+\subsection{Schaltplan}
+\subsection{Layout}
+\subsection{Ätzen der Platine}
+\subsection{Versorgung der Platine}
+Medizintechnische Aspekte
 
 \section[Code Babybettchen]{Code Babybettchen\authorlinda}
 \subsection[ESP A Code]{ESP A Code}
@@ -61,7 +71,40 @@ chart.js
 \section[ESP für PWA]{ESP für PWA???\authorlinda}
 
 
-\section[Code Testroboter]{Code Testroboter\authorkatrin}
+%Testroboter
+\section[Aufbau des Testroboters]{Aufbau des Testroboters\authorkatrin}
+Für den Bau des Testroboters, wurde eine alte Puppe aus Kindertagen umfunktioniert. Der Rumpft dient zur Unterbringung der Platinen. 
+Für die Bewegungsinstallation der Gliedmaßen wurde eine Reihe von 3D-Konstruktionen entwickelt, welche den Motoren als Halterungen 
+dienen. Sozusagen die Gelenke zur "Muskelkraft" der Motoren. Der Lautsprecher befindet sich im Kopf der Puppe. Auch hier wurde mit dem 
+3D-Drucker eine Halterung erstellt. 
+\subsection{Motoren}
+Ursprünglich wurden Schrittmotoren zur Bewegungsansteuerung ausgewählt. Der Schrittmotor 28BJY-48 \cite{schrittmotor_datasheet} war aus einem anderen Projekt noch verfügbar 
+und als erste Idee in Betracht gezogen worden. Nachdem eine Halterung 3D gedruckt wurde, (siehe \ref{fig:3d:motoralt}), mussten wir bei einem Test mit einem Puppenbein jedoch feststellen,
+dass der 28BJY-48 nicht ausreichte um die Gliedmaßen zu bewegen.
+Daher gab es einen Austausch und wir haben den RC Digital Servo 14KG, mit DC Motor benutzt\cite{aliexpress}. 
+\subsection{Spannungsversorgung des Testroboters} \label{Spannungversorgung}
+Die Spannungsversorgung des Testroboters gestalltete sich anfangs etwas schwierig. Nach ersten Test mit der Wärmequelle wurde uns das Ausmaß der 
+benötigten Energie bewusst, siehe \ref{Wärmequelle}. Daher wurde sich darauf geeinigt die Versorgung des Testroboters ausschließlich mit der
+Verwendung einses externen 20A Netzteils zu realisieren. Da der Testroboter nur als Simulationsobjekt für die Funktion des Babybettchens entwickelt wurde, 
+gibt es dementsprechend keine Auflagen bezüglich medizinisch-technischer Aspekte, siehe \ref{medizinischtechnisch}. Die Erweiterung auf eine Spannungsversorgung 
+mittels Lithium-Ionen Akku könnte in Zukunft dennoch realisiert werden \ref{Spannungsversorgung Optimierung}.
+
+\section[3D Konstruktionen]{3D Konstruktionen} \label{3D Konstruktionen} 
+
+\section[Testroboter Main-PCBs]{Testroboter Main-PCBs \authorkatrin} 
+\subsection{Prinzip}
+\subsection{Schaltplan}
+\subsection{Layout}
+%\subsection{Versorgung der Platine} noch unsicher ob ich etwas dazu schreibe in dieser section
+
+\section[Testroboter Heat-PCB]{Testroboter Heat-PCB \authorkatrin} \label{Heat Platinen}
+\subsection{Prinzip}
+\subsection{Schaltplan}
+\subsection{Layout}
+%\subsection{Versorgung der Platine} noch unsicher ob ich etwas dazu schreibe in dieser section
+\subsection{Platinenfertigung}
+
+\section[Code Testroboter]{Code Testroboter\authorkatrin} %fertig nur mehr formatieren
 Der Code zur Steuerung des Testroboters besteht aus zwei pythonbasierten Programmen siehe \ref{Client Code}.
 Welche die Darstellung das Graphical User Interface (gui.py) und die BLE Backend Kommunikation (ble\_backend.py) implementieren. Damit werden die
 Client-Funktionen des Laptops abgedeckt. Der Code für den ESP32, siehe \ref{Server Code} muss die Funktionen der Serverrolle im BLE Aufbau 
@@ -74,6 +117,7 @@ erfüllen. Also gesendete Kommandos müssen eine Funktion starten. Der Aufbau de
 \end{figure}
 
 \subsection{Client Code} \label{Client Code}
+
 \subsubsection{Interface Darstellung} %GUI dear Pygui
 Das Interface ist vor allem für den Testbetrieb von großer Wichtigkeit, es wird benutzt um die einzelnen Simulationsparameter anzusteuern.
 Für den Aufbau des Interfaces wird die Pythonlibray Dear PyGui (DPG) verwendet. Siehe auch \ref{Dear PyGui} 
@@ -354,7 +398,7 @@ In Listing \ref{lst:main.c:SchedTasks} kann man sehen wie einzelne Tasks erstell
 einen Task zur Überprüfung und Auswertung gesendeter Kommandos (dieser beinhaltet auch Audio- und Wärmeansteuerung),
 einen Task zur Ansteuerung der Servos und eine der die Temperaturwerte der Wärmequelle überwacht. Dieser ist eine 
 Vorsichtsmaßnahme welche nicht zur Gänze fertiggestellt werden konnte. 
-\begin{lstlisting}[language=C++, caption= {Loop}, label={lst:main.c:SchedTasks}, firstnumber=184]
+\begin{lstlisting}[language=C++, caption= {Tasks erstellen}, label={lst:main.c:SchedTasks}, firstnumber=184]
 SchedTask BLECommands(0,50,BleCmd); 
 SchedTask Servos(0,200,ServoSM);
 SchedTask Heatcontrol(0, 300, HeatMonitor); 
@@ -365,7 +409,7 @@ eine Startzeit, in diesem Fall 0. Somit startet der Task bei 0ms Laufzeit. Der z
 Intervall der Task wiederholt werden soll, in diesem Fall alle 50ms. Am Ende wird die Funktion übergeben
 die alle 50ms ab 0ms Laufzeit aufgerufen werden soll. Die Funktion BleCmd()
 überprüft ob eine der Kommandoflags aus Listing \ref{lst:main.c:commandcb} gestetzt wurde. 
-Diese Implementierunf ist in Listing \ref{lst:main.c:SchedTask} zu sehen.
+Diese Implementierung ist in Listing \ref{lst:main.c:lst:main.c:SchedTasks} zu sehen.
 Dadurch haben wir in der klassischen loop() nur eine 
 SchedTask dispatcher() Funktion, wie in Listing \ref{lst:main.c:loop} gezeigt. 
 \begin{lstlisting}[language=C++, caption= {Loop}, label={lst:main.c:loop}, firstnumber=176]
@@ -507,26 +551,3 @@ if(heat_on_flag){
 \end{lstlisting}
 
 
-
-\section[Aufbau Testroboter]{Aufbau Testroboter\authorkatrin}
-\subsection[Motoren]{Motoren\authorkatrin}
-Ursprünglich wurden Schrittmotoren zur Bewegungsansteuerung ausgewählt. Der Schrittmotor 28BJY-48 \cite{schrittmotor_datasheet} war aus einem anderen Projekt noch verfügbar 
-und als erste Idee in Betracht gezogen worden. Nachdem eine Halterung 3D gedruckt wurde, mussten wir bei einem Test mit einem Puppenbeinen jedoch feststellen,
-dass der 28BJY-48 nicht ausreichte um die Gliedmaßen zu bewegen.
-Daher gab es einen Austausch und wir haben den RC Digital Servo 14KG, mit DC Motor benutzt. 
-
-\subsection[3D Konstruktionen]{3D Konstruktionen} \label{3D Konstruktionen}
-
-\section[Babybettchen PCB]{Babybettchen PCB\authorlinda}
-\subsection{Prinzip}
-\subsection{Schaltplan}
-\subsection{Layout}
-
-\subsection{Ätzen der Platine}
-
-\subsection{Versorgung der Platine}
-Medizintechnische Aspekte
-
-\section[Testroboter PCBs]{Testroboter PCBs \authorkatrin} \label{Testroboter Platinen}
-\subsection{Roboter Main PCB}
-\subsection{Heat PCB}
