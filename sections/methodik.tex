@@ -48,7 +48,7 @@ erfüllen. Also gesendete Kommandos müssen eine Funktion starten. Der Aufbau de
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=12cm]{images/BabycodeDiagramm.png}
-\caption{Oberflächliche Beschreibung des Testroboter Codes}
+\caption{Oberflächliche Beschreibung des Testroboter Codes (Erstellt mit Lucid Flowchart)}
 \label{fig:Roboter_Code_Aufbau}
 \end{figure}
 
@@ -88,9 +88,9 @@ Für das Erstellen des Spalten Layouts werden bestimmte Funktionen angewendet, s
 
 \begin{lstlisting}[language=Python, caption={Tabellen Layout Interface}, label={lst:gui.py:table}, firstnumber=10]
 with dpg.table(header_row = False): 
-    dpg.addtablecolumn(); 
-    dpg.addtablecolumn(); 
-    dpg.addtablecolumn(); 
+    dpg.add_table_column(); 
+    dpg.add_table_column(); 
+    dpg.add_table_column(); 
 
     with dpg.table_row():
          with dpg.group():
@@ -314,6 +314,12 @@ class CommandCallback :
     }
   }
 \end{lstlisting}
+\noindent in Listing \ref{lst:main.c:commandcb} zusehen ist die Funktion onWrite(), also wenn die 
+Characteristic vom Client beschrieben wird, wird der Wert in die Vairable cmd gespeichert (Zeile 57). 
+Je nachdem welcher Button gedrückt wurde wird ein anderer Wert geschickt, wie in Listing \ref{lst:ble.py:callbacks} nachzulesen. 
+Dieser wird mithilfe eines switch-case ausgewertet. Jeder Button setzt seine spezifische flag true wenn er gedrückt wird. Empfängt der 
+ESP beispielsweise das Kommando für das Einschalten der Wärmequelle wird diese flag gesetzt (Zeile 62). Mithilfe dieser flags erfolgt die 
+weitere Reglelung. 
 
 \subsubsection{SchedTask Bibliothek}
 Beim Testen der Anwendungen sind öffter Fehler durch das Blockieren von verschiedenen Komponenten durch einzelne 
@@ -336,25 +342,97 @@ SchedTask Heatcontrol(0, 300, HeatMonitor);
 Für die Implementierung eines Tasks, wird diesem ein Name zugewiesen, beispielsweise BLECommands,
 eine Startzeit, in diesem Fall 0. Somit startet der Task bei 0ms Laufzeit. Der zweite Parameter bestimmt in welchem
 Intervall der Task wiederholt werden soll, in diesem Fall alle 50ms. Am Ende wird die Funktion übergeben
-die alle 50ms ab 0ms Laufzeit aufgerufen werden soll. Dadurch haben wir in der klassischen loop() nur eine 
+die alle 50ms ab 0ms Laufzeit aufgerufen werden soll. Die Funktion BleCmd()
+überprüft ob eine der Kommandoflags aus Listing \ref{lst:main.c:commandcb} gestetzt wurde. 
+Diese Implementierunf ist in Listing \ref{lst:main.c:SchedTask} zu sehen.
+Dadurch haben wir in der klassischen loop() nur eine 
 SchedTask dispatcher() Funktion, wie in Listing \ref{lst:main.c:loop} gezeigt. 
 \begin{lstlisting}[language=C++, caption= {Loop}, label={lst:main.c:loop}, firstnumber=176]
 void loop() {
-
 SchedBase::dispatcher(); 
-
 }
 \end{lstlisting}
 \noindent
 
+\subsubsection{Servo Ansteuerung} %\subsubsection{ServoEasing Bibliothek}
+Die Ansteuerung der Servos erfolgt mit der Biblothek ServoEasing \cite{servoeasing_lib}. Die ServoEasing Bibliothek ist speziell für eine sanfte 
+Ansteuerung der Motoren ausgelegt. Wenn mittels PWM ein Zielwinkel gesendet wird, ist dieser nicht sofort der Sollwinkel,
+sondern wird intern auf mehrer kleine Zielwinkel heruntergerechnet. Der Servo dreht sich also in kleinen Etappen ans Ziel, was einen sanfteren 
+Bewegungsablauf hervorruft. Zusätzlich gibt es die Möglichkeit ServoCallback-Funktionen zu implementiern. 
+Diese werden über eine Handle Funktion einem Servo zugewiesen. Bei Ankunft des Servos an seiner Zielposition wird diese Callback-Funktion aufgrufen.
+Das ist sehr hilfreich wenn man den Servo zum Beispiel für eine gewisse Anzahl von Sequenzen hin und her bewegen will. Der Aufbau dieser
+Anwendung mithilfe der ServoEasing Funktionen ist in Listing \ref{lst:main.c:handler} veranschaulicht. Dieses Prinzip wird zusammen  mit einer State Machine für die Ansteuerung der Servos eingesetzt. 
+\begin{lstlisting}[language=C++, caption={ServoCallback mit ServoEasing Funktionen}, label={lst:main.c:handler}, firstnumber=160]
+// in setup()
+Servo1.setTargetPositionReachedHandler(Servo1TargetReachedHandler);
+Servo1.setSpeed(90);  
+
+// in State Machine
+Servo1TargetReachedHandler(&Servo1);
+\end{lstlisting}
+\noindent
+Jede Callbackfunktion wird einem Servo zugewiesen (Zeile 161), beispielsweise Servo1 (für den Roboter gibt es vier Servos und somit 4 verschiedne ServoCallback-Funktionen), das passiert mithilfe der Funktion 
+setTargetPositionReachedHandler() der Übergabeparameter ist die auf die eigene Anwendung programmierte Callback-Funktion. Eine bestimmte Geschwindigkeit 
+kann mit Servo1.setSpeed() angegeben werden (Zeile 162). Um den Callback Zyklus zu aktivieren muss die Callback-Funktion einmal aufgerufen werden (beispielhaft in Zeile 165 oder genauer in \ref{lst:main.c:tw} ). 
+\par\vspace{1em}
+\noindent
+Aufgrund der verschiedene Bewegungsmuster die angesteuert werden können, gibt es viele verschiedene Sequenzen wie die Motoren sich bewegen müssen. Deshalb wurde zur implementierung 
+eine State Machine aufgebaut siehe Abbildung \ref{fig:statediagramm}. 
+\begin{figure}[H]
+\centering
+\includegraphics[width=13cm]{images/statediagramm.png}
+\caption{Statediagramm Servo-Steuerung (Erstellt mit Lucid Flowchart)}
+\label{fig:statediagramm}
+\end{figure}
+\noindent
+Jeder Zustand beschreibt eine Bewegungsequenz. Wobei es jederzeit möglich ist mehr Bewegungsmuster zu implementieren. Die Bedingung um einen State zu erreichen sind die 
+state\_commands, die mit CMD\_x beschrieben sind. 
+
+\paragraph{twitching (TW)} entspricht einer diagonalen Bewegung von einem Arm und einem Bein, abwechselnd mit dem anderen Paar. Es werden also alle vier Servomotoren benötigt.
+\paragraph{gross movement (GM)} stellt die Bewegung beider Beine dar. 
+\paragraph{localized movement (LM)} hier gibt es einmal die Variante der Bewegung des rechten Beins und einmal die der Bewegung des linken Beins. 
+\noindent
+
+\begin{lstlisting}[language=C++, caption={setzten des state\_commands}, label={lst:main.c:statecmd}, firstnumber=223]
+void BleCmd(){
+  if (tw_flag){
+    tw_flag = false; 
+    state_commands = CMD_TWITCHING; 
+  }
+  ...
+}
+\end{lstlisting} 
+Die Statemachine wird in der Funktion BleCmd() sobalt eine der bewegungsbezogenen Kommandoflags gesetzt wurde gestartet indem ein state\_command gesetzt wird, siehe 
+Listing \ref{lst:main.c:statecmd}
+\noindent 
+Die Statemachine selbst ist in der Funktion ServoSM() programmiert, welche als SchedTask aufgebaut alle 200ms 
+aufgerufen wird. Gibt es eine Änderung des state\_commands wird der Zustand geändert und der executionstate auf ENTRY gesetzt. 
+Dieser Executionstatus Zustand ist aufgrund der zyklischen Wiederholung von ServgoSM() notwending.
+Sonst könnte es passieren dass ein State also eine Bewegungssequenz nie ganz durchlaufen kann. 
+\noindent
+Der des Aufbau des switch-case der Zustände ist anhand des Zustands TW in Listing \ref{lst:main.c:tw} beschrieben. 
+\begin{lstlisting}[language=C++, caption={Was passiert bei einem Bewegungszustand}, label={lst:main.c:tw}, firstnumber=454]
+    case TW:
+    if(state_executionstate == ENTRY){
+      state_executionstate = DURING;
+      Servo1TargetReachedHandler(&Servo1); 
+      Servo2TargetReachedHandler(&Servo2); 
+      Servo3TargetReachedHandler(&Servo3); 
+      Servo4TargetReachedHandler(&Servo4); 
+    }
+    break; 
+\end{lstlisting}
+\noindent 
+Hier wird die Bewegung der Servos mit der dem triggern der ServoCallback-Funktionen gestartet. 
+
+
+
  
 
-\subsubsection{ServoEasing Bibliothek}
-\begin{lstlisting}[language=C++]
-    
 
-    
-\end{lstlisting}
+
+
+
 
 \section[HF sicher layouten]{HF sicher layouten\authorkatrin}
 %Antenne von ESP wo und warum
