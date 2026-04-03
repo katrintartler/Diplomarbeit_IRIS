@@ -205,7 +205,6 @@ können 115200 Signaleinheiten pro Sekunde übertragen werden. \cite{riverdi_bau
 \noindent
 Eine Baudrate von 115200 ist groß genug, um für unser System Echtzeit-Daten zu liefern. Diese Erkenntnis wurde durch Testen und Beobachtungen bestätigt.
 
-
 \subsubsection[ESP B - Datenübertragung]{ESP B - Datenübertragung\authorlinda}
 Der Mikrokontroller ESP B ist ein ESP32 NodeMCU Module WLANWiFi Developement Board mit CP2102, 
 da dieser ESP32 die benötigte WLAN Funktionalität anbietet. \cite{azdelivery_esp32}
@@ -257,8 +256,6 @@ Durch die offene Kommunikation können neue Informationen vom Server bereitgeste
 \noindent
 WebSocket ist kein Ersatz für HTTP, sondern kann verwendet werden, wenn man schnelle Ladezeiten und Echtzeit Anwendungen benötigt, was bei HTTP nicht immer garantiert ist, 
 da der Client zuerst eine Anfrage senden muss und dann auf die Antwort warten muss. \cite{ionos_websocket} \cite{heise_websocket} Da bei unserem System eine Echtzeit Übertragung benötigt wird, bietet es sich an WebSocket zu verwenden.
-
-
 
 \subsubsection[PWA - Progressive Web App]{PWA - Progressive Web App\authorlinda}
 Die Progressive Web App, abgekürzt PWA, ist die Schnittstelle zum Benutzer unseres Systems und dient der Visualisierung der erfassten Daten. Die PWA ermöglicht es, dass der Benutzer, in unserem Fall die Eltern, Zugriff auf die Echtzeit Daten ihres Kindes, über einen Webbrowser, haben und bildet die Verbindung zwischen dem technischen System und der Anwendungsschicht.
@@ -343,5 +340,4 @@ Ein Service Worker ist Teil einer Webtechnologie, bei welcher mittels JavaScript
 
 \noindent
 Aufgrund dieser Eigenschaften sind Service Worker ein wichtiger Aspekt bei der Entwicklung einer PWA. \cite{rytewiki_serviceworker}
-
 \newpage
