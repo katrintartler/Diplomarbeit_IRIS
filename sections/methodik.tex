@@ -354,7 +354,7 @@ SchedBase::dispatcher();
 \end{lstlisting}
 \noindent
 
-\subsubsection{Servo Ansteuerung} %\subsubsection{ServoEasing Bibliothek}
+\subsubsection{Servo Ansteuerung} 
 Die Ansteuerung der Servos erfolgt mit der Biblothek ServoEasing \cite{servoeasing_lib}. Die ServoEasing Bibliothek ist speziell für eine sanfte 
 Ansteuerung der Motoren ausgelegt. Wenn mittels PWM ein Zielwinkel gesendet wird, ist dieser nicht sofort der Sollwinkel,
 sondern wird intern auf mehrer kleine Zielwinkel heruntergerechnet. Der Servo dreht sich also in kleinen Etappen ans Ziel, was einen sanfteren 
@@ -423,7 +423,67 @@ Der des Aufbau des switch-case der Zustände ist anhand des Zustands TW in Listi
     break; 
 \end{lstlisting}
 \noindent 
-Hier wird die Bewegung der Servos mit der dem triggern der ServoCallback-Funktionen gestartet. 
+Hier wird die Bewegung der Servos mit der dem triggern der ServoCallback-Funktionen gestartet. Um die Ansteuerung der Servos mit dem Bewegungssequenzen
+abstimmen zu können wurden die Zielwinkel in Look-Up-Tables (LUT) geschrieben. Am Beispiel des Zustands TW ist dies in Listing \ref{lst:main.c:LUT} beschrieben. 
+\begin{lstlisting}[language=C++, caption={Zielwinkel Ansteuerung mit LUT}, label={lst:main.c:LUT}, firstnumber=277]
+int TWITCHING_lut[SEQUENCES][SERVOS] = {
+ //S1 S2 S3 S4 
+  {50,0,0,50},
+  {0,50,50,0},
+  {50,0,0,50},
+  {0,50,50,0}
+}; 
+\end{lstlisting}
+\noindent 
+Mthilfe dieser Tabelle werden immer die richtigen Winkel angefahren. Veranschaulicht am Beispiel des Servo1 in Funktion Servo1TargetReachedHandler() im Zustand TW 
+wird das in Listing \ref{lst:main.c:alles}. Servo1 wird aber auch in anderen States gebraucht, deshalb das switch-case der Zustände. 
+\begin{lstlisting}[language=C++, caption={Anfahren der Winkel}, label={lst:main.c:alles}, firstnumber=298]
+void Servo1TargetReachedHandler(ServoEasing *aServoEasingInstance){
+  switch(states){
+    
+    case TWITCHING:
+      if (counter1 < SEQUENCES){
+        Servo1.startEaseTo(TWITCHING_lut[counter1][0]);
+        counter1++; 
+        state_commands = CMD_IDLE; 
+      }
+      else {
+        states = IDLE; 
+        counter1 = 0; 
+      }
+    break; 
+    ... 
+  }
+}
+\end{lstlisting} 
+\noindent
+
+\subsubsection{Audio Ansteuerung}
+Die Steuerung der Audiodateien läuft im BleCmd() SchedTask, mithilfe der Bibliothek DFRobotDFPlayerMini siehe Listing \ref{lst:main.c:audio}
+\begin{lstlisting}[language=C++, caption={Audio Ansteuerung, Beispiel:weinen}, label={lst:main.c:audio},firstnumber=240]
+if(crying_flag){ 
+    myPlayer.volume(10);
+    myPlayer.play(1);
+    crying_flag = false; 
+  }
+\end{lstlisting}
+\noindent 
+Die Tonaufnahmen wurden vorher auf die MicroSD-Karte geladen und mit 000x.mp3 angespeichert, damit das Modul mit play() darauf zugreifen kann.
+Die Ausgabe in BleCmd ist noch optimierbar indem sie aus dieser Funktion ausgelagert, und die Statemachine erweitert wird. 
+
+\subsubsection{Wärme Ansteuerung}
+Die Ansteuerung der Wärmequelle ist softwaretechnisch nur mit dem setzten eines Ausganges implementiert. Da der Rest der Steuerung mittels Halbleiterkomponenten
+auf der Platine realisiert wurde, siehe \ref{TRMain PCB}. Auch das setzten des GPIOs passiert derzeit in der BleCmd Funktion, siehe Listing \ref{lst:main.c:heat}.
+\begin{lstlisting}[language=C++, caption={Wärme Ansteuerung}, label={lst:main.c:heat},firstnumber=262]
+if(heat_on_flag){
+    heat_on_flag = false; 
+    digitalWrite(HeatControl,HIGH); 
+  }
+  if (heat_off_flag){
+    heat_off_flag = false; 
+    digitalWrite(HeatControl,LOW); 
+  }
+\end{lstlisting}
 
 
 
@@ -432,24 +492,20 @@ Hier wird die Bewegung der Servos mit der dem triggern der ServoCallback-Funktio
 
 
 
+\section[Aufbau Testroboter]{Aufbau Testroboter\authorkatrin}
+\subsection[Motoren]{Motoren\authorkatrin}
+Ursprünglich wurden Schrittmotoren zur Bewegungsansteuerung ausgewählt. Der Schrittmotor 28BJY-48 war aus einem anderen Projekt noch verfügbar 
+und als erste Idee in Betracht gezogen worden. Bei einem Test mit den Puppenbeinen mussten wir jedoch feststellen, dass dieser nicht ausreichte um die Gliedmaßen zu bewegen.
+Daher gab es einen Austausch und wir haben den RC Digital Servo 14KG, mit DC Motor benutzt. 
 
-
-\section[HF sicher layouten]{HF sicher layouten\authorkatrin}
-%Antenne von ESP wo und warum
-
-\section[Motoren Switch]{Motoren Switch\authorkatrin}
-%Stepper auf stärkere Servos
-%3D Designs vergleichen
-
-\section[3D Konstruktionen]{3D Konstruktionen\authorkatrin} \label{3D Konstruktionen}
+\subsection[3D Konstruktionen]{3D Konstruktionen} \label{3D Konstruktionen}
 
 \section[Main PCB]{Main PCB\authorlinda}
 \subsection{Prinzip}
-
 \subsection{Schaltplan}
-
 \subsection{Layout}
-
 \subsection{Ätzen der Main Platine [K]}
 
 \section[Testroboter PCBs]{Testroboter PCBs \authorkatrin} \label{Testroboter Platinen}
+\subsection{Roboter Main PCB}
+\subsection{Heat PCB}

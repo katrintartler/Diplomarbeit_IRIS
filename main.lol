@@ -18,6 +18,10 @@
 \contentsline {lstlisting}{\numberline {2.15}ServoCallback mit ServoEasing Funktionen}{31}{lstlisting.2.15}%
 \contentsline {lstlisting}{\numberline {2.16}setzten des state\_commands}{32}{lstlisting.2.16}%
 \contentsline {lstlisting}{\numberline {2.17}Was passiert bei einem Bewegungszustand}{33}{lstlisting.2.17}%
+\contentsline {lstlisting}{\numberline {2.18}Zielwinkel Ansteuerung mit LUT}{33}{lstlisting.2.18}%
+\contentsline {lstlisting}{\numberline {2.19}Anfahren der Winkel}{34}{lstlisting.2.19}%
+\contentsline {lstlisting}{\numberline {2.20}Audio Ansteuerung, Beispiel:weinen}{34}{lstlisting.2.20}%
+\contentsline {lstlisting}{\numberline {2.21}Wärme Ansteuerung}{35}{lstlisting.2.21}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 

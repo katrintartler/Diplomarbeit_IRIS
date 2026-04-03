@@ -1,11 +1,11 @@
 \section[Testroboter]{Testroboter\authorkatrin}
 
-\subsection{BLE und Interface} %1.6.1
+\subsection{Bluetooth Low Energy (BLE) und Interface} %1.6.1
 
 \subsubsection{ESP32}
-Der ESP32 ist das zentrale Streuerungselement des Testroboters. Damit wird die Bewegungs-, Geräusch- und Wärmesimulation angesteuert. Der ESP32 ist ein
-system-on-chip (SOC) Microcontroller. Das bedeutet er umfasst viele Funktionen wie CPU, RAM, Microcontroller, und unterstützender Hardware, aufgebaut in einem Dev-Board.
-Wir benutzten den ESP32 DevKit C4
+Der ESP32 ist das zentrale Steuerungselement des Testroboters. Damit wird die Bewegungs-, Geräusch- und Wärmesimulation angesteuert. Der ESP32 ist ein
+system-on-chip (SOC) Microcontroller. Das bedeutet er umfasst viele Funktionen wie CPU, RAM, Microcontroller und unterstützender Hardware, aufgebaut in einem Dev-Board.
+Wir benutzten den ESP32 DevKit C4.
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=8cm]{images/ChipVSSoc.jpg}
@@ -14,17 +14,17 @@ Wir benutzten den ESP32 DevKit C4
 \end{figure}
 
 \noindent
-Damit der Testroboter für die entsprechenden Tests des Bettchens benutzt werden kann, wird mithilfe von BLE \ref{BLE Architektur} vom ESP32  
+Damit der Testroboter für die entsprechenden Tests des Bettchens benutzt werden kann, wird mithilfe von Bluetooth Low Energy (BLE) \ref{BLE Architektur} vom ESP32  
 zu einem Laptop eine Verbindung hergestellt. Dort kann man zu Testzwecken die verschiedenenen Simulationsparameter in beliebigen Sequenzen 
 ansteueren. \cite{esp32_devkitc_v4_datasheet}
 
 
 \subsubsection{BLE Architektur} \label{BLE Architektur}
-Bluetooth Low Energy ist eine Bluetooth Protokoll, das im Vergleich zu Classic Bluetooth einen geringeren Stromverbrauch hat 
+Bluetooth Low Energy (BLE) ist eine Bluetooth Protokoll, das im Vergleich zu Classic Bluetooth einen geringeren Stromverbrauch hat 
 und somit auch einen niedrigere Datentransferrate erreicht.
 Es wird vor allem im Bereich Internet of Things (IoT) und für Kommunikation mit Messsensoren benutzt.
 BLE ist nicht kompatibel mit Classic Bluetooth. 
-Das BLE Protokoll ist in drei Schichten geteilt.\cite{espressif_bluetooth_architecture} siehe Abbildung \ref{fig:ble_architektur}
+Das BLE Protokoll ist in drei Schichten aufgeteilt\cite{espressif_bluetooth_architecture} siehe Abbildung \ref{fig:ble_architektur}.
 \begin{itemize}
 \item Application Layer
 \item Host Layer
@@ -40,17 +40,17 @@ Das BLE Protokoll ist in drei Schichten geteilt.\cite{espressif_bluetooth_archit
 
 \noindent
 In der Application Layer können wir unsere Anwendung mit BLE realisieren.
-Hier implementiert man seine Anforderungen. In der Host Layer findet die Kommunikation zwischen Benutzeranwendung und Controllinterface
-der Hardware statt, man nennt diese Ebene auch Host Stack. Der in Kombination mit dem Controller Stack den Bluetooth Stack bildet.
-Alle relevanten Bluetooth LE Protokolle der Hostseite sind hier implementiert.
+Hier implementiert man die Anforderungen. In der Host Layer findet die Kommunikation zwischen Benutzeranwendung und Controllinterface
+der Hardware statt. Man nennt diese Ebene auch Host Stack, kombieniert mit dem Controller Stack bilden sie den Bluetooth Stack.
+Alle relevanten BLE Protokolle der Hostseite sind hier implementiert.
 In der letzten Schicht, der Controller Layer finden die physical und die link Layer ihren Platz.
 Sie interagieren direkt mit der Hardware. Die BLE-Protokolle der Host Schicht sind GAP, ATT, GATT, SMP und L2CAP.\cite{espressif_ble_intro}\cite{espressif_bluetooth_architecture}
 \newpage
 
-\subsubsection{GAP (Generic Accsess Profile)} \label{GAP}
-Ist für die Verbindung von zwei BLE-Geräten verantwortlich. 
-Das Protokoll ist in 3 verschiedene Modi geteilt je nachdem welcher Verbindungsgrad erfüllt ist. 
-Innerhalb dieser gibt es Rollen die den Geräten zugeteilt sind. Dies wird in Abbildung \ref{fig:ble_gap} veranschaulicht.\cite{espressif_ble_intro}
+\subsubsection{GAP (Generic Access Profile)} \label{GAP}
+GAP ist für die Verbindung von zwei BLE-Geräten verantwortlich. 
+Das Protokoll ist in drei verschiedene Modi geteilt, je nachdem welcher Verbindungsgrad erfüllt ist. 
+Innerhalb dieser gibt es Rollen, die den Geräten zugeteilt sind. Dies wird in Abbildung \ref{fig:ble_gap} veranschaulicht.\cite{espressif_ble_intro}
  
 \begin{figure}[h]
 \centering
@@ -59,21 +59,21 @@ Innerhalb dieser gibt es Rollen die den Geräten zugeteilt sind. Dies wird in Ab
 \label{fig:ble_gap}
 \end{figure}
 \noindent
-In unserem Projekt übernimmt der ESP32 die Rolle des Servers, und der Laptop ist der Client. 
+In unserem Projekt übernimmt der ESP32 die Rolle des Servers und der Laptop fungiert als Client. 
 Im GAP werden diese Rollen mit Peripheral (Server) und Central (Client) bezeichnet. \cite{espressif_ble_intro}
 Anhand von Abbildung \ref{fig:ble_gap_bsp} lässt sich der Verbindungsaufbau und die unterschiedlichen Rollen welche die Teilnehmener dabei annehmen nachvollziehen. 
 \begin{figure}[h]
 \centering
 \includegraphics[width = 5cm]{images/ble-gap_bsp.png}
-\caption{GAP Verbindungsaufbau (Erstellt mit Lucid Flowchart)}
+\caption{GAP Verbindungsaufbau (erstellt mit Lucid Flowchart)}
 \label{fig:ble_gap_bsp}
 \end{figure}
 \newpage
 
 
 \subsubsection{GATT (Generic Attribute Profile)} \label{GATT}
-Dieses Protokoll basiert auf einer hierarchischen Einteilung von Characteristic, Service und Profile.
-Hier legt der Benutzter eine Anwendung anhand der vorgegebenen Struktur von BLE an. Diese wird in der ATT Layer technisch umgesetzt und gespeichert.
+Das GATT Protokoll basiert auf einer hierarchischen Einteilung von Characteristic, Service und Profile.
+Hier legt der Benutzter eine Anwendung anhand der vorgegebenen Struktur von BLE an. Diese wird in der ATT (Attribute Protocol) Layer technisch umgesetzt und gespeichert,
 siehe \ref{ATT}.
 
 \noindent
@@ -81,12 +81,12 @@ Characteristics sind Datenstrukturen die mit Attributen aufgebaut sind. Sie müs
 Optional gibt es die Möglichkeit noch weitere Descriptor Attributes in einer Characteristic zu implementieren.\cite{espressif_ble_intro}
 \noindent
 Services sind ebenfalls mit Attributen aufgebaut. Ein sogennates Service Declaration Attribute muss definiert sein.
-In einem Service sind mehrere Characteristics mit einer ähnlichen Funktion oder zusammenhängenden Funktionen gesammelt. Sie agieren also nur als Container, und beeinhalten keine Nutzdaten. 
+In einem Service sind mehrere Characteristics mit einer ähnlichen Funktion oder zusammenhängenden Funktionen gesammelt. Sie agieren also nur als Container und beeinhalten keine Nutzdaten. 
 Services werden mit der sogenannten Service UUID (Universal Unique IDentifier) identiviziert. Bei der Wahl dieser kann man auf vordefinerte Service UUIDs zurückgreifen, welche von der Bluetooth Special Interest Group (Bluetooth SIG) zusammengefasst wurden. 
 Die Bluetooth SIG stellt eine standardisierte Liste an Services für verschiedenste Anwendungen bereit. Diese beeinhalten zum Beispiel ein Service zur Geräteinformation, einen speziellen Battery Service
-oder einen Heart Rate Measurement Service. Während Benutzerdefinierte Service UUIDs 128bit lang sein müssen sind standardisierte Service UUIDs oft nur 8-16bit lang. \cite{predefined_serviceUUIDs} \cite{espressif_ble_intro}
+oder einen Heart Rate Measurement Service. Während benutzerdefinierte Service UUIDs 128bit lang sein müssen sind standardisierte Service UUIDs oft nur 8-16bit lang. \cite{predefined_serviceUUIDs} \cite{espressif_ble_intro}
 \noindent
-Profiles sind die übergeordnetesten Instanzen. Sie müssen gewisse Services haben muss um einen Standard zu erfüllen. 
+Profiles sind die übergeordnetesten Instanzen. Sie müssen gewisse Services haben um einen Standard zu erfüllen. 
 Bei der Verwendung von BLE werden sie im Programmcode nicht definiert, wie Characteristics und Services.
 Ein Profile entsteht in dieser Hinsicht in einem Projekt nur konzeptionell. \cite{espressif_ble_intro}
 
@@ -112,12 +112,13 @@ Im Vergleich zu Bluedroid ist NimBLE eine kompaktere Anwendung, welche weniger S
 NimBLE ressourcenschonender und effizienter. Es ist nur für BLE geeignet und kann nicht zur Kommunikation mit Classic Bluetooth benutzt werden. \cite{espressif_nimble} \cite{apache_nimble}
 
 \subsubsection{Bleak} \label{Bleak}
-Bleak ist ein ist ein Python API die es ermöglicht mit BLE-Geräten in Verbindung zu treten und zu kommunizieren.
-Auch hier ist der Name Programm. Bleak steht für Bluetooth Low Energy Platform Agnostik Klient. 
-Das bedeutet das egal welche Plattform oder Betriebssystem genutzt wird, die Anwendung funktioniert flexibel. \cite{bleak_docu}
+Bleak ist ein ist ein Python API welches es ermöglicht mit BLE-Geräten in Verbindung zu treten und zu kommunizieren.
+Auch hier ist der Name Programm. Bleak steht für Bluetooth Low Energy platform Agnostik Klient. 
+Das bedeutet das egal welche Plattform oder welches Betriebssystem genutzt wird, die Anwendung funktioniert. Somit ist es flexibel
+einsetzbar. \cite{bleak_docu}
 
 \subsubsection{Dear PyGui} \label{Dear PyGui}
-Mit der Python Bibliothek Dear PyGui (DPG) lassen sich einfache GUI (Graphical User Interface) Anforderungen in Python realisieren.
+Mit der Python Bibliothek Dear PyGui (DPG) lassen sich einfache GUI (Graphical User Interface) Anwendungen in Python realisieren.
 Man nutzt sie zur Erstellung von Diagrammen, Tabellen und einfachen bis komplexen User Interfaces.
 DPG ist dynamisch, GPU-beschleunigt und sehr anwenderfreundlich. \cite{dpg_docu}
 
