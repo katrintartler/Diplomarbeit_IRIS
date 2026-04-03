@@ -158,14 +158,14 @@ In der Abbildung \ref{fig:EBV_adc-funktion} wird dargestellt, wie die Umwandlung
 \label{fig:EBV_adc-funktion}
 \end{figure}
 
-\paragraph{Hauptaufgabe ESP A: (überarbeiten)}
+\paragraph{Hauptaufgabe ESP A:}
 Die Hauptaufgabe des ESP A ist die kontinuierliche Aufnahme von Daten. Die Sensoren liefern analoge Werte, weshalb sie, bevor sie vom Mikrokontroller verarbeitet werden können, in digitale Werte umgewandelt werden müssen. Das geschieht intern im ESP32 NodeMCU, denn der ESP32 NodeMCU hat zwei Analog-Digital-Converter (ADC) verbaut und 
 diese wandeln die analogen Werte in digitale Werte, mit denen der Mikrokontroller arbeiten kann. \cite{azdelivery_esp32} \cite{espressif_adc}
 
 %\par\vspace{1em}
 
 \noindent
-Nachdem der ADC die Messwerte in brauchbare Werte umgewandelt hat, kann der ESP A diese weiterleiten. Da die Werte durch den ESP A kontinuierlich erfasst und weitergegeben werden, ist eine Echtzeit-Datenerfassung möglich. Welche ein wichtige Rolle für das System spielt, denn somit kann man den Eltern den Verlauf der Daten visualisieren und ihnen Live-Updates geben.
+Nachdem der ADC die Messwerte in brauchbare Werte umgewandelt hat, kann der ESP A diese weiterleiten. Da die Werte durch den ESP A kontinuierlich erfasst und weitergegeben werden, ist eine Echtzeit-Datenerfassung möglich. Welche ein wichtige Rolle für das System spielt, denn somit kann man den Eltern, den Verlauf der Daten visualisieren und ihnen Live-Updates geben.
 
 %\par\vspace{1em}
 
@@ -223,7 +223,7 @@ Der ESP B  nutzt die WLAN Funktionalität des ESP32 NodeMCU, um sich mit dem Net
 kann sich mit dem ESP B verbinden und die Daten vom ESP B abrufen. \cite{}
 
 \noindent
-Externe Geräte können diese Daten, nur abrufen solange sie sich im gleichen Netzwerk wie der ESP B befinden.\cite{} Diese Lösung ist für unser System ausreichend, weil sich die Eltern, während des Schlafs ihres Kindes meistens im selben Haus und damit im selben Netzwerk, wie das Babybettchen befinden und können die Daten abrufen. 
+Externe Geräte können diese Daten, nur abrufen solange sie sich im gleichen Netzwerk wie der ESP B befinden. Diese Lösung ist für unser System ausreichend, weil sich die Eltern, während des Schlafs ihres Kindes meistens im selben Haus und damit im selben Netzwerk, wie das Babybettchen befinden und können die Daten abrufen. 
 
 \noindent
 WLAN Kommunikations Theorie?? % ????????????
@@ -265,11 +265,87 @@ da der Client zuerst eine Anfrage senden muss und dann auf die Antwort warten mu
 
 
 \subsubsection[PWA - Progressive Web App]{PWA - Progressive Web App\authorlinda}
+Die Progressive Web App, abgekürzt PWA, ist die Schnittstelle zum Benutzer unseres Systems und dient der Visualisierung der erfassten Daten. Die PWA ermöglicht es, dass der Benutzer, in unserem Fall die Eltern, Zugriff auf die Echtzeit Daten ihres Kindes, über einen Webbrowser, haben und bildet die Verbindung zwischen dem technischen System und der Anwendungsschicht.
+
+\paragraph{Grundlagen PWA:}
 
 
-\par\vspace{1em}
+\paragraph{Aufbau der Anwendung:}
+Die PWA ist modular aufgebaut, denn es herrscht eine klare Trennung der einzelnen Komponenten und ermöglicht dadurch, eine strukturierte Entwicklung und Erweiterung der Anwendung. Die Struktur der Anwendung wird durch HTML definiert und die visuelle Gestaltung und das Layout werden durch CSS festgelegt.
 
 \noindent
-Flutter vs. PWA ???
+Die zentrale Logik der Anwendung wird durch JavaScript realisiert. Dazu gehören der Aufbau der WebSocket Verbindung zum Server, über welchen die Echtzeit Daten empfangen werden. Die eingehenden Daten werden verarbeitet, in ein passendendes Format überführt und dann für die Visualisierung weiter verwendet. JavaScript ist ebenfalls für die Benutzeroberfläche und die Aktualisierung der Daten verantwortlich.
+
+
+\paragraph{HTML:}
+Hypertext Markup Language, auch bezeichnet als HTML, ist keine Programmiersprache, sondern eine Markup- oder Auszeichnungssprache, da sie keine logischen Abläufe ausführen kann. HTML bildet das Grundgerüst einer Webseite, indem sie eine Webseite mit einem statischen, textbasierten Syntax beschreibt und unterteilt.
+\noindent
+HTML besteht grundsätzlich aus drei Elementen:
+\begin{itemize}
+    \item Doctype
+    \item HTML-Kopf
+    \item HTML-Körper
+\end{itemize}	
+Der Doctype wird am Beginn eines HTML Codes deklariert, um dem Browser zu zeigen, um welchen Dokumenttyp und HTML Version es sich handelt. Im HTML-Kopf befinden sich die Metainformationen und weitere Angaben, diese leitet der Kopf an den Browser weiter. Im HTML-Körper werden alle Informationen beschrieben, 
+die für die Webseiten Besucher sichtbar sein sollen. \cite{ionos_html}
+
+\noindent
+Mithilfe von Tags werden neue Elemente geöffnet und geschlossen, wie die drei Hauptelemente, aber auch Elemente die sich in den Hauptelementen befinden.
+\begin{itemize}
+    \item Mit dem Opening Tag < > wird der Anfang eines neuen Elements markiert.
+    \item Mit dem Ending Tag </> wird das Ende eines Elements gekennzeichnet. Jedes Element, außer der Doctype, benötigen einen Ending Tag.
+    \item Zwischen diesen beiden Tags befindet sich der Tag-Inhalt, dieser Inhalt wird im Browser dargestellt oder ausgeführt. \cite{ionos_html}
+\end{itemize}
+In der Abbildung \ref{fig:html-grundstruktur} wird dargestellt wie die grundsätzlich Struktur eines HTML Dokuments ausschaut. Es werden der Doctype, HTML-Kopf, HTML-Körper und die Tags veranschaulicht.
+\begin{figure}[H]
+\centering
+\includegraphics[width = 12cm]{images/html-grundstruktur.png}
+\caption{Grundstruktur eines HTML Dokuments (Quelle: IONOS, URL: \url{https://www.ionos.at/digitalguide/websites/web-entwicklung/was-ist-html/} , besucht: 03.04.2026)}
+\label{fig:html-grundstruktur}
+\end{figure}
+
+\paragraph{CSS:}
+Cascading Style Sheets, bekannt als CSS, ist eine Programmiersprache, mit der man das Design der Strukturierung von HTML festlegen kann. Wenn man mit HTML den Inhalt bestimmt, kann man mit CSS das Layout, die Farben und die Typografie anpassen. 
+Auch wenn CSS und HTML miteinander verknüpft sind, bestehen sie unabhängig voneinander. \cite{ionos_css}
+
+\paragraph{JavaScript:}
+JavaScript, abgekürzt als JS, ist eine Skriptsprache, welche in der Webentwicklung Branche verbreitet ist. Sie wird für die Einbindung von dynamischen Elementen einer Webseite genutzt und 
+bildet somit eine Ergänzung zu HTML und CSS. \cite{seokueche_js}
+
+\noindent
+Um eine JavaScript Code in HTML Dokument einzubinden gibt es verschiedene Optionen: \cite{rytewiki_js}
+\begin{itemize}
+    \item Inline-Variante: der Code kann zwischen den Tags geschrieben werden
+    \item Der Code kann in einer externen Datei untergebracht werden
+    \item Der Code kann ein Parameter von einem HTML-Tag sein
+    \item Der Code kann als HTML-Link eingefügt werden
+\end{itemize}
+
+\paragraph{JSON:}
+Java Script Object Notation, bekannt als JSON, ist ein Datenformat, welches trotz seines Namens keine Bindung an die JavaScript Sprache hat und für den Austausch von Daten zwischen verschiedenen Systemen verwendet wird. Es ist also nicht auf die Nutzung von JavaScript beschränkt, 
+aber es gibt integrierte Funktionen, die das Arbeiten mit JSON erleichtern. \cite{opcRouter_json}
+
+\paragraph{WebSocket Kommunikation im Frontend:}
+Die bidirektionale Kommunikation zwischen PWA und ESP B erfolgt durch WebSocket. Das bedeutet, dass die PWA nach dem Aufbau der Verbindung, kontinuierlich Daten vom ESP B, also dem Server, ohne weitere Anfragen empfangen kann.
+
+\noindent
+Um die Verbindung zum WebSocket Server herzustellen, muss ein Java-Script Objekt erzeugt werden. Die eingehenden Daten werden durch definierte Listener verarbeitet.
+\begin{itemize}
+    \item Bei „onopen“ erfolgt der Aufruf nach dem Herstellen einer Verbindung
+    \item Bei „onclose“ erfolgt der Aufruf sobald die Verbindung vom Server oder Client geschlossen wurde
+    \item Bei „onerror“ erfolgt der Aufruf bei einem Fehler
+    \item Bei „onmessage“ erfolgt der Aufruf sobald die Nachricht vom Server beim Client ankommt
+\end{itemize}			
+„onmessage“ ist für das System relevant, da es bei jedem Senden von neuen Daten ausgelöst wird und so die Sensordaten in Echtzeit weiterverarbeitet und visualisiert.
+
+\noindent
+Sobald der WebSocket eine erfolgreiche Verbindung zwischen dem Server und Client aufgebaut hat, kann der Client mit der Java-Script Funktion send() an den Server Senden. Wenn der Client die Verbindung trennen will, kann er das mit close(). 
+Wird die Verbindung mit close() beendet, wird der „onclose“ Listener getriggert. \cite{heise_websocket}
+
+\paragraph{Service Worker:}
+Ein Service Worker ist Teil einer Webtechnologie, bei welcher mittels JavaScript ein Proxy, also ein Vermittler, zwischen einem Webserver und Browser bereitstellt wird. Er ermöglicht es, Netzwerkanfragen abzufangen und Daten lokal zu speichern (cachen), sodass eine Webseite auch ohne aktive Netzwerkverbindung genutzt werden kann. Die erforderlichen Daten, werden bei einem vorherigen Besuch der Webseite, bei welcher die Internetverbindung gegeben ist, im Cache abgelegt.
+
+\noindent
+Aufgrund dieser Eigenschaften sind Service Worker ein wichtiger Aspekt bei der Entwicklung einer PWA. \cite{rytewiki_serviceworker}
 
 \newpage
