@@ -44,7 +44,7 @@ da dieses die gewünschten Anforderungen erfüllen konnte. \cite{costway_reisebe
 \begin{figure}[H]
 \centering
 \includegraphics[angle = 270, width = 11cm]{images/ganzes-Babybett.jpeg}
-\caption{bestelltes Reisebabybettchen (fotografiert)}
+\caption{bestelltes Reisebabybettchen}
 \label{fig:ganzes-Babybett}
 \end{figure}
 
@@ -71,7 +71,7 @@ Für die Verkabelung der Drucksensoren sind isolierte Kupferkabel, in den Farben
 \begin{figure}[H]
 \centering
 \includegraphics[width = 10cm]{images/babybett-drucksensoren-matratze.jpeg}
-\caption{Babybettchen Matratze mit Drucksensoren (fotografiert)}
+\caption{Babybettchen Matratze mit Drucksensoren }
 \label{fig:babybett-drucksensoren-matratze}
 \end{figure}
 
@@ -92,10 +92,14 @@ Die Befestigung der Platine, hat unter den Zeitproblemen gelitten und wurde nur 
 siehe Abbildung \ref{fig:ganzes-Babybett}. Dieser provisorische Aufbau dient dazu, dass die Verkabelung des Babybettchens nicht unter der Bewegung der Platine leidet. Denn ohne diesen würde die Platine in der Luft schweben und durch die Verkabelung gehalten werden, was wiederum einen Belastung für die Verkabelung darstellt. 
 Im Punkt \ref{Platinen-Gehäuse} wird dieser Aspekt genauer behandelt.
 
-\subsection{Spannungsversorgung} \label{medizinischtechnisch}
-%maybe so der generelle Konsenz von diesem ganzen medizinisch-technischem Spannungsding und den Richtlinien und sowas? 
+\subsection{Spannungsversorgung} 
 %und dann bei deim PCB punkt nur wie man es dann quasi umgesetzt hat  
-%ich könnte mich dann bei meinem Spannungsversorgungs ding darauf beziehen, queerverweise und so
+In Theorie ist das Babybettchen ein medizintechnisches Gerät, da über Sensoren Werte eines Babys erfasst und ausgewertet werden sollen. Unser System erfüllt nicht die hohen Anforderungen eines tatsächlichen medizintechnischen Produktes, dennoch versuchten wir uns  bei der Spannungsversorgung an den grundlegenden Richtlinien zu orientieren, indem das Babybettchen nicht direkt an das öffentliche Spannungsnetz angeschlossen wurde.
+
+\par\vspace{1em}
+
+\noindent
+Da unser System, durch die geplanten Sensoren einen hohen Stromverbrauch gehabt hätte, wäre es nicht sinnvoll gewesen eine Standard 9V Batterie zu verwenden. Der Stromverbrauch des geplanten Systems wurde überschlagsmäßig auf annähernd 1A geschätzt und würde eine 9V Batterie in etwa einer halben Stunde vollständig entleeren. Außerdem ist zu beachten, dass eine 9V Batterie für derartig hohe Ströme nicht ausgelegt ist. Weshalb wir uns dazu entschieden haben eine Powerbank, von der Marke Varta, zu verwenden. Der Hauptvorteil der Powerbank war, dass selbst wenn diese leer war, wieder aufgeladen werden konnte.
 
 \section{Grundlegende Systemarchitektur\authorlinda}
 Für die grundlegende Systemarchitektur des Babybettchens war es geplant, dass Sensoren die Bewegung, Temperatur und Geräusche des Babys messen und diese Messwerte mit einem Mikrokontroller verarbeitet werden. Nach der Auswertung der Daten, sollten diese mit dem Mikrokontroller an die nächste Stufe des Systems weitergeleitet werden, in dieser nächsten Stufe sollten die Daten und Erkenntnisse für die Eltern visualisiert werden. 
