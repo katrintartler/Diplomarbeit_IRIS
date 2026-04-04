@@ -78,11 +78,13 @@ Für die Verkabelung der Drucksensoren sind isolierte Kupferkabel, in den Farben
 \noindent
 Ohne jegliche Befestigung der Verkabelung, ist es dazu gekommen, dass die Pins der Drucksensoren abgebrochen sind, da sich die Verkabelung durch den Transport viel bewegt hat. Der erste Versuch, um das Problem zu beheben, war die Anbringung eines kleinen Streifen Nanotapes, unter den Lötstellen der Drucksensor Pins. Das war aber keine optimale Lösung, den die Pins haben nur einen kleinen Teil an Stabilität dazu gewonnen. Da sich die Verkabelung weiterhin bewegt hat, hat sich das Nanotape zu lösen begonnen. 
 
+\par\vspace{1em}
+
 \noindent
 Der zweite Lösungsansatz war es, zusätzlich die Verkabelung an der Matratze zu befestigen, um ungewollte Bewegungen zu minimieren. Dieser Ansatz hat Textilkleber und Stoffstücke benötigt. Kurze Zeit hat es die Idee gegeben die Stoffstücke anzunähen. Diese Idee wurde aber verworfen, da man diese mit der Hand hätte festnähen müssen, weil eine Nähmaschine nicht durch die Matratze nähen hätte können und die Schicht, auf der die Drucksensoren befestigt geworden sind, nicht abnehmbar war. 
 Aufgrund dieser Erkenntnisse haben wir uns für den Textilkleber entschieden. Der Textilkleber ist auf beiden Enden der Stoffstücke, in einer schmalen Linie aufgetragen worden und wurde für etwa 10 Sekunden leicht angedrückt. Damit der Textilkleber sich nicht wieder löst, haben wir ihn für 5 Minuten trocknen lassen.
 
-\noindent
+\subsection{Platine}
 In das Netz, des Babybettchens, sind zwei kleine Schlitze, mit einer Breite von 4cm, geschnitten worden, um die Verkabelung zur Platine zu führen. Die Platine befindet sich auf der Unterseite des Babybettchens, damit sie sich nicht mit dem Kind im Babybettchen befindet.
 
 \noindent
@@ -90,14 +92,45 @@ Die Befestigung der Platine, hat unter den Zeitproblemen gelitten und wurde nur 
 siehe Abbildung \ref{fig:ganzes-Babybett}. Dieser provisorische Aufbau dient dazu, dass die Verkabelung des Babybettchens nicht unter der Bewegung der Platine leidet. Denn ohne diesen würde die Platine in der Luft schweben und durch die Verkabelung gehalten werden, was wiederum einen Belastung für die Verkabelung darstellt. 
 Im Punkt \ref{Platinen-Gehäuse} wird dieser Aspekt genauer behandelt.
 
-
 \subsection{Spannungsversorgung} \label{medizinischtechnisch}
 %maybe so der generelle Konsenz von diesem ganzen medizinisch-technischem Spannungsding und den Richtlinien und sowas? 
 %und dann bei deim PCB punkt nur wie man es dann quasi umgesetzt hat wäre 
 %ich könnte mich dann bei meinem Spannungsversorgungs ding darauf beziehen, queerverweise und so
 
+\section{Grundlegende Systemarchitektur\authorlinda}
+Für die grundlegende Systemarchitektur des Babybettchens war es geplant, dass Sensoren die Bewegung, Temperatur und Geräusche des Babys messen und diese Messwerte mit einem Mikrokontroller verarbeitet werden. Nach der Auswertung der Daten, sollten diese mit dem Mikrokontroller an die nächste Stufe des Systems weitergeleitet werden, in dieser nächsten Stufe sollten die Daten und Erkenntnisse für die Eltern visualisiert werden. 
+In der Abbildung \ref{fig:methodik_grundlegende-Systemarchitektur} wird die grundlegende Systemarchitektur dargestellt.
+
+\par\vspace{1em}
+
+\noindent
+Aufgrund von Zeitproblemen, welche durch das falsche Einschätzen wie viel Aufwand ein solches System und besonders der Bau des Testroboters benötigte entstanden sind, mussten wir auf die Inkludierung von Sensoren für die Wärme- und Geräuscherkennung verzichten. Das bedeutet, dass nur die Drucksensoren, welche auf der Matratze des Babybettchens platziert wurden, Daten erfassen und diese an das weitere System senden konnten. 
+
+\begin{figure}[H]
+\centering
+\includegraphics[width = 15cm]{images/methodik_grundlegende-Systemarchitektur.png}
+\caption{Grundlegende Systemarchitektur}
+\label{fig:methodik_grundlegende-Systemarchitektur}
+\end{figure}
+
 \section[ESP Wahl - Babybettchen]{ESP Wahl - Babybettchen\authorlinda}
-\subsection{ESP: Pin Wahl}
+Für den Bau des Babybettchens haben wir uns entschieden, zwei ESP32 NodeMCU Module WLANWiFI Developement Boards mit CP2102 zu verwenden. Die Wahl ist auf einen ESP gefallen, da wir bereits davor, bei einen anderem Projekt, mit einem ESP32 gearbeitet haben und dadurch nützliche Erfahrungen gesammelt haben. Die Entscheidung für den ESP32 basierte nicht nur auf unseren eigenen Erfahrungen, sondern konnte der ESP32 NodeMCU uns auch die technischen Aspekte liefern, die für unser Projekt benötigt wurden.
+
+\par\vspace{1em}
+
+\noindent
+Ein zentrales Kriterium für unser Projekt war es, dass der ESP32 über WLAN Daten senden konnte, welches bei dem ESP32 NodeMCU durch die integrierte WLAN Funktion möglich war. Da diese Funktion direkt im ESP integriert war, mussten wir keine weiteren Hardwarekomponenten einsetzen, welche diesen Part übernehmen hätten müssen, was Kosten und potentielle Fehlerquellen reduzierte. 
+\par\vspace{1em}
+
+\noindent
+Ein weiterer entscheidender Vorteil des ESP32 ist die Rechenleistung, denn dieser kann die eingehenden Daten verarbeiten und die Verwaltung der Netzwerkverbindung übernehmen. Wodurch der ESP gleichzeitig als Kommunikationsschnittstelle und Server für eine WebSocket Verbindung fungieren kann.
+
+\par\vspace{1em}
+
+\noindent
+Zusätzlich verfügt der ESP32 über eine integrierte UART Schnittstelle und zwei Analog-Digital-Converter (ADC). Durch diese Eigenschaften, ermöglicht der ESP32 die einfache Anbindung von Sensoren und die Kommunikation zwischen zwei ESPs. Diese Funktion wird benötigt, da ein ESP32 die Erfassung der Sensordaten übernimmt und diese dann über die UART Schnittstelle an den zweiten ESP32 weiterleitet, welcher die zentrale Kommunikationseinheit des Systems bildet.
+
+\subsection{Warum zwei ESP32?}
 % Adc1 pins
 % warum 2 esp
 
