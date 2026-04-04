@@ -35,7 +35,62 @@ Komponenten des Testroboters ebenfalls mit dem Netzteil zu betreiben, siehe \ref
 %MEMS Mikrophon
 
 %Babybettchen 
+\newpage
 \section[Aufbau des Babybettchens]{Aufbau des Babybettchens\authorlinda}
+Für unser Projekt benötigten wird ein Babybettchen, welches wir mit den notwendigen Sensoren ausstatten konnten. Es wurde in Erwägung gezogen das Babybettchen eigenständig zu bauen, weil das Bettchen relativ transportabel sein sollte und nicht immer am gleichen Ort stehen konnte. Was mit einem Standard Babybettchen nicht gewährleistet ist. Wir haben uns, aber gegen den Bau des Babybettchen entschieden, da dieser einiges an Zeit beansprucht hätte und den Fokus von den System relevanteren Funktionen abgezogen hätte. 
+Der Kompromiss war es ein Reisebabybettchen, siehe Abbildung \ref{fig:ganzes-Babybett}, zu bestellen, 
+da dieses die gewünschten Anforderungen erfüllen konnte. \cite{costway_reisebett} 
+
+\begin{figure}[H]
+\centering
+\includegraphics[angle = 270, width = 11cm]{images/ganzes-Babybett.jpeg}
+\caption{bestelltes Reisebabybettchen (fotografiert)}
+\label{fig:ganzes-Babybett}
+\end{figure}
+
+\subsection{Transport}
+Die Höhe des Babybettchens ist zwischen 67cm und 80cm verstellbar und hat eine Breite von 84cm, wodurch es auch in aufgebauter Form in unseren Autos Platz hatte, um es zu transportieren. Dennoch gab es die Möglichkeit das Babybett zusammen zuklappen und es in der Tragetasche zu transportieren. Sobald die Sensoren verbaut waren ist diese Option weggefallen, da die Verkabelung der Drucksensoren von der Matratze durch das Netz des Babybettchens geführt wurde und auf der Unterseite des Bettchens, mit der Platine verbunden geworden ist.
+
+\par\vspace{1em}
+
+\subsection{Matratze mit Drucksensoren}
+Auf der leicht herausnehmbaren Matratze, des Babybettchens, sind sechs Drucksensoren, mittels der Klebeschicht, welche sich auf der Rückseite der Sensoren befindet, 
+befestigt geworden, siehe Abbildung \ref{fig:babybett-drucksensoren-matratze}. Für die Matratze gibt es einen dünnen Überzug, welcher die Drucksensoren und Verkabelung überdeckt, aber nicht die Funktion der Drucksensoren beeinträchtigt. Damit im Anwendungsfall das Baby nicht direkt auf den Drucksensoren und der Verkabelung liegen würde. 
+
+\par\vspace{1em}
+
+\noindent
+Die Erhöhung der Anzahl der Drucksensoren ist empfehlenswert, siehe \ref{weitere Drucksensoren}, ist in unserem Fall aus finanzieller Betrachtung nicht sinnvoll und realisierbar, 
+da eine 2er Packung der Drucksensoren 11,09EUR gekostet hat. \cite{amazon_drucksensor} Aufgrund dessen haben wir uns für sechs Sensoren entschieden, welche entsprechend der Bewegungsmuster, des Testroboters, platziert geworden sind. 
+In der Abbildung \ref{fig:babybett-drucksensoren-matratze} wird die Matratze des Babybettchens dargestellt und zeigt die Platzierungen der Drucksensoren. 
+Die beiden Drucksensoren, welche sich in der Abbildung \ref{fig:babybett-drucksensoren-matratze} in der untersten „Zeile“ befinden, decken die Strampelbewegungen der Beine ab und die restlichen 4 Drucksensoren sind für die Bewegungen der Arme verantwortlich.
+
+\subsection{Verkabelung}
+Für die Verkabelung der Drucksensoren sind isolierte Kupferkabel, in den Farben Schwarz und Rot gewählt worden. Diese sind an die Pins der Drucksensoren angelötet und bilden eine direkte Verbindung zur Platine des Babybettchens, wo sie mittels Schraubklemmen befestigt geworden sind. Die roten Kabeln führen zu den jeweiligen Mikrokontroller Pins und die schwarzen Kabeln auf Ground. 
+
+\begin{figure}[H]
+\centering
+\includegraphics[width = 10cm]{images/babybett-drucksensoren-matratze.jpeg}
+\caption{Babybettchen Matratze mit Drucksensoren (fotografiert)}
+\label{fig:babybett-drucksensoren-matratze}
+\end{figure}
+
+\noindent
+Ohne jegliche Befestigung der Verkabelung, ist es dazu gekommen, dass die Pins der Drucksensoren abgebrochen sind, da sich die Verkabelung durch den Transport viel bewegt hat. Der erste Versuch, um das Problem zu beheben, war die Anbringung eines kleinen Streifen Nanotapes, unter den Lötstellen der Drucksensor Pins. Das war aber keine optimale Lösung, den die Pins haben nur einen kleinen Teil an Stabilität dazu gewonnen. Da sich die Verkabelung weiterhin bewegt hat, hat sich das Nanotape zu lösen begonnen. 
+
+\noindent
+Der zweite Lösungsansatz war es, zusätzlich die Verkabelung an der Matratze zu befestigen, um ungewollte Bewegungen zu minimieren. Dieser Ansatz hat Textilkleber und Stoffstücke benötigt. Kurze Zeit hat es die Idee gegeben die Stoffstücke anzunähen. Diese Idee wurde aber verworfen, da man diese mit der Hand hätte festnähen müssen, weil eine Nähmaschine nicht durch die Matratze nähen hätte können und die Schicht, auf der die Drucksensoren befestigt geworden sind, nicht abnehmbar war. 
+Aufgrund dieser Erkenntnisse haben wir uns für den Textilkleber entschieden. Der Textilkleber ist auf beiden Enden der Stoffstücke, in einer schmalen Linie aufgetragen worden und wurde für etwa 10 Sekunden leicht angedrückt. Damit der Textilkleber sich nicht wieder löst, haben wir ihn für 5 Minuten trocknen lassen.
+
+\noindent
+In das Netz, des Babybettchens, sind zwei kleine Schlitze, mit einer Breite von 4cm, geschnitten worden, um die Verkabelung zur Platine zu führen. Die Platine befindet sich auf der Unterseite des Babybettchens, damit sie sich nicht mit dem Kind im Babybettchen befindet.
+
+\noindent
+Die Befestigung der Platine, hat unter den Zeitproblemen gelitten und wurde nur provisorisch aufgebaut, 
+siehe Abbildung \ref{fig:ganzes-Babybett}. Dieser provisorische Aufbau dient dazu, dass die Verkabelung des Babybettchens nicht unter der Bewegung der Platine leidet. Denn ohne diesen würde die Platine in der Luft schweben und durch die Verkabelung gehalten werden, was wiederum einen Belastung für die Verkabelung darstellt. 
+Im Punkt \ref{Platinen-Gehäuse} wird dieser Aspekt genauer behandelt.
+
+
 \subsection{Spannungsversorgung} \label{medizinischtechnisch}
 %maybe so der generelle Konsenz von diesem ganzen medizinisch-technischem Spannungsding und den Richtlinien und sowas? 
 %und dann bei deim PCB punkt nur wie man es dann quasi umgesetzt hat wäre 
