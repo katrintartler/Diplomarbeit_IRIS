@@ -9,7 +9,7 @@ Wir benutzten den ESP32 DevKit C4.
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=8cm]{images/ChipVSSoc.jpg}
-\caption{Microcontroller zu system-on-chip \cite{esp32_devkitc_v4_datasheet}}
+\caption{Microcontroller zu system-on-chip \cite{esp32_devkitc_v4_datasheet_bild}}
 \label{fig:ChipVSSoc}
 \end{figure}
 
@@ -34,7 +34,7 @@ Das BLE Protokoll ist in drei Schichten aufgeteilt\cite{espressif_bluetooth_arch
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=7cm]{images/ble-architecture.png}
-\caption{BLE Architektur \cite{espressif_ble_intro}}
+\caption{BLE Architektur \cite{espressif_ble_intro_bild}}
 \label{fig:ble_architektur}
 \end{figure}
 
@@ -55,7 +55,7 @@ Innerhalb dieser gibt es Rollen, die den Geräten zugeteilt sind. Dies wird in A
 \begin{figure}[h]
 \centering
 \includegraphics[width = 5cm]{images/ble-gap.png}
-\caption{BLE GAP \cite{espressif_ble_intro}}
+\caption{BLE GAP \cite{espressif_ble_intro_bild}}
 \label{fig:ble_gap}
 \end{figure}
 \noindent
@@ -114,7 +114,7 @@ NimBLE ressourcenschonender und effizienter. Es ist nur für BLE geeignet und ka
 \subsubsection{Bleak} \label{Bleak}
 Bleak ist ein ist ein Python API welches es ermöglicht mit BLE-Geräten in Verbindung zu treten und zu kommunizieren.
 Auch hier ist der Name Programm. Bleak steht für Bluetooth Low Energy platform Agnostik Klient. 
-Das bedeutet das egal welche Plattform oder welches Betriebssystem genutzt wird, die Anwendung funktioniert. Somit ist es flexibel
+Das bedeutet, dass egal welche Plattform oder welches Betriebssystem genutzt wird, die Anwendung funktioniert. Somit ist es flexibel
 einsetzbar. \cite{bleak_docu}
 
 \subsubsection{Dear PyGui} \label{Dear PyGui}
@@ -127,11 +127,11 @@ DPG ist dynamisch, GPU-beschleunigt und sehr anwenderfreundlich. \cite{dpg_docu}
 \subsection{Bewegungssimulation} %1.6.3
 \subsubsection{Bewegungsabläufe} \label{Bewegungstheorie}
 In einer Studie der Segawa Neurological Clinic for Children aus dem Jahr 1980 sammelten die Forschenden Daten über das Bewegungsverhalten von 25 Säuglingen.
-Mithilfe EKG Messungen und visuelen Beobachtungen kategoriesierten sie die Bewegungen der Kinder in drei Gruppen. \cite{FUKUMOTO198137}
+Mithilfe von EKG Messungen und visuelen Beobachtungen kategoriesierten sie die Bewegungen der Kinder in drei Gruppen. \cite{FUKUMOTO198137}
 \begin{itemize}
     \item GM(gross movements)
 
-    \noindent Die größten Bewegungen, ganze Gliedmaßen werden länger als 0,5s bewegt.
+    \noindent Die größten Bewegungen - ganze Gliedmaßen werden länger als 0,5s bewegt.
     \item LM(localized movements)
     
     \noindent Diese etwas kleineren Bewegungen dauerten auch länger als 0,5s. 
@@ -142,35 +142,35 @@ Mithilfe EKG Messungen und visuelen Beobachtungen kategoriesierten sie die Beweg
 Mit der Zeit nimmt die Anzahl an Bewegungen in einer Nacht immer weiter ab.
 Angefagen bei dem zuckenden TM Bewegungen bis hin zu den GMs. 
 Diese Bewegungsabläufe sind eng mit der motorischen Entwicklung eines Kindes und 
-der generellen Entwicklung des Zentralennervensystems verbunden.
-Die Forscher sehen darin einen Methode um neurologische Auffälligkeiten bei Säuglingen frühest möglich zu erkennen. \cite{FUKUMOTO198137}
+der generellen Entwicklung des Zentralnervensystems verbunden.
+Die Forscher sehen darin eine Methode um neurologische Auffälligkeiten bei Säuglingen frühest möglich zu erkennen. \cite{FUKUMOTO198137}
 \subsubsection{Servomotoren} % Motortheorie 
 Ein Servomotor ist ein Elektromotor welcher über eine interne Sensorik verfügt, die zur Regelung der Position, Geschwindigkeit oder des Drehmoments
 verwendet wird. 
-Der Motor besteht aus vier Hauptkomponenten, die auch in Abb \ref{fig:servoMotor} (bezogen auf unsere verwendeten Servos, es könnte auch ein AC-Motor, oder andere Senorik verwendet werden)
-veranschaulicht sind sind. \cite{servomotor} \cite{pwm_servo}
+Der Motor besteht aus vier Hauptkomponenten, die auch in Abb \ref{fig:servoMotor} veranschaulicht sind. Diese Abblidnung ist bezogen auf unsere verwendeten Servos.
+Es könnte auch ein AC-Motor oder andere Senorik verwendet werden. \cite{servomotor} \cite{pwm_servo}
 \begin{itemize}
     \item DC-Motor => sorgt für den Antrieb
     \item Getriebe => reduziert Drehzahl und erhöht Drehmoment 
     \item Positionsmessung => Messkomponente der Reglung
-    \item Steuerplatine => regelt den Motor nach 
+    \item Steuerplatine => regelt den Motor  
 \end{itemize}
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=8cm]{images/servoMotor.jpg}
-\caption{Servo Motor Aufbau \cite{pwm_servo}}
+\caption{Servo Motor Aufbau \cite{pwm_servo_bild}}
 \label{fig:servoMotor}
 \end{figure}
 \noindent
 Die Kombination dieser einzelnen Komponenten erzeugt die typische Servofunktion.
 
 \noindent
-Der DC-Motor funktioniert durch das physikalische Prinzip der Lorentzkraft. Die Kraft die ein Magnetfeld auf bewegte elekrische Ladungen
+Der DC-Motor funktioniert durch das physikalische Prinzip der Lorentzkraft. Die Kraft, die ein Magnetfeld auf bewegte elekrische Ladungen
 (z.B. Elektronen) ausübt. Aufgebaut wird der Motor mittels Stator-Rotor-Prinzip.
 Der Stator (ein Magnet) ist nicht in Bewegung und erzeugt ein konstantes Magnetfeld. Der Rotor (eine Spule), auch
 Anker genannt muss drehbar montiert sein. Wird der Motor nun mit Spannung versetzt, 
-fließt Strom über die sogennaten Bürsten, zu den Spulen. So beginnt der Anker zu 
+fließt Strom über die sogenannten Bürsten zu den Spulen. So beginnt der Anker zu 
 rotieren, getrieben durch die Lorentzkraft. Das funktioniert nur bis zu einer gewissen 
 Position. Ist der Anker dort angelangt, kommt der Kommutator ins Spiel. Er ändert die Phase des Stroms um 
 180°, dadurch bleibt die Drehbewegung kontinuierlich erhalten. 
@@ -192,15 +192,15 @@ von MP3- und WAV-Dateien von einer micro SD-Karte ermöglicht. Es lässt sich ü
 eine UART-Schnittstelle oder manuell über eine Taststeuerung der digitalen Eingänge ansteuern. \cite{dfplayer_datasheet}
 \subsubsection{UART Kommunikation}
 Für die UART (Universal Asynchronous Receiver/Transmitter) Kommunikation werden die Daten bitweise über 
-eine Leitung gesendet. Asynchron bedeutet es gibt kein gemeinsames Taktsignal, baudrate von Modul und ESP32 müssen jedoch
+eine Leitung gesendet. Asynchron bedeutet es gibt kein gemeinsames Taktsignal. Die baudrate von Modul und ESP32 müssen jedoch
 die gleiche sein, standardgemäß 9600. Die Daten werden in
 festen Formaten gesendet die durch Start- und Stoppbit abgerenzt werden. 
 Aus dem Datenblatt des DFPlayer Moduls kann man die commands für die einzelnen 
-Funktionen des Moduls herauslesen. Zur Programmierung ist es nicht erforderlich die commands manuell 
+Funktionen des Moduls herauslesen. Zur Programmierung ist es jedoch nicht erforderlich die commands manuell 
 zu codieren da die Library DFRobotDFPlayerMini \cite{dfplayer_lib} diese in Funktionen implementiert hat. 
 \subsubsection{Lautsprecher}
 Die Audioausgabe erfolgt über einen 8 Ohm Lautsprecher. Dieser wandelt die eletrischen
-Audio Signale in mechanische (Schallwellen) um die den Ton übertragen. 
+Audiosignale in mechanische Signale (Schallwellen) um, die den Ton übertragen. 
 %Modul erklären oder is das mehr Methodik? 
 %Lautsprecher Theorie
 
@@ -212,15 +212,15 @@ Dank ihrer Keramikhüllen dienen sie als gute elektrische Isolatoren und helfen 
 Dieser Aspekt führt dazu, dass sie in bestimmten Fällen gezielt als Wärmequellen eingesetzt werden können.
 \noindent 
 Im Vergleich zu anderen Widerstandstypen, die auch oft Keramikkomponenten aufweisen, werden Keramikwiderstände durch das Vermischen von Kohlenstoffpulver 
-(elektrischer Leiter) und Keramikmaterial (Isolator) gefertigt. Dabei bestimmt das Verhältnis den Widerstandswert, 
-befindet sich viel Kohlenstoffpartikel in der Mischung wird der Widerstand geringer und umgekehrt.
+(elektrischer Leiter) und Keramikmaterial (Isolator) gefertigt. Dabei bestimmt das Verhältnis den Widerstandswert. 
+Befindet sich viel Kohlenstoffpartikel in der Mischung, wird der Widerstand geringer und umgekehrt.
 Die fertige Masse wird in Form gepresst, oft mit einer zusätzlichen Schicht Keramik überzogen und im Ofen gebrannt. \cite{ohmite2024ceramic} \cite{nugar2026ceramic}
 \subsubsection{PT100}
 Der PT100 ist ein temperaturabhängigier Widerstand der Kategorie der PTCs (Positive Temperature Coefficient). Temperaturabhängige Widerstände verändern ihren 
 Widerstandswert je nach gegebener Umgebungstemperatur. Ein positiver Temperaturkoeffizient bedeutet, dass der Widerstand bei steigender Temperatur 
 auch steigt. Pro Grad ändert sich der Widerstandswert des 
 PT100 um 0,385$\Omega$ \cite{yageo_pt100}. Den PT100 zeichnet aus, dass er bei einer Temperatur von 0 Grad eine Widerstand von 100 $\Omega$ hat.
-Aufgrund dieser physikalischen berechenbarkeit eignet sich der PT100 perfekt als Messkomponente zur Bestimmung von Temperturwerten. 
+Aufgrund dieser physikalischen Berechenbarkeit eignet sich der PT100 perfekt als Messkomponente zur Bestimmung von Temperturwerten. 
 %PT100 Regelung? das was mc geyappt hat
 %Keramikwiderstände vs. Heizelemente Methodik eher ig? 
 

@@ -8,6 +8,7 @@
 \usepackage{xcolor} % für highlighting
 %\usepackage{minted} % für COde aber besser \usepackage{float}
 \usepackage{float} % für bild positionierung 
+\usepackage{subcaption} % zwei bilder nebeneinander
 \usepackage{setspace}
 \usepackage{geometry}
 \usepackage{graphicx}
@@ -102,7 +103,22 @@
 \input{sections/diskussion.tex}
 
 
-\printbibliography
+%\printbibliography
+
+%Abbildungs und Literaturquellen getrennt
+% Literatur
+\printbibliography[
+  heading=bibliography,
+  title={Literaturverzeichnis},
+  keyword=literatur
+]
+
+% Abbildungsquellen
+\printbibliography[
+  heading=bibliography,
+  title={Abbildungsquellen},
+  keyword=bild
+]
 
 %Alternativ für MC sortierung aber noch nicht ganz perfekt 
 %\printbibliography[type=book, title={Bücher}]

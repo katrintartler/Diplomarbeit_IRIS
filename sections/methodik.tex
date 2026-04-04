@@ -4,17 +4,17 @@
 %pullup pulldown
 
 \section[Wärmesensorik testen]{Wärmesensorik testen\authorkatrin} \label{Wärmequelle}
-Für die Simulation der Temperatur des Kindes, wurden im Testroboter Keramikwiderstände eingebaut, welche als Wärmequellen
-genutzt werden. Dazu wurde der Aufbau und die Verschaltung mittels Steckbrett getestet. Besonders zu beachten ist die hohe Leistung 
-die für eine Wärmesimulation nötig ist. Dementsprechend ist ein Test auf dem Steckbrett schwierig, da diese meisten nicht für hohe 
+Für die Simulation der Körpertemperatur des Kindes wurden im Testroboter Keramikwiderstände eingebaut, welche als Wärmequellen
+genutzt werden. Dazu wurde der Aufbau und die Verschaltung mittels Steckbrett getestet. Besonders zu beachten ist die hohe Leistung,
+die für eine Wärmesimulation nötig ist. Dementsprechend ist ein Test auf dem Steckbrett schwierig, da diese meisten nicht für eine hohe 
 Leistung ausgelegt sind. Weiters ist auch die Vesorgung ein Problem, weil die Leistung über eine hohe Stromstärke erbracht werden muss.
 \begin{align}
 P &= I^2 \cdot R \notag \\
 P &= \frac{U^2}{R}
 \end{align}
-Die verwendeten Keramikwiderstände haben einen Widerstandswert von 2,2$\Omega$. Die Verschaltung erfolgt mit 2 in Serie 
-geschalteten Strängen mit jeweils 3 parallel geschalteten Keramikwiderständen. Siehe Abbildung \ref{fig:VerschaltungKRs}, einem Ausschnitt 
-des Schaltplans der Platine aus \ref{Heat Platinen}. Somit ergibt sich ein Gesamtwiderstand von ca. 1,5$\Omega$. Als Spannungswert werden 7,4V eingesetzt.
+Die verwendeten Keramikwiderstände haben einen Widerstandswert von 2,2$\Omega$. Die Verschaltung erfolgt mit zwei in Serie 
+geschalteten Strängen mit jeweils drei parallel geschalteten Keramikwiderständen, siehe Abbildung \ref{fig:VerschaltungKRs}. Diese entspricht 
+einem Ausschnitt des Schaltplans der Platine aus \ref{Heat Platinen}. Somit ergibt sich ein Gesamtwiderstand von ca. 1,5$\Omega$. Als Spannungswert werden 7,4V eingesetzt.
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=10cm]{images/VerschaltungKRs.png}
@@ -27,7 +27,7 @@ P &= \frac{7,4^2}{1,5} = 36,507 W \notag \\
 I &= \sqrt{\frac{36,507}{1,5}} = 5,0004 A
 \end{align}
 Der benötigte Strombedarf liegt bei unserer Leistung von 36,507W also bei ca 5A. 
-Dieser Bedarf wird von einem 20A Labornetzteil gedeckt. Aufgrund der Wahl dieser Spannungsversorgung wurde beschlossen die weiteren 
+Dieser Bedarf wird von einem 20A Labornetzteil gedeckt. Aufgrund der Wahl dieser Spannungsversorgung wurde beschlossen, die weiteren 
 Komponenten des Testroboters ebenfalls mit dem Netzteil zu betreiben, siehe \ref{Spannungversorgung}.
 
 \section[Geräuschsensorik]{Geräuschsensorik\authorkatrin}
@@ -38,7 +38,7 @@ Komponenten des Testroboters ebenfalls mit dem Netzteil zu betreiben, siehe \ref
 \section[Aufbau des Babybettchens]{Aufbau des Babybettchens\authorlinda}
 \subsection{Spannungsversorgung} \label{medizinischtechnisch}
 %maybe so der generelle Konsenz von diesem ganzen medizinisch-technischem Spannungsding und den Richtlinien und sowas? 
-%und dann bei deim PCB punkt nur wie man es dann quasi umgesetzt hat wäre 
+%und dann bei deim PCB punkt nur wie man es dann quasi umgesetzt hat  
 %ich könnte mich dann bei meinem Spannungsversorgungs ding darauf beziehen, queerverweise und so
 
 \section[ESP Wahl - Babybettchen]{ESP Wahl - Babybettchen\authorlinda}
@@ -73,23 +73,90 @@ chart.js
 
 %Testroboter
 \section[Aufbau des Testroboters]{Aufbau des Testroboters\authorkatrin}
-Für den Bau des Testroboters, wurde eine alte Puppe aus Kindertagen umfunktioniert. Der Rumpft dient zur Unterbringung der Platinen. 
-Für die Bewegungsinstallation der Gliedmaßen wurde eine Reihe von 3D-Konstruktionen entwickelt, welche den Motoren als Halterungen 
-dienen. Sozusagen die Gelenke zur "Muskelkraft" der Motoren. Der Lautsprecher befindet sich im Kopf der Puppe. Auch hier wurde mit dem 
-3D-Drucker eine Halterung erstellt. 
+Für den Bau des Testroboters wurde eine alte Puppe aus Kindertagen umfunktioniert. Der Rumpf dient zur Unterbringung der Platinen. 
+Für die Bewegungsinstallation der Gliedmaßen wurde eine Reihe von 3D-Konstruktionen designed, welche den Motoren als Halterungen 
+dienen. Der Lautsprecher befindet sich im Kopf der Puppe, auch hier wurde mit dem 3D-Drucker eine Halterung erstellt. 
 \subsection{Motoren}
 Ursprünglich wurden Schrittmotoren zur Bewegungsansteuerung ausgewählt. Der Schrittmotor 28BJY-48 \cite{schrittmotor_datasheet} war aus einem anderen Projekt noch verfügbar 
 und als erste Idee in Betracht gezogen worden. Nachdem eine Halterung 3D gedruckt wurde, (siehe \ref{fig:3d:motoralt}), mussten wir bei einem Test mit einem Puppenbein jedoch feststellen,
 dass der 28BJY-48 nicht ausreichte um die Gliedmaßen zu bewegen.
 Daher gab es einen Austausch und wir haben den RC Digital Servo 14KG, mit DC Motor benutzt\cite{aliexpress}. 
 \subsection{Spannungsversorgung des Testroboters} \label{Spannungversorgung}
-Die Spannungsversorgung des Testroboters gestaltete sich anfangs etwas schwierig. Nach ersten Test mit der Wärmequelle wurde uns das Ausmaß der 
-benötigten Energie bewusst, siehe \ref{Wärmequelle}. Daher wurde sich darauf geeinigt die Versorgung des Testroboters ausschließlich mit der
-Verwendung einses externen 20A Netzteils zu realisieren. Da der Testroboter nur als Simulationsobjekt für die Funktion des Babybettchens entwickelt wurde, 
+Die Spannungsversorgung des Testroboters gestaltete sich anfangs etwas schwierig. Nach ersten Tests mit der Wärmequelle wurde uns das Ausmaß der 
+benötigten Energie bewusst, siehe \ref{Wärmequelle}. In Abstimmung mit unserem Betreuungslehrer wurde sich darauf geeinigt, die Versorgung des Testroboters ausschließlich mit der
+Verwendung eines externen 20A Netzteils zu realisieren. Da der Testroboter nur als Simulationsobjekt für die Funktion des Babybettchens entwickelt wurde, 
 gibt es dementsprechend keine Auflagen bezüglich medizinisch-technischer Aspekte, siehe \ref{medizinischtechnisch}. Die Erweiterung auf eine Spannungsversorgung 
 mittels Lithium-Ionen Akku könnte in Zukunft dennoch realisiert werden \ref{Spannungsversorgung Optimierung}.
 
-\section[3D Konstruktionen]{3D Konstruktionen} \label{3D Konstruktionen} 
+\section[3D-Konstruktionen]{3D-Konstruktionen} \label{3D Konstruktionen} 
+Das Designen der 3D-Komponenten erfolgte mittels Fusion360. Die erste Konstruktion war als Halterung der Schrittmotorn 28BJY-48 gedacht, siehe Abbildungen \ref{fig:3d:motoralt}.
+\begin{figure}[htbp]
+\centering
+
+\begin{subfigure}{0.45\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{images/3d/KonZ_StepperHalterung.png}
+    \caption{Konstruktionszeichnung: Schrittmotor Halterung}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.45\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{images/3d/3d_StepperHalterung.png}
+    \caption{3D-Abbildung: Schrittmotor Halterung}
+\end{subfigure}
+
+\caption{Schrittmotor Halterung}
+\label{fig:3d:motoralt}
+\end{figure}
+\noindent
+Nach dem Wechsel der Motoren, musste diese Konstruktion durch eine auf den Servomotor angepasste ausgetauscht werde. Die Maße der Motoren 
+waren nicht kompatibel. Zu dem kommt hinzu, dass für die Halterung der Arme nicht die gleiche Konstruktion genutzt werden kann, wie für die der
+Beine. Aufgrund der Rumpfform des Puppengehäuses mussten die Motoren der Beine in Schräglage monitert werden, während die Motoren der Arme
+nahezu parallel zu diesen angebracht werden konnten. Die Halterungskonstruktion der Servomotoren der Arme ist in Abbildung \ref{fig:3d:motorarme} und 
+die Halterungskonstruktion der Bein Motoren in Abbildung \ref{fig:3d:motorbein} veranschaulicht. 
+
+%Arme
+\begin{figure}[htbp]
+\centering
+
+\begin{subfigure}{0.45\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{images/3d/KonZ_ServoH-arme.png}
+    \caption{Konstruktionszeichnung: Servomotorenhalterung- Arme}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.45\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{images/3d/3d_ServoH_arme.png}
+    \caption{3D-Abbildung: Servomotorenhalterung- Arme}
+\end{subfigure}
+
+\caption{Servomotorenhalterun Arme}
+\label{fig:3d:motorarme}
+\end{figure}
+
+
+%Beine
+\begin{figure}[htbp]
+\centering
+
+\begin{subfigure}{0.45\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{images/3d/KonZ_ServoH_beine.png}
+    \caption{Konstruktionszeichnung: Servomtorenhalterung- Beine}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.45\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{images/3d/3d_ServoH_beine.png}
+    \caption{3D-Abbildung: Servomtorenhalterung- Beine}
+\end{subfigure}
+
+\caption{Servomotoren Halterung- Beine}
+\label{fig:3d:motorbein}
+\end{figure}
+
+
 
 \section[Testroboter Main-PCBs]{Testroboter Main-PCBs \authorkatrin} 
 \subsection{Prinzip}
@@ -105,14 +172,14 @@ mittels Lithium-Ionen Akku könnte in Zukunft dennoch realisiert werden \ref{Spa
 \subsection{Platinenfertigung}
 
 \section[Code Testroboter]{Code Testroboter\authorkatrin} %fertig nur mehr formatieren
-Der Code zur Steuerung des Testroboters besteht aus zwei pythonbasierten Programmen siehe \ref{Client Code}.
-Welche die Darstellung das Graphical User Interface (gui.py) und die BLE Backend Kommunikation (ble\_backend.py) implementieren. Damit werden die
-Client-Funktionen des Laptops abgedeckt. Der Code für den ESP32, siehe \ref{Server Code} muss die Funktionen der Serverrolle im BLE Aufbau 
-erfüllen. Also gesendete Kommandos müssen eine Funktion starten. Der Aufbau der Code Architektur des Testroboters ist in Abbildung \ref{fig:Roboter_Code_Aufbau} veranschaulicht. 
+Der Code zur Steuerung des Testroboters besteht aus zwei pythonbasierten Programmen, siehe \ref{Client Code}.
+Sie übernehmen die Darstellung das Graphical User Interface (gui.py) und die BLE Backend Kommunikation (ble\_backend.py). Damit werden die
+Client-Funktionen des Laptops abgedeckt. Der Code für den ESP32, siehe \ref{Server Code}, muss die Funktionen der Serverrolle im BLE Aufbau 
+erfüllen, also gesendete Kommandos müssen eine Funktion starten. Der Aufbau der Code Architektur des Testroboters ist in Abbildung \ref{fig:Roboter_Code_Aufbau} veranschaulicht. 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=12cm]{images/BabycodeDiagramm.png}
-\caption{Oberflächliche Beschreibung des Testroboter Codes (Erstellt mit Lucid Flowchart)}
+\caption{Schematische Beschreibung des Testroboter Codes (erstellt mit Lucid Flowchart)}
 \label{fig:Roboter_Code_Aufbau}
 \end{figure}
 
@@ -193,7 +260,7 @@ Das ist nicht möglich weil ein await nur in einer asynchronen Funktion in Pytho
 Die Callback-Funktion ist aber def.
 Daher ist es am Besten mit den Modulen threading und asyncio, als Ergänzung der verwendeten bleak Library 
 zu arbeiten, siehe Listing \ref{lst:ble.py:module}.
-\begin{lstlisting}[language=Python, caption={Module}, label={lst:ble.py:module}, firstnumber=1]
+\begin{lstlisting}[language=Python, caption={verwendete Module im Client Code}, label={lst:ble.py:module}, firstnumber=1]
 import threading
 import asyncio
 from bleak import BleakClient
@@ -303,7 +370,7 @@ Die Aufgaben des Server Codes können in fünf unterschiedliche Sektionen geteil
 Simulationsparameter, Wärme, Bewegung und Geräusch. Die vierte ist eine BLE Verbindung mit dem Laptop herzustellen und dem fünften Punkt
 einer parallel agierenden Umgebung um blockieren zu verhindern. Zu sehen in Listing \ref{lst:main.c:includes} ist eine Auflistung der verwendeten Zusatzbibliotheken
 um die entsprechenden Funktionen zu erfüllen. 
-\begin{lstlisting}[language=C++,caption={Zusatzbibliotheken}, label={lst:main.c:includes}, firstnumber=1]
+\begin{lstlisting}[language=C++,caption={verwendete Zusatzbibliotheken im Server Code }, label={lst:main.c:includes}, firstnumber=1]
 #include <SchedTask.h>
 #include <SchedTaskT.h>
 #include <ServoEasing.hpp>
@@ -446,7 +513,7 @@ eine State Machine aufgebaut siehe Abbildung \ref{fig:statediagramm}.
 \begin{figure}[H]
 \centering
 \includegraphics[width=13cm]{images/statediagramm.png}
-\caption{Statediagramm Servo-Steuerung (Erstellt mit Lucid Flowchart)}
+\caption{Statediagramm Servo-Steuerung (erstellt mit Lucid Flowchart)}
 \label{fig:statediagramm}
 \end{figure}
 \noindent
@@ -476,7 +543,7 @@ Dieser Executionstatus Zustand ist aufgrund der zyklischen Wiederholung von Serv
 Sonst könnte es passieren dass ein State also eine Bewegungssequenz nie ganz durchlaufen kann. 
 \noindent
 Der des Aufbau des switch-case der Zustände ist anhand des Zustands TW in Listing \ref{lst:main.c:tw} beschrieben. 
-\begin{lstlisting}[language=C++, caption={Was passiert bei einem Bewegungszustand}, label={lst:main.c:tw}, firstnumber=454]
+\begin{lstlisting}[language=C++, caption={Was passiert bei einem Bewegungszustand?}, label={lst:main.c:tw}, firstnumber=454]
     case TW:
     if(state_executionstate == ENTRY){
       state_executionstate = DURING;
@@ -525,7 +592,7 @@ void Servo1TargetReachedHandler(ServoEasing *aServoEasingInstance){
 
 \subsubsection{Audio Ansteuerung}
 Die Steuerung der Audiodateien läuft im BleCmd() SchedTask, mithilfe der Bibliothek DFRobotDFPlayerMini siehe Listing \ref{lst:main.c:audio}
-\begin{lstlisting}[language=C++, caption={Audio Ansteuerung, Beispiel:weinen}, label={lst:main.c:audio},firstnumber=240]
+\begin{lstlisting}[language=C++, caption={Audioansteuerung, Beispiel:weinen}, label={lst:main.c:audio},firstnumber=240]
 if(crying_flag){ 
     myPlayer.volume(10);
     myPlayer.play(1);
@@ -539,7 +606,7 @@ Die Ausgabe in BleCmd ist noch optimierbar indem sie aus dieser Funktion ausgela
 \subsubsection{Wärme Ansteuerung}
 Die Ansteuerung der Wärmequelle ist softwaretechnisch nur mit dem setzten eines Ausganges implementiert. Da der Rest der Steuerung mittels Halbleiterkomponenten
 auf der Platine realisiert wurde, siehe \ref{TRMain PCB}. Auch das setzten des GPIOs passiert derzeit in der BleCmd Funktion, siehe Listing \ref{lst:main.c:heat}.
-\begin{lstlisting}[language=C++, caption={Wärme Ansteuerung}, label={lst:main.c:heat},firstnumber=262]
+\begin{lstlisting}[language=C++, caption={Wärmeansteuerung}, label={lst:main.c:heat},firstnumber=262]
 if(heat_on_flag){
     heat_on_flag = false; 
     digitalWrite(HeatControl,HIGH); 
