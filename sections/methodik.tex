@@ -131,8 +131,30 @@ Ein weiterer entscheidender Vorteil des ESP32 ist die Rechenleistung, denn diese
 Zusätzlich verfügt der ESP32 über eine integrierte UART Schnittstelle und zwei Analog-Digital-Converter (ADC). Durch diese Eigenschaften, ermöglicht der ESP32 die einfache Anbindung von Sensoren und die Kommunikation zwischen zwei ESPs. Diese Funktion wird benötigt, da ein ESP32 die Erfassung der Sensordaten übernimmt und diese dann über die UART Schnittstelle an den zweiten ESP32 weiterleitet, welcher die zentrale Kommunikationseinheit des Systems bildet.
 
 \subsection{Warum zwei ESP32?}
-% Adc1 pins
-% warum 2 esp
+Wie bereits zuvor erwähnt, verwenden wir beim Babybettchen zwei ESP32 und das nicht ohne Grund. Denn man sollte, wenn man die WLAN Funktion des ESP32 nutzt, was wir in unserem Fall für die Übertragung verwendet haben, nur ADC1 Pins verwenden. ADC2 Pins können potentiell die WLAN Verbindung blockieren, was dazu führen würde, dass die Daten nicht kontinuierlich an die Visualisierungsstufe übertragen werden.
+
+\par\vspace{1em}
+
+\noindent
+Unser ausgewählter ESP32 NodeMCU verfügt nur über vier ADC1 Pins, siehe Abbildung \ref{fig:pinout-esp32nodemcu}, was ein Problem dargestellt hat, da wir alleine für die Drucksensoren 6 Pins benötigten. Darüber hinaus war zu diesem Zeitpunkt die Integration der Wärme- und Geräuschsensorik vorgesehen, wobei der genaue Bedarf an Pins noch unklar war.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width = 15cm]{images/pinout-esp32nodemcu.png}
+\caption{Ausschnitt des ESP32 NodeMCU Pinout \cite{azdelivery_esp32_pinout_bild}}
+\label{fig:pinout-esp32nodemcu}
+\end{figure}
+
+\par\vspace{1em}
+
+\noindent
+Da der ESP32 bereits bestellt war, suchten wir nach keinem alternativen Mikrokontroller, sondern nach einer Lösung wie wir ihn weiterhin verwenden konnten. Wir haben in Betracht gezogen, dass wir einen I2C Bus oder MUX Baustein für die Sensoren verwenden. Angesichts der Tatsache, dass wir zwei ESP32 bestellt haben, entschieden wir uns gegen die Verwendung eines I2C Busses oder dem MUX Baustein. So konnten wir an Kosten sparen und müssten nicht die Lieferzeit eines neuen Bausteines abwarten.
+
+\par\vspace{1em}
+
+\noindent
+Wir haben das Problem gelöst, indem wir einen der beiden ESPs ausschließlich für die Aufnahme der Sensordaten verwendet haben. Der zweite ESP übernimmt somit die WLAN Funktion und bildet die Schnittstelle zwischen der Datenerfassung und der Visualisierung der Daten. Dadurch dass nur der zweite ESP die WLAN Funktionalität nutzt, konnte am ersten ESP, welcher für die Erfassung zuständig ist,  ADC1 und ADC2 Pins verwendet werden.
+
 
 \section[Babybettchen PCB]{Babybettchen PCB\authorlinda}
 \subsection{Prinzip}
