@@ -176,7 +176,7 @@ Verwendung eines externen 20A Netzteils zu realisieren. Da der Testroboter nur a
 gibt es dementsprechend keine Auflagen bezüglich medizinisch-technischer Aspekte, siehe \ref{medizinischtechnisch}. Die Erweiterung auf eine Spannungsversorgung 
 mittels Lithium-Ionen Akku könnte in Zukunft dennoch realisiert werden \ref{Spannungsversorgung Optimierung}.
 
-\section[3D-Konstruktionen]{3D-Konstruktionen} \label{3D Konstruktionen} 
+\section[3D-Konstruktionen]{3D-Konstruktionen\authorkatrin} \label{3D Konstruktionen} 
 Das Designen der 3D-Komponenten erfolgte mittels Fusion360. Die erste Konstruktion war als Halterung der Schrittmotorn 28BJY-48 gedacht, siehe Abbildungen \ref{fig:3d:motoralt}.
 \begin{figure}[H]
 \centering
@@ -197,8 +197,8 @@ Das Designen der 3D-Komponenten erfolgte mittels Fusion360. Die erste Konstrukti
 \label{fig:3d:motoralt}
 \end{figure}
 \noindent
-Nach dem Wechsel der Motoren, musste diese Konstruktion durch eine auf den Servomotor angepasste ausgetauscht werde. Die Maße der Motoren 
-waren nicht kompatibel. Zu dem kommt hinzu, dass für die Halterung der Arme nicht die gleiche Konstruktion genutzt werden kann, wie für die der
+Nach dem Wechsel der Motoren, musste diese Konstruktion durch eine auf den Servomotor angepasste, ausgetauscht werde. Die Maße der Motoren 
+waren nicht kompatibel. Zudem kommt hinzu, dass für die Halterung der Arme nicht die gleiche Konstruktion genutzt werden kann, wie für die der
 Beine. Aufgrund der Rumpfform des Puppengehäuses mussten die Motoren der Beine in Schräglage monitert werden, während die Motoren der Arme
 nahezu parallel zu diesen angebracht werden konnten. Die Halterungskonstruktion der Servomotoren der Arme ist in Abbildung \ref{fig:3d:motorarme} und 
 die Halterungskonstruktion der Bein Motoren in Abbildung \ref{fig:3d:motorbein} veranschaulicht. 
@@ -222,7 +222,6 @@ die Halterungskonstruktion der Bein Motoren in Abbildung \ref{fig:3d:motorbein} 
 \caption{Servomotorenhalterung- Arme}
 \label{fig:3d:motorarme}
 \end{figure}
-
 
 %Beine
 \begin{figure}[htbp]
@@ -264,7 +263,100 @@ Die Konstruktion wird stabiler und es erleichtert den Einbau. Der Rahmen ist in 
 \caption{Rahmen zur Stabilisation}
 \label{fig:3d:rahmen}
 \end{figure}
+\noindent 
+Damit die Gliedmaßen an den Motoren befestigt werden konnten, wurden kleine Scheiben für Arme und Beine gedruckt.
+Diese Scheiben haben vorgefertigte Einkerbungen für die sogenannten Moterenhebel.
+Motorhebel sind die kleinen Aufsätze die meist mit den Servos mitgelieftert werden, je nach Anwendung kann man unterschiedliche
+benutzten, Stern, Kreis, Kreuz usw.. Die Servohebel sorgen für eine benutzterdefinierte Kraft-Weg Einstellung. Mithilfe der gedruckten Scheiben kann man nun diese Aufsätze an 
+der einen Seite anschrauben und die Scheibe dann an dem Plastik der Arme und Beine verschrauben. Zur Erleichterung wurden noch kleine Montageringe gedruckt.
+So werden die Gliedmaßen wieder mit dem Rumpf verbunden. 
+Abbildung \ref{fig:3d:scheibeB} und Abbildung \ref{fig:3d:ringB} zeigen diese Montageteile für die Beine. Auf Abbildung \ref{fig:3d:scheibeA} und \ref{fig:3d:ringA} sieht man 
+die Version für die Arme. 
 
+\begin{figure}[htbp] %beine /scheibe
+\centering
+
+\begin{subfigure}{0.45\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{images/3d/KonZ_ScheibeB.png}
+    \caption{Konstruktionszeichnung: Scheibe für Beine}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.45\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{images/3d/3d_scheibeB.png}
+    \caption{3D-Abbildung: Scheibe für Beine}
+\end{subfigure}
+
+\caption{Bein-Scheiben}
+\label{fig:3d:scheibeB}
+\end{figure}
+
+\begin{figure}[htbp] % beine /ring 
+\centering
+
+\begin{subfigure}{0.45\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{images/3d/KonZ_RingB.png}
+    \caption{Konstruktionszeichnung: Ring für Beine}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.45\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{images/3d/3d_ringB.png}
+    \caption{3D-Abbildung: Ring für beine}
+\end{subfigure}
+
+\caption{Bein-Ringe}
+\label{fig:3d:ringB}
+\end{figure}
+
+\begin{figure}[htbp] %beine /scheibe
+\centering
+
+\begin{subfigure}{0.45\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{images/3d/KonZ_ScheibeA.png}
+    \caption{Konstruktionszeichnung: Scheibe für Arme}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.45\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{images/3d/3d_scheibeA.png}
+    \caption{3D-Abbildung: Scheibe für Arme}
+\end{subfigure}
+
+\caption{Arm-Scheiben}
+\label{fig:3d:scheibeA}
+\end{figure}
+
+\begin{figure}[htbp] % arme /ring 
+\centering
+
+\begin{subfigure}{0.45\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{images/3d/KonZ_RingA.png}
+    \caption{Konstruktionszeichnung: Ring für Arme}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.45\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{images/3d/3d_ringA.png}
+    \caption{3D-Abbildung: Ring für Arme}
+\end{subfigure}
+
+\caption{Arm-Ringe}
+\label{fig:3d:ringA}
+\end{figure}
+
+
+
+
+
+%Arme
+Das Befestigen der Scheiben an den Plastikarmen gestaltete sich etwas schwerer als bei den Beinen. Die Beine hatten bei der originalen Konstruktion Platten an der
+Montagestelle zwischen Bein und Rumpf. Die Arme waren innen hohl und es gab keine zuvor eingesetzte Platte. Dadurch war es etwas schwieriger die Arme mit den Motoren 
+zu verbinden und die Verbindungsstelle ist dementsprechend auch nicht so stabil. 
 
 
 \section[Testroboter Main-PCBs]{Testroboter Main-PCBs \authorkatrin} 
