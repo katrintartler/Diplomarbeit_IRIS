@@ -30,39 +30,26 @@ U_\text{out} = U_\text{in} \cdot \frac{R_\text{sensor}}{R_\text{pullup} + R_\tex
 \subsection{RP-S40-ST Dünnschicht Drucksensor}
 %pullup pulldown
 
-\section[Wärmesensorik testen]{Wärmesensorik testen\authorkatrin} \label{Wärmequelle}
-Für die Simulation der Körpertemperatur des Kindes wurden im Testroboter Keramikwiderstände eingebaut, welche als Wärmequellen
-genutzt werden. Dazu wurde der Aufbau und die Verschaltung mittels Steckbrett getestet. Besonders zu beachten ist die hohe Leistung,
-die für eine Wärmesimulation nötig ist. Dementsprechend ist ein Test auf dem Steckbrett schwierig, da diese meisten nicht für eine hohe 
-Leistung ausgelegt sind. Weiters ist auch die Vesorgung ein Problem, weil die Leistung über eine hohe Stromstärke erbracht werden muss.
-\begin{align}
-P &= I^2 \cdot R \notag \\
-P &= \frac{U^2}{R}
-\end{align}
-Die verwendeten Keramikwiderstände haben einen Widerstandswert von 2,2$\Omega$. Die Verschaltung erfolgt mit zwei in Serie 
-geschalteten Strängen mit jeweils drei parallel geschalteten Keramikwiderständen, siehe Abbildung \ref{fig:VerschaltungKRs}. Diese entspricht 
-einem Ausschnitt des Schaltplans der Platine aus \ref{Heat Platinen}. Somit ergibt sich ein Gesamtwiderstand von ca. 1,5$\Omega$. Als Spannungswert werden 7,4V eingesetzt.
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=10cm]{images/VerschaltungKRs.png}
-\caption{Verschaltung der Wärmekomponenten}
-\label{fig:VerschaltungKRs}
-\end{figure}
+\section[Geräusch- und Wärmesensorik ]{Geräusch- und Wärmesensorik\authorkatrin}
+\subsection{Geräuschsensorik} \label{INMP441}
+Für die Erkennung von Geräuschen des Kindes, war der Einsatz des INMP441 MEMPS-Mikrofons \cite{inmp441_datasheet} geplant.
+Es ist ein omnidirekatonales digitales Mikrofon mit $I^2$S-Schnittstelle. Omnidirektional bedeutet das Mikrofon kann aus jeder Richtung Schall aufnehmen kann \cite{unidirectional_omnidirectional_microphone}.
+Ein $I^2S$-Schnittstelle ist speziell für die Übertraggung von Audiodateien entwickelte worden. Die serielle Übertragung erfolgt mittel 3 Leitungen. Daten- Takt und 
+Wortauswahlleitung sind beteiligt \cite{i2s_heinen_elektronik}. 
+\par\vspace{1em} 
 \noindent
-\begin{align}
-P &= \frac{7,4^2}{1,5} = 36,507 W \notag \\ 
-I &= \sqrt{\frac{36,507}{1,5}} = 5,0004 A
-\end{align}
-Der benötigte Strombedarf liegt bei unserer Leistung von 36,507W also bei ca 5A. 
-Dieser Bedarf wird von einem 20A Labornetzteil gedeckt. Aufgrund der Wahl dieser Spannungsversorgung wurde beschlossen, die weiteren 
-Komponenten des Testroboters ebenfalls mit dem Netzteil zu betreiben, siehe \ref{Spannungversorgung}.
-
-\section[Geräuschsensorik]{Geräuschsensorik\authorkatrin}
-%Zur Geräuscherkennung ist des INMP441 vorgesehen. Das ist ein omni-direktionales 
-%MEMS Mikrophon
+Aufgrund einer Unterschätzung des Aufwands beim Bau des Testroboters konnte die Geräuschsensorik im Babybett nicht mehr finalisiert werden.
+Der Einbau des Mikrofons ist auf der Main Platine vorgemerkt und kann zu einem späteren Zeitpunkt umgesetzt werden.
+Ein Testcode zur Überprüfung der Mikrofonfunktion ist vorhanden, allerdings werden derzeit keine korrekten Daten empfangen, sodass eine sinnvolle Nutzung aktuell nicht möglich ist. 
+Sehr spät im Projektverlauf wurde uns der Tipp gegeben, die Geräuscherkennung mittels Grenzflächenmikrofon zu realisiern, dieser Punkt wird in Abschnitt \ref{grenzflächenmic}
+genauer behandelt. 
+\subsection{Wärmesensorik}
+Auch die Wärmesensorik musste unter dem Zeitdruck und der Fehleinschätzung der Arbeit am Testroboter aufgegeben werdenn. Der ursprüngliche Plan war es mittels Wärmebildkamera 
+optisch Informationen zu sammeln und diese weiterzugeben. 
 
 %Babybettchen 
 \newpage
+
 \section[Aufbau des Babybettchens]{Aufbau des Babybettchens\authorlinda}
 Für unser Projekt benötigten wird ein Babybettchen, welches wir mit den notwendigen Sensoren ausstatten konnten. Es wurde in Erwägung gezogen das Babybettchen eigenständig zu bauen, weil das Bettchen relativ transportabel sein sollte und nicht immer am gleichen Ort stehen konnte. Was mit einem Standard Babybettchen nicht gewährleistet ist. Wir haben uns, aber gegen den Bau des Babybettchen entschieden, da dieser einiges an Zeit beansprucht hätte und den Fokus von den System relevanteren Funktionen abgezogen hätte. 
 Der Kompromiss war es ein Reisebabybettchen, siehe Abbildung \ref{fig:ganzes-Babybett}, zu bestellen, 
@@ -212,16 +199,53 @@ chart.js
 \paragraph{Dynamische Aktualisierung der Daten:}
 
 
+
 %Testroboter
 \section[Aufbau des Testroboters]{Aufbau des Testroboters\authorkatrin}
+\subsection{Grundlegende Idee}
+In der Projektfindungsphase wurde uns schnell klar, dass wir keine Möglichkeit haben würden, das Babybett zu testen. Um diesem Problem vorzubeugen, ist ein 
+Testroboter gebaut worden welcher die Sensorik des Bettchens testen sollte. Dafür muss es für jeden Sensor des Bettchens eine Simulation mittels  
+Roboter geben. Der Plan für das Bettchen sah vor Bewegungs-, Geräusch und Wärmeerkennnung bereitzustellen. Daher musste der Roboter eben genau diese
+simulieren. 
+\par\vspace{1em}
+\noindent
 Für den Bau des Testroboters wurde eine alte Puppe aus Kindertagen umfunktioniert. Der Rumpf dient zur Unterbringung der Platinen. 
 Für die Bewegungsinstallation der Gliedmaßen wurde eine Reihe von 3D-Konstruktionen designed, welche den Motoren als Halterungen 
 dienen. Der Lautsprecher befindet sich im Kopf der Puppe, auch hier wurde mit dem 3D-Drucker eine Halterung erstellt. 
+
+\subsection{Wärmesesimulation testen} \label{Wärmequelle}
+Für die Simulation der Körpertemperatur des Kindes wurden im Testroboter Keramikwiderstände eingebaut, welche als Wärmequellen
+genutzt werden. Dazu wurde der Aufbau und die Verschaltung mittels Steckbrett getestet. Besonders zu beachten ist die hohe Leistung,
+die für eine Wärmesimulation nötig ist. Dementsprechend ist ein Test auf dem Steckbrett schwierig, da diese meisten nicht für eine hohe 
+Leistung ausgelegt sind. Weiters ist auch die Vesorgung ein Problem, weil die Leistung über eine hohe Stromstärke erbracht werden muss.
+\begin{align}
+P &= I^2 \cdot R \notag \\
+P &= \frac{U^2}{R}
+\end{align}
+Die verwendeten Keramikwiderstände haben einen Widerstandswert von 2,2$\Omega$. Die Verschaltung erfolgt mit zwei in Serie 
+geschalteten Strängen mit jeweils drei parallel geschalteten Keramikwiderständen, siehe Abbildung \ref{fig:VerschaltungKRs}. Diese entspricht 
+einem Ausschnitt des Schaltplans der Platine aus \ref{Heat Platinen}. Somit ergibt sich ein Gesamtwiderstand von ca. 1,5$\Omega$. Als Spannungswert werden 7,4V eingesetzt.
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=10cm]{images/VerschaltungKRs.png}
+\caption{Verschaltung der Wärmekomponenten}
+\label{fig:VerschaltungKRs}
+\end{figure}
+\noindent
+\begin{align}
+P &= \frac{7,4^2}{1,5} = 36,507 W \notag \\ 
+I &= \sqrt{\frac{36,507}{1,5}} = 5,0004 A
+\end{align}
+Der benötigte Strombedarf liegt bei unserer Leistung von 36,507W also bei ca 5A. 
+Dieser Bedarf wird von einem 20A Labornetzteil gedeckt. Aufgrund der Wahl dieser Spannungsversorgung wurde beschlossen, die weiteren 
+Komponenten des Testroboters ebenfalls mit dem Netzteil zu betreiben, siehe \ref{Spannungversorgung}.
+
 \subsection{Motoren}
 Ursprünglich wurden Schrittmotoren zur Bewegungsansteuerung ausgewählt. Der Schrittmotor 28BJY-48 \cite{schrittmotor_datasheet} war aus einem anderen Projekt noch verfügbar 
-und als erste Idee in Betracht gezogen worden. Nachdem eine Halterung 3D gedruckt wurde, (siehe \ref{fig:3d:motoralt}), mussten wir bei einem Test mit einem Puppenbein jedoch feststellen,
+und als erste Idee in Betracht gezogen worden. Nachdem eine Halterung 3D gedruckt wurde, (siehe Abbildung \ref{fig:3d:motoralt}), mussten wir bei einem Test mit einem Puppenbein jedoch feststellen,
 dass der 28BJY-48 nicht ausreichte um die Gliedmaßen zu bewegen.
 Daher gab es einen Austausch und wir haben den RC Digital Servo 14KG, mit DC Motor benutzt\cite{aliexpress}. 
+
 \subsection{Spannungsversorgung des Testroboters} \label{Spannungversorgung}
 Die Spannungsversorgung des Testroboters gestaltete sich anfangs etwas schwierig. Nach ersten Tests mit der Wärmequelle wurde uns das Ausmaß der 
 benötigten Energie bewusst, siehe \ref{Wärmequelle}. In Abstimmung mit unserem Betreuungslehrer wurde sich darauf geeinigt, die Versorgung des Testroboters ausschließlich mit der
@@ -245,7 +269,6 @@ Das Designen der 3D-Komponenten erfolgte mittels Fusion360. Die erste Konstrukti
     \includegraphics[width=\linewidth]{images/3d/3d_StepperHalterung.png}
     \caption{3D-Abbildung: Schrittmotor Halterung}
 \end{subfigure}
-
 \caption{Schrittmotor Halterung}
 \label{fig:3d:motoralt}
 \end{figure}

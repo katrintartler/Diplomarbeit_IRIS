@@ -1,3 +1,4 @@
+
 \subsection{Prinzip}
 Die Haupt-Platine des Testroboters hat den Zweck den Großteil der benötigten Elektronik abzudecken. Das Erstellen von Schaltplan und Layout wurde mithilfe von KiCad realisiert. 
 Da KiCad davor noch nie von uns verwendet wurde begann ein umfangreicher Lernprozess, mit vielen Stolpersteinen. 
@@ -98,9 +99,10 @@ Pins jeweils zu einer Schraubklemme führen, siehe \ref{fig:pcb:MP_servos}. Von 
 \caption{Servoansteuerung auf der Hauptplantine}
 \label{fig:pcb:MP_servos}
 \end{figure}
+\newpage
 \noindent
 
-\subsubsection{Wärmeansteuerung}
+\subsubsection{Wärmeansteuerung} \label{123}
 Auf der Haupt-Platine des Testroboters erfolgt nur die Ansteuerung der Wärmesimulation. Die eigentliche Eletrkonik der Wärmequelle ist auf eine zusätzliche 
 Platine ausgelagert worden, siehe \ref{Heat Platinen}. Die Ansteuerung ist auf Abbildung \ref{fig:pcb:MP_heat} zu sehen. 
 \begin{figure}[H]
@@ -143,17 +145,66 @@ von JLCPCB bestückt.
 Die restlichen THT-Bauteile wurden eingelötet und die Verbindungen überprüft. Der 1$\mu$F Kondensator wurde durch einen zweiten 10nF Kondensator
 ersetzt, weil kein passender 1$\mu$F zur Hand war. 
 \par\vspace{1em}
+\noindent
 Die Spannungsreglerschaltung im Layout wurde auf den LM2596Adj (adjustable) angepasst, sie beeinhaltet das 50k$\Omega$ Potentiomer welches dann einen 
 variablen Spannungswert am Ausgang einstellen kann. Bei der Auswahl der zu bestückenden Teile wurde darauf vergessen. Es wurde fälschlicherweise der 
-LM2596-5 von JLCPCB bestückt. Die Spannungsversorgung brach so bei den Testdurchläufen immer wieder ein, und es konnte keine konstante Spannungsversorgung 
-garantiert werden. Zur Lösung wurde das Potentiometer mit einem Stück Draht überbrückt. 
+LM2596-5 von JLCPCB bestückt. Die Spannung brach so bei den Testdurchläufen immer wieder ein, und es konnte keine konstante Spannungsversorgung 
+garantiert werden. Diese ist vor allem für die BLE Verbindung unbedingt notwendig, gibt es keine konstante oder zu wenig Spannung kann der Laptop 
+den ESP nicht als Verbindungspartner wahrnehmen. Zur Lösung wurde das Potentiometer mit einem Stück Draht überbrückt, siehe Abbildung \ref{fig:drahtbrücke}. 
 
 
 %\subsection{Versorgung der Platine} noch unsicher ob ich etwas dazu schreibe in dieser section
-
 \section[Testroboter Heat-PCB]{Testroboter Heat-PCB \authorkatrin} \label{Heat Platinen}
 \subsection{Prinzip} \label{Warum?Heat}
+Die Wärmesimulation mit den Keramikwiderständen, ist aus Sicherheitesgründen auf einer anderen Platine untergebracht, veranschaulicht ist das in Abbildung \ref{fig:pcb:H_all}.
+Die Keramikwiderstände sind in zwei Strängen von jeweils drei parallel geschalteten Widerständen angebracht. Die Spannung wird vom Netzteil 
+auf eine Schraubklemme geleitet. Die andere Seite des Widerstandsnetzwerks ist mit der MOSFET-Regelung auf der Hauptplatine verbunden,
+siehe Abschniit \ref{123}. Wenn der MOSFET also vom ESP angesteuert wird, schließt sich der Stromkreis über den MOSFET zu GND. 
+So fließt der Strom dann durch die Keramikwiderstände und die Wärme entsteht. 
+
 \subsection{Schaltplan}
+\begin{figure}[H]
+\centering
+\includegraphics[angle= 90, width = 15cm]{images/PCBs/Heat_Platine.pdf}
+\caption{Schaltplan der Heat-Platine des Testroboters}
+\label{fig:pcb:H_all}
+\end{figure}
+\noindent
+
 \subsection{Layout}
-%\subsection{Versorgung der Platine} noch unsicher ob ich etwas dazu schreibe in dieser section
-\subsection{Platinenfertigung}
+\begin{figure}[H]
+\centering
+\includegraphics[width = 10cm]{images/PCBs/H_layout.png}
+\caption{Layout der Heat-Platine des Testroboters}
+\label{fig:pcb:H_layout}
+\end{figure}
+Das Layout der Heatplatine, siehe Abbildung \ref{fig:pcb:H_layout} muss nicht so vielen Anforderungen entsprechen wie das der Haupplatine. Der wichtigste Askpekt war es die Versorgungsleiterbahnen 
+besonders dick zu ziehen. Damit trotz der hohen Leistung nichts beschädigt wird. 
+
+\subsection{Fertigung, Bestückung und Test}
+Gefertigt wurde die Heat-Platine mit der Hauptplatine bei JLCPCB. Auch hier wurde das production.zip File hochgeladen. Im Vergleich zur Hauptplatine war 
+es hier jedoch nicht nötig einzelne Bauteile bestücken zu lassen.  
+\par\vspace{1em}
+Nachdem die Bauteile dem Layout entsprechend eingelötet worden sind, ist uns beim Testen eine Diskrepanz zwischen dem Verlauf der Leiterbahnen der gefertigten 
+Heat-Platine und dem Verlauf der selben Leiterbahnen in unserem KiCad-Projektordner aufgefallen. Es muss versehentlich eine ältere Version des Layouts gefertigt worden sein. 
+Dieser Fehler gestalete sich aber nicht weiter schlimm da er keine Auswirkungen auf die Funktion der Leiterplatte hatte. Es mussten nur die Schraubklemmen neu beschriftet werden.
+In Abbildung \ref{fig:pcb:schaubild} ist dieser Fehler dargestellt.
+
+\begin{figure}[H]
+\centering
+
+\begin{subfigure}{0.45\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{images/PCBs/H_schaubildB.png}
+    \caption{Gefertigtes Layout}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.45\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{images/PCBs/H_schuabildA.png}
+    \caption{Layout aus dem KiCad Projektordner}
+\end{subfigure}
+
+\caption{Schematische Darstellung des Fehlers auf der Heatplatine}
+\label{fig:pcb:schaubild}
+\end{figure}
