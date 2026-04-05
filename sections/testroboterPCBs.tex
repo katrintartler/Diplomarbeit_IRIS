@@ -114,8 +114,23 @@ Die Ansteuerung erfogt mittels N-Kanal MOSFET, es wird der IRLZ44N \cite{irlz44n
 und es fließt Strom über die Heat Platin, dieser Aufbau ist in Abschnitt \ref{Warum?Heat} genauer beschreiben. Der 10k$\Omega$ Widerstand fungiert als Pull-Down 
 Widerstand und der 100$\Omega$ Widerstand ist als Schutz den ESP vorgesehen. 
 Zusätzlich sind in der Abbildung \ref{fig:pcb:MP_heat} auch noch die Schraubklemmen zur Verbindung der Heat-Platine mit der Haupt-Platine zu sehen. 
+\newpage
 
 \subsection{Layout}
+Damit das Layout erstellt werden konnte mussten zuerst alle Sysmbole Footprints zugewiesen bekommen. Dieser Schritt ist einer der wichtigsten bei der 
+Erstellung einer Platine. Hat man schon Bauteile müssen die exakten Footprints zum Erstellen des Layout benutzt werden. Abbildung \ref{fig:pcb:MP_layout} zeigt 
+das Layout der Hauptplantine. 
+\begin{figure}[H]
+\centering
+\includegraphics[width = 10cm]{images/PCBs/MP_layout.png}
+\caption{Layout der Hauptplatine des Testroboters}
+\label{fig:pcb:MP_layout}
+\end{figure}
+\noindent
+Beim Erstellen des Layouts wurde versucht, einige Regeln für ein hochfrequenzgerechtes Layout zu beachten. So ist beispielsweise die Unterseite der Platine 
+eine druchgängige GND-Fläche. Auch die Positionierung des ESPs ist mihilfe der Espressif Design Rules erfolgt \cite{esp32_pcb_layout_design}. So wurde darauf 
+geachtet, dass unter der Antenne keine Leitungen verlaufen. Das könnte die BLE Verbindungsqualität beeinflussen. Der ESP wurde also mit der Antenne über 
+den Platinenrand hinaus platziert.
 
 %\subsection{Versorgung der Platine} noch unsicher ob ich etwas dazu schreibe in dieser section
 
