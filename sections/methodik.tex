@@ -1,6 +1,32 @@
 \chapter{Methodik}
 
 \section[Drucksensorik testen]{Drucksensorik testen\authorlinda}
+Für die Erfassung der Bewegung des Kindes wurden im Babybettchen sechs 
+flexible Dünnschicht Drucksensoren (RP-S40-ST \cite{}) verbaut. Um die Messwerte der Drucksensoren auszuwerten, muss für jeden Drucksensor ein Spannungsteiler aufgebaut werden. Da der Drucksensor unter Belastung, 
+seinen Widerstand verringert, siehe Abbildung \ref{fig:rp-s40-st_drucksensor-kennlinie}, und sich somit die Spannung am Drucksensor verändert.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width = 10cm]{images/drucksensor-kennlinie.png}
+\caption{RP--S40--ST Widerstandskennlinie \cite{dfrobot_drucksensor-kennline_bild}}
+\label{fig:rp-s40-st_drucksensor-kennlinie}
+\end{figure}
+
+\noindent
+Wir haben uns dazu entschieden einen Spannungsteiler mit einem Pull-up Widerstand aufzubauen, wodurch wenn der Widerstand des Drucksensors sinkt, auch die Spannung sinkt.
+Weil wenn man die Spannung am Knoten, siehe Abbildung \ref{fig:drucksensor-testen_spannungsteiler}, misst, gleich diese Formel gilt:
+
+\[
+U_\text{out} = U_\text{in} \cdot \frac{R_\text{sensor}}{R_\text{pullup} + R_\text{sensor}}
+\]
+
+\begin{figure}[H]
+\centering
+\includegraphics[width = 15cm]{images/drucksensor-testen_methodik.jpg}
+\caption{Spannugsteiler des Drucksensors}
+\label{fig:drucksensor-testen_spannungsteiler}
+\end{figure}
+
 \subsection{RP-S40-ST Dünnschicht Drucksensor}
 %pullup pulldown
 
@@ -184,8 +210,6 @@ chart.js
 
 
 \paragraph{Dynamische Aktualisierung der Daten:}
-
-\section[ESP für PWA]{ESP für PWA???\authorlinda}
 
 
 %Testroboter
