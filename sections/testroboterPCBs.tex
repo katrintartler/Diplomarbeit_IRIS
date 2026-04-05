@@ -117,7 +117,7 @@ Zusätzlich sind in der Abbildung \ref{fig:pcb:MP_heat} auch noch die Schraubkle
 \newpage
 
 \subsection{Layout}
-Damit das Layout erstellt werden konnte mussten zuerst alle Sysmbole Footprints zugewiesen bekommen. Dieser Schritt ist einer der wichtigsten bei der 
+Damit das Layout erstellt werden konnte, mussten zuerst alle Sysmbole Footprints zugewiesen bekommen. Dieser Schritt ist einer der wichtigsten bei der 
 Erstellung einer Platine. Hat man schon Bauteile müssen die exakten Footprints zum Erstellen des Layout benutzt werden. Abbildung \ref{fig:pcb:MP_layout} zeigt 
 das Layout der Hauptplantine. 
 \begin{figure}[H]
@@ -130,7 +130,24 @@ das Layout der Hauptplantine.
 Beim Erstellen des Layouts wurde versucht, einige Regeln für ein hochfrequenzgerechtes Layout zu beachten. So ist beispielsweise die Unterseite der Platine 
 eine druchgängige GND-Fläche. Auch die Positionierung des ESPs ist mihilfe der Espressif Design Rules erfolgt \cite{esp32_pcb_layout_design}. So wurde darauf 
 geachtet, dass unter der Antenne keine Leitungen verlaufen. Das könnte die BLE Verbindungsqualität beeinflussen. Der ESP wurde also mit der Antenne über 
-den Platinenrand hinaus platziert.
+den Platinenrand hinaus platziert. 
+
+\subsection{Fertigung, Bestückung und Test}
+\subsubsection{Fertigung durch JLCPCB}
+Die Platinen des Testroboters wurden von JLCPCB gefertigt. In KiCad gibt es ein Plugin namens Fabrication Toolkit, dass aus einem erstellten Projekt mit 
+Schaltplan und Layout eine production.zip Datei erstellt. Damit sind alle Dateien die JLCPCB zur Fertigung der Platine braucht in einer zip-Datei gespeichert 
+welche man dann nur mehr auf der Homepage hochladen muss. Bei der Fertigung der Hauptplatine des Testroboters wuden auch ein paar Bauteile mitbestückt. 
+Da die Lieferzeit der einzelnen Komponenten zu lange für eine selbständige Bestückung war. Der Spannungsregler, der MOSFET sowie alle SMD-Bauteile wurden 
+von JLCPCB bestückt. 
+\subsubsection{Bestückung und Testen}
+Die restlichen THT-Bauteile wurden eingelötet und die Verbindungen überprüft. Der 1$\mu$F Kondensator wurde durch einen zweiten 10nF Kondensator
+ersetzt, weil kein passender 1$\mu$F zur Hand war. 
+\par\vspace{1em}
+Die Spannungsreglerschaltung im Layout wurde auf den LM2596Adj (adjustable) angepasst, sie beeinhaltet das 50k$\Omega$ Potentiomer welches dann einen 
+variablen Spannungswert am Ausgang einstellen kann. Bei der Auswahl der zu bestückenden Teile wurde darauf vergessen. Es wurde fälschlicherweise der 
+LM2596-5 von JLCPCB bestückt. Die Spannungsversorgung brach so bei den Testdurchläufen immer wieder ein, und es konnte keine konstante Spannungsversorgung 
+garantiert werden. Zur Lösung wurde das Potentiometer mit einem Stück Draht überbrückt. 
+
 
 %\subsection{Versorgung der Platine} noch unsicher ob ich etwas dazu schreibe in dieser section
 
