@@ -1,8 +1,16 @@
 \section[Babybettchen]{Babybettchen}
 %Isolierung und Theorie dazu
+
 \subsection[Textilkleber]{Nanotape\authorlinda}
+Nano Tape ist ein durchsichtiges, doppelseitiges Klebeband, welches stark klebend und auf fast jeder glatten Oberfläche haftbar ist. Der Vorteil von Nano Tape ist, dass es wiederverwendbar ist, 
+sogar wenn es schmutzig wird. \cite{magnetshop_nano_tape}
 
 \subsection[Textilkleber]{Textilkleber\authorlinda}
+Der HT2 Textilkleber von Gütermann klebt Stoffe, Leder, PVC und vieles mehr. Er kann durch normales Kleben oder das Kleben durch Hitzeeinwirkung verwendet werden. Wenn man die Stoffe mittels Hitzeeinwirkung klebt, trägt man eine dünne Schicht des Klebers  auf den Stoffe, wartet 20 Minuten bis er trocknet. Fügt die beiden Stoffe danach zusammen und überbügelt die Klebenaht. 
+\noindent
+Auf dünnen, flexiblen Stoffen reicht es, wenn man ein schmale Schicht des Klebers auf eine Seite des Stoffes aufträgt. Bevor man die Stoffe zusammenfügt, wartet man 5 Minuten bis der Kleber annähernd trocken ist. 
+Danach können die Stoffe durch leichtes andrücken zusammengefügt werden. \cite{naehwelt_ht2_textilkleber}
+
 
 \subsection[ESP32 NodeMCU]{ESP32 NodeMCU\authorlinda}
 WLAN Blockiert ADC2!!! offener Tab
@@ -21,7 +29,7 @@ Diese Verformung der Dehnmessstreifen führt zu einer Widerstandsveränderung. \
 \begin{figure}[h]
 \centering
 \includegraphics[width = 10cm]{images/dms_dehnung-stauchung.jpg}
-\caption{Dehnung und Stauchung eines piezoresistiven Drucksensors (Bild: Keller AG, URL: https://www.aktuelle-technik.ch/die-piezoresistive-druckmesstechnik-a-1034345/, besucht: 01.04.2026)}
+\caption{Dehnung und Stauchung eines piezoresistiven Drucksensors \cite{piezoresistive_druckmesstechnik_bild}}
 \label{fig:dms_dehnung-stauchung}
 \end{figure}
 
@@ -44,8 +52,8 @@ Kontinuierliche Bewegungen, wie Gelenkbewegungen oder Atmen, erzeugen ein langsa
 \noindent
 Punktuelle Belastungen, wie kurzes Tippen und Drücken, sorgen für kurzzeitige lokale Kraftspitzen, die als schnelle Widerstandsänderungen erkennbar sind. \cite{gong_agocn_2025}
 
-\subsubsection{Aufbau}
-
+\subsubsection{Aufbau??}
+% leer
 
 \subsubsection{Anwendung}
 Durch die hohe Empfindlichkeit und Genauigkeit der piezoresistiven Drucksensoren können sie bei zahlreichen technischen Anwendungen verbaut werden. Aufgrund ihrer Fähigkeit bereits die kleinsten Druckänderungen zu erkennen und diese in elektrische Signale zu wandeln, finden sie in präzisionsorientieren Bereichen ihre Verwendung. 
@@ -61,7 +69,7 @@ Dieses Verhältnis hat keinen linearen Verlauf, sondern einen logarithmischen od
 \begin{figure}[H]
 \centering
 \includegraphics[width = 15cm]{images/drucksensor-kennlinie.png}
-\caption{Drucksensor Kennlinie - Widerstand in Abhängigkeit der Kraft (Quelle: DFRobot, URL: https://www.dfrobot.com/product-1842.html, besucht: 01.04.2026)}
+\caption{Drucksensor Kennlinie - Widerstand in Abhängigkeit der Kraft \cite{dfrobot_drucksensor-kennline_bild}}
 \label{fig:drucksensor-kennlinie}
 \end{figure}
 
@@ -71,7 +79,7 @@ Mithilfe der Kennlinie eines Drucksensors, wie beispielsweise in Abbildung \ref{
 \begin{figure}[H]
 \centering
 \includegraphics[width = 12cm]{images/piezresistiverDMS-kennlinie.png}
-\caption{Drucksensor Kennlinie - Hysterese (Quelle: Sensocon, URL: https://sensocon.online/wie-funktioniert-ein-kraftsensor/, besucht: 01.04.2026)}
+\caption{Drucksensor Kennlinie - Hysterese \cite{sensocon_drucksensor-hysteres_bild}}
 \label{fig:piezresistiverDMS-kennlinie}
 \end{figure}
 
@@ -85,7 +93,8 @@ sondern auch von dem Anfangszustand des Systems.\cite{studyflix_hysterese} Im Fa
 Das kann durch Materialeigenschaften oder Rückverformungen des Sensors entstehen. \cite{fraden_handbook}
 
 \noindent
-Temperaturabhängigkeit??
+% Temperaturabhängigkeit??
+
 
 \subsection[Wärmesensorik]{Wärmesensorik\authorkatrin}
 Für die Überwachung von Wärmeparametern in dem Babybett kommen verschiedene Methoden in Frage.
@@ -120,7 +129,7 @@ Diese Systemarchitektur wird in der Abbildung \ref{fig:systemarchitektur_flowcha
 \begin{figure}[H]
 \centering
 \includegraphics[width = 15cm]{images/systemarchitektur_flowchart.png}
-\caption{Systemarchitektur des Babybettchens (erstellt mit Lucid Flowchart)}
+\caption{Systemarchitektur des Babybettchens}
 \label{fig:systemarchitektur_flowchart}
 \end{figure}
 
@@ -153,7 +162,7 @@ In der Abbildung \ref{fig:EBV_adc-funktion} wird dargestellt, wie die Umwandlung
 \begin{figure}[H]
 \centering
 \includegraphics[width = 15cm]{images/EBV_adc-funktion.jpg}
-\caption{ADC wandelt ein analoges Signal in ein digitales Signal (Quelle: EBV, URL: https://my.avnet.com/ebv/resources/article/analog-to-digital-conversion-in-test-and-measurement-applications/, besucht: 02.04.2026)}
+\caption{ADC wandelt ein analoges Signal in ein digitales Signal \cite{ebv_adc_bild}}
 \label{fig:EBV_adc-funktion}
 \end{figure}
 
@@ -178,7 +187,7 @@ Je nachdem wie der Widerstand gewählt wird, ändert sich der Spannungsteiler un
 \begin{figure}[H]
 \centering
 \includegraphics[width = 7cm]{images/allgemein-spannungsteiler.png}
-\caption{Allgemeine Abbildung eines Spannungsteilers (Quelle: QG Wiki, URL: \url{https://wiki.qg-moessingen.de/faecher:nwt:arduino:lernbaustein2:sensoren_spteilung:start} , besucht: 02.04.2026)}
+\caption{Allgemeine Abbildung eines Spannungsteilers \cite{qgwiki_spannungsteiler_bild}}
 \label{fig:allgemein-spannungsteiler}
 \end{figure}
 
@@ -296,7 +305,7 @@ In der Abbildung \ref{fig:html-grundstruktur} wird dargestellt wie die grundsät
 \begin{figure}[H]
 \centering
 \includegraphics[width = 12cm]{images/html-grundstruktur.png}
-\caption{Grundstruktur eines HTML Dokuments (Quelle: IONOS, URL: \url{https://www.ionos.at/digitalguide/websites/web-entwicklung/was-ist-html/} , besucht: 03.04.2026)}
+\caption{Grundstruktur eines HTML Dokuments \cite{ionos_html_bild}}
 \label{fig:html-grundstruktur}
 \end{figure}
 

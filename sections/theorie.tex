@@ -1,5 +1,4 @@
 \chapter{Theorie}
-
 \section[Wie kam es zu diesem Thema?]{Wie kam es zu diesem Thema?\authorlinda} %1.1
 Bei der Überlegung eines passenden Themas, wurden viele verschiedene Optionen in Betracht gezogen. 
 Eines war jedoch fast seit dem Beginn klar, dass es ein Thema mit Bezug zur Medizin sein sollte, aufgrund unseres gewählten 
@@ -10,7 +9,6 @@ Jedoch wurde schnell klar, dass auf der einen Seite der Aufwand für eine Diplom
 noch das medizinische Wissen fehlt. Aufgrund dessen wurde es eine vereinfachte Version des geplanten Systems, 
 welches das Schlafverhalten und die Vitalwerte des Kindes aufzeichnet und den Eltern ein schriftliches und visuelles Feedback gibt.
 
-
 \section[Plötzlicher Kindstod Theorie]{Plötzlicher Kindstod Theorie\authorkatrin} %1.2 
 Unter dem Begriff Plötzlicher Kindstod versteht man das Versterben eines Babys welches
 das erste Lebensjahr noch nicht vollendet hat und unter keinerlei Vorerkrankungen litt.
@@ -20,16 +18,43 @@ Deshalb handelt es sich hierbei auch um eine Ausschlussdiagnose.
 In Österreich und anderen Industrienationen der Welt ist SIDS eine der häufigsten diagnostizierten Todesursachen.\cite{meinmed_sids}
 Zudem belegen Statistiken, dass der Plötzliche Kindstod vor allem in den Wintermonaten auftritt und meist im Schlaf. \cite{der-ploetzliche-saeuglingstod-epidemiologie-aetiologie-pathophysiologie-und-differenzialdiagnostik} \cite{Poets2020}
 
-\section[Medizintechnik]{Medizintechnik\authorlinda}
+\section[Medizintechnik]{Medizintechnik\authorlinda} \label{medizinischtechnisch}
 \subsection[Was sind Medizinprodukte?]{Was sind Medizinprodukte?}
+Medizinprodukte sind Produkte, die im direktem Kontakt zum Menschen stehen und deren Ziel die Erfüllung eines medizinischen Zwecks ist. Medizinprodukte inkludieren ein breites Spektrum von Produkten und bieten eine Vielzahl von Funktionen, dennoch muss man sie von Arzneimittel unterscheiden.
 
-\subsection[Medizintechnische Versorgung]{Medizintechnische Versorgung}
+\noindent
+Ein Medizinprodukt ist beispielsweise eine Spritze, ein Rollstuhl, ein Herzschrittmacher und sogar ein medizinisches Laborgerät. All diese Produkte haben bestimmte Richtlinie, an die sie sich halten müssen, 
+um bei einem Menschen eingesetzt zu werden. \cite{ages_medizinprodukte} \cite{sozialministerium_medizinprodukte}
 
-\section{Theorie zum allgemeineren System} % 1.3 
+\subsection[Versorgung von medizinischen Geräten]{Versorgung von medizinischen Geräten}
+In medizintechnischen Bereichen liegt die Spannungsversorgung unter strengen Sicherheitsanforderungen, da Menschen häufig im direkten Kontakt zu den medizinischen Geräten stehen und beispielsweise mit Elektroden oder Sensoren verbunden sind. Es reichen bereits kleine Ströme, um zu einem gefährlichen Körperstrom zu führen. Deshalb dürfen medizinische Geräte nicht direkt an das öffentliche Spannungsnetz angeschlossen werden und 
+müssen über einem galvanisch getrennten Stromkreis versorgt werden. \cite{reichelt_galvanische_isolatoren} \cite{bender_stromversorgung}
+
+\paragraph{Galvanische Trennung:}
+Die galvanische Trennung, siehe Abbildung \ref{galvanische-trennung}, ist eine physische Trennung von zwei Stromkreisen, indem sie voneinander isoliert werden. Diese Isolierung verhindert, dass Elektronen von einem Stromkreis direkt in nächsten weitergehen können. Das bedeutet, dass ein System vor unerwünschten Stromflüssen geschützt wird.
+
+\noindent
+Diese galvanische Trennung kann mithilfe von Bauteile wie einem Transformator, Optokoppler oder Kondensator realisiert werden. Mit diesen Bauteilen kann die Energie über eine induktive, optische oder kapazitive Kopplung übertragen werden, 
+ohne das Risiko einer direkten elektrischen Verbindung einzugehen. \cite{heinen_galvanische_trennung}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width = 15cm]{images/galvanische-trennung.png}
+\caption{Galvanische Trennung \cite{reichelt_galvanische_isolatoren_bild}}
+\label{fig:galvanische-trennung}
+\end{figure}
+
+\noindent
+Der medizinische Trenntransformator ist ein wesentlicher Bestandteil der Spannungsversorgung. Er sorgt dafür, dass medizinische Geräte elektrisch Isoliert sind, wodurch das Ausfallsrisiko reduziert wird und diese unterbrechungsfreier versorgt werden. 
+\noindent
+Ebenfalls schützt der Trenntransformator das Gerät vor Kurzschlüssen und verringert das Risiko das der Strom unterbrochen wird. Er bietet durch die galvanische Trennung 
+außerdem Schutz vor der elektrischen Entladung und trägt zur weiteren Sicherheit bei. \cite{ttf_trenntransformatoren_medizin}
+
+\section{Theorie zum allgemeineren System} 
 %Was kann man zum auslesen von Vitalwerten bzw. unseren Aufnahmedaten so an theorie finden?
 %muss nicht wirklich schon genau auf unser System bezogen sein
 
-\section{Was gibt es schon?} %1.4
+\section{Was gibt es schon?} 
 \subsection{Markt}
 %KI gesteuerte Babyphone usw.
 \subsection{Forschung}
@@ -60,8 +85,85 @@ Ein besonderer Vorteil ist die große Sammlung an Symbolen, Footprints oder 3D-M
 das einfache Konfigurieren oder Einbeziehen individueller Komponenten. 
 Für die weitere Fertigung der Platine lassen sich ganz leicht, benötigte Gerber
 und Bohrdateien exportieren. \cite{kicad_docs}
+
 \subsection[Ätzen]{Ätzen\authorlinda}
 Ätzen ist ein Verfahren, welches in der Leiterplattenfertigung verwendet wird, um das überschüssige Kupfer der Platine abzutragen. 
 Ziel ist es, die zuvor gelayouteten Leiterbahnen freizulegen, indem die nicht benötigten Kupferbereiche entfernt werden. \cite{ablcircuits_pcb_etching}
 
-\subsection[Löten]{Löten\authorlinda}
+\subsubsection{Schritte des Ätzvorgangs}
+Bevor eine Platine geätzt werden kann, muss mit einem Programm, wie beispielsweise KiCad, ein Schaltplan gefertigt werden. Aus diesem Schaltplan, kann dann ein Layout erstellt werden, bei welchem man die Bauteile platzsparend und technisch sinnvoll anordnet, damit diese sich untereinander nicht stören. Die Verbindung dieser Bauteile erfolgt durch Leiterbahnen, von denen der Layouter die Route beliebig wählen kann, 
+solange die Verbindung technisch korrekt ist und Störungen vermeidet. % (siehe Punkt \ref{})
+
+\par\vspace{1em}
+
+\noindent
+Sobald man mit der Anordnung der Bauteile und Leiterbahnen zufrieden ist, kann man mit einem Drucker das Layout ausdrucken. Wichtig dabei ist, dass nur die richtigen Layer aktiviert sind, also die Layer die auch wirklich auf der Leiterplatte später sichtbar sein sollen. Das wäre in den meisten Fällen der Bottom Layer und die Pads der Bauteile. 
+\noindent
+Wenn man eine zweiseitige Platine mit Top und Bottom Layer hat, muss man die beiden Layer und die zugehörigen Pads getrennt ausdrucken. Das bedeutet es wird einmal nur der Bottom Layer aktiviert und ausgedruckt und danach nur der Top Layer.
+
+\par\vspace{1em}
+
+\noindent
+Falls man die Platine, mit beispielsweise dem Namen des Projektes, der Versions Nummer, dem Fertigungsdatum oder ähnlichem, beschriften möchte, kann man das tun indem man ein Textfeld generiert. Dieses Textfeld muss sich entweder auf dem Top oder Bottom Layer befinden, damit es beim Druck sichtbar ist. Es sollte keine Überschneidungen zwischen dem Textfeld und den Leiterbahnen geben, da das Textfeld gleichermaßen aus Kupferleitungen besteht. Bei der Platzierung des Textfeldes muss man beachten, dass wenn man es auf dem Top Layer platziert potentiell von Bauteilen überdeckt wird.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width = 8cm]{images/basismaterial-platine_ätzen-theorie.png}
+\caption{Schichtenaufbau einer Platine \cite{jonasforscht_ätzen-theorie_bild}}
+\label{fig:basismaterial-platine}
+\end{figure}
+
+\noindent
+In der Abbildung \ref{fig:basismaterial-platine} sieht man den Schichtenaufbau einer einseitigen Platine. Diese besteht aus dem Basismaterial, der Kupferschicht und dem Photolack.
+
+
+\par\vspace{1em}
+
+\noindent
+Die Platine wird von ihrer Schutzfolie befreit, diese Schutzfolie befindet sich über dem Photolack und schützt diesen vor Sonnenstrahlen. Auf diese Schicht wo sich davor die Schutzfolie befunden hat, wird das ausgedruckte Layout platziert. Der Ausdruck des layouts sollte so sauber wie möglich auf die Platine platziert werden, da diese Position genau die Ausrichtung der Platine bestimmt. Diese Platine wird mit dem Ausdruck in die Belichtungsmaschine gelegt und damit dieser nicht verrutscht, wird in den meisten Fällen eine Glasplatte über die Platine gelegt. Durch diese Glasplatte kann die Platine gleichzeitig fixiert und dennoch belichtet werden. Es gibt auch andere Arten wie die Platine fixiert werden kann, beispielsweise kann die Platine zwischen zwei durchsichtigen „Platten“ ins Vakuum versetzt werden. 
+
+\par\vspace{1em}
+
+\noindent
+Durch diese Fixierung wird nicht nur garantiert, dass die Platine nicht verrutscht, sondern auch Genauigkeit der Belichtung erhöht. Denn je dichter das Layout an der Platine liegt, desto genauer ist die Belichtung.
+
+\par\vspace{1em}
+
+\noindent
+In der Abbildung \ref{fig:belichten-platine} wird dargestellt, wie die Platine belichtet wird. Durch das Layout, welches auch als Maske bezeichnet wird, wird definiert welche Bereiche des Kupfers erhalten bleiben und welche weggeätzt werden. Aufgrund der schwarzen Tinte des Ausdruckes, welche den Leiterbahnen und Pads entspricht, kann keine Reaktion durch das UV-Licht entstehen.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width = 8cm]{images/belichten-platine_ätzen-theorie.png}
+\caption{Belichtung der Platine \cite{jonasforscht_ätzen-theorie_bild}}
+\label{fig:belichten-platine}
+\end{figure}
+
+\noindent
+Nach der Belichtung wird die Platine entwickelt, dabei wird sie in ein Entwicklerbad, welches eine Temperatur von ca. 40-50°C hat, gesteckt. Bevor man die Platine in das Entwicklerbad eintaucht sollte man Handschuhe anziehen, um die Haut zu schützen. Während der Entwicklung der Platine, werden die belichteten Stellen des Photolacks gelöst 
+und die Kupferschicht darunter freigelegt, siehe Abbildung \ref{fig:entwickeln-platine}.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width = 8cm]{images/entwickeln-platine_ätzen-theorie.png}
+\caption{Entwicklung der Platine \cite{jonasforscht_ätzen-theorie_bild}}
+\label{fig:entwickeln-platine}
+\end{figure}
+
+\noindent
+Nach dem Entwickeln ist die Platine bereit für das Ätzbad, welches auf ca. 50 - 60°C erhitzt werden muss. Je nach Temperatur des Ätzbads dauert der Ätzvorgang ca. 15 – 30 Minuten, bei welchem weiterhin die Handschuhe getragen werden sollten.
+
+\par\vspace{1em}
+
+\noindent
+Der Ätzvorgang ist eine Redoxreaktion, mithilfe welcher die Kupferschicht entfernt wird, siehe Abbildung \ref{fig:aetzen-platine}. Wodurch am Ende nur mehr die gewollten Leiterbahnen und Pads, 
+als Kupferschicht vorhanden sind. \cite{jonasforscht_ätzen-theorie} \cite{reicheltpedia_aetzen}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width = 8cm]{images/ätzen-platine_ätzen-theorie.png}
+\caption{Ätzen der Platine \cite{jonasforscht_ätzen-theorie_bild}}
+\label{fig:aetzen-platine}
+\end{figure}
+
+% \subsection[Löten]{Löten\authorlinda}

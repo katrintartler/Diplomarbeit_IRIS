@@ -1,6 +1,33 @@
 \chapter{Methodik}
 
 \section[Drucksensorik testen]{Drucksensorik testen\authorlinda}
+Für die Erfassung der Bewegung des Kindes wurden im Babybettchen sechs 
+flexible Dünnschicht Drucksensoren (RP-S40-ST \cite{}) verbaut. Um die Messwerte der Drucksensoren auszuwerten, muss für jeden Drucksensor ein Spannungsteiler aufgebaut werden. Da der Drucksensor unter Belastung, 
+seinen Widerstand verringert, siehe Abbildung \ref{fig:rp-s40-st_drucksensor-kennlinie}, und sich somit die Spannung am Drucksensor verändert.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width = 10cm]{images/drucksensor-kennlinie.png}
+\caption{RP--S40--ST Widerstandskennlinie \cite{dfrobot_drucksensor-kennline_bild}}
+\label{fig:rp-s40-st_drucksensor-kennlinie}
+\end{figure}
+
+\noindent
+Wir haben uns dazu entschieden einen Spannungsteiler mit einem Pull-up Widerstand aufzubauen, wodurch wenn der Widerstand des Drucksensors sinkt, auch die Spannung sinkt.
+Weil wenn man die Spannung am Knoten, siehe Abbildung \ref{fig:drucksensor-testen_spannungsteiler}, misst, gleich diese Formel gilt:
+
+\[
+U_\text{out} = U_\text{in} \cdot \frac{R_\text{sensor}}{R_\text{pullup} + R_\text{sensor}}
+\]
+
+\begin{figure}[H]
+\centering
+\includegraphics[width = 15cm]{images/drucksensor-testen_methodik.jpg}
+\caption{Spannugsteiler des Drucksensors}
+\label{fig:drucksensor-testen_spannungsteiler}
+\end{figure}
+
+\subsection{RP-S40-ST Dünnschicht Drucksensor}
 %pullup pulldown
 
 \section[Wärmesensorik testen]{Wärmesensorik testen\authorkatrin} \label{Wärmequelle}
@@ -44,7 +71,7 @@ da dieses die gewünschten Anforderungen erfüllen konnte. \cite{costway_reisebe
 \begin{figure}[H]
 \centering
 \includegraphics[angle = 270, width = 11cm]{images/ganzes-Babybett.jpeg}
-\caption{bestelltes Reisebabybettchen (fotografiert)}
+\caption{bestelltes Reisebabybettchen}
 \label{fig:ganzes-Babybett}
 \end{figure}
 
@@ -71,7 +98,7 @@ Für die Verkabelung der Drucksensoren sind isolierte Kupferkabel, in den Farben
 \begin{figure}[H]
 \centering
 \includegraphics[width = 10cm]{images/babybett-drucksensoren-matratze.jpeg}
-\caption{Babybettchen Matratze mit Drucksensoren (fotografiert)}
+\caption{Babybettchen Matratze mit Drucksensoren }
 \label{fig:babybett-drucksensoren-matratze}
 \end{figure}
 
@@ -92,10 +119,14 @@ Die Befestigung der Platine, hat unter den Zeitproblemen gelitten und wurde nur 
 siehe Abbildung \ref{fig:ganzes-Babybett}. Dieser provisorische Aufbau dient dazu, dass die Verkabelung des Babybettchens nicht unter der Bewegung der Platine leidet. Denn ohne diesen würde die Platine in der Luft schweben und durch die Verkabelung gehalten werden, was wiederum einen Belastung für die Verkabelung darstellt. 
 Im Punkt \ref{Platinen-Gehäuse} wird dieser Aspekt genauer behandelt.
 
-\subsection{Spannungsversorgung} \label{medizinischtechnisch}
-%maybe so der generelle Konsenz von diesem ganzen medizinisch-technischem Spannungsding und den Richtlinien und sowas? 
+\subsection{Spannungsversorgung} 
 %und dann bei deim PCB punkt nur wie man es dann quasi umgesetzt hat  
-%ich könnte mich dann bei meinem Spannungsversorgungs ding darauf beziehen, queerverweise und so
+In Theorie ist das Babybettchen ein medizintechnisches Gerät, da über Sensoren Werte eines Babys erfasst und ausgewertet werden sollen. Unser System erfüllt nicht die hohen Anforderungen eines tatsächlichen medizintechnischen Produktes, dennoch versuchten wir uns  bei der Spannungsversorgung an den grundlegenden Richtlinien zu orientieren, indem das Babybettchen nicht direkt an das öffentliche Spannungsnetz angeschlossen wurde.
+
+\par\vspace{1em}
+
+\noindent
+Da unser System, durch die geplanten Sensoren einen hohen Stromverbrauch gehabt hätte, wäre es nicht sinnvoll gewesen eine Standard 9V Batterie zu verwenden. Der Stromverbrauch des geplanten Systems wurde überschlagsmäßig auf annähernd 1A geschätzt und würde eine 9V Batterie in etwa einer halben Stunde vollständig entleeren. Außerdem ist zu beachten, dass eine 9V Batterie für derartig hohe Ströme nicht ausgelegt ist. Weshalb wir uns dazu entschieden haben eine Powerbank, von der Marke Varta, zu verwenden. Der Hauptvorteil der Powerbank war, dass selbst wenn diese leer war, wieder aufgeladen werden konnte.
 
 \section{Grundlegende Systemarchitektur\authorlinda}
 Für die grundlegende Systemarchitektur des Babybettchens war es geplant, dass Sensoren die Bewegung, Temperatur und Geräusche des Babys messen und diese Messwerte mit einem Mikrokontroller verarbeitet werden. Nach der Auswertung der Daten, sollten diese mit dem Mikrokontroller an die nächste Stufe des Systems weitergeleitet werden, in dieser nächsten Stufe sollten die Daten und Erkenntnisse für die Eltern visualisiert werden. 
@@ -131,8 +162,32 @@ Ein weiterer entscheidender Vorteil des ESP32 ist die Rechenleistung, denn diese
 Zusätzlich verfügt der ESP32 über eine integrierte UART Schnittstelle und zwei Analog-Digital-Converter (ADC). Durch diese Eigenschaften, ermöglicht der ESP32 die einfache Anbindung von Sensoren und die Kommunikation zwischen zwei ESPs. Diese Funktion wird benötigt, da ein ESP32 die Erfassung der Sensordaten übernimmt und diese dann über die UART Schnittstelle an den zweiten ESP32 weiterleitet, welcher die zentrale Kommunikationseinheit des Systems bildet.
 
 \subsection{Warum zwei ESP32?}
-% Adc1 pins
-% warum 2 esp
+Wie bereits zuvor erwähnt, verwenden wir beim Babybettchen zwei ESP32 und das nicht ohne Grund. Denn man sollte, wenn man die WLAN Funktion des ESP32 nutzt, was wir in unserem Fall für die Übertragung verwendet haben, nur ADC1 Pins verwenden. ADC2 Pins können potentiell die WLAN Verbindung blockieren, was dazu führen würde, dass die Daten nicht kontinuierlich an die Visualisierungsstufe übertragen werden.
+
+\par\vspace{1em}
+
+\noindent
+Unser ausgewählter ESP32 NodeMCU verfügt nur über vier ADC1 Pins, siehe Abbildung \ref{fig:pinout-esp32nodemcu}, was ein Problem dargestellt hat, da wir alleine für die Drucksensoren 6 Pins benötigten. Darüber hinaus war zu diesem Zeitpunkt die Integration der Wärme- und Geräuschsensorik vorgesehen, wobei der genaue Bedarf an Pins noch unklar war.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width = 15cm]{images/pinout-esp32nodemcu.png}
+\caption{Ausschnitt des ESP32 NodeMCU Pinout \cite{azdelivery_esp32_pinout_bild}}
+\label{fig:pinout-esp32nodemcu}
+\end{figure}
+
+\par\vspace{1em}
+
+\noindent
+Da der ESP32 bereits bestellt war, suchten wir nach keinem alternativen Mikrokontroller, sondern nach einer Lösung wie wir ihn weiterhin verwenden konnten. Wir haben in Betracht gezogen, dass wir einen I2C Bus oder MUX Baustein für die Sensoren verwenden. Angesichts der Tatsache, dass wir zwei ESP32 bestellt haben, entschieden wir uns gegen die Verwendung eines I2C Busses oder dem MUX Baustein. So konnten wir an Kosten sparen und müssten nicht die Lieferzeit eines neuen Bausteines abwarten.
+
+\par\vspace{1em}
+
+\noindent
+Wir haben das Problem gelöst, indem wir einen der beiden ESPs ausschließlich für die Aufnahme der Sensordaten verwendet haben. Der zweite ESP übernimmt somit die WLAN Funktion und bildet die Schnittstelle zwischen der Datenerfassung und der Visualisierung der Daten. Dadurch dass nur der zweite ESP die WLAN Funktionalität nutzt, konnte am ersten ESP, welcher für die Erfassung zuständig ist,  ADC1 und ADC2 Pins verwendet werden.
+
+\section[Aufbau und Funktion des Babybettchen System]{Aufbau und Funktion des Babybettchen System\authorlinda}
+
 
 \section[Babybettchen PCB]{Babybettchen PCB\authorlinda}
 \subsection{Prinzip}
@@ -155,8 +210,6 @@ chart.js
 
 
 \paragraph{Dynamische Aktualisierung der Daten:}
-
-\section[ESP für PWA]{ESP für PWA???\authorlinda}
 
 
 %Testroboter
