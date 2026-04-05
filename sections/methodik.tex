@@ -243,9 +243,11 @@ die Halterungskonstruktion der Bein Motoren in Abbildung \ref{fig:3d:motorbein} 
 \label{fig:3d:motorbein}
 \end{figure}
 \noindent 
+\newpage
+\noindent
 Damit die Motorhalterungen gut verankert werden können, wurde ein kleiner Ramen gedruckt welcher den Puppenrumpf etwas mehr ausfüllt. 
 Die Konstruktion wird stabiler und es erleichtert den Einbau. Der Rahmen ist in Abbildung \ref{fig:3d:rahmen} zu sehen. 
-\begin{figure}[htbp]
+\begin{figure}[H]
 \centering
 
 \begin{subfigure}{0.45\textwidth}
@@ -263,7 +265,7 @@ Die Konstruktion wird stabiler und es erleichtert den Einbau. Der Rahmen ist in 
 \caption{Rahmen zur Stabilisation}
 \label{fig:3d:rahmen}
 \end{figure}
-\noindent 
+\noindent
 Damit die Gliedmaßen an den Motoren befestigt werden konnten, wurden kleine Scheiben für Arme und Beine gedruckt.
 Diese Scheiben haben vorgefertigte Einkerbungen für die sogenannten Moterenhebel.
 Motorhebel sind die kleinen Aufsätze die meist mit den Servos mitgelieftert werden, je nach Anwendung kann man unterschiedliche
@@ -272,8 +274,9 @@ der einen Seite anschrauben und die Scheibe dann an dem Plastik der Arme und Bei
 So werden die Gliedmaßen wieder mit dem Rumpf verbunden. 
 Abbildung \ref{fig:3d:scheibeB} und Abbildung \ref{fig:3d:ringB} zeigen diese Montageteile für die Beine. Auf Abbildung \ref{fig:3d:scheibeA} und \ref{fig:3d:ringA} sieht man 
 die Version für die Arme. 
+\newpage
 
-\begin{figure}[htbp] %beine /scheibe
+\begin{figure}[H] %beine /scheibe
 \centering
 
 \begin{subfigure}{0.45\textwidth}
@@ -292,7 +295,7 @@ die Version für die Arme.
 \label{fig:3d:scheibeB}
 \end{figure}
 
-\begin{figure}[htbp] % beine /ring 
+\begin{figure}[H] % beine /ring 
 \centering
 
 \begin{subfigure}{0.45\textwidth}
@@ -311,7 +314,7 @@ die Version für die Arme.
 \label{fig:3d:ringB}
 \end{figure}
 
-\begin{figure}[htbp] %beine /scheibe
+\begin{figure}[H] %arme /scheibe
 \centering
 
 \begin{subfigure}{0.45\textwidth}
@@ -330,7 +333,7 @@ die Version für die Arme.
 \label{fig:3d:scheibeA}
 \end{figure}
 
-\begin{figure}[htbp] % arme /ring 
+\begin{figure}[H] % arme /ring 
 \centering
 
 \begin{subfigure}{0.45\textwidth}
@@ -348,29 +351,33 @@ die Version für die Arme.
 \caption{Arm-Ringe}
 \label{fig:3d:ringA}
 \end{figure}
+\noindent
+Das Befestigen der Scheiben an den Plastikarmen gestaltete sich etwas schwerer als bei den Beinen. Da das Plasitk bei den Beinen dicker und somit besser für das Verschrauben geeinigt war.
+Bei den Armen war es dünner und so war es etwas schwieriger die Arme mit den Motoren zu verbinden. Die Verbindungsstelle ist dementsprechend auch nicht so stabil. 
+\newpage
+\noindent
+Damit der Lautsprecher im Kopf gut sitzt, wurde ebenfalls eine Halterungskonstruktion gedruckt, siehe Abbildung \ref{fig:3d:speaker}.
+\begin{figure}[htbp] % speaker 
+\centering
 
+\begin{subfigure}{0.45\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{images/3d/KonZ_speaker.png}
+    \caption{Konstruktionszeichnung: Lautsprecherhalterung}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.45\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{images/3d/3d_speaker.png}
+    \caption{3D-Abbildung: Lautsprecherhalterung}
+\end{subfigure}
 
-
-
-
-%Arme
-Das Befestigen der Scheiben an den Plastikarmen gestaltete sich etwas schwerer als bei den Beinen. Die Beine hatten bei der originalen Konstruktion Platten an der
-Montagestelle zwischen Bein und Rumpf. Die Arme waren innen hohl und es gab keine zuvor eingesetzte Platte. Dadurch war es etwas schwieriger die Arme mit den Motoren 
-zu verbinden und die Verbindungsstelle ist dementsprechend auch nicht so stabil. 
-
+\caption{Lautsprecherhalterung}
+\label{fig:3d:speaker}
+\end{figure}
 
 \section[Testroboter Main-PCBs]{Testroboter Main-PCBs \authorkatrin} 
-\subsection{Prinzip}
-\subsection{Schaltplan}
-\subsection{Layout}
-%\subsection{Versorgung der Platine} noch unsicher ob ich etwas dazu schreibe in dieser section
-
-\section[Testroboter Heat-PCB]{Testroboter Heat-PCB \authorkatrin} \label{Heat Platinen}
-\subsection{Prinzip}
-\subsection{Schaltplan}
-\subsection{Layout}
-%\subsection{Versorgung der Platine} noch unsicher ob ich etwas dazu schreibe in dieser section
-\subsection{Platinenfertigung}
+\input{sections/testroboterPCBs.tex}
 
 \section[Code Testroboter]{Code Testroboter\authorkatrin} %fertig nur mehr formatieren
 Der Code zur Steuerung des Testroboters besteht aus zwei pythonbasierten Programmen, siehe \ref{Client Code}.
