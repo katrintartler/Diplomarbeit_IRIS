@@ -2,12 +2,12 @@
 
 \section[Drucksensorik testen]{Drucksensorik testen\authorlinda}
 Für die Erfassung der Bewegung des Kindes wurden im Babybettchen sechs 
-flexible Dünnschicht Drucksensoren (RP-S40-ST \cite{}) verbaut. Um die Messwerte der Drucksensoren auszuwerten, muss für jeden Drucksensor ein Spannungsteiler aufgebaut werden. Da der Drucksensor unter Belastung, 
+flexible Dünnschicht Drucksensoren (RP-S40-ST \cite{dfrobot_drucksensor}) verbaut. Um die Messwerte der Drucksensoren auszuwerten, muss für jeden Drucksensor ein Spannungsteiler aufgebaut werden. Da der Drucksensor unter Belastung, 
 seinen Widerstand verringert, siehe Abbildung \ref{fig:rp-s40-st_drucksensor-kennlinie}, und sich somit die Spannung am Drucksensor verändert.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width = 10cm]{images/drucksensor-kennlinie.png}
+\includegraphics[width = 15cm]{images/drucksensor-kennlinie.png}
 \caption{RP--S40--ST Widerstandskennlinie \cite{dfrobot_drucksensor-kennline_bild}}
 \label{fig:rp-s40-st_drucksensor-kennlinie}
 \end{figure}
@@ -20,15 +20,18 @@ Weil wenn man die Spannung am Knoten, siehe Abbildung \ref{fig:drucksensor-teste
 U_\text{out} = U_\text{in} \cdot \frac{R_\text{sensor}}{R_\text{pullup} + R_\text{sensor}}
 \]
 
+\par\vspace{1em}
+
+\noindent
+Der Spannungsteiler, welcher in der Abbildung \ref{fig:drucksensor-testen_spannungsteiler} dargestellt wird, wurde auf einem Steckbrett aufgebaut. Durch das Testen verschiedener Pull-up Widerstände, 
+wurde ein 10k$\Omega$ Widerstand gewählt. Dieser wurde mithilfe, eines Multimeters bestimmt welches den Widerstand des Drucksensors gemessen hat, da wir darauf geachtet haben, wie sich der Drucksensor unter Belastung verhalten hat. Denn bei unterschiedlichen Pull-up Widerständen zeigten sich verschiedene Stufen der Empfindlichkeit.
+
 \begin{figure}[H]
 \centering
-\includegraphics[width = 15cm]{images/drucksensor-testen_methodik.jpg}
-\caption{Spannugsteiler des Drucksensors}
+\includegraphics[width = 10cm]{images/drucksensor-testen_methodik.jpg}
+\caption{Spannungsteiler des Drucksensors}
 \label{fig:drucksensor-testen_spannungsteiler}
 \end{figure}
-
-\subsection{RP-S40-ST Dünnschicht Drucksensor}
-%pullup pulldown
 
 \section[Wärmesensorik testen]{Wärmesensorik testen\authorkatrin} \label{Wärmequelle}
 Für die Simulation der Körpertemperatur des Kindes wurden im Testroboter Keramikwiderstände eingebaut, welche als Wärmequellen
@@ -97,7 +100,7 @@ Für die Verkabelung der Drucksensoren sind isolierte Kupferkabel, in den Farben
 
 \begin{figure}[H]
 \centering
-\includegraphics[width = 10cm]{images/babybett-drucksensoren-matratze.jpeg}
+\includegraphics[width = 11cm]{images/babybett-drucksensoren-matratze.jpeg}
 \caption{Babybettchen Matratze mit Drucksensoren }
 \label{fig:babybett-drucksensoren-matratze}
 \end{figure}
@@ -186,16 +189,169 @@ Da der ESP32 bereits bestellt war, suchten wir nach keinem alternativen Mikrokon
 \noindent
 Wir haben das Problem gelöst, indem wir einen der beiden ESPs ausschließlich für die Aufnahme der Sensordaten verwendet haben. Der zweite ESP übernimmt somit die WLAN Funktion und bildet die Schnittstelle zwischen der Datenerfassung und der Visualisierung der Daten. Dadurch dass nur der zweite ESP die WLAN Funktionalität nutzt, konnte am ersten ESP, welcher für die Erfassung zuständig ist,  ADC1 und ADC2 Pins verwendet werden.
 
-\section[Aufbau und Funktion des Babybettchen System]{Aufbau und Funktion des Babybettchen System\authorlinda}
-
-
 \section[Babybettchen PCB]{Babybettchen PCB\authorlinda}
 \subsection{Prinzip}
+Der Hauptanteil der Elektronik befindet sich auf der Platine des Babybettchens, siehe Abbildung \ref{fig:babybettchen-schaltplan}, die Sensoren, welche sich nicht direkt auf der Platine befinden, werden durch eine Verkabelung und Schraubklemmen mit der Platine verbunden. Der Schaltplan und das Layout der Platine wurden mittels KiCad erstellt. Die Fertigung der Platine erfolgte nicht über einen externen Hersteller, sondern wurde eigenständig in Schulwerkstatt durchgeführt. 
+
+\par\vspace{1em}
+
+\noindent
+Auf der Platine befinden sich die beiden ESP32, die Anschlüsse der Drucksensoren und deren dazugehörigen Pull-Up Widerstände, nicht verwendete Pinheader, welche für das Mikrofon gedacht waren und eine Kontrollleuchte für die WLAN Verbindung des ESP32.
+
 \subsection{Schaltplan}
+\begin{figure}[H]
+\centering
+\includegraphics[angle = 90, width = 15cm]{images/babybettchen-schaltplan.pdf}
+\caption{Schaltplan der Platine des Babybettchens}
+\label{fig:babybettchen-schaltplan}
+\end{figure}
+\newpage
+
+\subsubsection{Allgemeine Informationen zu Designprozess}
+Bei der Erstellung eines Schaltplanes in KiCad müssen mehrere Aspekte beachtet werden, damit der Electrical Rule Check erfolgreich ist und man mit dem Layouten weitermachen kann. 
+
+\noindent
+Wenn man Pins eines Mikrokontrollers oder anderer Bauteil nicht benötigt, muss man ein Kreuz setzen und damit kennzeichnen, dass diese Pins nicht verwendet werden. Ein weiterer Aspekt ist, dass wenn man eine Spannungsquelle verwendet, welche von KiCad nicht als solche erkannt wird, eine PowerFlag nutzen muss.
+
+\par\vspace{1em}
+
+\noindent
+Um einen das Erstellen des Schaltplans zu erleichtern und einen besseren Überblick zu verschaffen, kann man Labels verwenden. Statt einer optischen Verbindung, verbindet man Bauteile, indem man den Pins den gleichen Namen zuweist, wenn sie miteinander verbunden werden sollen. 
+\noindent
+Dadurch entstehen weniger Überkreuzungen von Verbindungen, welche Verwirrungen aufbringen können und Untergruppen, wie beispielsweise Drucksensorik, können erstellt werden, welche zu einer besseren Übersicht führen. In diesen Untergruppen platziert man all die Bauteile, welche für diesen Part des Schaltplanes verwendet werden und verbindet sie nur durch Labels mit den anderen Untergruppen.
+
+\par\vspace{1em}
+
+\noindent
+KiCad hat ein breites Spektrum an Bauteilen, welches für die Erstellung des Schaltplans verwendet werden kann, aber nicht all unsere Bauteile waren in KiCad enthalten. Für diesen Schaltplan und später das Layout mussten wir 
+die Symbol- und Footprintdatein des ESP32 NodeMCU von der Webseite SnapMagic\cite{snapeda_platform} herunterladen und in KiCad einbinden.
+
+\subsubsection{ESP32}
+Auf der Platine befinden sich zwei ESP32, siehe Abbildung \ref{fig:schaltplan-zweiESP32}, der linke ESP32 ist der von uns bezeichnete ESP B, welcher die Kommunikationsschnittstelle des Systems bildet. Der rechte ESP32 ist der von uns bezeichnete ESP A, welcher für die Erfassung der Sensordaten verantwortlich ist.
+
+\par\vspace{1em}
+
+\noindent
+Am ESP A sind an den Pins 25, 26, 32, 33 ,34 und 35 die Drucksensoren angeschlossen. Diese Pins wurden gewählt, da sie ADC Pins sind, welche für die Aufnahme von Sensordaten benötigt werden. Da der ESP A die WLAN Funktionalität nicht nutzt, können bei diesem auch ADC2 Pins und nicht nur ADC1 Pins verwendet werden. Denn nur die Pins 32 bis 35 wären ADC1 Pins und dadurch könnten nur vier Drucksensoren angeschlossen werden. Ebenfalls wurden die benötigten Pins für ein Mikrofon inkludiert.
+
+\noindent
+Für die Datenübertragung zwischen den ESP32, wurde die Verbindung der Pins der UART Schnittstelle und ein gemeinsamer Ground benötigt.
+
+\noindent
+Für die Funktionalität des ESP B ist zusätzlich zur Versorgung und der UART Schnittstelle nur der Pin für die Kontrollleuchte verbunden. Denn der ESP B ist rein dafür verantwortlich, dass er die Daten des ESP A empfängt und diese dann an die PWA weiterleitet.
+
+\par\vspace{1em}
+
+\noindent
+Die Versorgung des Systems wird durch eine Powerbank übernommen, damit die Powerbank nur an einen der beiden ESP32 angeschlossen werden muss, wurde der 5V Pin der beiden ESP32 miteinander verbunden.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width = 15cm]{images/schaltplan-zweiESP32.png}
+\caption{ESP A (rechts) und ESP B (links) auf der Babybettchen Platine}
+\label{fig:schaltplan-zweiESP32}
+\end{figure}
+
+\subsubsection{UART Schnittstelle}
+Bei der UART Schnittstelle, werden RX2 und TX2 verwendet, da bei der Benutzung von den tatsächlichen RX und TX Pins Probleme auftreten würden. Aufgrund dessen sollte Pin 16 von ESP A, was RX2 entspricht, mit Pin 17 von ESP B, was TX2 entspricht, und umgekehrt miteinander verbunden werden.
+
+\par\vspace{1em}
+
+\noindent
+Da uns mit den Labeln aber ein Fehler passiert ist, wurde Pin 17 von ESP A mit Pin 17 von ESP B und Pin 16 von ESP A mit Pin 16 von ESP B verbunden. Das Problem konnte durch eine kleine Anpassung im Code behoben werden und führten zu keinen weiteren Problemen.
+
+\subsubsection{Drucksensoren}
+In der Abbildung \ref{fig:schaltplan-drucksensorik-babybettchen} sieht man den Aufbau der sechs Drucksensoren im Schaltplan. Die Drucksensoren sind über Labels mit den dazugehörigen Pull-Up Widerständen und Ground verbunden. Der ESP A kann somit, die Spannungsänderung jedes einzelnen Drucksensors messen und weiterleiten. 
+
+\noindent
+Die Drucksensoren werden mithilfe folgender Abkürzungen unterteilt:
+\begin{itemize}
+    \item lu = Drucksensor links Unten
+    \item lm = Drucksensor links Mitte
+    \item lo = Drucksensor links Oben 
+    \item ru = Drucksensor rechts Unten
+    \item rm = Drucksensor rechts Mitte 
+    \item ro = Drucksensor rechts Oben 
+\end{itemize}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width = 10cm]{images/schaltplan-drucksensorik-babybettchen.png}
+\caption{Drucksensorik auf der Babybettchen Platine}
+\label{fig:schaltplan-drucksensorik-babybettchen}
+\end{figure}
+
+\subsubsection{Mikrofon}
+Das Mikrofon wurde im Schaltplan inkludiert, siehe Abbildung \ref{fig:schaltplan-mikrofon-babybettchen},aber nicht umgesetzt. 
+Statt dem wirklichen Mikrofon befindet sich nur ein Platzhalter, damit es potentiell noch inkludiert werden kann.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width = 9cm]{images/schaltplan-mikrofon-babybettchen.png}
+\caption{Geräuschsensorik auf der Babybettchen Platine}
+\label{fig:schaltplan-mikrofon-babybettchen}
+\end{figure}
+
+\subsubsection{Kontrollleuchte}
+Die Kontrollleuchte ist über einen Vorwiderstand von 300$\Omega$ mit dem ESP B verbunden und fungiert als Anzeige, ob der ESP B mit dem WLAN/Hotspot verbunden ist. Bei einer aktiven Verbindung leuchtet die Kontrollleuchte grün.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width = 10cm]{images/schaltplan-kontrollleuchte-babybettchen.png}
+\caption{Kontrollleuchte auf der Babybettchen Platine}
+\label{fig:schaltplan-kontrollleuchte-babybettchen}
+\end{figure}
+
+
 \subsection{Layout}
+\begin{figure}[H]
+\centering
+\includegraphics[width = 15cm]{images/layout-babybettchen-platine.png}
+\caption{Layout der Platine des Babybettchens}
+\label{fig:layout-babybettchen-platine}
+\end{figure}
+
+\noindent
+Für das Erstellen des Layouts mussten allen Symbolen die passenden Footprints zugewiesen werden, damit später keine Problem beim Designen des Layouts aufkommen. 
+In der Abbildung \ref{fig:layout-babybettchen-platine} wird das ganze Layout dargestellt.
+
+\par\vspace{1em}
+
+\noindent
+Während dem Designen des Layouts, versuchten wir ein paar Aspekte des hochfrequenzsicheren Layoutens umzusetzen. Wir haben die Leiterbahnen, so gut wie uns möglich war, kurz gehalten und den Abstand zwischen den Leiterbahnen erhöht, wo der Platz drumherum es zugelassen hat. Darüber hinaus haben wir eine Ground-Plane eingefügt und wollten es vermeiden Leiterbahnen direkt unter den ESP32 Antenne durchzuführen. Dieser Punkt ist uns bei dieser Platine weniger gelungen, da wir oftmals keine andere Option gesehen haben, wie wir die Leiterbahnen führen sollten.
+
 \subsection{Ätzen der Platine}
+
+\subsection{Bestücken der Platine}
+Die Platine des Babybettchens wurde vollkommen eigenständig bestückt. Während dem Löten sind aber Probleme aufgetreten, welche dazu führten, dass die Platine neu geätzt werden musste. 
+
+\par\vspace{1em}
+
+\noindent
+Für die ESP32 wurden Stiftleisten eingelötet, damit der ESP32 herausnehmbar war. Das Löten der Stiftleisten stellte, aber ein größeres Problem dar, als Anfangs gedacht. Denn es führten teilweise mehrere Leiterbahnen über dem Top Layer zu den ESP32 und dies verkomplizierte den Prozess des Lötens. 
+Die Pads der Stiftleisten waren sehr schmal und befanden sich sehr nah bei einander. Deshalb kam es während dem Löten auf dem Top Layer dazu, dass ein Kurzschluss entstand. 
+
+\par\vspace{1em}
+
+\noindent
+Der Versuch das Lötzinn mit einer Lötzinn-Absaugpumpe zu entfernen, war erfolgslos, denn man konnte die Lötzinn-Absaugpumpe, aufgrund der Stiftleisten, nicht richtig platzieren. 
+Dieser Lösungsversuch führte nur dazu, dass sich die Pads, durch das erhitzen, von der Platine gelöst haben und somit eine neue Platine geätzt werden musste.
+
+\par\vspace{1em}
+
+\noindent
+Bevor wir die neue Platine geätzt haben, versuchten wir das Problem im Layout zu lösen, es war aber nicht möglich die Stiftleisten auf der Bottom Seite anzulöten, weil sich dort die Ground Fläche befunden hat. Aufgrund dessen haben wir uns dazu entschieden, die Pads der Stiftleisten oval zu machen und sie somit zu vergrößern. 
+ 
+\par\vspace{1em}
+
+\noindent
+Bei der neuen Platine blieb das Problem weiterhin bestehen, aber die etwas größeren Pads waren trotzdem hilfreich. Dennoch blieb es schwierig die Stiftleisten anzulöten und beanspruchte mehr Zeit als normal nötig, um die Platine fertig zu bestücken.
+
+
+
 \subsection{Versorgung der Platine}
 Medizintechnische Aspekte
+is glaub ich schon in einer anderen Section abgehandelt worden (?)
 
 \section[Code Babybettchen]{Code Babybettchen\authorlinda}
 \subsection[ESP A Code]{ESP A Code}
