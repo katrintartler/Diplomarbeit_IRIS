@@ -91,6 +91,78 @@ und Bohrdateien exportieren. \cite{kicad_docs}
 Ziel ist es, die zuvor gelayouteten Leiterbahnen freizulegen, indem die nicht benötigten Kupferbereiche entfernt werden. \cite{ablcircuits_pcb_etching}
 
 \subsubsection{Schritte des Ätzvorgangs}
+Bevor eine Platine geätzt werden kann, muss mit einem Programm, wie beispielsweise KiCad, ein Schaltplan gefertigt werden. Aus diesem Schaltplan, kann dann ein Layout erstellt werden, bei welchem man die Bauteile platzsparend und technisch sinnvoll anordnet, damit diese sich untereinander nicht stören. Die Verbindung dieser Bauteile erfolgt durch Leiterbahnen, von denen der Layouter die Route beliebig wählen kann, 
+solange die Verbindung technisch korrekt ist und Störungen vermeidet. % (siehe Punkt \ref{})
+
+\par\vspace{1em}
+
+\noindent
+Sobald man mit der Anordnung der Bauteile und Leiterbahnen zufrieden ist, kann man mit einem Drucker das Layout ausdrucken. Wichtig dabei ist, dass nur die richtigen Layer aktiviert sind, also die Layer die auch wirklich auf der Leiterplatte später sichtbar sein sollen. Das wäre in den meisten Fällen der Bottom Layer und die Pads der Bauteile. 
+\noindent
+Wenn man eine zweiseitige Platine mit Top und Bottom Layer hat, muss man die beiden Layer und die zugehörigen Pads getrennt ausdrucken. Das bedeutet es wird einmal nur der Bottom Layer aktiviert und ausgedruckt und danach nur der Top Layer.
+
+\par\vspace{1em}
+
+\noindent
+Falls man die Platine, mit beispielsweise dem Namen des Projektes, der Versions Nummer, dem Fertigungsdatum oder ähnlichem, beschriften möchte, kann man das tun indem man ein Textfeld generiert. Dieses Textfeld muss sich entweder auf dem Top oder Bottom Layer befinden, damit es beim Druck sichtbar ist. Es sollte keine Überschneidungen zwischen dem Textfeld und den Leiterbahnen geben, da das Textfeld gleichermaßen aus Kupferleitungen besteht. Bei der Platzierung des Textfeldes muss man beachten, dass wenn man es auf dem Top Layer platziert potentiell von Bauteilen überdeckt wird.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width = 8cm]{images/basismaterial-platine_ätzen-theorie.png}
+\caption{Schichtenaufbau einer Platine \cite{jonasforscht_ätzen-theorie_bild}}
+\label{fig:basismaterial-platine}
+\end{figure}
+
+\noindent
+In der Abbildung \ref{fig:basismaterial-platine} sieht man den Schichtenaufbau einer einseitigen Platine. Diese besteht aus dem Basismaterial, der Kupferschicht und dem Photolack.
 
 
-\subsection[Löten]{Löten\authorlinda}
+\par\vspace{1em}
+
+\noindent
+Die Platine wird von ihrer Schutzfolie befreit, diese Schutzfolie befindet sich über dem Photolack und schützt diesen vor Sonnenstrahlen. Auf diese Schicht wo sich davor die Schutzfolie befunden hat, wird das ausgedruckte Layout platziert. Der Ausdruck des layouts sollte so sauber wie möglich auf die Platine platziert werden, da diese Position genau die Ausrichtung der Platine bestimmt. Diese Platine wird mit dem Ausdruck in die Belichtungsmaschine gelegt und damit dieser nicht verrutscht, wird in den meisten Fällen eine Glasplatte über die Platine gelegt. Durch diese Glasplatte kann die Platine gleichzeitig fixiert und dennoch belichtet werden. Es gibt auch andere Arten wie die Platine fixiert werden kann, beispielsweise kann die Platine zwischen zwei durchsichtigen „Platten“ ins Vakuum versetzt werden. 
+
+\par\vspace{1em}
+
+\noindent
+Durch diese Fixierung wird nicht nur garantiert, dass die Platine nicht verrutscht, sondern auch Genauigkeit der Belichtung erhöht. Denn je dichter das Layout an der Platine liegt, desto genauer ist die Belichtung.
+
+\par\vspace{1em}
+
+\noindent
+In der Abbildung \ref{fig:belichten-platine} wird dargestellt, wie die Platine belichtet wird. Durch das Layout, welches auch als Maske bezeichnet wird, wird definiert welche Bereiche des Kupfers erhalten bleiben und welche weggeätzt werden. Aufgrund der schwarzen Tinte des Ausdruckes, welche den Leiterbahnen und Pads entspricht, kann keine Reaktion durch das UV-Licht entstehen.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width = 8cm]{images/belichten-platine_ätzen-theorie.png}
+\caption{Belichtung der Platine \cite{jonasforscht_ätzen-theorie_bild}}
+\label{fig:belichten-platine}
+\end{figure}
+
+\noindent
+Nach der Belichtung wird die Platine entwickelt, dabei wird sie in ein Entwicklerbad, welches eine Temperatur von ca. 40-50°C hat, gesteckt. Bevor man die Platine in das Entwicklerbad eintaucht sollte man Handschuhe anziehen, um die Haut zu schützen. Während der Entwicklung der Platine, werden die belichteten Stellen des Photolacks gelöst 
+und die Kupferschicht darunter freigelegt, siehe Abbildung \ref{fig:entwickeln-platine}.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width = 8cm]{images/entwickeln-platine_ätzen-theorie.png}
+\caption{Entwicklung der Platine \cite{jonasforscht_ätzen-theorie_bild}}
+\label{fig:entwickeln-platine}
+\end{figure}
+
+\noindent
+Nach dem Entwickeln ist die Platine bereit für das Ätzbad, welches auf ca. 50 - 60°C erhitzt werden muss. Je nach Temperatur des Ätzbads dauert der Ätzvorgang ca. 15 – 30 Minuten, bei welchem weiterhin die Handschuhe getragen werden sollten.
+
+\par\vspace{1em}
+
+\noindent
+Der Ätzvorgang ist eine Redoxreaktion, mithilfe welcher die Kupferschicht entfernt wird, siehe Abbildung \ref{fig:aetzen-platine}. Wodurch am Ende nur mehr die gewollten Leiterbahnen und Pads, als Kupferschicht vorhanden sind.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width = 8cm]{images/ätzen-platine_ätzen-theorie.png}
+\caption{Ätzen der Platine \cite{jonasforscht_ätzen-theorie_bild}}
+\label{fig:aetzen-platine}
+\end{figure}
+
+% \subsection[Löten]{Löten\authorlinda}

@@ -1,6 +1,7 @@
 \chapter{Methodik}
 
 \section[Drucksensorik testen]{Drucksensorik testen\authorlinda}
+\subsection{RP-S40-ST Dünnschicht Drucksensor}
 %pullup pulldown
 
 \section[Wärmesensorik testen]{Wärmesensorik testen\authorkatrin} \label{Wärmequelle}
@@ -158,6 +159,8 @@ Da der ESP32 bereits bestellt war, suchten wir nach keinem alternativen Mikrokon
 
 \noindent
 Wir haben das Problem gelöst, indem wir einen der beiden ESPs ausschließlich für die Aufnahme der Sensordaten verwendet haben. Der zweite ESP übernimmt somit die WLAN Funktion und bildet die Schnittstelle zwischen der Datenerfassung und der Visualisierung der Daten. Dadurch dass nur der zweite ESP die WLAN Funktionalität nutzt, konnte am ersten ESP, welcher für die Erfassung zuständig ist,  ADC1 und ADC2 Pins verwendet werden.
+
+\section[Aufbau und Funktion des Babybettchen System]{Aufbau und Funktion des Babybettchen System\authorlinda}
 
 
 \section[Babybettchen PCB]{Babybettchen PCB\authorlinda}
