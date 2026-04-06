@@ -306,7 +306,7 @@ Die Kontrollleuchte ist über einen Vorwiderstand von 300$\Omega$ mit dem ESP B 
 \subsection{Layout}
 \begin{figure}[H]
 \centering
-\includegraphics[width = 15cm]{images/layout-babybettchen-platine.png}
+\includegraphics[width = 10cm]{images/layout-babybettchen-platine.png}
 \caption{Layout der Platine des Babybettchens}
 \label{fig:layout-babybettchen-platine}
 \end{figure}
@@ -321,9 +321,48 @@ In der Abbildung \ref{fig:layout-babybettchen-platine} wird das ganze Layout dar
 Während dem Designen des Layouts, versuchten wir ein paar Aspekte des hochfrequenzsicheren Layoutens umzusetzen. Wir haben die Leiterbahnen, so gut wie uns möglich war, kurz gehalten und den Abstand zwischen den Leiterbahnen erhöht, wo der Platz drumherum es zugelassen hat. Darüber hinaus haben wir eine Ground-Plane eingefügt und wollten es vermeiden Leiterbahnen direkt unter den ESP32 Antenne durchzuführen. Dieser Punkt ist uns bei dieser Platine weniger gelungen, da wir oftmals keine andere Option gesehen haben, wie wir die Leiterbahnen führen sollten.
 
 \subsection{Ätzen der Platine}
+Die doppeltseitige Platine des Babybettchens wurde von uns, in der Schuleigenen Werkstatt, gefertigt. Um die Maske für unsere Platine zu erstellen, mussten wir den Bottom Layer sowie danach den Top Layer mit den benötigten Pads ausdrucken. 
+
+\par\vspace{1em}
+
+\noindent 
+Nach dem entfernen der Schutzfolien, platzierten wir die Platine, mit beiden Masken, in der Belichtungsmaschine. Dabei mussten wir besonders darauf achten, dass die beiden Masken korrekt übereinander platziert wurden, da ansonsten die Pads der Bauteile nicht zusammenpassen würden. 
+
+\noindent
+Um den Prozess vorzubereiten, wurde die Platine zwischen zwei durchsichtigen „Platten“ ins Vakuum versetzt. Bevor der Belichtungsprozess begann, wurde nochmals überprüft, ob sich die Masken an der richtigen Stelle befanden. Erst dann wurde die Belichtungsmaschine geschlossen und die Platine für drei Minuten belichtet.
+
+\par\vspace{1em}
+
+\noindent 
+Anschließend wurde die Platine eingespannt und kam für etwa 90 Sekunden in das Entwicklerbad, um den nicht benötigten Photolack zu entfernen. Durch optisches Überprüfen wurde entschieden wie lange sich die Platine im Entwicklungsbad befinden musste, da dieser Zeitraum abhängig von der frische des Entwicklungsbades ist und somit nicht immer gleich ist. Wenn man die Platine aus dem Entwicklerbad holt, um den Stand der Platine zu überprüfen, muss man die Platine in ein Wasserbad tauchen, damit die Entwicklerflüssigkeit nicht mehr mit der Platine reagieren kann. Sobald der Photolack entfernt und die Entwicklerflüssigkeit abgespült wurde, war dieser Schritt fertig.
+
+\par\vspace{1em}
+
+\noindent 
+Der nächste Schritt war bereits das Ätzbad, welches zu Beginn des Prozesses noch nicht die richtige Temperatur hatte, da die Heizung erst dabei war die Ätzflüssigkeit zu erhitzen. Das war aber kein wirkliches Problem, sondern verursachte nur, dass das Ätzen etwas länger dauerte. Die Platine wurde eingespannt und befand sich für ca. 23 Minuten im Ätzbad. 
+
+\noindent
+Während dem Ätzen wurde der Prozess zwischendurch gestoppt, um zu überprüfen wie lange sich die Platine noch im Ätzbad befinden musste. Da das Ätzen kein so zeitkritischer Prozess, wie das Entwickeln ist, wurde die Platine nicht aus dem Ätzbad entfernt und in Wasser getaucht, sondern nur durch die Glasscheibe beobachtet. Während dem Ätzen konnte man den Fortschritt gut beobachten, da sich die Platine durch das Entfernen des Kupfers „verfärbt“. Sobald das nicht benötigte Kupfer entfernt wurde, wurde die Platine in das Wasserbecken getaucht, um das Ätzmittel abzuspülen und Prozess war fertig.
+
+\par\vspace{1em}
+
+\noindent 
+Theoretisch könnte man die die Platine danach nochmal ohne Maske belichten und durch erneutes Entwickeln den Photolack vollständig entfernen. Dadurch würde die Option entstehen, dass man die Platine versilbern kann. Wir haben uns dagegen entschieden, da das Kupfer der Leiterbahnen komplett freigelegt werden würde und diese zu oxidieren beginnen würden.
 
 \subsection{Bestücken der Platine}
 Die Platine des Babybettchens wurde vollkommen eigenständig bestückt. Während dem Löten sind aber Probleme aufgetreten, welche dazu führten, dass die Platine neu geätzt werden musste. 
+
+\par\vspace{1em}
+
+\noindent
+In der Abbildung \ref{fig:bestückte-babybettchen-platine} sieht man die bestückte Platine des Babybettchens, welche im finalen Aufbau verwendet wurde. 
+
+\begin{figure}[H]
+\centering
+\includegraphics[width = 10cm]{images/bestückte-babybettchen-platine.jpeg}
+\caption{Bestückte Platine des Babybettchens}
+\label{fig:bestückte-babybettchen-platine}
+\end{figure}
 
 \par\vspace{1em}
 
@@ -347,11 +386,9 @@ Bevor wir die neue Platine geätzt haben, versuchten wir das Problem im Layout z
 \noindent
 Bei der neuen Platine blieb das Problem weiterhin bestehen, aber die etwas größeren Pads waren trotzdem hilfreich. Dennoch blieb es schwierig die Stiftleisten anzulöten und beanspruchte mehr Zeit als normal nötig, um die Platine fertig zu bestücken.
 
-
-
-\subsection{Versorgung der Platine}
-Medizintechnische Aspekte
-is glaub ich schon in einer anderen Section abgehandelt worden (?)
+%\subsection{Versorgung der Platine}
+%Medizintechnische Aspekte
+%is glaub ich schon in einer anderen Section abgehandelt worden (?)
 
 \section[Code Babybettchen]{Code Babybettchen\authorlinda}
 \subsection[ESP A Code]{ESP A Code}
