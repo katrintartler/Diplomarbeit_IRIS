@@ -177,6 +177,7 @@ Da der ESP32 bereits bestellt war, suchten wir nach keinem alternativen Mikrokon
 \noindent
 Wir haben das Problem gelöst, indem wir einen der beiden ESPs ausschließlich für die Aufnahme der Sensordaten verwendet haben. Der zweite ESP übernimmt somit die WLAN Funktion und bildet die Schnittstelle zwischen der Datenerfassung und der Visualisierung der Daten. Dadurch dass nur der zweite ESP die WLAN Funktionalität nutzt, konnte am ersten ESP, welcher für die Erfassung zuständig ist,  ADC1 und ADC2 Pins verwendet werden.
 
+\newpage
 \section[Babybettchen PCB]{Babybettchen PCB\authorlinda}
 \subsection{Prinzip}
 Der Hauptanteil der Elektronik befindet sich auf der Platine des Babybettchens, siehe Abbildung \ref{fig:babybettchen-schaltplan}, die Sensoren, welche sich nicht direkt auf der Platine befinden, werden durch eine Verkabelung und Schraubklemmen mit der Platine verbunden. Der Schaltplan und das Layout der Platine wurden mittels KiCad erstellt. Die Fertigung der Platine erfolgte nicht über einen externen Hersteller, sondern wurde eigenständig in Schulwerkstatt durchgeführt. 
@@ -378,6 +379,7 @@ Bei der neuen Platine blieb das Problem weiterhin bestehen, aber die etwas grö�
 %Medizintechnische Aspekte
 %is glaub ich schon in einer anderen Section abgehandelt worden (?)
 
+\newpage
 \section[Code Babybettchen]{Code Babybettchen\authorlinda}
 Das System des Babybettchens besteht aus der Datenerfassung, der Kommunikationsschnittstelle und der Datenvisualisierung. Diese Aufgaben werden durch die jeweiligen Programme des ESP A, ESP B und der PWA übernommen.
 
@@ -452,14 +454,95 @@ void setup() {
 
 \subsubsection{loop() Funktion}
 Die eigentliche Datenerfassung erfolgt in der loop () Funktion, welche kontinuierlich ausgeführt wird. Um eine konstante Abtastrate zu gewährleisten, wird die Messung zeitgesteuert durchgeführt. 
-Hierbei wird in der if-Schleife, siehe Listing \ref{}, überprüft, ob seit dem letzten Senden mehr als eine Sekunde vergangen ist. Denn millis() gibt die Anzahl der vergangen Millisekunden seit dem Starten des Programmes zurück. Von dieser Anzahl der vergangen Millisekunden wird lastSend abzogen, 
+Hierbei wird in der if-Schleife, siehe Listing \ref{lst:espA-zeitintervall-mittelwertbildung}, überprüft, ob seit dem letzten Senden mehr als eine Sekunde vergangen ist. Denn millis() gibt die Anzahl der vergangen Millisekunden seit dem Starten des Programmes zurück. Von dieser Anzahl der vergangen Millisekunden wird lastSend abzogen, 
 da lastSend am Ende der if-Schleife als millis() definiert wurde, siehe Listing \ref{lst:espA-lastSend}, kann die vergangene Zeit seit dem letzten Senden berechnet werden.
 
 \begin{lstlisting}[language=C++, caption={Definition von lastSend}, label={lst:espA-lastSend}, firstnumber=63]
   lastSend = millis();
 \end{lstlisting}
 
+\noindent
+Ein wichtiger Bestandteil der Messwertverarbeitung ist die Mittelwertbildung, welche in Listing \ref{lst:espA-zeitintervall-mittelwertbildung} dargestellt wird. Dabei werden für jeden Sensor mehrere Einzelmessungen durchgeführt und anschließend gemittelt.
+
+\noindent
+Durch diese Mittelwertbildung, wird das Rauschen der Messungen reduziert, sowie eine Glättung von kurzzeitigen Spannungsschwankungen durchgeführt. Trotz der Mittelwertbildung gehen keine Bewegungsdaten verloren, da sie im Vergleich zum Sendeintervall  sehr schnell ist.
+
+\begin{itemize}
+  \item 10 Messungen mit jeweils einem Abstand von 200µs = insgesamt ca. 2ms pro Sensor
+  \item Sendeintervall beträgt 1000ms
+\end{itemize}
+
+\noindent
+Zusätzlich tragen die kurzen Verzögerungen zwischen den Messungen dazu bei, dass instabile ADC-Werte vermieden werden und die Signalqualität verbessert wird.
+
+\begin{lstlisting}[language=C++, caption={Zeitintervall und Mittelwertbildung}, label={lst:espA-zeitintervall-mittelwertbildung}, firstnumber=24]
+void loop() {
+  static unsigned long lastSend = 0;
+  
+  if (millis() - lastSend > 1000) {
+    int v[6];
+
+    for (int i = 0; i < 6; i++) {
+      long average = 0;
+
+      for (int a = 0; a < 10; a++) {
+        average += analogRead(sensors[i]);
+        delayMicroseconds(200); 
+      }
+
+      v[i] = average/10;
+    }
+\end{lstlisting}
+
+\noindent
+Nach der Erfassung und Verarbeitung der Sensordaten wurden diese in einer JSON-Datenform strukturiert. 
+Wie in dem Listing \ref{lst:espA-jsonDokument} ersichtlich ist, wird dafür ein statisches JSON-Dokument, welches einen Speicher von 256Byte reserviert, erstellt. In diesem befinden sich die Metadaten, wie die Versionsnummer und der Zeitstempel und ein verschachteltes JSON Objekt zur Aufnahme der Sensordaten. Mithilfe dieser strukturierten Darstellung wird eine einfache Weiterverarbeitung der Daten in externen Systemen ermöglicht.
+
+\begin{lstlisting}[language=C++, caption={JSON-Dokument}, label={lst:espA-jsonDokument}, firstnumber=43]
+    StaticJsonDocument<256> doc;
+
+    // Struktur
+    doc["version"] = 2;
+    doc["timestamp"] = millis();
+
+    JsonObject movement = doc.createNestedObject("movement");
+\end{lstlisting}
+
+\noindent
+Die Zuordnung der einzelnen Sensorwerte im Code erfolgt anhand ihrer Position im Babybett, siehe Listing \ref{lst:espA-sensorwerte}, wodurch die spätere Interpretation der Druckverteilung erleichtert wird. Danach wird das JSON-Objekt in einen String umgewandelt und über die UART2 Schnittstelle übertragen. Dadurch können die Daten in Echtzeit vom ESP B empfangen und weiterverteilt werden.
+
+\begin{lstlisting}[language=C++, caption={Sensorwerte}, label={lst:espA-sensorwerte}, firstnumber=51]
+    movement["s1_lu"] = v[0];   // links unten
+    movement["s1_lm"] = v[1];   // links mitte
+    movement["s1_lo"] = v[2];   // links oben
+    movement["s1_ru"] = v[3];   // rechts unten
+    movement["s1_rm"] = v[4];   // rechts mitte
+    movement["s1_ro"] = v[5];   // rechts oben
+
+    String json;
+    serializeJson(doc, json);   
+
+    SerialESP.println(json);
+\end{lstlisting}
+
 \subsection[ESP B Code]{ESP B Code}
+Der Code des ESP B übernimmt in diesem System die Funktion der zentralen Kommunikationsschnittstelle zwischen den erfassten Sensordaten und der PWA.  Dafür stellt der ESP B eine Verbindung zu einem WLAN Netzwerk her, was die Grundlage für die drahtlose Kommunikation bildet. Ebenfalls startet er den WebSocket-Server, der eine kontinuierliche und bidirektional Datenübertragung mit der PWA ermöglicht. Die empfangenen Daten werden in Echtzeit über die WebSocket Verbindung an die PWA weitergeleitet. 
+
+\subsubsection{Einbindung der Bibliotheken}
+
+\subsubsection{setup() Rx2 und Tx2}
+
+\subsubsection{WLAN Konfiguration}
+
+\subsubsection{WLAN Status}
+
+\subsubsection{WebSocket starten}
+
+\subsubsection{WebSocketEvent() Funktion}
+
+\subsubsection{Empfangen und weiterverteilen der Daten}
+
+
 
 \subsection[PWA Code]{PWA Code}
 \paragraph{Datenvisualisierung:}
