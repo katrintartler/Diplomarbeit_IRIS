@@ -241,7 +241,7 @@ Die Versorgung des Systems wird durch eine Powerbank übernommen, damit die Powe
 \label{fig:schaltplan-zweiESP32}
 \end{figure}
 
-\subsubsection{UART Schnittstelle}
+\subsubsection{UART Schnittstelle} \label{rxtx-fehler_schaltplan}
 Bei der UART Schnittstelle, werden RX2 und TX2 verwendet, da bei der Benutzung von den tatsächlichen RX und TX Pins Probleme auftreten würden. Aufgrund dessen sollte Pin 16 von ESP A, was RX2 entspricht, mit Pin 17 von ESP B, was TX2 entspricht, und umgekehrt miteinander verbunden werden.
 
 \par\vspace{1em}
@@ -412,7 +412,7 @@ Mithilfe von Arduino.h werden die grundlegenden Funktionen des Arduino-Framework
 ArduinoJson.h wird verwendet, um die Sensoren in ein strukturiertes JSON-Format umzuwandeln. Dieses Format eignet sich besonders für die Weiterverarbeitung der Daten in der PWA.
 Diese Einbindung wird im Listing \ref{lst:espA-bibliotheken} dargestellt.
 
-\begin{lstlisting}[language=C++, caption={Einbindung von Bibliotheken}, label={lst:espA-bibliotheken}, firstnumber=1]
+\begin{lstlisting}[language=C++, caption={Einbindung von Bibliotheken - ESP A}, label={lst:espA-bibliotheken}, firstnumber=1]
 #include <Arduino.h>
 #include <ArduinoJson.h>
 \end{lstlisting}
@@ -526,23 +526,134 @@ Die Zuordnung der einzelnen Sensorwerte im Code erfolgt anhand ihrer Position im
 \end{lstlisting}
 
 \subsection[ESP B Code]{ESP B Code}
-Der Code des ESP B übernimmt in diesem System die Funktion der zentralen Kommunikationsschnittstelle zwischen den erfassten Sensordaten und der PWA.  Dafür stellt der ESP B eine Verbindung zu einem WLAN Netzwerk her, was die Grundlage für die drahtlose Kommunikation bildet. Ebenfalls startet er den WebSocket-Server, der eine kontinuierliche und bidirektional Datenübertragung mit der PWA ermöglicht. Die empfangenen Daten werden in Echtzeit über die WebSocket Verbindung an die PWA weitergeleitet. 
+Der Code des ESP B übernimmt in diesem System die Funktion der zentralen Kommunikationsschnittstelle zwischen den erfassten Sensordaten und der PWA.  Dafür stellt der ESP B eine Verbindung zu einem WLAN Netzwerk her, was die Grundlage für die drahtlose Kommunikation bildet. Ebenfalls startet er den WebSocket-Server, der eine kontinuierliche und bidirektional Datenübertragung mit der PWA ermöglicht. Durch die Kombination aus serieller Kommunikation, stabiler WLAN Verbindung und WebSocket Technologie wird eine Echtzeitübertragung der Daten ermöglicht.
 
 \subsubsection{Einbindung der Bibliotheken}
+Arduino.h ermöglicht die Verwendung der grundlegenden Funktionen des Arduino-Frameworks.
+
+\noindent
+Durch die Verwendung von WiFi.h und WebSocketsServer.h können die WLAN Funktionen und die WebSocket Funktionen, welche beispielsweise die Kommunikation ermöglichen, verwendet werden.
+Diese Einbindung wird im Listing \ref{lst:espB-bibliotheken} dargestellt.
+
+\begin{lstlisting}[language=C++, caption={Einbindung von Bibliotheken - ESP B}, label={lst:espB-bibliotheken}, firstnumber=1]
+#include <Arduino.h>
+#include <WiFi.h>
+#include <WebSocketsServer.h>
+\end{lstlisting}
 
 \subsubsection{setup() Rx2 und Tx2}
+Diese setup() Funktion wurde im Vergleich zur setup() Funktion des ESP A, siehe Listing \ref{lst:espA-setup-funktion}, etwas abgeändert. 
+Da hier der Fehler, siehe Punkt \ref{rxtx-fehler_schaltplan}, welcher während dem erstellen des Schaltplanes entstand, kompensiert wurde.
 
-\subsubsection{WLAN Konfiguration}
+\noindent
+Die Pinbelegung von Rx2 und Tx2 wurde hier vertauscht, damit die Leiterbahnen der Platine korrekt waren und die Platine nicht neu geätzt werden musste. 
+In dem Listing \ref{lst:espB-rx2tx2} sieht man die Pinbelegung von Rx2 und Tx2.
 
-\subsubsection{WLAN Status}
+\begin{lstlisting}[language=C++, caption={setup() von Rx2 und Tx2}, label={lst:espB-rx2tx2}, firstnumber=36]
+void setup() {
+  Serial.begin(115200);
+  Serial2.begin(115200, SERIAL_8N1, 17, 16); // 17 = RXD2, 16 = TXD2
+\end{lstlisting}
+
+\subsubsection{WLAN}
+In dem Listing \ref{lst:espB-wlan-aufbau} wird der Verbindungsaufbau des WLANs dargestellt, dieser wird mittels WiFi.begin() gestartet. Sobald dieser Prozess gestartet wurde, wird „Aufbau der WLAN Verbindung“ ausgegeben und solange die Verbindung noch nicht erfolgreich aufgebaut wurde, werden Punkte ausgegeben, um zu signalisieren, dass der Aufbau noch stattfindet. Wenn die WLAN Verbindung erfolgreich aufgebaut wurde, wird die Nachricht „WLAN verbunden!“ ausgegeben und die Kontrollleuchte beginnt grün zu leuchten. Ebenfalls wird die IP des ESP B ausgegeben, damit diese dann in der PWA verwendet werden kann.
+
+\begin{lstlisting}[language=C++, caption={WLAN Aufbau}, label={lst:espB-wlan-aufbau}, firstnumber=45]
+  WiFi.begin(ssid, password);
+  Serial.print("Aufbau der WLAN Verbindung");
+
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+
+  Serial.println("\nWLAN verbunden!");
+  digitalWrite(connectionLED, HIGH); 
+  Serial.print("ESP IP: "); 
+  Serial.println(WiFi.localIP());
+\end{lstlisting}
+
+\noindent
+Zur Sicherstellung einer stabilen Verbindung werden in regelmäßigen Abständen der Status des WLANs überprüft. 
+Wie in dem Listing \ref{lst:espB-wlan-status} dargestellt, erfolgt die Überprüfung wieder mit einem Intervall mit der millis() Funktion, hier wird das gleiche Prinzip wie bei dem ESP A Code verwendet. Der Unterschied hier ist nur, dass die WLAN Verbindung alle 5 Sekunden überprüft wird. Sollte die Verbindung unterbrochen sein, wird eine Nachricht ausgegeben und die Kontrollleuchte hört auf zu leuchten. Um einen sauberen Verbindungsaufbau zu starten, wird zuerst die WLAN Verbindung getrennt und erst danach wieder aufgebaut. Durch diese if-Schleife wird die Robustheit des Systems gegenüber Verbindungsabbrüchen erhöht.
+
+\begin{lstlisting}[language=C++, caption={WLAN Status}, label={lst:espB-wlan-status}, firstnumber=65]
+void loop() {
+  if (millis() - lastWifiCheck > checkInterval) {
+    lastWifiCheck = millis();
+
+    if (WiFi.status() != WL_CONNECTED) {
+      Serial.println("WiFi Verbindung getrennt -> Verbindungsaufbau wird versucht ...");
+      digitalWrite(connectionLED, LOW);
+      WiFi.disconnect();
+      WiFi.begin(ssid, password);
+    } 
+    else {
+      digitalWrite(connectionLED, HIGH);
+    }
+  }
+\end{lstlisting}
 
 \subsubsection{WebSocket starten}
+Nach dem erfolgreichen Verbindungsaufbau wird der WebSocket Server gestartet, wodurch die Kommunikation mit der PWA ermöglicht wird. 
+Wie in dem Listing \ref{lst:espB-websocketServer-starten} dargestellt wird, erfolgt die WebSocket Server Initialisierung auf Port 81. Zusätzlich wird bei einem WebSocket Event die Funktion webSocketEvent aufgerufen, um eingehende Verbindungen und Nachrichten zu verarbeiten.
+
+\begin{lstlisting}[language=C++, caption={Starten des WebSocket Servers}, label={lst:espB-websocketServer-starten}, firstnumber=59]
+  webSocket.begin();
+  webSocket.onEvent(webSocketEvent);
+
+  Serial.println("WebSocket Server gestartet (Port 81)");
+\end{lstlisting}
 
 \subsubsection{WebSocketEvent() Funktion}
+Um die WebSocket Events zu verarbeiten gibt es eine separate Callback Funktion, welche in dem Listing \ref{lst:espB-websocketevent-funktion} dargestellt wird. In dieser Funktion wird zwischen diesen 3 Ereignistypen unterschieden:
+\begin{itemize}
+  \item WebSocket Verbindung hergestellt
+  \item WebSocket Verbindung getrennt
+  \item eingehende Nachricht
+\end{itemize}
+
+\noindent
+Durch diese Ereignistypen wird die bidirektionale Kommunikation zwischen ESP B und der PWA ermöglicht.
+
+\begin{lstlisting}[language=C++, caption={Starten des WebSocket Servers}, label={lst:espB-websocketevent-funktion}, firstnumber=19]
+void webSocketEvent(uint8_t num, WStype_t type, uint8_t * payload, size_t length) {
+  switch (type) {
+    case WStype_CONNECTED:
+      Serial.println("PWA verbunden");
+      break;
+
+    case WStype_DISCONNECTED:
+      Serial.println("PWA getrennt");
+      break;
+
+    case WStype_TEXT:
+      Serial.print("Von PWA empfangen: ");
+      Serial.println((char*)payload);
+      break;
+  }
+}
+\end{lstlisting}
+
+\subsubsection{webSocket.loop()}
+Durch den Aufruf webSocket.loop()in der void loop() Schleife, wird die kontinuierliche Verarbeitung der WebSocket Kommunikation sichergestellt. Denn dadurch können eingehende und ausgehende Nachrichten in Echtzeit verarbeitet werden.
+Dieser Aufruf wird in dem Listing \ref{lst:espB-webSocket-loop} dargestellt.
+
+\begin{lstlisting}[language=C++, caption={webSocket.loop()}, label={lst:espB-webSocket-loop}, firstnumber=80]
+  webSocket.loop();
+\end{lstlisting}
 
 \subsubsection{Empfangen und weiterverteilen der Daten}
+Die Hauptaufgabe des ESP B besteht darin, die vom ESP A erhaltenen Sensordaten an die PWA weiterzuleiten, 
+dies wird im Listing \ref{lst:espB-empfangen-senden} dargestellt. Durch die if-Abfrage if(Serial2.available()) wird überprüft, ob Daten über die serielle Schnittstelle angekommen sind. Falls dies der Fall ist, werden die empfangenen Daten bis zum Ende eingelesen und in den String data gespeichert. Dieser String wird über die WebSocket Verbindung an die PWA weitergeleitet.
 
-
+\begin{lstlisting}[language=C++, caption={webSocket.loop()}, label={lst:espB-empfangen-senden}, firstnumber=83]
+    if (Serial2.available()) {
+    String data = Serial2.readStringUntil('\n');
+    webSocket.broadcastTXT(data);
+  }
+}
+\end{lstlisting}
 
 \subsection[PWA Code]{PWA Code}
 \paragraph{Datenvisualisierung:}
