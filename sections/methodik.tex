@@ -36,26 +36,27 @@ wurde ein 10k$\Omega$ Widerstand gewählt. Dieser wurde mithilfe, eines Multimet
 
 \section[Geräusch- und Wärmesensorik ]{Geräusch- und Wärmesensorik\authorkatrin}
 \subsection{Geräuschsensorik} \label{INMP441}
-Für die Erkennung von Geräuschen des Kindes, war der Einsatz des INMP441 MEMPS-Mikrofons \cite{inmp441_datasheet} geplant.
-Es ist ein omnidirekatonales digitales Mikrofon mit $I^2$S-Schnittstelle. Omnidirektional bedeutet das Mikrofon kann aus jeder Richtung Schall aufnehmen kann \cite{unidirectional_omnidirectional_microphone}.
-Ein $I^2S$-Schnittstelle ist speziell für die Übertraggung von Audiodateien entwickelte worden. Die serielle Übertragung erfolgt mittel 3 Leitungen. Daten- Takt und 
+Für die Erkennung von Geräuschen des Kindes war der Einsatz des INMP441 MEMPS-Mikrofons \cite{inmp441_datasheet} geplant.
+Es ist ein omnidirekatonales digitales Mikrofon mit $I^2$S-Schnittstelle. Omnidirektional bedeutet, das Mikrofon kann aus jeder Richtung Schall aufnehmen kann \cite{unidirectional_omnidirectional_microphone}.
+Ein $I^2S$-Schnittstelle ist speziell für die Übertraggung von Audiodateien entwickelt worden. Die serielle Übertragung erfolgt mittels 3 Leitungen. Daten- Takt und 
 Wortauswahlleitung sind beteiligt \cite{i2s_heinen_elektronik}. 
 \par\vspace{1em} 
 \noindent
 Aufgrund einer Unterschätzung des Aufwands beim Bau des Testroboters konnte die Geräuschsensorik im Babybett nicht mehr finalisiert werden.
 Der Einbau des Mikrofons ist auf der Main Platine vorgemerkt und kann zu einem späteren Zeitpunkt umgesetzt werden.
 Ein Testcode zur Überprüfung der Mikrofonfunktion ist vorhanden, allerdings werden derzeit keine korrekten Daten empfangen, sodass eine sinnvolle Nutzung aktuell nicht möglich ist. 
-Sehr spät im Projektverlauf wurde uns der Tipp gegeben, die Geräuscherkennung mittels Grenzflächenmikrofon zu realisiern, dieser Punkt wird in Abschnitt \ref{grenzflächenmic}
+Sehr spät im Projektverlauf wurde uns der Tipp gegeben, die Geräuscherkennung mittels Grenzflächenmikrofon zu realisiern. Dieser Punkt wird in Abschnitt \ref{grenzflächenmic}
 genauer behandelt. 
 \subsection{Wärmesensorik}
-Auch die Wärmesensorik musste unter dem Zeitdruck und der Fehleinschätzung der Arbeit am Testroboter aufgegeben werdenn. Der ursprüngliche Plan war es mittels Wärmebildkamera 
+Auch die Wärmesensorik musste unter dem Zeitdruck und der Fehleinschätzung der Arbeit am Testroboter aufgegeben werden. Der ursprüngliche Plan war es mittels Wärmebildkamera 
 optisch Informationen zu sammeln und diese weiterzugeben. 
 
 %Babybettchen 
 \newpage
 
 \section[Aufbau des Babybettchens]{Aufbau des Babybettchens\authorlinda}
-Für unser Projekt benötigten wird ein Babybettchen, welches wir mit den notwendigen Sensoren ausstatten konnten. Es wurde in Erwägung gezogen das Babybettchen eigenständig zu bauen, weil das Bettchen relativ transportabel sein sollte und nicht immer am gleichen Ort stehen konnte. Was mit einem Standard Babybettchen nicht gewährleistet ist. Wir haben uns, aber gegen den Bau des Babybettchen entschieden, da dieser einiges an Zeit beansprucht hätte und den Fokus von den System relevanteren Funktionen abgezogen hätte. 
+Für unser Projekt benötigten wird ein Babybettchen, welches wir mit den notwendigen Sensoren ausstatten konnten. Es wurde in Erwägung gezogen das Babybettchen eigenständig zu bauen, weil das Bettchen relativ transportabel sein sollte und nicht immer am gleichen Ort stehen konnte. Was mit einem Standard Babybettchen nicht gewährleistet ist. 
+Wir haben uns aber gegen den Bau des Babybettchen entschieden, da dieser einiges an Zeit beansprucht hätte und den Fokus von den System relevanteren Funktionen abgezogen hätte. 
 Der Kompromiss war es ein Reisebabybettchen, siehe Abbildung \ref{fig:ganzes-Babybett}, zu bestellen, 
 da dieses die gewünschten Anforderungen erfüllen konnte. \cite{costway_reisebett} 
 
@@ -306,7 +307,8 @@ In der Abbildung \ref{fig:layout-babybettchen-platine} wird das ganze Layout dar
 \par\vspace{1em}
 
 \noindent
-Während dem Designen des Layouts, versuchten wir ein paar Aspekte des hochfrequenzsicheren Layoutens umzusetzen. Wir haben die Leiterbahnen, so gut wie uns möglich war, kurz gehalten und den Abstand zwischen den Leiterbahnen erhöht, wo der Platz drumherum es zugelassen hat. Darüber hinaus haben wir eine Ground-Plane eingefügt und wollten es vermeiden Leiterbahnen direkt unter den ESP32 Antenne durchzuführen. Dieser Punkt ist uns bei dieser Platine weniger gelungen, da wir oftmals keine andere Option gesehen haben, wie wir die Leiterbahnen führen sollten.
+Während dem Designen des Layouts, versuchten wir ein paar Aspekte des hochfrequenzsicheren Layoutens umzusetzen. Wir haben die Leiterbahnen, so gut wie uns möglich war, kurz gehalten und den Abstand zwischen den Leiterbahnen erhöht, wo der Platz drumherum es zugelassen hat. Darüber hinaus haben wir eine Ground-Plane eingefügt und wollten es vermeiden Leiterbahnen direkt unter den ESP32 Antenne durchzuführen.
+Dieser Punkt ist uns bei dieser Platine weniger gelungen, da wir oftmals keine andere Option gesehen haben, wie wir die Leiterbahnen führen sollten.
 
 \subsection{Ätzen der Platine}
 Die doppeltseitige Platine des Babybettchens wurde von uns, in der Schuleigenen Werkstatt, gefertigt. Um die Maske für unsere Platine zu erstellen, mussten wir den Bottom Layer sowie danach den Top Layer mit den benötigten Pads ausdrucken. 
@@ -516,7 +518,7 @@ Komponenten des Testroboters ebenfalls mit dem Netzteil zu betreiben, siehe \ref
 Ursprünglich wurden Schrittmotoren zur Bewegungsansteuerung ausgewählt. Der Schrittmotor 28BJY-48 \cite{schrittmotor_datasheet} war aus einem anderen Projekt noch verfügbar 
 und als erste Idee in Betracht gezogen worden. Nachdem eine Halterung 3D gedruckt wurde, (siehe Abbildung \ref{fig:3d:motoralt}), mussten wir bei einem Test mit einem Puppenbein jedoch feststellen,
 dass der 28BJY-48 nicht ausreichte um die Gliedmaßen zu bewegen.
-Daher gab es einen Austausch und wir haben den RC Digital Servo 14KG, mit DC Motor benutzt\cite{aliexpress}. 
+Daher gab es einen Austausch und wir haben den RC Digital Servo 14KG mit DC Motor benutzt\cite{aliexpress}. 
 
 \subsection{Spannungsversorgung des Testroboters} \label{Spannungversorgung}
 Die Spannungsversorgung des Testroboters gestaltete sich anfangs etwas schwierig. Nach ersten Tests mit der Wärmequelle wurde uns das Ausmaß der 
@@ -545,7 +547,7 @@ Das Designen der 3D-Komponenten erfolgte mittels Fusion360. Die erste Konstrukti
 \label{fig:3d:motoralt}
 \end{figure}
 \noindent
-Nach dem Wechsel der Motoren, musste diese Konstruktion durch eine auf den Servomotor angepasste, ausgetauscht werde. Die Maße der Motoren 
+Nach dem Wechsel der Motoren musste diese Konstruktion durch eine auf den Servomotor angepasste, ausgetauscht werden. Die Maße der Motoren 
 waren nicht kompatibel. Zudem kommt hinzu, dass für die Halterung der Arme nicht die gleiche Konstruktion genutzt werden kann, wie für die der
 Beine. Aufgrund der Rumpfform des Puppengehäuses mussten die Motoren der Beine in Schräglage monitert werden, während die Motoren der Arme
 nahezu parallel zu diesen angebracht werden konnten. Die Halterungskonstruktion der Servomotoren der Arme ist in Abbildung \ref{fig:3d:motorarme} und 
@@ -593,7 +595,7 @@ die Halterungskonstruktion der Bein Motoren in Abbildung \ref{fig:3d:motorbein} 
 \noindent 
 \newpage
 \noindent
-Damit die Motorhalterungen gut verankert werden können, wurde ein kleiner Ramen gedruckt welcher den Puppenrumpf etwas mehr ausfüllt. 
+Damit die Motorhalterungen gut verankert werden können, wurde ein kleiner Rahmen gedruckt, welcher den Puppenrumpf etwas mehr ausfüllt. 
 Die Konstruktion wird stabiler und es erleichtert den Einbau. Der Rahmen ist in Abbildung \ref{fig:3d:rahmen} zu sehen. 
 \begin{figure}[H]
 \centering
@@ -618,8 +620,8 @@ Damit die Gliedmaßen an den Motoren befestigt werden konnten, wurden kleine Sch
 Diese Scheiben haben vorgefertigte Einkerbungen für die sogenannten Moterenhebel.
 \par\vspace{1em}
 \noindent
-Motorhebel sind die kleinen Aufsätze die meist mit den Servos mitgelieftert werden, je nach Anwendung kann man unterschiedliche
-benutzten, Stern, Kreis, Kreuz usw.. Die Servohebel sorgen für eine benutzterdefinierte Kraft-Weg Einstellung.
+Motorhebel sind die kleinen Aufsätze, die meist mit den Servos mitgelieftert werden. Je nach Anwendung kann man unterschiedliche Motorhebel
+benutzen, Stern, Kreis, Kreuz usw.. Die Motorhebel sorgen für eine benutzerdefinierte Kraft-Weg Einstellung.
 \par\vspace{1em}
 \noindent
 Mithilfe der gedruckten Scheiben kann man nun diese Aufsätze an 
@@ -705,7 +707,7 @@ die Version für die Arme.
 \label{fig:3d:ringA}
 \end{figure}
 \noindent
-Das Befestigen der Scheiben an den Plastikarmen gestaltete sich etwas schwerer als bei den Beinen. Da das Plasitk bei den Beinen dicker und somit besser für das Verschrauben geeinigt war.
+Das Befestigen der Scheiben an den Plastikarmen gestaltete sich etwas schwerer als bei den Beinen. Da das Plasitk bei den Beinen dicker und somit besser für das Verschrauben geeignet war.
 Bei den Armen war es dünner und so war es etwas schwieriger die Arme mit den Motoren zu verbinden. Die Verbindungsstelle ist dementsprechend auch nicht so stabil. 
 \newpage
 \noindent
@@ -729,7 +731,7 @@ Damit der Lautsprecher im Kopf gut sitzt, wurde ebenfalls eine Halterungskonstru
 \label{fig:3d:speaker}
 \end{figure}
 
-\section{Zusammenbau und Verkabelung}
+\section{Zusammenbau und Verkabelung} \label{Testroboterverkabelung}
 Nachdem die 3D-Konstruktion vorlag, begann der Zusammenbau. Die Motoren wurden an die Motorenhalterungen geschraubt und diese wiederderum an die Arme und Beine. 
 Der Stabilisationsrahmen wurde ebensfalls verbunden. Der Lautsprecher in der Halterung im Kopf montiert. Dieser skelettartige Aufbau ist in Abbildung \ref{fig:bby:skelett} abbgebildet. 
 \begin{figure}[H]
@@ -743,7 +745,7 @@ Nach der Fertigung der Platinen wurde das Puppeninnere entsprechend verkabelt. D
 und Schraubklemmen realisiert. Dementsprechend mussten viele Kabel geführt werden. 
 \par\vspace{1em}
 \noindent
-Das Externe Netzteil ist sowohl für die Heat-Platine als auch die Hauptplatine die Spannungsquelle. Zusätzlich werden auch die Motoren damit versort.
+Das externe Netzteil ist sowohl für die Heat-Platine als auch die Hauptplatine die Spannungsquelle. Zusätzlich werden auch die Motoren damit versorgt.
 Diese Verkablung musste mittels Lochrasterplatine aufgebaut werden. In Abbildung \ref{fig:bby:lochraster} ist dieser Aufbau veranschaulicht. 
 \begin{figure}[H]
 \centering
@@ -773,27 +775,26 @@ Die gesamte Verkabelung im Babyroboter ist in der Abbildung \ref{fig:bby:verkabe
 \noindent 
 Der Anschluss ans Netzteil kann mithilfe der 2m langen Kabel erfolgen welche aus dem Roboter hinausführen. 
 
-\section[Testroboter Main-PCBs]{Testroboter Main-PCBs \authorkatrin} 
+\section[Testroboter Main-PCBs]{Testroboter Main-PCBs \authorkatrin} \label{TR:MainPCB}
 \input{sections/testroboterPCBs.tex}
 
 \section[Code Testroboter]{Code Testroboter\authorkatrin} %fertig nur mehr formatieren
 Der Code zur Steuerung des Testroboters besteht aus zwei pythonbasierten Programmen, siehe \ref{Client Code}.
-Sie übernehmen die Darstellung das Graphical User Interface (gui.py) und die BLE Backend Kommunikation (ble\_backend.py). Damit werden die
+Sie übernehmen die Darstellung des Graphical User Interface (gui.py) und die BLE Backend Kommunikation (ble\_backend.py). Damit werden die
 Client-Funktionen des Laptops abgedeckt. Der Code für den ESP32, siehe \ref{Server Code}, muss die Funktionen der Serverrolle im BLE Aufbau 
 erfüllen, also gesendete Kommandos müssen eine Funktion starten. Der Aufbau der Code Architektur des Testroboters ist in Abbildung \ref{fig:Roboter_Code_Aufbau} veranschaulicht. 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=12cm]{images/BabycodeDiagramm.png}
-\caption{Schematische Beschreibung des Testroboter Codes (erstellt mit Lucid Flowchart)}
+\caption{Schematische Beschreibung des Testroboter Codes}
 \label{fig:Roboter_Code_Aufbau}
 \end{figure}
 
 \subsection{Client Code} \label{Client Code}
 
 \subsubsection{Interface Darstellung} %GUI dear Pygui
-Das Interface ist vor allem für den Testbetrieb von großer Wichtigkeit, es wird benutzt um die einzelnen Simulationsparameter anzusteuern.
-Für den Aufbau des Interfaces wird die Pythonlibray Dear PyGui (DPG) verwendet. Siehe auch \ref{Dear PyGui} 
-\noindent
+Das Interface ist vor allem für den Testbetrieb von großer Wichtigkeit. Es wird benutzt um die einzelnen Simulationsparameter anzusteuern.
+Für den Aufbau des Interfaces wird die Pythonlibray Dear PyGui (DPG) verwendet, siehe auch \ref{Dear PyGui}.
 Damit DGP ein Fenster erzuegen kann, müssen 6 Funktionen unbedingt im Programmcode enthalten sein. 
 \begin{itemize}
     \item createcontext()
@@ -815,12 +816,12 @@ nicht realisiert werden. \cite{dpg_docu} Innerhalb dieser Funktionen wird das In
     \label{fig:Interface}
 \end{figure}
 \noindent
-Der Aufbau des Graphischen Interfaces ist primär mit Buttons ausgestattet die bei einem Klick, eine Callback Funktion ausführen. Es gibt eine Spalte für jeden
+Der Aufbau des graphischen Interfaces ist primär mit Buttons ausgestattet, die bei einem Klick eine Callback-Funktion ausführen. Es gibt eine Spalte für jeden
 ansteuerbaren Parameter, siehe Abbildung \ref{fig:Interface}
-Die Buttons in der Wärmespalte, triggern das Ausschalten bzw. Einschalten der Wärmequellen. In der nächsten Spalte ist die Bewegungssteuerun abgebildet, hier kann
-man aus verschiedenen Bewegungssequenze auswählen. Die Sequenzen sind an die beschriebenen Bewegungsmuster aus \ref{Bewegungstheorie} angelehnt. 
+Die Buttons in der Wärmespalte, triggern das Ausschalten bzw. Einschalten der Wärmequellen. In der nächsten Spalte ist die Bewegungssteuerung abgebildet, hier kann
+man aus verschiedenen Bewegungssequenzen auswählen. Die Sequenzen sind an die beschriebenen Bewegungsmuster aus \ref{Bewegungstheorie} angelehnt. 
 In der Audio-Spalte gibt es Buttons welche unterschiedliche Babygeräusche triggern. Es gibt die Auswahl zwischen weinen, brabbeln, husten und niesen. Diese
-30 Sekunden Audioinhalte wurden KI genriert. 
+30 Sekunden Audioinhalte wurden mit KI generiert. 
 Für das Erstellen des Spalten Layouts werden bestimmte Funktionen angewendet, siehe Listing \ref{lst:gui.py:table}
 
 \begin{lstlisting}[language=Python, caption={Tabellen Layout Interface}, label={lst:gui.py:table}, firstnumber=10]
@@ -833,7 +834,7 @@ with dpg.table(header_row = False):
          with dpg.group():
 \end{lstlisting}
 \noindent
-In der "Gruppe" (group) die in Zeile 16 implementiert ist, werden nun die Buttons für eine Spalte und somit für einen bestimmten
+In der "Gruppe" (group), die in Zeile 16 implementiert ist, werden nun die Buttons für eine Spalte und somit für einen bestimmten
 Simulationsparameter erstellt. Zu sehen am Beispiel für die Wärmesimulation in Listing \ref{lst:gui.py:buttons}. Danach noch eine Gruppe
 für Bewegungsknöpfe und eine für Audioknöpfe. 
 \begin{lstlisting}[language=Python, caption={Buttons implemetieren}, label={lst:gui.py:buttons}, firstnumber=16]
@@ -843,26 +844,26 @@ with dpg.group():
     dpg.add_button(label= "OFF", callback = ble_backend.heat_off)
 \end{lstlisting}
 \noindent
-Das erste was dem Button übergeben wird ist ein label, dies ist nicht zwingend erforderlich, aber für die Verwendung von einem Testinterface natürlich 
-sehr von Vorteil. Damit kann man wissen welche Aktion der Button ausführt. 
-Der zweite Parameter ist die Callback-Funktion, erst mit dieser kann der Button bei Klick auch eine Aktion auslösen. 
+Das Erste, was dem Button übergeben wird ist ein label. Dies ist nicht zwingend erforderlich, aber für die Verwendung von einem Testinterface natürlich 
+sehr von Vorteil. Damit kann man wissen, welche Aktion der Button ausführt. 
+Der zweite Parameter ist die Callback-Funktion. Erst mit dieser kann der Button bei Klick auch eine Aktion auslösen. 
 Da die Buttons des GUIs über BLE verschiedene Kommandos an den ESP im Testroboter schicken (welcher dann die genaue Ansteuerung der
 Komponenten übernimmt) sind die Callback-Funktionenen im zweiten Programm in der Client Architektur implementiert, in der Datei ble\_backend.  
 \newpage 
 
 \subsubsection{Interface BLE Kommunikation} %BLE Bleak
-Die Kommunikation die per Button Klick gestartet wird is in der Datei ble\_backend.py beschrieben.
+Die Kommunikation, die per Button Klick gestartet wird ist in der Datei ble\_backend.py beschrieben.
 Der erste Ansatz war mit der Theorie verbunden, eine normale def callback- Funktion zu schreiben,
-welche eine await Funktion mit dem Schreiben des BLE Kommandos beinhalten sollte siehe Listing \ref{lst:ble.py:await}. 
+welche eine await Funktion mit dem Schreiben des BLE Kommandos beinhalten sollte, siehe Listing \ref{lst:ble.py:await}. 
 Die await Funktion ist in Python ein Werkzeug um einen Task zu pausieren bis ein anderer beendet ist. 
-Das schafft eine Art parallels System \cite{realpython_await}.
+Das schafft eine Art paralleles System \cite{realpython_await}.
 \begin{lstlisting}[language=Python, caption={Beispielcode, Falscher Ansatz}, label={lst:ble.py:await}, firstnumber=1]
 #callback-funktion 
 def heat_on():
     await client.write_gatt_char(CHAR_UUID,b"heat")
 \end{lstlisting}
 \noindent
-Das ist nicht möglich weil ein await nur in einer asynchronen Funktion in Python benutzt werden darf.
+Das ist nicht möglich, weil ein await nur in einer asynchronen Funktion in Python benutzt werden darf.
 Die Callback-Funktion ist aber def.
 Daher ist es am Besten mit den Modulen threading und asyncio, als Ergänzung der verwendeten bleak Library 
 zu arbeiten, siehe Listing \ref{lst:ble.py:module}.
@@ -872,9 +873,9 @@ import asyncio
 from bleak import BleakClient
 \end{lstlisting}
 \noindent
-Zu Beginn müssen die MAC-Adresse des ESP und die Charakter UUID, welche im ESP Code defniert sind, 
+Zu Beginn müssen die MAC-Adresse des ESP und die Charakter UUID, welche im ESP Code definiert sind, 
 auch in der Client Architektur gespeichert werden. Der zweite Schritt ist mithilfe der
-Funktionen des Threading-Moduls einen eigenen Thread für BLE zu erstellen. So wird sicher gestellt, dass auch 
+Funktionen des Threading-Moduls einen eigenen Thread für BLE zu erstellen. So wird sichergestellt, dass auch 
 beim Senden eines Kommandos aus ble\_backend.py gui.py weiterhin parallel dazu laufen kann. Zu sehen sind diese 
 Anforderungen in Listing \ref{lst:ble.py:macusw}.
 \begin{lstlisting}[language=Python, caption={MAC, CHAR\_UUID und BLE Thread},label={lst:ble.py:macusw}, firstnumber=5]
@@ -883,8 +884,8 @@ CHAR_UUID = "abcd1234-ab12-34cd-56ef-1234567890ab"
 ble_loop = asyncio.new_event_loop()     
 \end{lstlisting}
 \noindent
-asyncio.new\_event\_loop() erstellt uns eine Eventloop mit dem Namen ble\_loop. Diese ist keine der Funktion der threading libraray
-sondern hilf uns bei der Anwendung der threading Funktionen für unseren Zweck. 
+asyncio.new\_event\_loop() erstellt uns eine Eventloop mit dem Namen ble\_loop. Diese ist keine Funktion der threading library
+sondern hilft uns bei der Anwendung der threading Funktionen für unseren Zweck. 
 \noindent
 Als nächstes wird mit den Funktionen der bleak library eine Verbindungsfunktion erstellt, siehe Listing \ref{lst:ble.py:connect}.
 \begin{lstlisting}[language=Python, caption={Funktion zur Verbindung mit ESP über BLE},label={lst:ble.py:connect},firstnumber=9]
@@ -896,7 +897,7 @@ async def ble_connect():
 \end{lstlisting}
 \noindent
 Zuerst wird eine Variable client erstellt, diesem client wird mit der Funktion BleakClient(ESP\_MAC), ein Gerät zugewiesen 
-(über die MAC-Adresse) mit dem es Verbindung aufnehmen soll. Dementsprechend wird der Laptop im BLE Frequenzbreich nach diesem 
+(über die MAC-Adresse) mit dem es Verbindung aufnehmen soll. Dementsprechend wird der Laptop im BLE Frequenzbereich nach diesem 
 Gerät suchen und dann über das GAP-Protokoll(siehe \ref{GAP}) eine Verbindung aufbauen. Dieser Verbindungsaufbau wird über
 await client.connect() initialisiert.Das debugging comment am Ende ist optional. 
 \noindent 
@@ -913,7 +914,7 @@ def ble_start_thread():
 \end{lstlisting}
 \noindent
 Die Funktion ble\_start\_thread (Listing \ref{lst:ble.py:thread}) ist entscheident für die parallel laufenden 
-Eigenschaften des Programms. Zuerst wird eine run() Funktion definiert welche dann dem Thread in Zeile 23 als 
+Eigenschaften des Programms. Zuerst wird eine run() Funktion definiert, welche dann dem Thread in Zeile 23 als 
 Argument übergeben werden kann. Zuerst wird hier dem Term event\_loop unsere zuvor erstellte ble\_loop übergeben. 
 Zusätzlich wird sichergestellt das ble\_loop immer läuft. Mit der letzten Zeile der Funktion ble\_start\_thread wird
 der Thread zur BLE Kommunikation schließlich gestartet. 
@@ -934,11 +935,11 @@ async def ble_send_cmds(data: bytes):
 \noindent
 Zuerst folgt eine Absicherung auf eine aufrechte Verbindung zwischen ESP und Laptop (Zeilen 26-28).
 Für das Versenden eines Kommandos wird nur die Funktion client.write\_gatt\_char(CHAR\_UUID, data)
-aus der bleak library benötigt. Hier wird das Kommando das als data Parameter übergeben werden muss, an
+aus der bleak library benötigt. Hier wird das Kommando, das als data Parameter übergeben werden muss, an
 die entsprechende Characteristic des Servers (ESPs) geschickt. 
 
 \noindent
-Die verschiedenen Kommdandos die die Callback-Funktionen der Buttons darstellen sind so definiert (Listing \ref{lst:ble.py:callbacks}).
+Die verschiedenen Kommdandos die die Callback-Funktionen der Buttons darstellen, sind so definiert (Listing \ref{lst:ble.py:callbacks}).
 \begin{lstlisting}[language=Python, caption={Beispiel einer Callback-Funktionen der Buttons},label={lst:ble.py:callbacks},firstnumber=35]
 def heat_on():
     asyncio.run_coroutine_threadsafe(ble_send_cmds(bytearray([9])), ble_loop)
@@ -946,35 +947,39 @@ def heat_off():
     asyncio.run_coroutine_threadsafe(ble_send_cmds(bytearray([10])), ble_loop)
 \end{lstlisting}
 \noindent 
-Zu sehen sind die Callback-Funktionen der Wärmesimulation die in der gui.py als Callbacks für die Heat Buttons aufgerufen werden,
-siehe (Listing \ref{lst:gui.py:buttons}). Diese Funktion wird also aufgerufen wenn im Interface jemand einen Heat Button drückt.
-Bei dem Button der die Wärmequelle einschalten soll, wird die Zahl 9, als bytearray übermittelt. Nach diesem Muster sind alles Callback-Funktionen 
+Zu sehen sind die Callback-Funktionen der Wärmesimulation, die in der gui.py als Callbacks für die Heat Buttons aufgerufen werden,
+siehe (Listing \ref{lst:gui.py:buttons}). Diese Funktion wird also aufgerufen wenn jemand einen Heat Button drückt.
+Bei dem Button, der die Wärmequelle einschalten soll, wird die Zahl 9, als bytearray übermittelt. Nach diesem Muster sind alles Callback-Funktionen 
 generiert, sie haben nur entsprechend andere Zahlen die übermittelt werden.
 \par\vspace{1em}
 \noindent
 Der Grund für die Übertragung der Daten mit bytearrays ist, dass
-diese laut ATT Protokoll sowieso in Arrays von Oktets gesendet werden. Wenn man im Code gleiche solche definiert, gibt es 
-keine unnötige hin und her Kovertierung, wie es bei zum Beispiel String Kommandos der Fall wäre. \cite{bluetooth_core}\cite{bleak_docu}
+diese laut ATT Protokoll sowieso in Arrays von Oktets gesendet werden. Wenn man gleich so seine Daten definiert, gibt es 
+keine unnötige hin und her Kovertierung, wie es bei zum Beispiel bei String Kommandos der Fall wäre. \cite{bluetooth_core}\cite{bleak_docu}
 
 \subsubsection{virtual enviornment} %venv blabla 
 Für die Installation der Pakete Bleak und Dear PyGui wird ein virtual enviornment verwendet. Das virtual enviornment (venv)
-ist eine generiert Umgebung die bei der Entwicklung von eigenständiger Software viele
-Vorteile bringt. In unserem Fall ist es vor allem um ein sauberes System zu belassen. Die Pakete die 
+ist eine generierte Umgebung, die bei der Entwicklung von eigenständiger Software viele
+Vorteile bringt. In unserem Fall ist es vor allem um ein sauberes System zu belassen. Die Pakete, die
 wir für das Interface und die Kommunikation brauchen werden nicht global installiert, sondern sind nur 
 in dem entsprechenden Projekt zu finden. In weiterer Folge wäre es möglich das GUI in eine Programmdatei 
 unzuwandeln. Hier ist es auch von Vorteil mit einem venv zu arbeiten. 
 
 \subsection{Server Code} \label{Server Code}
-Nachdem die Kommandos gesendet wurden ist es die Aufgabe des ESPs die entsprechenden Kompontenten anzusteuern. 
-Für die Programmierung des ESP verwenden wir VS-Code mit der Extension PlatformIO. PlatformIO ist eine Entwicklungsumgebung 
+Nachdem die Kommandos gesendet wurden, ist es die Aufgabe des ESPs die entsprechenden Kompontenten anzusteuern. 
+Für die Programmierung des ESP verwenden wir VS-Code mit der Extension PlatformIO.
+\par\vspace{1em}
+\noindent
+PlatformIO ist eine Entwicklungsumgebung 
 welche die wesentlichen Schritte für das Programmieren eines Mikrocontrolers, wie Kompilieren, Bibliotheksverwaltung und 
 Hochladen auf diesen in einer Umgebung zusammenfasst \cite{platformio}. Die Anforderungen um ein Projekt zu erstellen sind die Auswahl eines
-gewünschten Frameworks und des Boards welches man verwendet. Der Framework beschreibt die Softwaregrundlage die für die Programmierung 
-genutzt werden soll. Damit ist ein großer Teil der Struktur des Projekts konfiguriert \cite{software_framework_wikipedia}. Wird unser ESP als DevBoard eingestellt stehen zwei Frameworkoptionen
-zur Auswahl. Der Arduino Framework, welcher auch in der ArduinoIDE genutzt wird,
+gewünschten Frameworks und des Boards welches man verwendet. Der Framework beschreibt die Softwaregrundlage, die für die Programmierung 
+genutzt werden soll. Damit ist ein großer Teil der Struktur des Projekts konfiguriert \cite{software_framework_wikipedia}. Wird unser ESP als DevBoard eingestellt, stehen zwei Frameworkoptionen
+zur Auswahl. Der Arduino Framework, welcher auch in der ArduinoIDE genutzt wird
 oder der offizielle Framework von Espressif, ESP-IDF \cite{platformio_frameworks}. Der Framework Arduino stellt die Grundvoraussetzungen bereit, 
-mit einer Optimierung auf ESP-IDF hat man zugriff auf eine genauer auf den Microcontroller abgestimmte Funktion, aber es ist ein viel komplexer \cite{espidf_framework}.
+mit einer Optimierung auf ESP-IDF hat man Zugriff auf eine genauer auf den Mikrocontroller abgestimmte Funktion, aber es ist viel komplexer \cite{espidf_framework}.
 In diesem Fall wird der Arduino Framework genutzt \cite{arduino_framework}. 
+\par\vspace{1em}
 \noindent
 Die Aufgaben des Server Codes können in fünf unterschiedliche Sektionen geteilt werden. Drei davon entsprechen der Ansteuerung der drei 
 Simulationsparameter, Wärme, Bewegung und Geräusch. Die vierte ist eine BLE Verbindung mit dem Laptop herzustellen und dem fünften Punkt
@@ -990,9 +995,9 @@ um die entsprechenden Funktionen zu erfüllen.
 \noindent
 
 \subsubsection{BLE Verbindung und Kommandoauswertung}
-Für die interaktion mit der Bluetoothhardware des ESP wird NimBLE (siehe \ref{NimBLE}) benutzt. Um die Kommunikation richtig 
-aufzusetzten wird zuerst eine Art BLE Setup durchgeführt. Wie der Name schon vermuten lässt befindet sich diese Konfiguration im Setup, 
-also dem Programmteil welcher immer nur einmal zu anfang ausgeführt wird, bzw. bei jedem neuen flashen oder neustarten \cite{arduino_setup}.
+Für die Interaktion mit der Bluetoothhardware des ESP wird NimBLE (siehe \ref{NimBLE}) benutzt. Um die Kommunikation richtig 
+aufzusetzten wird zuerst eine Art BLE Setup durchgeführt. Wie der Name schon vermuten lässt, befindet sich diese Konfiguration im Setup, 
+also dem Programmteil welcher immer nur einmal zu Anfang ausgeführt wird, bzw. bei jedem neuen flashen oder neustarten \cite{arduino_setup}.
 Diese Konfiguration ist in Listing \ref{lst:main.c:blesetup} abgebildet. 
 \newpage
 \begin{lstlisting}[language=C++,caption={BLE Setup}, label={lst:main.c:blesetup}, firstnumber=126]
@@ -1020,18 +1025,18 @@ Diese Konfiguration ist in Listing \ref{lst:main.c:blesetup} abgebildet.
   adv->addServiceUUID(service->getUUID()); 
   adv->start(); 
 \end{lstlisting}
-Die Sektion BLE Setup folgt dem allgemeinen Standard zur initialisierung eines BLE-Gerätes. Mit NimBLEDevice::init("Robo"), wird dem Gerät
+Die Sektion BLE Setup folgt dem allgemeinen Standard zur Initialisierung eines BLE-Gerätes. Mit NimBLEDevice::init("Robo"), wird dem Gerät
 der von uns gewählte Name Robo zugewiesen. Das Auslesen der MAC-Adresse des ESPs in weiterer Folge ist um die richtige Adresse im ble\_backend.py Code eintragen zu können, wie in Listing 
 \ref{lst:ble.py:macusw} angegeben.
 Danach wird (Zeile 128 und 129) auf GATT Ebene ein Server erstellt und diesem ein Service zugeschrieben.
 Die Erstellung von einem Service ist wichtig für die Funktion der BLE Verbindung (die Funktion eines Services ist in \ref{GATT} nachzulesen), der Service ist mit 12345678-1234-1234-1234-1234567890ab,
-der Service\_UUID identifizierbar. Dies ist eine benutzerdefnierte Service UUID die zufällig erstellt wurde. In diesem Service wird eine Charakteristik für das schreiben und lesen 
-von Daten zwischen der Laptop-ESP Verbindung erstellt (Zeile 131 -135). Die CHAR UUID die hier angegeben ist muss auch im Client Code definiert sein, siehe \ref{lst:ble.py:macusw}. 
+der Service\_UUID identifizierbar. Dies ist eine benutzerdefnierte Service UUID die zufällig erstellt wurde. In diesem Service wird eine Charakteristik für das Schreiben und Lesen 
+von Daten zwischen der Laptop-ESP Verbindung erstellt (Zeile 131 -135). Die CHAR UUID die hier angegeben ist, muss auch im Client Code definiert sein, siehe \ref{lst:ble.py:macusw}. 
 Mit characteristic->setCallbacks(new CommandCallback()) wird festgelegt was passieren soll wenn der Client Nutzdaten schickt. Es wird eine Callback-Funktion defniert die 
 ausgeführt werden soll wenn der Server eine Nachricht empfängt. characteristic->setValue("ready") ist eine Nachricht an den Client, sollte dieser die Characteristic lesen, empfängt er "ready".
 Mit der Funktion service->start() ist die Konfiguration des Services abgeschlossen, er ist nun auf GATT-Ebene registiert und gestartet. 
 In den Zeile 142 bis 144 wir nun die GAP-Ebene angesprochen. Zu Beginn wir der GAP-Zugriff mit  NimBLEAdvertising* adv = NimBLEDevice::getAdvertising() gestartet. Dann der 
-Service für den Client dargestellt und dann beginnt der ESP zu werben (adverting), um die Verbindung mit dem Client einzugehen. Verbindungsaufbau in unserem Projekt auch in Abblidung (\ref{fig:ble_gap_bsp})
+Service für den Client dargestellt und dann beginnt der ESP zu werben (adverting), um die Verbindung mit dem Client einzugehen. Verbindungsaufbau in unserem Projekt auch in Abbildung (\ref{fig:ble_gap_bsp})
 veranschaulicht. 
 \par\vspace{1em}
 \noindent
@@ -1056,7 +1061,7 @@ class CommandCallback :
     }
   }
 \end{lstlisting}
-\noindent in Listing \ref{lst:main.c:commandcb} zusehen ist die Funktion onWrite(), also wenn die 
+\noindent In Listing \ref{lst:main.c:commandcb} ist die Funktion onWrite() zu sehen. Wenn die 
 Characteristic vom Client beschrieben wird, wird der Wert in die Vairable cmd gespeichert (Zeile 57). 
 Je nachdem welcher Button gedrückt wurde wird ein anderer Wert geschickt, wie in Listing \ref{lst:ble.py:callbacks} nachzulesen. 
 Dieser wird mithilfe eines switch-case ausgewertet. Jeder Button setzt seine spezifische flag true wenn er gedrückt wird. Empfängt der 
@@ -1069,11 +1074,11 @@ Tasks aufgetreten. War zum Beispiel ein Motorbewegungs-Task aktiv sind andere Un
 Zur Verbesserung wurde die Bibliothek SchedTask verwendet. Mit den Funktionen aus SchedTask und in weiterer Folge
 aus SchedTaskT können die einzelnen Anwendungen in verschiedene Tasks ausgelagert werden welche dann zeitgesteuert, zyklisch ausgeführt werden. 
 So werden die Aufgaben zeitlich und ereignisbasiert ausgeführt.\cite{schedtask_lib}
-Dies ist die einfachere Methode im Verglich zur Optimierung auf ein Real-Time System mit FreeRTOS,
+Dies ist die einfachere Methode im Vergleich zur Optimierung auf ein Real-Time System mit FreeRTOS,
 mehr dazu in \ref{RTOS}. 
-In Listing \ref{lst:main.c:SchedTasks} kann man sehen wie einzelne Tasks erstellt werden. In unserem Fall gibt es
+In Listing \ref{lst:main.c:SchedTasks} kann man sehen, wie einzelne Tasks erstellt werden. In unserem Fall gibt es
 einen Task zur Überprüfung und Auswertung gesendeter Kommandos (dieser beinhaltet auch Audio- und Wärmeansteuerung),
-einen Task zur Ansteuerung der Servos und eine der die Temperaturwerte der Wärmequelle überwacht. Dieser ist eine 
+einen Task zur Ansteuerung der Servos und einen der die Temperaturwerte der Wärmequelle überwacht. Dieser ist eine 
 Vorsichtsmaßnahme welche nicht zur Gänze fertiggestellt werden konnte. 
 \begin{lstlisting}[language=C++, caption= {Tasks erstellen}, label={lst:main.c:SchedTasks}, firstnumber=184]
 SchedTask BLECommands(0,50,BleCmd); 
@@ -1086,7 +1091,7 @@ eine Startzeit, in diesem Fall 0. Somit startet der Task bei 0ms Laufzeit. Der z
 Intervall der Task wiederholt werden soll, in diesem Fall alle 50ms. Am Ende wird die Funktion übergeben
 die alle 50ms ab 0ms Laufzeit aufgerufen werden soll. Die Funktion BleCmd()
 überprüft ob eine der Kommandoflags aus Listing \ref{lst:main.c:commandcb} gestetzt wurde. 
-Diese Implementierung ist in Listing \ref{lst:main.c:lst:main.c:SchedTasks} zu sehen.
+Diese Implementierung ist in Listing \ref{lst:main.c:SchedTasks} zu sehen.
 Dadurch haben wir in der klassischen loop() nur eine 
 SchedTask dispatcher() Funktion, wie in Listing \ref{lst:main.c:loop} gezeigt. 
 \begin{lstlisting}[language=C++, caption= {Loop}, label={lst:main.c:loop}, firstnumber=176]
@@ -1099,7 +1104,7 @@ SchedBase::dispatcher();
 \subsubsection{Servo Ansteuerung} 
 Die Ansteuerung der Servos erfolgt mit der Biblothek ServoEasing \cite{servoeasing_lib}. Die ServoEasing Bibliothek ist speziell für eine sanfte 
 Ansteuerung der Motoren ausgelegt. Wenn mittels PWM ein Zielwinkel gesendet wird, ist dieser nicht sofort der Sollwinkel,
-sondern wird intern auf mehrer kleine Zielwinkel heruntergerechnet. Der Servo dreht sich also in kleinen Etappen ans Ziel, was einen sanfteren 
+sondern wird intern auf mehrere kleine Zielwinkel heruntergerechnet. Der Servo dreht sich also in kleinen Etappen ans Ziel, was einen sanfteren 
 Bewegungsablauf hervorruft. Zusätzlich gibt es die Möglichkeit ServoCallback-Funktionen zu implementiern. 
 Diese werden über eine Handle Funktion einem Servo zugewiesen. Bei Ankunft des Servos an seiner Zielposition wird diese Callback-Funktion aufgrufen.
 Das ist sehr hilfreich wenn man den Servo zum Beispiel für eine gewisse Anzahl von Sequenzen hin und her bewegen will. Der Aufbau dieser
@@ -1113,17 +1118,17 @@ Servo1.setSpeed(90);
 Servo1TargetReachedHandler(&Servo1);
 \end{lstlisting}
 \noindent
-Jede Callbackfunktion wird einem Servo zugewiesen (Zeile 161), beispielsweise Servo1 (für den Roboter gibt es vier Servos und somit 4 verschiedne ServoCallback-Funktionen), das passiert mithilfe der Funktion 
+Jede Callback-Funktion wird einem Servo zugewiesen (Zeile 161), beispielsweise Servo1 (für den Roboter gibt es vier Servos und somit vier verschiedne ServoCallback-Funktionen), das passiert mithilfe der Funktion 
 setTargetPositionReachedHandler() der Übergabeparameter ist die auf die eigene Anwendung programmierte Callback-Funktion. Eine bestimmte Geschwindigkeit 
 kann mit Servo1.setSpeed() angegeben werden (Zeile 162). Um den Callback Zyklus zu aktivieren muss die Callback-Funktion einmal aufgerufen werden (beispielhaft in Zeile 165 oder genauer in \ref{lst:main.c:tw} ). 
 \par\vspace{1em}
 \noindent
-Aufgrund der verschiedene Bewegungsmuster die angesteuert werden können, gibt es viele verschiedene Sequenzen wie die Motoren sich bewegen müssen. Deshalb wurde zur implementierung 
-eine State Machine aufgebaut siehe Abbildung \ref{fig:statediagramm}. 
+Aufgrund der verschiedene Bewegungsmuster die angesteuert werden können, gibt es viele verschiedene Sequenzen wie die Motoren sich bewegen müssen. Deshalb wurde zur Implementierung 
+eine State Machine aufgebaut, siehe Abbildung \ref{fig:statediagramm}. 
 \begin{figure}[H]
 \centering
 \includegraphics[width=13cm]{images/statediagramm.png}
-\caption{Statediagramm Servo-Steuerung (erstellt mit Lucid Flowchart)}
+\caption{Statediagramm Servo-Steuerung}
 \label{fig:statediagramm}
 \end{figure}
 \noindent
@@ -1144,15 +1149,15 @@ void BleCmd(){
   ...
 }
 \end{lstlisting} 
-Die Statemachine wird in der Funktion BleCmd() sobalt eine der bewegungsbezogenen Kommandoflags gesetzt wurde gestartet indem ein state\_command gesetzt wird, siehe 
+Die Statemachine wird in der Funktion BleCmd() sobald eine der bewegungsbezogenen Kommandoflags gesetzt wurde gestartet indem ein state\_command gesetzt wird, siehe 
 Listing \ref{lst:main.c:statecmd}
 \noindent 
 Die Statemachine selbst ist in der Funktion ServoSM() programmiert, welche als SchedTask aufgebaut alle 200ms 
 aufgerufen wird. Gibt es eine Änderung des state\_commands wird der Zustand geändert und der executionstate auf ENTRY gesetzt. 
 Dieser Executionstatus Zustand ist aufgrund der zyklischen Wiederholung von ServgoSM() notwending.
-Sonst könnte es passieren dass ein State also eine Bewegungssequenz nie ganz durchlaufen kann. 
+Sonst könnte es passieren, dass ein State also eine Bewegungssequenz nie ganz durchlaufen kann. 
 \noindent
-Der des Aufbau des switch-case der Zustände ist anhand des Zustands TW in Listing \ref{lst:main.c:tw} beschrieben. 
+Der Aufbau des switch-case der Zustände ist anhand des Zustands TW in Listing \ref{lst:main.c:tw} beschrieben. 
 \begin{lstlisting}[language=C++, caption={Was passiert bei einem Bewegungszustand?}, label={lst:main.c:tw}, firstnumber=454]
     case TW:
     if(state_executionstate == ENTRY){
@@ -1177,8 +1182,8 @@ int TWITCHING_lut[SEQUENCES][SERVOS] = {
 }; 
 \end{lstlisting}
 \noindent 
-Mthilfe dieser Tabelle werden immer die richtigen Winkel angefahren. Veranschaulicht am Beispiel des Servo1 in Funktion Servo1TargetReachedHandler() im Zustand TW 
-wird das in Listing \ref{lst:main.c:alles}. Servo1 wird aber auch in anderen States gebraucht, deshalb das switch-case der Zustände. 
+Mthilfe dieser Tabelle werden immer die richtigen Winkel angefahren. Veranschaulicht wird das in Listing \ref{lst:main.c:alles}, am Beispiel des Servo1 in Funktion Servo1TargetReachedHandler() im Zustand TW.
+Servo1 wird aber auch in anderen States gebraucht, deshalb das switch-case der Zustände. 
 \begin{lstlisting}[language=C++, caption={Anfahren der Winkel}, label={lst:main.c:alles}, firstnumber=298]
 void Servo1TargetReachedHandler(ServoEasing *aServoEasingInstance){
   switch(states){
@@ -1211,11 +1216,11 @@ if(crying_flag){
 \end{lstlisting}
 \noindent 
 Die Tonaufnahmen wurden vorher auf die MicroSD-Karte geladen und mit 000x.mp3 angespeichert, damit das Modul mit play() darauf zugreifen kann.
-Die Ausgabe in BleCmd ist noch optimierbar indem sie aus dieser Funktion ausgelagert, und die Statemachine erweitert wird. 
+Die Ausgabe in BleCmd ist noch optimierbar indem sie aus dieser Funktion ausgelagert und die Statemachine erweitert wird. 
 
 \subsubsection{Wärme Ansteuerung}
-Die Ansteuerung der Wärmequelle ist softwaretechnisch nur mit dem setzten eines Ausganges implementiert. Da der Rest der Steuerung mittels Halbleiterkomponenten
-auf der Platine realisiert wurde, siehe \ref{TRMain PCB}. Auch das setzten des GPIOs passiert derzeit in der BleCmd Funktion, siehe Listing \ref{lst:main.c:heat}.
+Die Ansteuerung der Wärmequelle ist softwaretechnisch nur mit dem Setzten eines Ausganges implementiert. Da der Rest der Steuerung mittels Halbleiterkomponenten
+auf der Platine realisiert wurde, siehe \ref{TR:MainPCB}. Auch das Setzen des GPIOs passiert derzeit in der BleCmd Funktion, siehe Listing \ref{lst:main.c:heat}.
 \begin{lstlisting}[language=C++, caption={Wärmeansteuerung}, label={lst:main.c:heat},firstnumber=262]
 if(heat_on_flag){
     heat_on_flag = false; 
