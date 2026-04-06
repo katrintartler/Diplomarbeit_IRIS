@@ -133,34 +133,63 @@ Beim Erstellen des Layouts wurde versucht, einige Regeln für ein hochfrequenzge
 eine druchgängige GND-Fläche. Auch die Positionierung des ESPs ist mihilfe der Espressif Design Rules erfolgt \cite{esp32_pcb_layout_design}. So wurde darauf 
 geachtet, dass unter der Antenne keine Leitungen verlaufen. Das könnte die BLE Verbindungsqualität beeinflussen. Der ESP wurde also mit der Antenne über 
 den Platinenrand hinaus platziert. 
+\newpage
 
 \subsection{Fertigung, Bestückung und Test}
 \subsubsection{Fertigung durch JLCPCB}
 Die Platinen des Testroboters wurden von JLCPCB gefertigt. In KiCad gibt es ein Plugin namens Fabrication Toolkit, dass aus einem erstellten Projekt mit 
 Schaltplan und Layout eine production.zip Datei erstellt. Damit sind alle Dateien die JLCPCB zur Fertigung der Platine braucht in einer zip-Datei gespeichert 
-welche man dann nur mehr auf der Homepage hochladen muss. Bei der Fertigung der Hauptplatine des Testroboters wuden auch ein paar Bauteile mitbestückt. 
-Da die Lieferzeit der einzelnen Komponenten zu lange für eine selbständige Bestückung war. Der Spannungsregler, der MOSFET sowie alle SMD-Bauteile wurden 
-von JLCPCB bestückt. 
+welche man dann nur mehr auf der Homepage hochladen muss.
+\par\vspace{1em}
+\noindent
+Bei der Fertigung der Hauptplatine des Testroboters wuden auch ein paar Bauteile mitbestückt,
+da die Lieferzeit der einzelnen Komponenten zu lange für eine selbständige Bestückung war. Der Spannungsregler, der MOSFET sowie alle SMD-Bauteile wurden 
+von JLCPCB bestückt. In Abbildung \ref{fig:pcb:TRmain} ist einmal die von JLCPCB gefertigte und teils bestückte Platine zu sehen und einmal die vollständige Bestückung.
+\begin{figure}[H]
+\centering
+\begin{subfigure}{0.45\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{images/Bby/MainTRpcb_naked.jpeg}
+    \caption{gefertigt und teils bestückte Platine}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.45\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{images/Bby/MainTRpcb.jpeg}
+    \caption{vollständig bestückte Platine}
+\end{subfigure}
+\caption{Hauptplatine des Testroboters}
+\label{fig:pcb:TRmain}
+\end{figure} 
+
 \subsubsection{Bestückung und Testen}
 Die restlichen THT-Bauteile wurden eingelötet und die Verbindungen überprüft. Der 1$\mu$F Kondensator wurde durch einen zweiten 10nF Kondensator
-ersetzt, weil kein passender 1$\mu$F zur Hand war. 
+ersetzt, weil kein passender 1$\mu$F zur Hand war. Statt des ESP32 werden Stiftleisten bestückt. Dadurch ist der ESP32 herausnehmbar und kann wiederverwertet werden. 
+Auch das DFPlayer-Modul ist nur mittels Siftleisten auf der Platine befestift. 
 \par\vspace{1em}
 \noindent
 Die Spannungsreglerschaltung im Layout wurde auf den LM2596Adj (adjustable) angepasst, sie beeinhaltet das 50k$\Omega$ Potentiomer welches dann einen 
 variablen Spannungswert am Ausgang einstellen kann. Bei der Auswahl der zu bestückenden Teile wurde darauf vergessen. Es wurde fälschlicherweise der 
 LM2596-5 von JLCPCB bestückt. Die Spannung brach so bei den Testdurchläufen immer wieder ein, und es konnte keine konstante Spannungsversorgung 
 garantiert werden. Diese ist vor allem für die BLE Verbindung unbedingt notwendig, gibt es keine konstante oder zu wenig Spannung kann der Laptop 
-den ESP nicht als Verbindungspartner wahrnehmen. Zur Lösung wurde das Potentiometer mit einem Stück Draht überbrückt, siehe Abbildung \ref{fig:drahtbrücke}. 
+den ESP nicht als Verbindungspartner wahrnehmen. Zur Lösung wurde das Potentiometer mit einem Stück Draht überbrückt, siehe Abbildung \ref{fig:pcb:draht}.
 
+\begin{figure}[H]
+\centering
+\includegraphics[width=6cm]{images/Bby/TR_fehlerPCB.jpeg}
+\caption{Überbrückung des Potentiomers}
+\label{fig:pcb:draht}
+\end{figure}
 
-%\subsection{Versorgung der Platine} noch unsicher ob ich etwas dazu schreibe in dieser section
 \section[Testroboter Heat-PCB]{Testroboter Heat-PCB \authorkatrin} \label{Heat Platinen}
 \subsection{Prinzip} \label{Warum?Heat}
-Die Wärmesimulation mit den Keramikwiderständen, ist aus Sicherheitesgründen auf einer anderen Platine untergebracht, veranschaulicht ist das in Abbildung \ref{fig:pcb:H_all}.
+Die Wärmesimulation mit den Keramikwiderständen, ist aus Sicherheitesgründen auf einer anderen Platine untergebracht. Der Schaltplan dazu ist in Abbildung \ref{fig:pcb:H_all} veranschaulicht.
 Die Keramikwiderstände sind in zwei Strängen von jeweils drei parallel geschalteten Widerständen angebracht. Die Spannung wird vom Netzteil 
 auf eine Schraubklemme geleitet. Die andere Seite des Widerstandsnetzwerks ist mit der MOSFET-Regelung auf der Hauptplatine verbunden,
 siehe Abschniit \ref{123}. Wenn der MOSFET also vom ESP angesteuert wird, schließt sich der Stromkreis über den MOSFET zu GND. 
-So fließt der Strom dann durch die Keramikwiderstände und die Wärme entsteht. 
+So fließt der Strom dann durch die Keramikwiderstände und die Wärme entsteht. Um mehr Sicherheit zu gewährlsiten wurde auf dieser Platine auch eine 
+Schaltung zur Wärmedetektion aufgebaut. Mittels PT100 Spannungsteiler soll der Temperturwert der Keramikwiderstände an den ESP weiter gegeben werden, welcher 
+bei zuhöhen Temperaturen die Wärmesimulation abschalten kann. 
 
 \subsection{Schaltplan}
 \begin{figure}[H]
@@ -183,9 +212,31 @@ besonders dick zu ziehen. Damit trotz der hohen Leistung nichts beschädigt wird
 
 \subsection{Fertigung, Bestückung und Test}
 Gefertigt wurde die Heat-Platine mit der Hauptplatine bei JLCPCB. Auch hier wurde das production.zip File hochgeladen. Im Vergleich zur Hauptplatine war 
-es hier jedoch nicht nötig einzelne Bauteile bestücken zu lassen.  
+es hier jedoch nicht nötig einzelne Bauteile bestücken zu lassen.
+Die Sicherheitskomponente PT100, mit dazu gehötigem Teilerwiderstand konnte aufgrund von Lieferverspätung von nicht eingelötet werden. 
+Zusätzlich wurden auf den Keramikwiderständen noch Kühlkörper angebracht. Diese sollen die Abgabe der Wärme
+erleichtern. In Abbildung \ref{fig:pcb:mainH} ist die von JLCPCB gefertigte Platine und diese in eigens bestückter Form abbgebildet. 
+\begin{figure}[H]
+\centering
+
+\begin{subfigure}{0.45\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{images/Bby/Heatpcb_naked.jpeg}
+    \caption{gefertigte Heat-PCB}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.45\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{images/Bby/Heatpcb.jpeg}
+    \caption{bestückte Heat-PCB}
+\end{subfigure}
+\caption{Heat-PCB}
+\label{fig:pcb:mainH}
+\end{figure} 
+
 \par\vspace{1em}
-Nachdem die Bauteile dem Layout entsprechend eingelötet worden sind, ist uns beim Testen eine Diskrepanz zwischen dem Verlauf der Leiterbahnen der gefertigten 
+\noindent
+Beim Testen eine Diskrepanz zwischen dem Verlauf der Leiterbahnen der gefertigten 
 Heat-Platine und dem Verlauf der selben Leiterbahnen in unserem KiCad-Projektordner aufgefallen. Es muss versehentlich eine ältere Version des Layouts gefertigt worden sein. 
 Dieser Fehler gestalete sich aber nicht weiter schlimm da er keine Auswirkungen auf die Funktion der Leiterplatte hatte. Es mussten nur die Schraubklemmen neu beschriftet werden.
 In Abbildung \ref{fig:pcb:schaubild} ist dieser Fehler dargestellt.

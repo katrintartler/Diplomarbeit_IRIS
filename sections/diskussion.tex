@@ -47,4 +47,14 @@ nicht nur localhost
 %\section{Ki-Modell}
 
 \section[Spannungsversorgung Testroboter]{Spannungsversorgung Testroboter\authorkatrin} \label{Spannungsversorgung Optimierung}
+Die Spannungsversorgung des Babybettchens ist derzeit durch ein externes Netzteil sichergestellt. In Zukunft kann eine Optimierung in Form eines Akkubetriebs in Betracht gezogen werden.
+Das System wurde auf eine Betreibsspannung von 7,4V ausgelegt, damit eine Erweiterung mit 2 in Serie geschaltenen Li-Ionen Akkus möglich ist. Die Nennspannung einer einzelnen Zelle beträgt dabei etwa 3,7 V. 
+\par\vspace{1em}
+\noindent
+Wird das System auf den Betrieb mit einem Lithium-Ionen Akku aufgerüstet, müssen einige Sicherheitsparameter eingehalten werden. Damit Akkus sicher betrieben werden können 
+gibt es einige Grenzwerte die nie überschritten werden dürfen. Lithium-Ionen-Akkus dürfen nur innerhalb definierter Grenzwerte betrieben werden. Insbesondere sind Überladung, Tiefentladung und Überstrom zu vermeiden, 
+da diese zu Schäden führen können. Zur Einhaltung der Grenzwerte gibt ein sogenanntes BMS (Battery Management System). Mit dieser Kontrolleinheit wird sichergestellt dass keine Grenzweerte über- oder unterschritten werde.
+Außerdem kann es auch Zell-Balancing steuern. Das bedeutet, dass auch einem mehr Zellensystem immer alle gleich belastet werden. Kommt es zu einer Erweiterung ist die Verwendung eines BMS sehr vorteilhaft.\cite{battery_management_system_mathworks}\cite{akkushop_spannungen_liion}
+\par\vspace{1em}
+Der 
 \section[Real Time System]{Real Time System\authorkatrin} \label{RTOS}

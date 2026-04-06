@@ -616,8 +616,13 @@ Die Konstruktion wird stabiler und es erleichtert den Einbau. Der Rahmen ist in 
 \noindent
 Damit die Gliedmaßen an den Motoren befestigt werden konnten, wurden kleine Scheiben für Arme und Beine gedruckt.
 Diese Scheiben haben vorgefertigte Einkerbungen für die sogenannten Moterenhebel.
+\par\vspace{1em}
+\noindent
 Motorhebel sind die kleinen Aufsätze die meist mit den Servos mitgelieftert werden, je nach Anwendung kann man unterschiedliche
-benutzten, Stern, Kreis, Kreuz usw.. Die Servohebel sorgen für eine benutzterdefinierte Kraft-Weg Einstellung. Mithilfe der gedruckten Scheiben kann man nun diese Aufsätze an 
+benutzten, Stern, Kreis, Kreuz usw.. Die Servohebel sorgen für eine benutzterdefinierte Kraft-Weg Einstellung.
+\par\vspace{1em}
+\noindent
+Mithilfe der gedruckten Scheiben kann man nun diese Aufsätze an 
 der einen Seite anschrauben und die Scheibe dann an dem Plastik der Arme und Beine verschrauben. Zur Erleichterung wurden noch kleine Montageringe gedruckt.
 So werden die Gliedmaßen wieder mit dem Rumpf verbunden. 
 Abbildung \ref{fig:3d:scheibeB} und Abbildung \ref{fig:3d:ringB} zeigen diese Montageteile für die Beine. Auf Abbildung \ref{fig:3d:scheibeA} und \ref{fig:3d:ringA} sieht man 
@@ -724,6 +729,50 @@ Damit der Lautsprecher im Kopf gut sitzt, wurde ebenfalls eine Halterungskonstru
 \label{fig:3d:speaker}
 \end{figure}
 
+\section{Zusammenbau und Verkabelung}
+Nachdem die 3D-Konstruktion vorlag, begann der Zusammenbau. Die Motoren wurden an die Motorenhalterungen geschraubt und diese wiederderum an die Arme und Beine. 
+Der Stabilisationsrahmen wurde ebensfalls verbunden. Der Lautsprecher in der Halterung im Kopf montiert. Dieser skelettartige Aufbau ist in Abbildung \ref{fig:bby:skelett} abbgebildet. 
+\begin{figure}[H]
+\centering
+\includegraphics[width=5cm]{images/Bby/TR_motor3d.jpeg}
+\caption{Zusammenbau der 3D-Konstruktion}
+\label{fig:bby:skelett}
+\end{figure}
+\noindent 
+Nach der Fertigung der Platinen wurde das Puppeninnere entsprechend verkabelt. Die Verbindungen zwischen Platinen und Spannungsversorgungen wurden mit Kablen 
+und Schraubklemmen realisiert. Dementsprechend mussten viele Kabel geführt werden. 
+\par\vspace{1em}
+\noindent
+Das Externe Netzteil ist sowohl für die Heat-Platine als auch die Hauptplatine die Spannungsquelle. Zusätzlich werden auch die Motoren damit versort.
+Diese Verkablung musste mittels Lochrasterplatine aufgebaut werden. In Abbildung \ref{fig:bby:lochraster} ist dieser Aufbau veranschaulicht. 
+\begin{figure}[H]
+\centering
+\includegraphics[width=3cm]{images/Bby/Lochraster.jpeg}
+\caption{Lochrasteraufbau}
+\label{fig:bby:lochraster}
+\end{figure}
+\noindent
+Die Stecker der Motoren können hier verbunden werden, die dünnen Kabel werden zu den ServoPWM Schraubklemmen auf der Hauptplatine verlegt.
+Die gesamte Verkabelung im Babyroboter ist in der Abbildung \ref{fig:bby:verkabelung} abbgebildet.
+\begin{figure}[H]
+\centering
+\begin{subfigure}{0.45\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{images/Bby/TRVerkabelung_vo.jpeg}
+    \caption{Testroboterverkabelung (vorne)}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.45\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{images/Bby/TRVerkabelung_hi.jpeg}
+    \caption{Testroboterverkablung (hinten)}
+\end{subfigure}
+\caption{Verkablung im Testroboters}
+\label{fig:pcb:verkabelung}
+\end{figure}   
+\noindent 
+Der Anschluss ans Netzteil kann mithilfe der 2m langen Kabel erfolgen welche aus dem Roboter hinausführen. 
+
 \section[Testroboter Main-PCBs]{Testroboter Main-PCBs \authorkatrin} 
 \input{sections/testroboterPCBs.tex}
 
@@ -799,6 +848,7 @@ sehr von Vorteil. Damit kann man wissen welche Aktion der Button ausführt.
 Der zweite Parameter ist die Callback-Funktion, erst mit dieser kann der Button bei Klick auch eine Aktion auslösen. 
 Da die Buttons des GUIs über BLE verschiedene Kommandos an den ESP im Testroboter schicken (welcher dann die genaue Ansteuerung der
 Komponenten übernimmt) sind die Callback-Funktionenen im zweiten Programm in der Client Architektur implementiert, in der Datei ble\_backend.  
+\newpage 
 
 \subsubsection{Interface BLE Kommunikation} %BLE Bleak
 Die Kommunikation die per Button Klick gestartet wird is in der Datei ble\_backend.py beschrieben.
@@ -887,6 +937,7 @@ Für das Versenden eines Kommandos wird nur die Funktion client.write\_gatt\_cha
 aus der bleak library benötigt. Hier wird das Kommando das als data Parameter übergeben werden muss, an
 die entsprechende Characteristic des Servers (ESPs) geschickt. 
 
+\noindent
 Die verschiedenen Kommdandos die die Callback-Funktionen der Buttons darstellen sind so definiert (Listing \ref{lst:ble.py:callbacks}).
 \begin{lstlisting}[language=Python, caption={Beispiel einer Callback-Funktionen der Buttons},label={lst:ble.py:callbacks},firstnumber=35]
 def heat_on():
@@ -898,7 +949,10 @@ def heat_off():
 Zu sehen sind die Callback-Funktionen der Wärmesimulation die in der gui.py als Callbacks für die Heat Buttons aufgerufen werden,
 siehe (Listing \ref{lst:gui.py:buttons}). Diese Funktion wird also aufgerufen wenn im Interface jemand einen Heat Button drückt.
 Bei dem Button der die Wärmequelle einschalten soll, wird die Zahl 9, als bytearray übermittelt. Nach diesem Muster sind alles Callback-Funktionen 
-generiert, sie haben nur entsprechend andere Zahlen die übermittelt werden. Der Grund für die Übertragung der Daten mit bytearrays ist, dass
+generiert, sie haben nur entsprechend andere Zahlen die übermittelt werden.
+\par\vspace{1em}
+\noindent
+Der Grund für die Übertragung der Daten mit bytearrays ist, dass
 diese laut ATT Protokoll sowieso in Arrays von Oktets gesendet werden. Wenn man im Code gleiche solche definiert, gibt es 
 keine unnötige hin und her Kovertierung, wie es bei zum Beispiel String Kommandos der Fall wäre. \cite{bluetooth_core}\cite{bleak_docu}
 
