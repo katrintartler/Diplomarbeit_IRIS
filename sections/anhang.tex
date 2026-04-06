@@ -1,5 +1,6 @@
 \chapter*{Anhang}
 \markboth{Anhang}{}
+
 \begin{relsize}{-3}
     \begin{verbatim}
 //gui.py
@@ -38,9 +39,6 @@ def create_gui():
                         dpg.add_button(label="Baby coughing", callback = ble_backend.coughing)
                         dpg.add_button(label="Baby sneezing", callback = ble_backend.sneezing)
 
-
-
-            
     dpg.create_viewport(title="BabyBot Control", width=700, height=300)
     dpg.setup_dearpygui()
     dpg.show_viewport()

@@ -62,14 +62,17 @@ Innerhalb dieser gibt es Rollen, die den Geräten zugeteilt sind. Dies wird in A
 In unserem Projekt übernimmt der ESP32 die Rolle des Servers und der Laptop fungiert als Client. 
 Im GAP werden diese Rollen mit Peripheral (Server) und Central (Client) bezeichnet. \cite{espressif_ble_intro}
 Anhand von Abbildung \ref{fig:ble_gap_bsp} lässt sich der Verbindungsaufbau und die unterschiedlichen Rollen welche die Teilnehmener dabei annehmen nachvollziehen. 
-\begin{figure}[H]
+\newpage 
+
+\vspace*{\fill}
+\begin{figure}[htbp]
 \centering
 \includegraphics[width = 7cm]{images/ble-gap_bsp.png}
 \caption{GAP Verbindungsaufbau}
 \label{fig:ble_gap_bsp}
 \end{figure}
+\vspace*{\fill}
 \newpage
-
 
 \subsubsection{GATT (Generic Attribute Profile)} \label{GATT}
 Das GATT Protokoll basiert auf einer hierarchischen Einteilung von Characteristic, Service und Profile.
@@ -149,20 +152,20 @@ Ein Servomotor ist ein Elektromotor welcher über eine interne Sensorik verfügt
 verwendet wird. 
 Der Motor besteht aus vier Hauptkomponenten, die auch in Abb \ref{fig:servoMotor} veranschaulicht sind. Diese Abblidnung ist bezogen auf unsere verwendeten Servos.
 Es könnte auch ein AC-Motor oder andere Senorik verwendet werden. \cite{servomotor} \cite{pwm_servo}
-\begin{itemize}
-    \item DC-Motor => sorgt für den Antrieb
-    \item Getriebe => reduziert Drehzahl und erhöht Drehmoment 
-    \item Positionsmessung => Messkomponente der Reglung
-    \item Steuerplatine => regelt den Motor  
-\end{itemize}
-
-\begin{figure}[htbp]
+\begin{figure}[H]
 \centering
 \includegraphics[width=8cm]{images/servoMotor.jpg}
 \caption{Servo Motor Aufbau \cite{pwm_servo_bild}}
 \label{fig:servoMotor}
 \end{figure}
 \noindent
+
+\begin{itemize}
+    \item DC-Motor => sorgt für den Antrieb
+    \item Getriebe => reduziert Drehzahl und erhöht Drehmoment 
+    \item Positionsmessung => Messkomponente der Reglung
+    \item Steuerplatine => regelt den Motor  
+\end{itemize}
 Die Kombination dieser einzelnen Komponenten erzeugt die typische Servofunktion.
 
 \noindent

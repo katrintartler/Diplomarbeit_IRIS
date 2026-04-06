@@ -999,7 +999,6 @@ Für die Interaktion mit der Bluetoothhardware des ESP wird NimBLE (siehe \ref{N
 aufzusetzten wird zuerst eine Art BLE Setup durchgeführt. Wie der Name schon vermuten lässt, befindet sich diese Konfiguration im Setup, 
 also dem Programmteil welcher immer nur einmal zu Anfang ausgeführt wird, bzw. bei jedem neuen flashen oder neustarten \cite{arduino_setup}.
 Diese Konfiguration ist in Listing \ref{lst:main.c:blesetup} abgebildet. 
-\newpage
 \begin{lstlisting}[language=C++,caption={BLE Setup}, label={lst:main.c:blesetup}, firstnumber=126]
   NimBLEDevice::init("Robo"); 
 
@@ -1032,6 +1031,8 @@ Danach wird (Zeile 128 und 129) auf GATT Ebene ein Server erstellt und diesem ei
 Die Erstellung von einem Service ist wichtig für die Funktion der BLE Verbindung (die Funktion eines Services ist in \ref{GATT} nachzulesen), der Service ist mit 12345678-1234-1234-1234-1234567890ab,
 der Service\_UUID identifizierbar. Dies ist eine benutzerdefnierte Service UUID die zufällig erstellt wurde. In diesem Service wird eine Charakteristik für das Schreiben und Lesen 
 von Daten zwischen der Laptop-ESP Verbindung erstellt (Zeile 131 -135). Die CHAR UUID die hier angegeben ist, muss auch im Client Code definiert sein, siehe \ref{lst:ble.py:macusw}. 
+
+\noindent 
 Mit characteristic->setCallbacks(new CommandCallback()) wird festgelegt was passieren soll wenn der Client Nutzdaten schickt. Es wird eine Callback-Funktion defniert die 
 ausgeführt werden soll wenn der Server eine Nachricht empfängt. characteristic->setValue("ready") ist eine Nachricht an den Client, sollte dieser die Characteristic lesen, empfängt er "ready".
 Mit der Funktion service->start() ist die Konfiguration des Services abgeschlossen, er ist nun auf GATT-Ebene registiert und gestartet. 
