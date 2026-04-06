@@ -391,7 +391,85 @@ Bei der neuen Platine blieb das Problem weiterhin bestehen, aber die etwas grö�
 %is glaub ich schon in einer anderen Section abgehandelt worden (?)
 
 \section[Code Babybettchen]{Code Babybettchen\authorlinda}
+Das System des Babybettchens besteht aus der Datenerfassung, der Kommunikationsschnittstelle und der Datenvisualisierung. Diese Aufgaben werden durch die jeweiligen Programme des ESP A, ESP B und der PWA übernommen.
+
+\par\vspace{1em}
+
+\noindent
+Der ESP A erfasst die Sensordaten und leitet diese über die UART-Schnittstelle an den ESP B weiter. Dieser muss die bereitgestellten Messwerte vom ESP A empfangen und an die PWA, für die Weiterverarbeitung, übertragen. Die Verteilung der Daten erfolgt über einen WebSocket, bei welchem der ESP B als Server fungiert und die PWA als Client.
+
+\noindent
+Die PWA ist für die Visualisierung der Echtzeit Daten verantwortlich und bildet die Schnittstelle zwischen dem technischen System und der Anwendungsschicht. 
+
+\noindent
+Der Aufbau der Code Architektur wird in Abbildung \ref{fig:methodik_code-architektur} veranschaulicht.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width = 15cm]{images/methodik_code-architektur.png}
+\caption{Aufbau der Code Architektur - Babybettchen}
+\label{fig:methodik_code-architektur}
+\end{figure}
+
+
 \subsection[ESP A Code]{ESP A Code}
+Der Code des ESP A dient der Erfassung und Vorverarbeitung der Messwerten von den sechs Drucksensoren. Die gewonnen Daten werden anschließend strukturiert im JSON-Format über die UART-Schnittstelle weitergesendet.
+
+\subsubsection{Einbindung der Bibliotheken}
+Mithilfe von Arduino.h werden die grundlegenden Funktionen des Arduino-Frameworks eingebunden, wie zum Beispiel pinMode(), analogRead() oder millis().
+
+\noindent
+ArduinoJson.h wird verwendet, um die Sensoren in ein strukturiertes JSON-Format umzuwandeln. Dieses Format eignet sich besonders für die Weiterverarbeitung der Daten in der PWA.
+Diese Einbindung wird im Listing \ref{lst:espA-bibliotheken} dargestellt.
+
+\begin{lstlisting}[language=C++, caption={Einbindung von Bibliotheken}, label={lst:espA-bibliotheken}, firstnumber=1]
+#include <Arduino.h>
+#include <ArduinoJson.h>
+\end{lstlisting}
+
+\subsubsection{Initialisierung der seriellen Schnittstelle}
+Für die Übertragung der Daten über die serielle Schnittstelle haben wir UART2 des ESP32 verwendet. Wir haben uns für UART2 entschieden, da die UART0 für Debugging über die USB Schnittstelle genutzt wird und UART1 intern oft belegt ist. Mit der UART2 konnten wir eine stabile Kommunikation, über RX2 und TX2, zwischen den beiden ESP32 herstellen. 
+Die Initialisierung der UART2 Schnittstelle wird im Listing \ref{lst:espA-uart2-initialisierung} gezeigt.
+
+\begin{lstlisting}[language=C++, caption={UART2 Initialisierung}, label={lst:espA-uart2-initialisierung}, firstnumber=4]
+HardwareSerial SerialESP(2); 
+\end{lstlisting}
+
+\subsubsection{Definition der Sensoreingänge}
+Im Anschluss wurden die verwendeten Sensoreingänge definiert, siehe Listing \ref{lst:espA-sensoreingaenge-initialisierung}. Bei denen es sich um sechs analoge Pins handelt, an denen die Drucksensoren angeschlossen sind. Diese wurden in einem Array gespeichert, um sie später effizient in einer Schleife zu verarbeiten.
+
+\begin{lstlisting}[language=C++, caption={Initialisierung der Sensoreingänge}, label={lst:espA-sensoreingaenge-initialisierung}, firstnumber=7]
+const int sensors[6] = {25, 26, 32, 33, 34, 35};
+\end{lstlisting}
+
+\subsubsection{setup() Funktion}
+In der setup() Funktion, siehe Listing \ref{lst:espA-setup-funktion}, erfolgt die Konfiguration der seriellen Kommunikation sowie des ADC. Durch die Einstellung einer 12 Bit Auflösung, kann der Wertebereich von 0 bis 4095 erreicht werden, wodurch eine genaue Abstufung der Messwerte möglich ist. Durch die gewählte Dämpfung von ADC\_11db ist es möglich eine Messung des erweiterten Spannungsbereichs (ca. bis 3,3V) zu erreichen, was für die korrekte Erfassung der Sensorsignale notwendig ist.
+
+\noindent
+In der for-Schleife, im Listing \ref{lst:espA-setup-funktion}, werden alle Sensor Pins als Eingang definiert. Durch diese Schleife entsteht eine kompaktere und skalierbarere Implementierung.
+
+\begin{lstlisting}[language=C++, caption={setup() Funktion}, label={lst:espA-setup-funktion}, firstnumber=9]
+void setup() {
+  Serial.begin(115200); 
+  SerialESP.begin(115200, SERIAL_8N1, 16, 17); // 16 = RXD2, 17 = TXD2
+
+  analogReadResolution(12);      
+  analogSetAttenuation(ADC_11db); 
+
+  for (int i = 0; i < 6; i++) {
+    pinMode(sensors[i], INPUT);
+  }
+}
+\end{lstlisting}
+
+\subsubsection{loop() Funktion}
+Die eigentliche Datenerfassung erfolgt in der loop () Funktion, welche kontinuierlich ausgeführt wird. Um eine konstante Abtastrate zu gewährleisten, wird die Messung zeitgesteuert durchgeführt. 
+Hierbei wird in der if-Schleife, siehe Listing \ref{}, überprüft, ob seit dem letzten Senden mehr als eine Sekunde vergangen ist. Denn millis() gibt die Anzahl der vergangen Millisekunden seit dem Starten des Programmes zurück. Von dieser Anzahl der vergangen Millisekunden wird lastSend abzogen, 
+da lastSend am Ende der if-Schleife als millis() definiert wurde, siehe Listing \ref{lst:espA-lastSend}, kann die vergangene Zeit seit dem letzten Senden berechnet werden.
+
+\begin{lstlisting}[language=C++, caption={Definition von lastSend}, label={lst:espA-lastSend}, firstnumber=63]
+  lastSend = millis();
+\end{lstlisting}
 
 \subsection[ESP B Code]{ESP B Code}
 
