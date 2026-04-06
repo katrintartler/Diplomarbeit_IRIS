@@ -1,0 +1,603 @@
+\chapter*{Anhang}
+\markboth{Anhang}{}
+\begin{relsize}{-3}
+    \begin{verbatim}
+//gui.py
+import dearpygui.dearpygui as dpg
+import ble_backend
+
+
+def create_gui():
+    dpg.create_context()
+
+    with dpg.window(label="Control Panel", width=800, height=500):
+
+        with dpg.table(header_row = False): 
+            dpg.add_table_column(); 
+            dpg.add_table_column(); 
+            dpg.add_table_column(); 
+
+            with dpg.table_row(): 
+
+                with dpg.group():
+                        dpg.add_text("Heat")
+                        dpg.add_button(label="ON", callback = ble_backend.heat_on)
+                        dpg.add_button(label= "OFF", callback = ble_backend.heat_off)
+
+                with dpg.group():
+                        dpg.add_text("Movement")
+                        dpg.add_button(label="[TW] Twitching ",callback= ble_backend.tw)
+                        dpg.add_button(label="[GM] both legs", callback= ble_backend.gm)
+                        dpg.add_button(label="[LM] left leg", callback= ble_backend.lm_l_left)
+                        dpg.add_button(label="[LM] right leg", callback= ble_backend.lm_l_right)
+
+                with dpg.group():
+                        dpg.add_text("Audio")
+                        dpg.add_button(label="Baby crying", callback = ble_backend.crying)
+                        dpg.add_button(label="Baby brabbeln", callback = ble_backend.brabbeln)
+                        dpg.add_button(label="Baby coughing", callback = ble_backend.coughing)
+                        dpg.add_button(label="Baby sneezing", callback = ble_backend.sneezing)
+
+
+
+            
+    dpg.create_viewport(title="BabyBot Control", width=700, height=300)
+    dpg.setup_dearpygui()
+    dpg.show_viewport()
+    dpg.start_dearpygui()
+    dpg.destroy_context()
+
+// ble_backend.py
+import threading
+import asyncio
+from bleak import BleakClient
+
+ESP_MAC = "a0:b7:65:69:9d:3e" # von ESP Code 
+CHAR_UUID = "abcd1234-ab12-34cd-56ef-1234567890ab" # Character UUID von ESP Code 
+
+ble_loop = asyncio.new_event_loop() # eigener thread für BLE, damit mit GUI nicht blockiert wird 
+client = None
+
+# 
+async def ble_connect():
+    global client 
+    client = BleakClient(ESP_MAC)
+    await client.connect()
+    print("client connected") 
+
+
+def ble_start_thread():
+    def run():
+        asyncio.set_event_loop(ble_loop)
+        ble_loop.run_until_complete(ble_connect())
+        print("BLE loop running")
+        ble_loop.run_forever()
+    
+    threading.Thread(target=run,daemon=True).start()
+
+
+async def ble_send_cmds(data: bytes):   
+    if not client.is_connected:
+        print("not connected")
+        await client.connect()
+    
+    await client.write_gatt_char(CHAR_UUID, data) # befehl an den ESP senden
+    print(f"sent {data} cmd") # debug ausgabe im serialmonitor
+
+
+
+#movement callbacks
+def tw():
+    print("in twitching")
+    asyncio.run_coroutine_threadsafe(ble_send_cmds(bytearray([1])), ble_loop)
+def gm():
+    asyncio.run_coroutine_threadsafe(ble_send_cmds(bytearray([2])), ble_loop)
+def lm_l_left():
+    asyncio.run_coroutine_threadsafe(ble_send_cmds(bytearray([3])), ble_loop)
+def lm_l_right():
+    asyncio.run_coroutine_threadsafe(ble_send_cmds(bytearray([4])), ble_loop)
+
+
+#audio callbacks
+def crying():
+    asyncio.run_coroutine_threadsafe(ble_send_cmds(bytearray([5])), ble_loop)
+def brabbeln():
+    asyncio.run_coroutine_threadsafe(ble_send_cmds(bytearray([6])), ble_loop)
+def coughing():
+    asyncio.run_coroutine_threadsafe(ble_send_cmds(bytearray([7])), ble_loop)
+def sneezing():
+    asyncio.run_coroutine_threadsafe(ble_send_cmds(bytearray([8])), ble_loop)
+
+#heating callbacks 
+def heat_on():
+    asyncio.run_coroutine_threadsafe(ble_send_cmds(bytearray([9])), ble_loop)
+def heat_off():
+    asyncio.run_coroutine_threadsafe(ble_send_cmds(bytearray([10])), ble_loop)
+
+//main.py
+#Startpunkt File
+import ble_backend
+import gui
+
+if __name__ == "__main__":
+    ble_backend.ble_start_thread()
+    gui.create_gui()
+ 
+        
+//main.c
+//#include <functions.hpp>
+#include <SchedTask.h>
+#include <SchedTaskT.h>
+#include <ServoEasing.hpp>
+#include <NimBLEDevice.h>
+#include <DFRobotDFPlayerMini.h> 
+
+//forward dec.
+void Servo1TargetReachedHandler(ServoEasing *aServoEasingInstance);
+void Servo2TargetReachedHandler(ServoEasing *aServoEasingInstance);
+void Servo3TargetReachedHandler(ServoEasing *aServoEasingInstance);
+void Servo4TargetReachedHandler(ServoEasing *aServoEasingInstance);
+void ServoSM(); 
+void BleCmd(); 
+void HeatMonitor(); 
+//void Speaker(); 
+
+
+// pins regarding Heating 
+#define HeatControl 5
+#define HeatMeassure 34
+
+//Statemachine LUTs parameters
+#define SEQUENCES 4
+#define SERVOS 4
+
+//Servos themselfs setups 
+ServoEasing Servo1;
+ServoEasing Servo2;
+ServoEasing Servo3; 
+ServoEasing Servo4; 
+
+//Speaker
+HardwareSerial FPSerial(2); 
+DFRobotDFPlayerMini myPlayer;
+
+//for cmd executing 
+volatile bool tw_flag = false; // Twitching mode (Arms and Legs, Servos 1-4)
+volatile bool gm_flag = false; // Gross Movement (both Legs)
+volatile bool lm_l_flag = false; // Localized Movement (left Leg)
+volatile bool lm_r_flag = false; // Localized Movement (right leg)
+
+volatile bool crying_flag = false; 
+volatile bool brabbeln_flag = false; 
+volatile bool coughing_flag = false; 
+volatile bool sneezing_flag = false; 
+
+volatile bool heat_on_flag = false; 
+volatile bool heat_off_flag = false; 
+
+// BLE part 
+class CommandCallback : 
+  public NimBLECharacteristicCallbacks {
+    void onWrite(NimBLECharacteristic* c, NimBLEConnInfo& coninfo) override {
+      
+      uint8_t cmd = c->getValue()[0];
+      //Serial.print("Received BLE command: ");
+      //Serial.println(cmd.c_str());
+
+      switch(cmd)
+      {
+        case 1: 
+          tw_flag = true; 
+        break; 
+
+        case 2: 
+          gm_flag = true; 
+        break; 
+
+        case 3:
+          lm_l_flag = true; 
+        break; 
+
+        case 4:
+          lm_r_flag = true; 
+        break; 
+
+        case 5: 
+          crying_flag = true; 
+        break; 
+
+        case 6: 
+          brabbeln_flag = true; 
+        break; 
+
+        case 7: 
+          coughing_flag = true; 
+        break; 
+
+        case 8: 
+          sneezing_flag = true; 
+        break; 
+
+        case 9:
+          heat_on_flag = true;
+        break; 
+
+        case 10: 
+          heat_off_flag = true; 
+        break; 
+      } 
+
+  }
+}; 
+
+
+void setup() {
+  Serial.begin(115200);
+
+  // Pins regarding heating init
+  pinMode(HeatControl, OUTPUT); 
+  pinMode(HeatMeassure, INPUT); 
+
+  FPSerial.begin(9600, SERIAL_8N1, /*RX=*/ 18, /*TX=*/ 19);
+  if (!myPlayer.begin(FPSerial, true, true))
+  {
+    Serial.println("DFPlayer nicht gefunden"); 
+  }
+    
+  // BLE Setup 
+  NimBLEDevice::init("Robo"); 
+  Serial.print("Namen init"); 
+  
+  NimBLEAddress addr = NimBLEDevice::getAddress();
+  Serial.print("BLE MAC:");
+  Serial.print(addr.toString().c_str()); 
+
+  NimBLEServer * server = NimBLEDevice::createServer(); 
+  NimBLEService * service = server->createService("12345678-1234-1234-1234-1234567890ab"); 
+
+   NimBLECharacteristic* characteristic =
+      service->createCharacteristic(
+          "abcd1234-ab12-34cd-56ef-1234567890ab",
+          NIMBLE_PROPERTY::READ | NIMBLE_PROPERTY::WRITE
+      );
+
+  // Client = Laptop
+  characteristic->setCallbacks(new CommandCallback()); 
+  characteristic->setValue("ready"); 
+
+  service->start(); 
+
+  NimBLEAdvertising* adv = NimBLEDevice::getAdvertising(); 
+  adv->addServiceUUID(service->getUUID()); 
+  adv->start();
+  Serial.println("advertising");
+
+  Servo1.attach(26,0); // left leg
+  Servo2.attach(27,0); // right leg
+  Servo3.attach(14,0); // left arm
+  Servo4.attach(12,0); // right arm
+
+ 
+  Servo1.setTargetPositionReachedHandler(Servo1TargetReachedHandler);
+  Servo1.setSpeed(90);                        
+  Servo2.setTargetPositionReachedHandler(Servo2TargetReachedHandler);
+  Servo2.setSpeed(90);      
+  Servo3.setTargetPositionReachedHandler(Servo3TargetReachedHandler);
+  Servo3.setSpeed(90);      
+  Servo3.setTargetPositionReachedHandler(Servo4TargetReachedHandler);
+  Servo3.setSpeed(90);    
+}
+
+void loop() {
+
+SchedBase::dispatcher(); 
+
+}
+
+
+//Schedueled Tasks
+SchedTask BLECommands(0,50,BleCmd); 
+SchedTask Heatcontrol(0, 300, HeatMonitor); 
+SchedTask Servos(0,200,ServoSM); 
+
+
+
+void HeatMonitor(){
+  // Pt100 data 
+  // control function for safety 
+}
+
+//Statemaschine
+typedef enum { 
+  IDLE,
+  TWITCHING, // Arms and Legs (4Servos) 
+  GM,
+  LM_L_LEFT,
+  LM_L_RIGHT,
+}t_states;
+
+typedef enum {
+  CMD_IDLE,
+  CMD_TWITCHING,
+  CMD_GM,
+  CMD_LM_L_LEFT,
+  CMD_LM_L_RIGHT,
+}t_state_commands; 
+
+typedef enum {
+  ENTRY,
+  DURING,
+}t_state_executionstate; 
+
+t_states states = IDLE; 
+t_state_commands state_commands = CMD_IDLE; 
+t_state_executionstate state_executionstate; 
+
+//BLE 
+void BleCmd(){
+  if (tw_flag){
+    tw_flag = false; 
+    state_commands = CMD_TWITCHING; 
+  }
+  if (gm_flag){
+    gm_flag = false; 
+    state_commands = CMD_GM; 
+  }
+  if (lm_l_flag){
+    lm_l_flag = false; 
+    state_commands = CMD_LM_L_LEFT; 
+  }
+  if (lm_r_flag){
+    lm_r_flag = false; 
+    state_commands = CMD_LM_L_RIGHT; 
+  }
+  if(crying_flag){
+    myPlayer.volume(10);
+    myPlayer.play(1);
+    crying_flag = false; 
+  }
+  if(brabbeln_flag){
+    brabbeln_flag = false; 
+    myPlayer.volume(10);
+    myPlayer.play(2);
+  }
+  if(coughing_flag){
+    coughing_flag = false; 
+    myPlayer.volume(10);
+    myPlayer.play(3);
+  }
+  if(sneezing_flag){
+    sneezing_flag = false; 
+    myPlayer.volume(10);
+    myPlayer.play(4);
+  }
+  if(heat_on_flag){
+    heat_on_flag = false; 
+    digitalWrite(HeatControl,HIGH); 
+  }
+  if (heat_off_flag){
+    heat_off_flag = false; 
+    digitalWrite(HeatControl,LOW); 
+  }
+}
+
+
+//LUTs
+int TWITCHING_lut[SEQUENCES][SERVOS] = {
+ //S1 S2 S3 S4 
+  {50,0,0,50},
+  {0,50,50,0},
+  {50,0,0,50},
+  {0,50,50,0}
+}; 
+int GM_lut[SEQUENCES][SERVOS-2] = { // only Servo1 and Servo2 needed
+  {50,0},
+  {0,50},
+  {50,0},
+  {0,50}
+}; 
+int LM_L_LEFT_lut [SEQUENCES] = {50,0,50,0}; // only one (Servo1 Left Leg) needed
+int LM_L_RIGHT_lut[SEQUENCES] = {50,0,50,0}; // Servo2 Right Leg 
+
+int counter1 = 0; //Servo1 Callback
+int counter2 = 0; //Servo2 Callback 
+int counter3 = 0; //Servo3 Callback
+int counter4 = 0; //Servo4 Callback
+
+void Servo1TargetReachedHandler(ServoEasing *aServoEasingInstance){
+  switch(states){
+    // was muss der Servo1 also Linkes Bein machen bei Twitching, wir gehen nach dem LUT
+    // Servo 1 winkel sind in der ersten Spalte des LUT geschrieben 
+
+    case TWITCHING:
+      if (counter1 < SEQUENCES){
+        Servo1.startEaseTo(TWITCHING_lut[counter1][0]);
+        counter1++; 
+        Serial.print("hallo");
+        state_commands = CMD_IDLE; 
+      }
+      else {
+        states = IDLE; 
+        counter1 = 0; 
+      }
+    break; 
+
+    case GM:
+       if(counter1 < SEQUENCES){
+        Servo1.startEaseTo(GM_lut[counter1][0]); 
+        counter1++; 
+        state_commands = CMD_IDLE; 
+       }
+       else{
+        states = IDLE; 
+        counter1 = 0; 
+       }
+    break; 
+
+    case LM_L_LEFT: 
+      if(counter1 < SEQUENCES){
+        Servo1.startEaseTo(LM_L_LEFT_lut[counter1]); 
+        counter1++; 
+        state_commands = CMD_IDLE; 
+      }
+      else{
+        states = IDLE; 
+        counter1 = 0; 
+      }
+    break; 
+    }
+}
+void Servo2TargetReachedHandler(ServoEasing *aServoEasingInstance){
+  switch(states) {
+
+    case TWITCHING:
+      if(counter2 <= 3){
+        Servo2.setEaseTo(TWITCHING_lut[counter2][1]); // second col for Servo2 deg
+        counter2++; 
+        state_commands = CMD_IDLE; 
+      }
+      else {
+        states = IDLE; 
+        counter2 = 0; 
+      }
+    break; 
+
+    case GM: 
+      if(counter2 < SEQUENCES){
+        Servo2.startEaseTo(GM_lut[counter2][1]); 
+        counter2++; 
+        state_commands = CMD_IDLE; 
+      }
+      else{
+        states = IDLE;
+        counter2 = 0; 
+      }
+    break; 
+
+    case LM_L_RIGHT:
+      if(counter2 < SEQUENCES){
+        Servo2.startEaseTo(LM_L_RIGHT_lut[counter2]); 
+        counter2++; 
+        state_commands = CMD_IDLE; 
+      }
+      else{
+        states = IDLE; 
+        counter2 = 0; 
+      }
+    break; 
+
+  }
+}
+void Servo3TargetReachedHandler(ServoEasing *aServoEasingInstance){
+  
+  switch (states){
+
+    case TWITCHING:
+    if(counter3 < SEQUENCES){
+      Servo3.startEaseTo(TWITCHING_lut[counter3][2]); 
+      counter3++; 
+      state_commands = CMD_IDLE; 
+    } 
+    else{
+      states = IDLE; 
+      counter3 = 0; 
+    }
+  break; 
+  }
+
+}
+void Servo4TargetReachedHandler(ServoEasing *aServoEasingInstance){
+  switch (states){
+    
+    case TWITCHING: 
+    if(counter4 < SEQUENCES){
+      Servo4.startEaseTo(TWITCHING_lut[counter4][3]); 
+      counter4++; 
+      state_commands = CMD_IDLE; 
+    }
+    else {
+      states = IDLE; 
+      counter4 = 0; 
+    }
+  break; 
+  }
+
+}
+
+void ServoSM() {
+
+  switch (states) {
+
+    case IDLE:
+
+    switch (state_commands) {
+
+      case CMD_IDLE:
+      break; 
+
+      case CMD_TWITCHING:
+      states = TWITCHING; 
+      state_executionstate = ENTRY; 
+      break; 
+      
+      case CMD_GM:
+      states = GM;
+      state_executionstate = ENTRY;
+      break; 
+
+      case CMD_LM_L_LEFT:
+      states = LM_L_LEFT; 
+      state_executionstate = ENTRY; 
+      break; 
+
+      case CMD_LM_L_RIGHT: 
+      states = LM_L_RIGHT; 
+      state_executionstate = ENTRY; 
+      break; 
+
+      default:
+      break; 
+    }
+    break; 
+    
+    case TWITCHING:
+    if(state_executionstate == ENTRY){
+      Serial.print("in Tw");
+      state_executionstate = DURING;
+      Servo1TargetReachedHandler(&Servo1); 
+      Servo2TargetReachedHandler(&Servo2); 
+      Servo3TargetReachedHandler(&Servo3); 
+      Servo4TargetReachedHandler(&Servo4); 
+      // fehtl Servo3 und Servo4
+    }
+    break; 
+
+    case GM: 
+    if(state_executionstate == ENTRY){
+      state_executionstate = DURING; 
+      Servo1TargetReachedHandler(&Servo1); 
+      Servo2TargetReachedHandler(&Servo2); 
+    }
+    break; 
+
+    case LM_L_LEFT:
+    if(state_executionstate == ENTRY){
+      state_executionstate = DURING; 
+      Servo1TargetReachedHandler(&Servo1); 
+    }
+    break; 
+
+    case LM_L_RIGHT: 
+    if (state_executionstate == ENTRY){
+      state_executionstate = DURING; 
+      Servo2TargetReachedHandler(&Servo2); 
+    }
+    break; 
+
+    default:
+    break; 
+  }
+} 
+
+    \end{verbatim}
+\end{relsize}
