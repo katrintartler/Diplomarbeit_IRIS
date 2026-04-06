@@ -58,3 +58,13 @@ Außerdem kann es auch Zell-Balancing steuern. Das bedeutet, dass auch einem meh
 \par\vspace{1em}
 Der 
 \section[Real Time System]{Real Time System\authorkatrin} \label{RTOS}
+Ein Echtzeitsystem (Real Time System) zeichnet sich dadurch aus, dass Anwendungen in einem 
+bestimmten vordefinierten Rahmen ablaufen. Man nutzt diese Systeme wenn eine zeitliche Verzögerung 
+nicht tolerierbar ist. 
+\par\vspace{1em}
+\noindent
+Das Betriebssystem des ESP32 ist ein Real Time System, namens FreeRTOS. Es ist open-source und wird in vielen 
+Mikrocontrolersystemen eingesetzt. Es ist möglich aus einem eigenen Programm eine Real Time Anwendung zu erzeugen, indem man 
+den 2 Kernen des ESP32 verschiedene Tasks zuteilt. Dies funktioniert mittels FreeRTOS.
+Unser System könnte mit dieser Technik von einem Task-Scheduling zu einem Echtzeitsystem optimiert werden. Welches auch Priorätisierung und 
+Zeitrahmenvorgaben steuern kann. \cite{freertos_esp_idf} \cite{echtzeitsystem_heinen_elektronik} 
