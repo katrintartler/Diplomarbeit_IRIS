@@ -773,11 +773,12 @@ Die gesamte Verkabelung im Babyroboter ist in der Abbildung \ref{fig:bby:verkabe
 \label{fig:pcb:verkabelung}
 \end{figure}   
 \noindent 
-Der Anschluss ans Netzteil kann mithilfe der 2m langen Kabel erfolgen welche aus dem Roboter hinausführen. 
+Der Anschluss ans Netzteil kann mithilfe der 2m langen, isiolierten Kupferkabel in schwarz und rot, erfolgen welche aus dem Roboter hinausführen. 
 
 \section[Testroboter Main-PCBs]{Testroboter Main-PCBs \authorkatrin} \label{TR:MainPCB}
 \input{sections/testroboterPCBs.tex}
 
+\newpage 
 \section[Code Testroboter]{Code Testroboter\authorkatrin} %fertig nur mehr formatieren
 Der Code zur Steuerung des Testroboters besteht aus zwei pythonbasierten Programmen, siehe \ref{Client Code}.
 Sie übernehmen die Darstellung des Graphical User Interface (gui.py) und die BLE Backend Kommunikation (ble\_backend.py). Damit werden die
@@ -785,7 +786,7 @@ Client-Funktionen des Laptops abgedeckt. Der Code für den ESP32, siehe \ref{Ser
 erfüllen, also gesendete Kommandos müssen eine Funktion starten. Der Aufbau der Code Architektur des Testroboters ist in Abbildung \ref{fig:Roboter_Code_Aufbau} veranschaulicht. 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=12cm]{images/BabycodeDiagramm.png}
+\includegraphics[width=11cm]{images/BabycodeDiagramm.png}
 \caption{Schematische Beschreibung des Testroboter Codes}
 \label{fig:Roboter_Code_Aufbau}
 \end{figure}
@@ -818,6 +819,8 @@ nicht realisiert werden. \cite{dpg_docu} Innerhalb dieser Funktionen wird das In
 \noindent
 Der Aufbau des graphischen Interfaces ist primär mit Buttons ausgestattet, die bei einem Klick eine Callback-Funktion ausführen. Es gibt eine Spalte für jeden
 ansteuerbaren Parameter, siehe Abbildung \ref{fig:Interface}
+
+\noindent
 Die Buttons in der Wärmespalte, triggern das Ausschalten bzw. Einschalten der Wärmequellen. In der nächsten Spalte ist die Bewegungssteuerung abgebildet, hier kann
 man aus verschiedenen Bewegungssequenzen auswählen. Die Sequenzen sind an die beschriebenen Bewegungsmuster aus \ref{Bewegungstheorie} angelehnt. 
 In der Audio-Spalte gibt es Buttons welche unterschiedliche Babygeräusche triggern. Es gibt die Auswahl zwischen weinen, brabbeln, husten und niesen. Diese
@@ -849,7 +852,6 @@ sehr von Vorteil. Damit kann man wissen, welche Aktion der Button ausführt.
 Der zweite Parameter ist die Callback-Funktion. Erst mit dieser kann der Button bei Klick auch eine Aktion auslösen. 
 Da die Buttons des GUIs über BLE verschiedene Kommandos an den ESP im Testroboter schicken (welcher dann die genaue Ansteuerung der
 Komponenten übernimmt) sind die Callback-Funktionenen im zweiten Programm in der Client Architektur implementiert, in der Datei ble\_backend.  
-\newpage 
 
 \subsubsection{Interface BLE Kommunikation} %BLE Bleak
 Die Kommunikation, die per Button Klick gestartet wird ist in der Datei ble\_backend.py beschrieben.
@@ -867,6 +869,7 @@ Das ist nicht möglich, weil ein await nur in einer asynchronen Funktion in Pyth
 Die Callback-Funktion ist aber def.
 Daher ist es am Besten mit den Modulen threading und asyncio, als Ergänzung der verwendeten bleak Library 
 zu arbeiten, siehe Listing \ref{lst:ble.py:module}.
+\newpage
 \begin{lstlisting}[language=Python, caption={verwendete Module im Client Code}, label={lst:ble.py:module}, firstnumber=1]
 import threading
 import asyncio
@@ -886,6 +889,7 @@ ble_loop = asyncio.new_event_loop()
 \noindent
 asyncio.new\_event\_loop() erstellt uns eine Eventloop mit dem Namen ble\_loop. Diese ist keine Funktion der threading library
 sondern hilft uns bei der Anwendung der threading Funktionen für unseren Zweck. 
+
 \noindent
 Als nächstes wird mit den Funktionen der bleak library eine Verbindungsfunktion erstellt, siehe Listing \ref{lst:ble.py:connect}.
 \begin{lstlisting}[language=Python, caption={Funktion zur Verbindung mit ESP über BLE},label={lst:ble.py:connect},firstnumber=9]
@@ -900,7 +904,8 @@ Zuerst wird eine Variable client erstellt, diesem client wird mit der Funktion B
 (über die MAC-Adresse) mit dem es Verbindung aufnehmen soll. Dementsprechend wird der Laptop im BLE Frequenzbereich nach diesem 
 Gerät suchen und dann über das GAP-Protokoll(siehe \ref{GAP}) eine Verbindung aufbauen. Dieser Verbindungsaufbau wird über
 await client.connect() initialisiert.Das debugging comment am Ende ist optional. 
-\noindent 
+\newpage
+
 
 \begin{lstlisting}[language=Python, caption={Erstellen und Starten des BLE Threads},label={lst:ble.py:thread},firstnumber=16]
 def ble_start_thread():
@@ -940,6 +945,7 @@ die entsprechende Characteristic des Servers (ESPs) geschickt.
 
 \noindent
 Die verschiedenen Kommdandos die die Callback-Funktionen der Buttons darstellen, sind so definiert (Listing \ref{lst:ble.py:callbacks}).
+\newpage
 \begin{lstlisting}[language=Python, caption={Beispiel einer Callback-Funktionen der Buttons},label={lst:ble.py:callbacks},firstnumber=35]
 def heat_on():
     asyncio.run_coroutine_threadsafe(ble_send_cmds(bytearray([9])), ble_loop)
@@ -964,6 +970,7 @@ Vorteile bringt. In unserem Fall ist es vor allem um ein sauberes System zu bela
 wir für das Interface und die Kommunikation brauchen werden nicht global installiert, sondern sind nur 
 in dem entsprechenden Projekt zu finden. In weiterer Folge wäre es möglich das GUI in eine Programmdatei 
 unzuwandeln. Hier ist es auch von Vorteil mit einem venv zu arbeiten. 
+\newpage 
 
 \subsection{Server Code} \label{Server Code}
 Nachdem die Kommandos gesendet wurden, ist es die Aufgabe des ESPs die entsprechenden Kompontenten anzusteuern. 
@@ -1034,14 +1041,17 @@ von Daten zwischen der Laptop-ESP Verbindung erstellt (Zeile 131 -135). Die CHAR
 
 \noindent 
 Mit characteristic->setCallbacks(new CommandCallback()) wird festgelegt was passieren soll wenn der Client Nutzdaten schickt. Es wird eine Callback-Funktion defniert die 
-ausgeführt werden soll wenn der Server eine Nachricht empfängt. characteristic->setValue("ready") ist eine Nachricht an den Client, sollte dieser die Characteristic lesen, empfängt er "ready".
+ausgeführt werden soll wenn der Server eine Nachricht empfängt.
+
+\noindent 
+characteristic->setValue("ready") ist eine Nachricht an den Client, sollte dieser die Characteristic lesen, empfängt er "ready".
 Mit der Funktion service->start() ist die Konfiguration des Services abgeschlossen, er ist nun auf GATT-Ebene registiert und gestartet. 
 In den Zeile 142 bis 144 wir nun die GAP-Ebene angesprochen. Zu Beginn wir der GAP-Zugriff mit  NimBLEAdvertising* adv = NimBLEDevice::getAdvertising() gestartet. Dann der 
 Service für den Client dargestellt und dann beginnt der ESP zu werben (adverting), um die Verbindung mit dem Client einzugehen. Verbindungsaufbau in unserem Projekt auch in Abbildung (\ref{fig:ble_gap_bsp})
 veranschaulicht. 
 \par\vspace{1em}
 \noindent
-Wie schon oben beschrieben ist CommandCallback() was aufgerufen werden soll, wenn der Client Nutzdaten sendet. 
+Wie schon oben beschrieben, ist CommandCallback() was aufgerufen werden soll, wenn der Client Nutzdaten sendet. 
 \begin{lstlisting}[language=C++, caption= {CommandCallback}, label={lst:main.c:commandcb}, firstnumber=53]
 class CommandCallback : 
   public NimBLECharacteristicCallbacks {
@@ -1106,7 +1116,10 @@ SchedBase::dispatcher();
 Die Ansteuerung der Servos erfolgt mit der Biblothek ServoEasing \cite{servoeasing_lib}. Die ServoEasing Bibliothek ist speziell für eine sanfte 
 Ansteuerung der Motoren ausgelegt. Wenn mittels PWM ein Zielwinkel gesendet wird, ist dieser nicht sofort der Sollwinkel,
 sondern wird intern auf mehrere kleine Zielwinkel heruntergerechnet. Der Servo dreht sich also in kleinen Etappen ans Ziel, was einen sanfteren 
-Bewegungsablauf hervorruft. Zusätzlich gibt es die Möglichkeit ServoCallback-Funktionen zu implementiern. 
+Bewegungsablauf hervorruft.
+\par\vspace{1em}
+\noindent
+Zusätzlich gibt es die Möglichkeit ServoCallback-Funktionen zu implementiern. 
 Diese werden über eine Handle Funktion einem Servo zugewiesen. Bei Ankunft des Servos an seiner Zielposition wird diese Callback-Funktion aufgrufen.
 Das ist sehr hilfreich wenn man den Servo zum Beispiel für eine gewisse Anzahl von Sequenzen hin und her bewegen will. Der Aufbau dieser
 Anwendung mithilfe der ServoEasing Funktionen ist in Listing \ref{lst:main.c:handler} veranschaulicht. Dieses Prinzip wird zusammen  mit einer State Machine für die Ansteuerung der Servos eingesetzt. 
@@ -1128,7 +1141,7 @@ Aufgrund der verschiedene Bewegungsmuster die angesteuert werden können, gibt e
 eine State Machine aufgebaut, siehe Abbildung \ref{fig:statediagramm}. 
 \begin{figure}[H]
 \centering
-\includegraphics[width=13cm]{images/statediagramm.png}
+\includegraphics[width=15cm]{images/statediagramm.png}
 \caption{Statediagramm Servo-Steuerung}
 \label{fig:statediagramm}
 \end{figure}
@@ -1139,8 +1152,11 @@ state\_commands, die mit CMD\_x beschrieben sind.
 \paragraph{twitching (TW)} entspricht einer diagonalen Bewegung von einem Arm und einem Bein, abwechselnd mit dem anderen Paar. Es werden also alle vier Servomotoren benötigt.
 \paragraph{gross movement (GM)} stellt die Bewegung beider Beine dar. 
 \paragraph{localized movement (LM)} hier gibt es einmal die Variante der Bewegung des rechten Beins und einmal die der Bewegung des linken Beins. 
-\noindent
+\newpage
 
+\noindent
+Die Statemachine wird in der Funktion BleCmd() sobald eine der bewegungsbezogenen Kommandoflags gesetzt wurde gestartet indem ein state\_command gesetzt wird, siehe 
+Listing \ref{lst:main.c:statecmd}
 \begin{lstlisting}[language=C++, caption={setzten des state\_commands}, label={lst:main.c:statecmd}, firstnumber=223]
 void BleCmd(){
   if (tw_flag){
@@ -1150,8 +1166,6 @@ void BleCmd(){
   ...
 }
 \end{lstlisting} 
-Die Statemachine wird in der Funktion BleCmd() sobald eine der bewegungsbezogenen Kommandoflags gesetzt wurde gestartet indem ein state\_command gesetzt wird, siehe 
-Listing \ref{lst:main.c:statecmd}
 \noindent 
 Die Statemachine selbst ist in der Funktion ServoSM() programmiert, welche als SchedTask aufgebaut alle 200ms 
 aufgerufen wird. Gibt es eine Änderung des state\_commands wird der Zustand geändert und der executionstate auf ENTRY gesetzt. 
@@ -1171,8 +1185,12 @@ Der Aufbau des switch-case der Zustände ist anhand des Zustands TW in Listing \
     break; 
 \end{lstlisting}
 \noindent 
-Hier wird die Bewegung der Servos mit der dem triggern der ServoCallback-Funktionen gestartet. Um die Ansteuerung der Servos mit dem Bewegungssequenzen
+Hier wird die Bewegung der Servos mit der dem triggern der ServoCallback-Funktionen gestartet.
+\par\vspace{1em}
+\noindent
+Um die Ansteuerung der Servos mit dem Bewegungssequenzen
 abstimmen zu können wurden die Zielwinkel in Look-Up-Tables (LUT) geschrieben. Am Beispiel des Zustands TW ist dies in Listing \ref{lst:main.c:LUT} beschrieben. 
+\newpage
 \begin{lstlisting}[language=C++, caption={Zielwinkel Ansteuerung mit LUT}, label={lst:main.c:LUT}, firstnumber=277]
 int TWITCHING_lut[SEQUENCES][SERVOS] = {
  //S1 S2 S3 S4 
@@ -1204,7 +1222,7 @@ void Servo1TargetReachedHandler(ServoEasing *aServoEasingInstance){
   }
 }
 \end{lstlisting} 
-\noindent
+\newpage 
 
 \subsubsection{Audio Ansteuerung}
 Die Steuerung der Audiodateien läuft im BleCmd() SchedTask, mithilfe der Bibliothek DFRobotDFPlayerMini siehe Listing \ref{lst:main.c:audio}
