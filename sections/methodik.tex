@@ -136,7 +136,7 @@ Aufgrund von Zeitproblemen, welche durch das falsche Einschätzen wie viel Aufwa
 \end{figure}
 
 \section[ESP Wahl - Babybettchen]{ESP Wahl - Babybettchen\authorlinda}
-Für den Bau des Babybettchens haben wir uns entschieden, zwei ESP32 NodeMCU Module WLANWiFI Developement Boards mit CP2102 zu verwenden. Die Wahl ist auf einen ESP gefallen, da wir bereits davor, bei einen anderem Projekt, mit einem ESP32 gearbeitet haben und dadurch nützliche Erfahrungen gesammelt haben. Die Entscheidung für den ESP32 basierte nicht nur auf unseren eigenen Erfahrungen, sondern konnte der ESP32 NodeMCU uns auch die technischen Aspekte liefern, die für unser Projekt benötigt wurden.
+Für den Bau des Babybettchens haben wir uns entschieden, zwei ESP32 NodeMCU Module WLANWiFI Developement Boards mit CP2102 zu verwenden. \cite{azdelivery_esp32} Die Wahl ist auf einen ESP gefallen, da wir bereits davor, bei einen anderem Projekt, mit einem ESP32 gearbeitet haben und dadurch nützliche Erfahrungen gesammelt haben. Die Entscheidung für den ESP32 basierte nicht nur auf unseren eigenen Erfahrungen, sondern konnte der ESP32 NodeMCU uns auch die technischen Aspekte liefern, die für unser Projekt benötigt wurden.
 
 \par\vspace{1em}
 
@@ -925,6 +925,78 @@ function updateMovementStatus(statusObject) {
 }
 \end{lstlisting}
 
+\noindent
+Die Funktion updateValues, siehe Listing \ref{lst:js-lst:js-updateValues}, wird für die übersichtliche Darstellung der aktuellen Sensordaten verwendet. Zuerst wird das HTML Element, welches für die Darstellung der Messwerte verantwortlich ist verwendet. Innerhalb der for-Schleife laufen alle keys des übergebenen Objekts durch. Für jeden Schlüssel, also jeden Sensorwert, wird ein Absatz mit <p> </p> erzeugt, der sowohl den Namen als auch den aktuellen Wert des Sensors enthält. Nachdem alle Werte verarbeitet wurden, wird der erzeugte HTML Code in den „container“ eingefügt, indem das innerHTML gesetzt wird. Dadurch können die Sensordaten direkt sichtbar und aktualisiert in der Benutzeroberfläche angezeigt werden.
+
+\begin{lstlisting}[language=JavaScript, caption={Funktion updateValues}, label={lst:js-updateValues}, firstnumber=131]
+function updateValues(values) {
+    const container = document.getElementById("values");
+    let html = "";
+
+    for (let key in values) {
+        html +=`<p>${key}: ${values[key]}</p>`;
+    }
+
+    container.innerHTML = html;
+}
+\end{lstlisting}
+
+Die Funktion updateChart() wird für die Visualisierung der Messwerte in einem Liniendiagramm verwendet, 
+siehe \ref{lst:js-updateChart}. Als erstes prüft updateChart(), ob das Diagramm existiert, falls das nicht der Fall ist wird die Funktion beendet. Durch das Einfügen der neuen Messwerte, wird das Liniendiagramm in Echtzeit angepasst. Damit das Programm nicht alle Messwerte seit dem Beginn der Messung anzeigt, werden nur die letzten 120 Werte dargestellt. Sobald es mehr als 120 Werte wären wird der älteste Eintrag gelöscht.
+
+\begin{lstlisting}[language=JavaScript, caption={Funktion updateChart}, label={lst:js-updateChart}, firstnumber=142]
+function updateChart(value) {
+    if (!chart) return; // Guard Clause 
+
+    chart.data.labels.push("");
+    chart.data.datasets[0].data.push(value); // push haengt die neuen Daten hinten an
+
+    // Chart zeigt die letzten 120 Werte
+    if (chart.data.labels.length > 120) {  
+        chart.data.labels.shift(); // shift() entfernt das erste Element
+        chart.data.datasets[0].data.shift();
+    }
+
+    chart.update();
+}
+\end{lstlisting}
+
+\noindent
+Die Funktion window.onload ist für die Initialisierung des Diagramms verantwortlich und wird ausgeführt, sobald die gesamte HTML Struktur geladen wurde.
+
+\noindent
+Wie in dem Listing \ref{lst:js-windowonload} dargestellt, wird zuerst das Element aus dem HTML Dokument ausgewählt und zusätzlich der Zeichenkontext „2d“ erzeugt. Dieser Kontext wird für die Erstellung des Diagramms benötigt. Die Datenstruktur des Diagramms besteht aus zwei zentralen Komponenten, den labels und data. Labels entsprechen der X-Achse und data entspricht den Messwerten, welche auf der Y-Achse dargestellt werden. Weiters kann man noch den Typ des Diagramms bestimmen, wobei wir uns für ein Liniendiagramm entschieden haben und die Responsivness des Diagramms aktiviert haben. Dadurch passt sich das Diagramm automatisch an die Bildschirmgröße an.
+
+\par\vspace{1em}
+
+\noindent
+Abschließend wird noch die Funktion connectWebSocket aufgerufen, wodurch die Verbindung zum ESP B hergestellt wird. Der Aufruf dieser Funktion wurde in der window.onload Funktion platziert, damit die Datenübertragung erst gestartet wird, wenn die Initialisierung des Diagramms vollständig abgeschlossen. Dadurch werden Fehlermeldungen vermieden, welche durch das nicht vollständige Diagramm entstehen würden.
+
+\begin{lstlisting}[language=JavaScript, caption={Funktion windowonload}, label={lst:js-windowonload}, firstnumber=158]
+window.onload = function () { 
+    const ctx = this.document.getElementById("movementChart").getContext("2d");
+
+    chart = new Chart(ctx, {
+        type: "line",   // Liniendiagramm
+        data: {
+            labels: [], // X-Achse
+            datasets: [{
+                label: "Bewegungsintensitaet",
+                data: [],   // Y-Achse
+                borderWidth: 2, // Linienstaerke
+                fill: false // Flaeche unter der Linie nicht gefuellt
+            }]
+        },
+        options: {
+            animation: false,
+            responsive: true   
+        }
+    });
+    
+    // Starten
+    connectWebSocket(); 
+}
+\end{lstlisting}
 
 
 \subsubsection{style.css}
@@ -958,8 +1030,55 @@ Durch die größere Schriftgröße und dickere Darstellung, wird die Wichtigkeit
 \end{lstlisting}
 
 \subsubsection{service-worker.js}
+Im Service Worker Code befinden sich nur zwei grundlegende Ereignisbehandler, die den Lebenszyklus des Service Worker steuern:
+\begin{itemize}
+  \item Install 
+  \item Activate
+\end{itemize}
 
-\subsubsection{potentiell manifest.json}
+\noindent
+Diese dienen nur dazu den Service Worker korrekt zu registrieren und aktivieren.
+
+\begin{lstlisting}[language=JavaScript, caption={Service Worker}, label={lst:js-serviceworker}, firstnumber=1]
+self.addEventListener("install", (event) => {
+    console.log("Service Worker installiert");
+    self.skipWaiting();
+});
+
+self.addEventListener("activate", (event) => {
+    console.log("Service Worker aktiviert");
+});
+\end{lstlisting}
+
+\subsubsection{manifest.json}
+Das manifest.json wird verwendet um PWA als installierbare App erscheinen zu lassen. Es definiert die Eigenschaften der Anwendung, damit sie als PWA installiert und im App Modus genutzt werden kann.
+
+\noindent
+Der Stand der PWA war noch nicht soweit, damit wir das manifest.json wirklich verwenden konnten, 
+aber wir haben die grundlegende Struktur definiert, siehe Listing \ref{lst:js-manifest}.
+
+\begin{lstlisting}[language=JavaScript, caption={Manifest}, label={lst:js-manifest}, firstnumber=1]
+{ 
+  "name": "ESP32 Sensor Dashboard",
+  "short_name": "Sensoren",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2196f3",
+  "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
+\end{lstlisting}
 
 
 %Testroboter

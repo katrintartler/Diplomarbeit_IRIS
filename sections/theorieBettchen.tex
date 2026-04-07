@@ -140,11 +140,7 @@ Mikrofonen nur kleiner. \cite{mems_microphone_zoom} Der Aufbau eines MEMS-Mikrof
 \subsection[Babybettchen Code]{Babybettchen Code\authorlinda}
 
 \subsubsection[ESP A - Sensordaten]{ESP A - Sensordaten\authorlinda}
-Der Mikrokontroller ESP A ist ein ESP32 NodeMCU Module WLANWiFi Developement Board mit CP2102, dieser eignet sich aufgrund der 
-integrierten WLAN Funktionalität für die spätere Anwendung der drahtlosen Übertragung an die PWA. \cite{azdelivery_esp32} 
-
-\noindent
-Der ESP A erfasst die Sensordaten, wie beispielsweise Druck und ist für die Weiterleitung der aufgenommen Daten an den ESP B verantwortlich. Somit bildet der ESP A die erste Schicht der Datenerfassung, innerhalb der Systemarchitektur.
+Ein ESP32 erfasst Sensordaten, wie beispielsweise Druck und ist für die Weiterleitung der aufgenommen Daten an einen weiteren ESP32 verantwortlich. Somit bildet der erste ESP32 die erste Schicht der Datenerfassung, innerhalb der Systemarchitektur.
 
 %\par\vspace{1em}
 
