@@ -1,8 +1,46 @@
 \chapter{Ergebnis}
 
 \section[Babybettchen]{Babybettchen\authorlinda}
+Im Babybettchen konnten, aufgrund der Unterschätzung des Testroboters, nur die Drucksensoren eingebaut werden. Die Wärme- und Geräuschsensorik waren nicht mehr umsetzbar, dennoch wurde für die Geräuschsensorik ein Platzhalter auf der Platine eingebaut.
+
+\noindent
+Die Daten der Drucksensoren können mithilfe der ESP32 empfangen und weiterverarbeitet werden. 
+Diese Daten werden mithilfe der PWA als Sensordaten, siehe Abbildung \cite{fig:ergebnis_pwa-sensordaten}, 
+und einem Liniendiagramm welches die Bewegungsintensität darstellt, siehe Abbildung \cite{fig:ergebnis_pwa-liniendiagramm} visualisiert, dies aber nur in der localhost Anwendung.
+
+\noindent
+Um den Code zu testen muss das Terminal geöffnet werden und mit dem Befehl:
+\begin{itemize}
+  \item python -m http.server 8000
+\end{itemize}
+
+\noindent
+die PWA gestartet und mit diesem Link http://localhost:8000/index.html geöffnet werden.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width = 8cm]{images/ergebnis_pwa-Sensordaten.png}
+\caption{Visualisierung der Sensordaten und der schriftlichen Ausgabe der Bewegungsintensistät}
+\label{fig:ergebnis_pwa-sensordaten}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width = 8cm]{images/ergebnis_pwa-Diagramm.png}
+\caption{Visualisierung der Daten mittels Liniendiagramm}
+\label{fig:ergebnis_pwa-liniendiagramm}
+\end{figure}
 
 \section[Testroboter]{Testroboter\authorkatrin}
 Der Testroboter ist ist funktionsfähig und kann zur Simulation genutzt werden. Bewegungs- Geräusch- und Wärmesimulation können 
 über das Interface und eine aufrechte BLE-Verbindung mit dem ESP32 angesteuert werden. Die Spannungsversorgung muss mittels externen Netzteils 
 sichergestellt werden. 
+
+\noindent
+In der Abbildung \ref{fig:ergebnis_baby-babybettchen} wird, das finale System dargestellt.
+\begin{figure}[H]
+\centering
+\includegraphics[width = 11cm]{images/ergebnis_baby-babybettchen.jpeg}
+\caption{Ergebnis des Babybettchens und des Testroboters}
+\label{fig:ergebnis_baby-babybettchen}
+\end{figure}

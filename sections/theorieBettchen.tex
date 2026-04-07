@@ -52,7 +52,7 @@ Kontinuierliche Bewegungen, wie Gelenkbewegungen oder Atmen, erzeugen ein langsa
 \noindent
 Punktuelle Belastungen, wie kurzes Tippen und Drücken, sorgen für kurzzeitige lokale Kraftspitzen, die als schnelle Widerstandsänderungen erkennbar sind. \cite{gong_agocn_2025}
 
-\subsubsection{Aufbau??}
+%\subsubsection{Aufbau??}
 % leer
 
 \subsubsection{Anwendung}
@@ -94,7 +94,7 @@ Das kann durch Materialeigenschaften oder Rückverformungen des Sensors entstehe
 
 %\noindent
 % Temperaturabhängigkeit??
-\subsection{RP-S40-ST Dünnschicht Drucksensor}
+%\subsection{RP-S40-ST Dünnschicht Drucksensor - streichen}
 %pullup pulldown
 
 
@@ -138,26 +138,9 @@ Mikrofonen nur kleiner. \cite{mems_microphone_zoom} Der Aufbau eines MEMS-Mikrof
 %Herausfiltern mit 2 Mikrofonen und Filter
 
 \subsection[Babybettchen Code]{Babybettchen Code\authorlinda}
-\subsubsection{Systemarchitektur\authorlinda}
-%Prinzip, Aufbau, Funktionsweise
-Die grundlegende Systemarchitektur des Babybettchens ist, dass Sensoren, wie beispielsweise der Drucksensor, Messwerte erfasst, welche anschließend von dem ersten ESP32 eingelesen werden. Dieser erste ESP32 wird fortan als ESP A bezeichnet. Der ESP A sendet die Daten über die serielle Schnittstelle (UART) an den zweiten ESP32, welcher ab sofort als ESP B bezeichnet wird. Die Progressive Web App, ab jetzt durch PWA abgekürzt, erhaltet die Daten vom ESP B via WebSocket, verarbeitet diese Daten und stellt sie visuell dar.
-
-\noindent
-Diese Systemarchitektur wird in der Abbildung \ref{fig:systemarchitektur_flowchart} dargestellt.
-
-\begin{figure}[H]
-\centering
-\includegraphics[width = 15cm]{images/systemarchitektur_flowchart.png}
-\caption{Systemarchitektur des Babybettchens}
-\label{fig:systemarchitektur_flowchart}
-\end{figure}
 
 \subsubsection[ESP A - Sensordaten]{ESP A - Sensordaten\authorlinda}
-Der Mikrokontroller ESP A ist ein ESP32 NodeMCU Module WLANWiFi Developement Board mit CP2102, dieser eignet sich aufgrund der 
-integrierten WLAN Funktionalität für die spätere Anwendung der drahtlosen Übertragung an die PWA. \cite{azdelivery_esp32} 
-
-\noindent
-Der ESP A erfasst die Sensordaten, wie beispielsweise Druck und ist für die Weiterleitung der aufgenommen Daten an den ESP B verantwortlich. Somit bildet der ESP A die erste Schicht der Datenerfassung, innerhalb der Systemarchitektur.
+Ein ESP32 erfasst Sensordaten, wie beispielsweise Druck und ist für die Weiterleitung der aufgenommen Daten an einen weiteren ESP32 verantwortlich. Somit bildet der erste ESP32 die erste Schicht der Datenerfassung, innerhalb der Systemarchitektur.
 
 %\par\vspace{1em}
 
@@ -197,7 +180,7 @@ Nachdem der ADC die Messwerte in brauchbare Werte umgewandelt hat, kann der ESP 
 %\par\vspace{1em}
 
 \paragraph{Spannungsteiler:}
-Der ESP A kann die Belastungsänderung der Drucksensoren aufnehmen, indem man den Drucksensor in eine Spannungsteiler-Schaltung integriert. Wenn man den Drucksensor mit einem festgelegten Widerstand kombiniert, entsteht eine Spannung, die vom Druck abhängig ist, da der Drucksensor auf dem Prinzip der Widerstandsänderung basiert. 
+Ein Mikrokontroller kann die Belastungsänderung eines Drucksensors aufnehmen, indem man den Drucksensor in eine Spannungsteiler-Schaltung integriert. Wenn man den Drucksensor mit einem festgelegten Widerstand kombiniert, entsteht eine Spannung, die vom Druck abhängig ist, da der Drucksensor auf dem Prinzip der Widerstandsänderung basiert. 
 Diese Spannung kann der Mikrokontroller messen und auswerten. \cite{wonderfulPCB_spannungsteiler}
 
 \noindent
@@ -289,13 +272,17 @@ WebSocket ist kein Ersatz für HTTP, sondern kann verwendet werden, wenn man sch
 da der Client zuerst eine Anfrage senden muss und dann auf die Antwort warten muss. \cite{ionos_websocket} \cite{heise_websocket} Da bei unserem System eine Echtzeit Übertragung benötigt wird, bietet es sich an WebSocket zu verwenden.
 
 \subsubsection[PWA - Progressive Web App]{PWA - Progressive Web App\authorlinda}
-Die Progressive Web App, abgekürzt PWA, ist die Schnittstelle zum Benutzer unseres Systems und dient der Visualisierung der erfassten Daten. Die PWA ermöglicht es, dass der Benutzer, in unserem Fall die Eltern, Zugriff auf die Echtzeit Daten ihres Kindes, über einen Webbrowser, haben und bildet die Verbindung zwischen dem technischen System und der Anwendungsschicht.
 
 \paragraph{Grundlagen PWA:}
+Eine Progressive Web App, auch bezeichnet als PWA, ist eine Webanwendung, die mithilfe moderner Webtechnologien so erweiterbar ist, dass sie sich wie eine native App verhält. Die PWA läuft grundsätzlich im Browser, kann aber installiert, offline genutzt und mit Push Benachrichtigungen ausgestattet werden. 
+
+\noindent
+Mithilfe von PWAs werden die  Vorteile einer klassischen Webseite, wie beispielsweise die Plattformunabhängigkeit, mit den Vorteilen einer nativen App, wie Offline Funktionalität und Systemintegration, 
+kombiniert werden. \cite{pechschwarz_pwa}
 
 
-\paragraph{Aufbau der Anwendung:}
-Die PWA ist modular aufgebaut, denn es herrscht eine klare Trennung der einzelnen Komponenten und ermöglicht dadurch, eine strukturierte Entwicklung und Erweiterung der Anwendung. Die Struktur der Anwendung wird durch HTML definiert und die visuelle Gestaltung und das Layout werden durch CSS festgelegt.
+\paragraph{Aufbau der PWA:}
+Eine PWA ist modular aufgebaut, denn es herrscht eine klare Trennung der einzelnen Komponenten und ermöglicht dadurch, eine strukturierte Entwicklung und Erweiterung der Anwendung. Die Struktur der Anwendung wird durch HTML definiert und die visuelle Gestaltung und das Layout werden durch CSS festgelegt.
 
 \noindent
 Die zentrale Logik der Anwendung wird durch JavaScript realisiert. Dazu gehören der Aufbau der WebSocket Verbindung zum Server, über welchen die Echtzeit Daten empfangen werden. Die eingehenden Daten werden verarbeitet, in ein passendendes Format überführt und dann für die Visualisierung weiter verwendet. JavaScript ist ebenfalls für die Benutzeroberfläche und die Aktualisierung der Daten verantwortlich.
@@ -371,4 +358,6 @@ Ein Service Worker ist Teil einer Webtechnologie, bei welcher mittels JavaScript
 
 \noindent
 Aufgrund dieser Eigenschaften sind Service Worker ein wichtiger Aspekt bei der Entwicklung einer PWA. \cite{rytewiki_serviceworker}
+
+\paragraph{Guard Clause:}
 \newpage
