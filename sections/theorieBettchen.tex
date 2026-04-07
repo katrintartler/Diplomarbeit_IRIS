@@ -136,15 +136,13 @@ Mikrofonen nur kleiner. \cite{mems_microphone_zoom} Der Aufbau eines MEMS-Mikrof
 %Prinzip, Aufbau, Funktionsweise
 %Herausfiltern mit 2 Mikrofonen und Filter
 
-\subsection[Babybettchen Code]{Babybettchen Code\authorlinda}
 
-\subsubsection[Verarbeitung von Sensordaten]{Verarbeitung von Sensordaten\authorlinda}
+\subsection[Verarbeitung von Sensordaten]{Verarbeitung von Sensordaten\authorlinda}
 Ein ESP32 kann Sensordaten, wie beispielsweise Druck erfassen und diese über die serielle Schnittstelle übertragen. 
 
-%\par\vspace{1em}
-
 \paragraph{Analog-Digital-Converter:}
-Ein Mikrokontroller kann ausschließlich mit digitalen Werten arbeiten, weshalb die Umwandlung von analogen zu digitalen Werten benötigt wird. Die integrierten Analog-Digital-Converter (ADC) eines ESP32, wandeln die anliegende Spannung in digitale Werte und können somit weiter verwendet werden. 
+Ein Mikrokontroller kann ausschließlich mit digitalen Werten arbeiten, weshalb die Umwandlung von analogen zu digitalen Werten benötigt wird. Die integrierten Analog-Digital-Converter (ADC) eines ESP32, 
+wandeln die anliegende Spannung in digitale Werte und können somit weiter verwendet werden. 
 
 \noindent
 Diese digitalen Werte liegen in einem Bereich von 0-4095, weil ein ESP32 eine Auflösung von 12Bit hat, 
@@ -208,22 +206,19 @@ Je nachdem wie der Widerstand gewählt wird, ändert sich der Spannungsteiler un
 \noindent
 In der Abbildung \ref{fig:allgemein-spannungsteiler} sieht man den Aufbau eines Spannungsteilers. In unserem Falle, wird statt dem Pull-Down Widerstand der Drucksensor eingebaut und der ESP32 kann über seine ADC Eingänge die Spannung messen.
 
-\subsubsection[Datenübertragung]{Datenübertragung\authorlinda}
-Der Mikrokontroller ESP B ist ein ESP32 NodeMCU Module WLANWiFi Developement Board mit CP2102, 
-da dieser ESP32 die benötigte WLAN Funktionalität anbietet. \cite{azdelivery_esp32}
-Der ESP B ist im System die zentrale Kommunikationseinheit, denn er ist Schnittstelle zwischen der Datenerfassung und der Visualisierung der Daten, mittels Progressive Web App (PWA).
-
-\paragraph{Hauptaufgabe ESP B: (überarbeiten)}
-Die Hauptaufgabe des ESP B besteht darin, die bereitgestellten Messwerte vom ESP A zu empfangen und die Daten an die PWA, für die Weiterverarbeitung, zu übertragen. Während der ESP A für die Datensammlung verantwortlich ist, sorgt der ESP B dafür, dass die Daten im System, mittels Websocket, verteilt werden. Wobei der ESP B als der WebSocket Server fungiert und die PWA als Client.
+\subsection[Datenübertragung]{Datenübertragung\authorlinda}
+Der zweite ESP32 bildet die zentrale Kommunikationseinheit, indem dieser die Daten über die serielle Schnittstelle empfängt und über eine WebSocket Verbindung verteilt. 
+In einer PWA werden die Daten weiterverarbeitet und Visualisiert.
 
 \paragraph{Übertragung:}
-Nach der Erfassung und Umwandlung der Daten, kann die Übertragung über die serielle UART-Verbindung (Universal Asynchronous Receiver Transmitter) an den ESP B erfolgen. Es wurde eine serielle Kommunikation zwischen den beiden ESP 32 NodeMCU gewählt, da es einfache und verlässliche Verbindung ermöglicht. 
-Der Verbindungsaufbau ist relativ simpel, da physikalisch:
+Nach der Erfassung und Umwandlung der Daten, kann die bitweise Übertragung über die serielle UART-Verbindung (Universal Asynchronous Receiver Transmitter) an den ESP32 erfolgen. 
+Es wird eine serielle Kommunikation zwischen den beiden ESP32 aufgebaut, da es einfache und verlässliche Verbindung ermöglicht. 
+Der Verbindungsaufbau ist relativ simpel, da für die Kommunikation über die UART Schnittstelle nur:
 \begin{itemize}
-    \item Tx von ESP A + Rx von ESP B
-    \item Rx von ESP A + Tx von ESP B 
+    \item Tx von ESP32 Datenerfassung + Rx von ESP32 Kommunikationsschnittstelle
+    \item Rx von ESP32 Datenerfassung + Tx von ESP32 Kommunikationsschnittstelle
 \end{itemize}
-verbunden werden müssen, um die Verbindung aufzubauen. Zusätzlich müssen beide ESPs einen gemeinsamen Ground (GND) haben, 
+verbunden werden müssen. Zusätzlich müssen beide ESPs einen gemeinsamen Ground (GND) haben, 
 da ansonsten die HIGH und LOW Pegel nicht eindeutig erkannt werden können. \cite{wollesElektronikkiste_RxTx}
 
 \par\vspace{1em}
@@ -236,11 +231,11 @@ können 115200 Signaleinheiten pro Sekunde übertragen werden. \cite{riverdi_bau
 Eine Baudrate von 115200 ist groß genug, um für unser System Echtzeit-Daten zu liefern. Diese Erkenntnis wurde durch Testen und Beobachtungen bestätigt.
 
 \paragraph{WLAN Verbindung:}
+
+
 Der ESP B  nutzt die WLAN Funktionalität des ESP32 NodeMCU, um sich mit dem Netzwerk zu verbinden, in unserem Fall verbindet sich der ESP B mit einem persönlichen Hotspot. Dadurch übernimmt der ESP B die Rolle des Servers und externe Geräte, wie ein Browser auf einem Laptop oder Handy, 
 kann sich mit dem ESP B verbinden und die Daten vom ESP B abrufen. \cite{}
 
-\noindent
-Externe Geräte können diese Daten, nur abrufen solange sie sich im gleichen Netzwerk wie der ESP B befinden. Diese Lösung ist für unser System ausreichend, weil sich die Eltern, während des Schlafs ihres Kindes meistens im selben Haus und damit im selben Netzwerk, wie das Babybettchen befinden und können die Daten abrufen. 
 
 \noindent
 WLAN Kommunikations Theorie?? % ????????????
@@ -279,7 +274,7 @@ Durch die offene Kommunikation können neue Informationen vom Server bereitgeste
 WebSocket ist kein Ersatz für HTTP, sondern kann verwendet werden, wenn man schnelle Ladezeiten und Echtzeit Anwendungen benötigt, was bei HTTP nicht immer garantiert ist, 
 da der Client zuerst eine Anfrage senden muss und dann auf die Antwort warten muss. \cite{ionos_websocket} \cite{heise_websocket} Da bei unserem System eine Echtzeit Übertragung benötigt wird, bietet es sich an WebSocket zu verwenden.
 
-\subsubsection[PWA - Progressive Web App]{PWA - Progressive Web App\authorlinda}
+\subsection[PWA - Progressive Web App]{PWA - Progressive Web App\authorlinda}
 
 \paragraph{Grundlagen PWA:}
 Eine Progressive Web App, auch bezeichnet als PWA, ist eine Webanwendung, die mithilfe moderner Webtechnologien so erweiterbar ist, dass sie sich wie eine native App verhält. Die PWA läuft grundsätzlich im Browser, kann aber installiert, offline genutzt und mit Push Benachrichtigungen ausgestattet werden. 
@@ -367,5 +362,7 @@ Ein Service Worker ist Teil einer Webtechnologie, bei welcher mittels JavaScript
 \noindent
 Aufgrund dieser Eigenschaften sind Service Worker ein wichtiger Aspekt bei der Entwicklung einer PWA. \cite{rytewiki_serviceworker}
 
-\paragraph{Guard Clause:}
+\subsection[Guard Clause]{Guard Clause\authorlinda}
+
+
 \newpage

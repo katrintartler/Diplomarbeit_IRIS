@@ -532,6 +532,9 @@ Die Zuordnung der einzelnen Sensorwerte im Code erfolgt anhand ihrer Position im
 \subsection[ESP B Code]{ESP B Code}
 Der Code des ESP B übernimmt in diesem System die Funktion der zentralen Kommunikationsschnittstelle zwischen den erfassten Sensordaten und der PWA.  Dafür stellt der ESP B eine Verbindung zu einem WLAN Netzwerk her, was die Grundlage für die drahtlose Kommunikation bildet. Ebenfalls startet er den WebSocket-Server, der eine kontinuierliche und bidirektional Datenübertragung mit der PWA ermöglicht. Durch die Kombination aus serieller Kommunikation, stabiler WLAN Verbindung und WebSocket Technologie wird eine Echtzeitübertragung der Daten ermöglicht.
 
+\noindent
+Externe Geräte können diese Daten, nur abrufen solange sie sich im gleichen Netzwerk wie der ESP B befinden. Diese Lösung ist für unser System ausreichend, weil sich die Eltern, während des Schlafs ihres Kindes meistens im selben Haus und damit im selben Netzwerk, wie das Babybettchen befinden und können die Daten abrufen. 
+
 \subsubsection{Einbindung der Bibliotheken}
 Arduino.h ermöglicht die Verwendung der grundlegenden Funktionen des Arduino-Frameworks.
 
