@@ -37,13 +37,13 @@ wurde ein 10k$\Omega$ Widerstand gewählt. Dieser wurde mithilfe, eines Multimet
 \section[Geräusch- und Wärmesensorik ]{Geräusch- und Wärmesensorik\authorkatrin}
 \subsection{Geräuschsensorik} \label{INMP441}
 Für die Erkennung von Geräuschen des Kindes war der Einsatz des INMP441 MEMPS-Mikrofons \cite{inmp441_datasheet} geplant.
-Es ist ein omnidirekatonales digitales Mikrofon mit $I^2$S-Schnittstelle. Omnidirektional bedeutet, das Mikrofon kann aus jeder Richtung Schall aufnehmen kann \cite{unidirectional_omnidirectional_microphone}.
-Ein $I^2S$-Schnittstelle ist speziell für die Übertraggung von Audiodateien entwickelt worden. Die serielle Übertragung erfolgt mittels 3 Leitungen. Daten- Takt und 
+Es ist ein omnidirekatonales digitales Mikrofon mit $I^2$S-Schnittstelle. Omnidirektional bedeutet, das Mikrofon kann aus jeder Richtung Schall aufnehmen \cite{unidirectional_omnidirectional_microphone}.
+Ein $I^2S$-Schnittstelle ist speziell für die Übertragung von Audiodateien entwickelt worden. Die serielle Übertragung erfolgt mittels 3 Leitungen. Daten- Takt und 
 Wortauswahlleitung sind beteiligt \cite{i2s_heinen_elektronik}. 
 \par\vspace{1em} 
 \noindent
 Aufgrund einer Unterschätzung des Aufwands beim Bau des Testroboters konnte die Geräuschsensorik im Babybett nicht mehr finalisiert werden.
-Der Einbau des Mikrofons ist auf der Main Platine vorgemerkt und kann zu einem späteren Zeitpunkt umgesetzt werden.
+Der Einbau des Mikrofons ist auf der Main Platine vorgemerkt und kann zu einem späteren Zeitpunkt umgesetzt werden, siehe \ref{pcb123}.
 Ein Testcode zur Überprüfung der Mikrofonfunktion ist vorhanden, allerdings werden derzeit keine korrekten Daten empfangen, sodass eine sinnvolle Nutzung aktuell nicht möglich ist. 
 Sehr spät im Projektverlauf wurde uns der Tipp gegeben, die Geräuscherkennung mittels Grenzflächenmikrofon zu realisiern. Dieser Punkt wird in Abschnitt \ref{grenzflächenmic}
 genauer behandelt. 
@@ -180,14 +180,16 @@ Wir haben das Problem gelöst, indem wir einen der beiden ESPs ausschließlich f
 
 \section[Babybettchen PCB]{Babybettchen PCB\authorlinda}
 \subsection{Prinzip}
-Der Hauptanteil der Elektronik befindet sich auf der Platine des Babybettchens, siehe Abbildung \ref{fig:babybettchen-schaltplan}, die Sensoren, welche sich nicht direkt auf der Platine befinden, werden durch eine Verkabelung und Schraubklemmen mit der Platine verbunden. Der Schaltplan und das Layout der Platine wurden mittels KiCad erstellt. Die Fertigung der Platine erfolgte nicht über einen externen Hersteller, sondern wurde eigenständig in Schulwerkstatt durchgeführt. 
+Der Hauptanteil der Elektronik befindet sich auf der Platine des Babybettchens, siehe Abbildung \ref{fig:babybettchen-schaltplan}, die Sensoren, welche sich nicht direkt auf der Platine befinden,
+ werden durch eine Verkabelung und Schraubklemmen mit der Platine verbunden. Der Schaltplan und das Layout der Platine wurden mittels KiCad erstellt. Die Fertigung der Platine erfolgte nicht über einen externen Hersteller,
+sondern wurde eigenständig in der Schulwerkstatt durchgeführt. 
 
 \par\vspace{1em}
 
 \noindent
 Auf der Platine befinden sich die beiden ESP32, die Anschlüsse der Drucksensoren und deren dazugehörigen Pull-Up Widerstände, nicht verwendete Pinheader, welche für das Mikrofon gedacht waren und eine Kontrollleuchte für die WLAN Verbindung des ESP32.
 
-\subsection{Schaltplan}
+\subsection{Schaltplan} \label{pcb123}
 \begin{figure}[H]
 \centering
 \includegraphics[angle = 90, width = 15cm]{images/PCBs/babybettchen-schaltplan.pdf}
@@ -270,7 +272,7 @@ Die Drucksensoren werden mithilfe folgender Abkürzungen unterteilt:
 \label{fig:schaltplan-drucksensorik-babybettchen}
 \end{figure}
 
-\subsubsection{Mikrofon}
+\subsubsection{Mikrofon} 
 Das Mikrofon wurde im Schaltplan inkludiert, siehe Abbildung \ref{fig:schaltplan-mikrofon-babybettchen},aber nicht umgesetzt. 
 Statt dem wirklichen Mikrofon befindet sich nur ein Platzhalter, damit es potentiell noch inkludiert werden kann.
 
@@ -311,7 +313,7 @@ Während dem Designen des Layouts, versuchten wir ein paar Aspekte des hochfrequ
 Dieser Punkt ist uns bei dieser Platine weniger gelungen, da wir oftmals keine andere Option gesehen haben, wie wir die Leiterbahnen führen sollten.
 
 \subsection{Ätzen der Platine}
-Die doppeltseitige Platine des Babybettchens wurde von uns, in der Schuleigenen Werkstatt, gefertigt. Um die Maske für unsere Platine zu erstellen, mussten wir den Bottom Layer sowie danach den Top Layer mit den benötigten Pads ausdrucken. 
+Die doppeltseitige Platine des Babybettchens wurde von uns, in der schuleigenen Werkstatt, gefertigt. Um die Maske für unsere Platine zu erstellen, mussten wir den Bottom Layer sowie danach den Top Layer mit den benötigten Pads ausdrucken. 
 
 \par\vspace{1em}
 
@@ -492,24 +494,24 @@ Für die Simulation der Körpertemperatur des Kindes wurden im Testroboter Keram
 genutzt werden. Dazu wurde der Aufbau und die Verschaltung mittels Steckbrett getestet. Besonders zu beachten ist die hohe Leistung,
 die für eine Wärmesimulation nötig ist. Dementsprechend ist ein Test auf dem Steckbrett schwierig, da diese meisten nicht für eine hohe 
 Leistung ausgelegt sind. Weiters ist auch die Vesorgung ein Problem, weil die Leistung über eine hohe Stromstärke erbracht werden muss.
-\begin{align}
+\begin{align*}
 P &= I^2 \cdot R \notag \\
 P &= \frac{U^2}{R}
-\end{align}
+\end{align*}
 Die verwendeten Keramikwiderstände haben einen Widerstandswert von 2,2$\Omega$. Die Verschaltung erfolgt mit zwei in Serie 
 geschalteten Strängen mit jeweils drei parallel geschalteten Keramikwiderständen, siehe Abbildung \ref{fig:VerschaltungKRs}. Diese entspricht 
 einem Ausschnitt des Schaltplans der Platine aus \ref{Heat Platinen}. Somit ergibt sich ein Gesamtwiderstand von ca. 1,5$\Omega$. Als Spannungswert werden 7,4V eingesetzt.
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=10cm]{images/VerschaltungKRs.png}
-\caption{Verschaltung der Wärmekomponenten}
+\caption{Verschaltung der Keramikwiderstände}
 \label{fig:VerschaltungKRs}
 \end{figure}
 \noindent
-\begin{align}
+\begin{align*}
 P &= \frac{7,4^2}{1,5} = 36,507 W \notag \\ 
 I &= \sqrt{\frac{36,507}{1,5}} = 5,0004 A
-\end{align}
+\end{align*}
 Der benötigte Strombedarf liegt bei unserer Leistung von 36,507W also bei ca 5A. 
 Dieser Bedarf wird von einem 20A Labornetzteil gedeckt. Aufgrund der Wahl dieser Spannungsversorgung wurde beschlossen, die weiteren 
 Komponenten des Testroboters ebenfalls mit dem Netzteil zu betreiben, siehe \ref{Spannungversorgung}.
@@ -770,7 +772,7 @@ Die gesamte Verkabelung im Babyroboter ist in der Abbildung \ref{fig:bby:verkabe
     \caption{Testroboterverkablung (hinten)}
 \end{subfigure}
 \caption{Verkablung im Testroboters}
-\label{fig:pcb:verkabelung}
+\label{fig:bby:verkabelung}
 \end{figure}   
 \noindent 
 Der Anschluss ans Netzteil kann mithilfe der 2m langen, isiolierten Kupferkabel in schwarz und rot, erfolgen welche aus dem Roboter hinausführen. 

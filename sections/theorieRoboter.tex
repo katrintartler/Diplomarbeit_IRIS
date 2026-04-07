@@ -24,12 +24,13 @@ Bluetooth Low Energy (BLE) ist eine Bluetooth Protokoll, das im Vergleich zu Cla
 und somit auch einen niedrigere Datentransferrate erreicht.
 Es wird vor allem im Bereich Internet of Things (IoT) und für Kommunikation mit Messsensoren benutzt.
 BLE ist nicht kompatibel mit Classic Bluetooth. 
-Das BLE Protokoll ist in drei Schichten aufgeteilt\cite{espressif_bluetooth_architecture} siehe Abbildung \ref{fig:ble_architektur}.
+Das BLE Protokoll ist in drei Schichten aufgeteilt\cite{espressif_bluetooth_architecture}.
 \begin{itemize}
 \item Application Layer
 \item Host Layer
 \item Controller Layer
 \end{itemize}
+Abbildung \ref{fig:ble_architektur}veranschaulicht diesen Aufbau.
 \newpage 
 
 \begin{figure}[htbp]
@@ -131,7 +132,7 @@ DPG ist dynamisch, GPU-beschleunigt und sehr anwenderfreundlich. \cite{dpg_docu}
 \subsection{Bewegungssimulation} %1.6.3
 \subsubsection{Bewegungsabläufe} \label{Bewegungstheorie}
 In einer Studie der Segawa Neurological Clinic for Children aus dem Jahr 1980 sammelten die Forschenden Daten über das Bewegungsverhalten von 25 Säuglingen.
-Mithilfe von EKG Messungen und visuelen Beobachtungen kategoriesierten sie die Bewegungen der Kinder in drei Gruppen. \cite{FUKUMOTO198137}
+Mithilfe von EKG Messungen und visuellen Beobachtungen kategoriesierten sie die Bewegungen der Kinder in drei Gruppen. \cite{FUKUMOTO198137}
 \begin{itemize}
     \item GM(gross movements)
 
@@ -173,7 +174,7 @@ Die Kombination dieser einzelnen Komponenten erzeugt die typische Servofunktion.
 Der DC-Motor funktioniert durch das physikalische Prinzip der Lorentzkraft. Die Kraft, die ein Magnetfeld auf bewegte elekrische Ladungen
 (z.B. Elektronen) ausübt. Aufgebaut wird der Motor mittels Stator-Rotor-Prinzip.
 Der Stator (ein Magnet) ist nicht in Bewegung und erzeugt ein konstantes Magnetfeld. Der Rotor (eine Spule), auch
-Anker genannt muss drehbar montiert sein. Wird der Motor nun mit Spannung versetzt, 
+Anker genannt muss drehbar montiert sein. Wird der Motor nun unter Spannung gesetzt, 
 fließt Strom über die sogenannten Bürsten zu den Spulen. So beginnt der Anker zu 
 rotieren, getrieben durch die Lorentzkraft. Das funktioniert nur bis zu einer gewissen 
 Position. Ist der Anker dort angelangt, kommt der Kommutator ins Spiel. Er ändert die Phase des Stroms um 
@@ -192,7 +193,7 @@ Diese Länge berechnet der ESP je nach gewünschtem Winkel und sendet sie über 
 \subsection{Geräuschsimulation} %1.6.4
 \subsubsection{DFPlayer Module} \label{Player}
 Das DFPlayer Module von Az-Delivery ist ein eigenständiger Audio-Decoder, der die Wiedergabe 
-von MP3- und WAV-Dateien von einer micro SD-Karte ermöglicht. Es lässt sich über 
+von MP3- und WAV-Dateien von einer MikroSD-Karte ermöglicht. Es lässt sich über 
 eine UART-Schnittstelle oder manuell über eine Taststeuerung der digitalen Eingänge ansteuern. \cite{dfplayer_datasheet}
 \subsubsection{UART Kommunikation}
 Für die UART (Universal Asynchronous Receiver/Transmitter) Kommunikation werden die Daten bitweise über 

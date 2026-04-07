@@ -81,7 +81,7 @@ Wichtig beim ESP ist es, nicht die am ESP gekennzeichneten RX und TX zu benutzen
 für die Kommunikation während des Überspielen eines Programmcodes oder zur Ausgabe von Debug-Meldungen über den Serialmonitor \cite{esp32_hardware_design_guidelines}.
 Der Widerstand zwischen dem TX-Pin des Moduls und des RX-Pins des ESPs stellte sich später als unnötig heraus. Zuvor war er als Spannungsschutz gedacht, aber das DFPlayer-
 Modul arbeitet intern mit einer Spannung von 3,3V und ist somit kein Problem für den ESP. Die Pins SPK1 und SPK2 sind die Anschlüsse für den Lautsprecher. Sie
-führen zu Schraubklemmen von denen aus die Kabel zum Lautsprecher geführt werden, siehe \ref{Testroboterverkabelung}. Zu sehen ist die Verschaltung in Abbildung \ref{fig:pcb:MP_speaker}
+führen zu Schraubklemmen von denen aus die Kabel zum Lautsprecher geführt werden, siehe Abschnitt \ref{Testroboterverkabelung}. Zu sehen ist die Verschaltung in Abbildung \ref{fig:pcb:MP_speaker}
 \begin{figure}[H]
 \centering
 \includegraphics[width = 10cm]{images/PCBs/MP_speaker.png}
@@ -92,7 +92,8 @@ führen zu Schraubklemmen von denen aus die Kabel zum Lautsprecher geführt werd
 
 \subsubsection{Servoansteuerung}
 Da die Servos mehr als 5V brauchen, werden sie über das Netzteil versorgt. Die Ansteuerung erfolgt jedoch über die PWM-Pins des ESP. Es wurde so vorgesehen, dass die entsprechenden
-Pins jeweils zu einer Schraubklemme führen, siehe \ref{fig:pcb:MP_servos}. Von dort werden sie dann mit Kabeln zu den Servos verbunden. 
+Pins jeweils zu einer Schraubklemme führen, siehe \ref{fig:pcb:MP_servos}. Von dort werden sie dann zum Lochraster aufbau geführt weccher als Verbindungsstück zu den Servos agiert, 
+beschrieben in Abschnitt \ref{Testroboterverkabelung}. 
 \begin{figure}[H]
 \centering
 \includegraphics[width = 10cm]{images/PCBs/MP_Servo.png}
@@ -114,7 +115,7 @@ Platine ausgelagert worden, siehe \ref{Heat Platinen}. Die Ansteuerung ist in Ab
 \noindent
 Die Ansteuerung erfogt mittels N-Kanal MOSFET, es wird der IRLZ44N \cite{irlz44n_datasheet} benutzt. Die Regulng erfolgt über einen GPIO Pin des ESPs. Ist dieser gesetzt, wird der Stromkreis über GND geschlossen 
 und es fließt Strom über die Heat-Platine, dieser Aufbau ist in Abschnitt \ref{Warum?Heat} genauer beschreiben. Der 10k$\Omega$ Widerstand fungiert als Pull-Down 
-Widerstand und der 100$\Omega$ Widerstand ist als Schutz den ESP vorgesehen. 
+Widerstand und der 100$\Omega$ Widerstand ist als Schutz für den ESP vorgesehen. 
 Zusätzlich sind in Abbildung \ref{fig:pcb:MP_heat} auch noch die Schraubklemmen zur Verbindung der Heat-Platine mit der Hauptplatine zu sehen. 
 \newpage
 
@@ -170,7 +171,7 @@ Auch das DFPlayer-Modul ist nur mittels Stiftleisten auf der Platine befestigt.
 \noindent
 Die Spannungsreglerschaltung im Layout wurde auf den LM2596Adj (adjustable) angepasst. Sie beeinhaltet das 50k$\Omega$ Potentiometer, welches dann einen 
 variablen Spannungswert am Ausgang einstellen kann. Bei der Auswahl der zu bestückenden Teile wurde darauf vergessen. Es wurde fälschlicherweise der 
-LM2596-5 von JLCPCB bestückt. Die Spannung brach so bei den Testdurchläufen immer wieder ein, und es konnte keine konstante Spannungsversorgung 
+LM2596-5 von JLCPCB bestückt, welcher aztomatisch auf 5V regelt. Die Spannung brach so bei den Testdurchläufen immer wieder ein, und es konnte keine konstante Spannungsversorgung 
 garantiert werden. Diese ist vor allem für die BLE Verbindung unbedingt notwendig, gibt es keine konstante oder zu wenig Spannung kann der Laptop 
 den ESP nicht als Verbindungspartner wahrnehmen. Zur Lösung wurde das Potentiometer mit einem Stück Draht überbrückt, siehe Abbildung \ref{fig:pcb:draht}.
 
@@ -186,7 +187,7 @@ den ESP nicht als Verbindungspartner wahrnehmen. Zur Lösung wurde das Potentiom
 Die Wärmesimulation mit den Keramikwiderständen ist aus Sicherheitesgründen auf einer anderen Platine untergebracht. Der Schaltplan dazu ist in Abbildung \ref{fig:pcb:H_all} veranschaulicht.
 Die Keramikwiderstände sind in zwei Strängen von jeweils drei parallel geschalteten Widerständen angebracht. Die Spannung wird vom Netzteil 
 auf eine Schraubklemme geleitet. Die andere Seite des Widerstandsnetzwerks ist mit der MOSFET-Regelung auf der Hauptplatine verbunden,
-siehe Abschniit \ref{123}. Wenn der MOSFET also vom ESP angesteuert wird, schließt sich der Stromkreis über den MOSFET zu GND. 
+siehe Abschnitt \ref{123}. Wenn der MOSFET also vom ESP angesteuert wird, schließt sich der Stromkreis über den MOSFET zu GND. 
 So fließt der Strom dann durch die Keramikwiderstände und Wärme entsteht. Um mehr Sicherheit zu gewährleisten wurde auf dieser Platine auch eine 
 Schaltung zur Wärmedetektion aufgebaut. Mittels PT100 Spannungsteiler soll der Temperturwert der Keramikwiderstände an den ESP weiter gegeben werden, welcher 
 bei zu hohen Temperaturen die Wärmesimulation abschalten kann. 
