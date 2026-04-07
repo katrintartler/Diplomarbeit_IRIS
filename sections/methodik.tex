@@ -565,6 +565,14 @@ void setup() {
 \subsubsection{WLAN}
 In dem Listing \ref{lst:espB-wlan-aufbau} wird der Verbindungsaufbau des WLANs dargestellt, dieser wird mittels WiFi.begin() gestartet. Sobald dieser Prozess gestartet wurde, wird „Aufbau der WLAN Verbindung“ ausgegeben und solange die Verbindung noch nicht erfolgreich aufgebaut wurde, werden Punkte ausgegeben, um zu signalisieren, dass der Aufbau noch stattfindet. Wenn die WLAN Verbindung erfolgreich aufgebaut wurde, wird die Nachricht „WLAN verbunden!“ ausgegeben und die Kontrollleuchte beginnt grün zu leuchten. Ebenfalls wird die IP des ESP B ausgegeben, damit diese dann in der PWA verwendet werden kann.
 
+\par\vspace{1em}
+
+\noindent
+Bei dem Verbingungsaufbau mit dem persönlichen Hotspot gab es ein Problem, der ESP B schaffte es nicht sich mit dem Hotspot zu verbinden.
+Dieses Problem konnte aber gelöst werden, indem man in den Hotspot Eingstellungen des iPhones Kompatibilität maximieren aktivierte.
+Denn der ESP32 arbeitet nur mit 2,4GHz und das iPhone wechselt automatisch zwischen 2,4GHz und 5GHz. 
+Indem man aber die Kompatibilität des iPhones maximiert, zwingt man es dazu nur 2,4GHz zu verwenden.
+
 \begin{lstlisting}[language=C++, caption={WLAN Aufbau}, label={lst:espB-wlan-aufbau}, firstnumber=45]
   WiFi.begin(ssid, password);
   Serial.print("Aufbau der WLAN Verbindung");
@@ -775,7 +783,7 @@ Falls zuvor ein automatischer Reconnect geplant war, wird dieser durch clearTime
 
 \noindent
 Falls die Verbindung von entweder, der PWA (Client) oder dem ESP B (Server) geschlossen wurde, 
-wird der Listener ws.onclose aufgerufen, siehe \ref{lst:lst:js-ws-onclose}. Dieser signalisiert innerhalb der Konsole, dass die Verbindung unterbrochen wurde und ein neuer Verbindungsversuch gestartet wird. Ebenfalls wird der updateStatus() Funktion der Parameter false übergeben. Ein wichtiger Aspekt dieser Funktion ist das automatische Wiederverbinden. Es wird überprüft, ob ein Verbindungsaufbau geplant ist, falls das nicht der Fall ist wird ein verzögerter Aufruf der Funktion connectWebSocket durchgeführt. Dieser passiert nach dem reconnectInterval, welches 2 Sekunden beträgt, wodurch die Verbindung zum Server wieder aufgebaut wird.
+wird der Listener ws.onclose aufgerufen, siehe Listing \ref{lst:js-ws-onclose}. Dieser signalisiert innerhalb der Konsole, dass die Verbindung unterbrochen wurde und ein neuer Verbindungsversuch gestartet wird. Ebenfalls wird der updateStatus() Funktion der Parameter false übergeben. Ein wichtiger Aspekt dieser Funktion ist das automatische Wiederverbinden. Es wird überprüft, ob ein Verbindungsaufbau geplant ist, falls das nicht der Fall ist wird ein verzögerter Aufruf der Funktion connectWebSocket durchgeführt. Dieser passiert nach dem reconnectInterval, welches 2 Sekunden beträgt, wodurch die Verbindung zum Server wieder aufgebaut wird.
 
 \begin{lstlisting}[language=JavaScript, caption={WebSocket onclose}, label={lst:js-ws-onclose}, firstnumber=54]
     ws.onclose = () => {
@@ -933,7 +941,7 @@ function updateMovementStatus(statusObject) {
 \end{lstlisting}
 
 \noindent
-Die Funktion updateValues, siehe Listing \ref{lst:js-lst:js-updateValues}, wird für die übersichtliche Darstellung der aktuellen Sensordaten verwendet. Zuerst wird das HTML Element, welches für die Darstellung der Messwerte verantwortlich ist verwendet. Innerhalb der for-Schleife laufen alle keys des übergebenen Objekts durch. Für jeden Schlüssel, also jeden Sensorwert, wird ein Absatz mit <p> </p> erzeugt, der sowohl den Namen als auch den aktuellen Wert des Sensors enthält. Nachdem alle Werte verarbeitet wurden, wird der erzeugte HTML Code in den „container“ eingefügt, indem das innerHTML gesetzt wird. Dadurch können die Sensordaten direkt sichtbar und aktualisiert in der Benutzeroberfläche angezeigt werden.
+Die Funktion updateValues, siehe Listing \ref{lst:js-updateValues}, wird für die übersichtliche Darstellung der aktuellen Sensordaten verwendet. Zuerst wird das HTML Element, welches für die Darstellung der Messwerte verantwortlich ist verwendet. Innerhalb der for-Schleife laufen alle keys des übergebenen Objekts durch. Für jeden Schlüssel, also jeden Sensorwert, wird ein Absatz mit <p> </p> erzeugt, der sowohl den Namen als auch den aktuellen Wert des Sensors enthält. Nachdem alle Werte verarbeitet wurden, wird der erzeugte HTML Code in den „container“ eingefügt, indem das innerHTML gesetzt wird. Dadurch können die Sensordaten direkt sichtbar und aktualisiert in der Benutzeroberfläche angezeigt werden.
 
 \begin{lstlisting}[language=JavaScript, caption={Funktion updateValues}, label={lst:js-updateValues}, firstnumber=131]
 function updateValues(values) {
@@ -948,6 +956,7 @@ function updateValues(values) {
 }
 \end{lstlisting}
 
+\noindent
 Die Funktion updateChart() wird für die Visualisierung der Messwerte in einem Liniendiagramm verwendet, 
 siehe \ref{lst:js-updateChart}. Als erstes prüft updateChart(), ob das Diagramm existiert, falls das nicht der Fall ist wird die Funktion beendet. Durch das Einfügen der neuen Messwerte, wird das Liniendiagramm in Echtzeit angepasst. Damit das Programm nicht alle Messwerte seit dem Beginn der Messung anzeigt, werden nur die letzten 120 Werte dargestellt. Sobald es mehr als 120 Werte wären wird der älteste Eintrag gelöscht.
 
@@ -979,7 +988,7 @@ Wie in dem Listing \ref{lst:js-windowonload} dargestellt, wird zuerst das Elemen
 \noindent
 Abschließend wird noch die Funktion connectWebSocket aufgerufen, wodurch die Verbindung zum ESP B hergestellt wird. Der Aufruf dieser Funktion wurde in der window.onload Funktion platziert, damit die Datenübertragung erst gestartet wird, wenn die Initialisierung des Diagramms vollständig abgeschlossen. Dadurch werden Fehlermeldungen vermieden, welche durch das nicht vollständige Diagramm entstehen würden.
 
-\begin{lstlisting}[language=JavaScript, caption={Funktion windowonload}, label={lst:js-windowonload}, firstnumber=158]
+\begin{lstlisting}[language=JavaScript, caption={Funktion window.onload}, label={lst:js-windowonload}, firstnumber=158]
 window.onload = function () { 
     const ctx = this.document.getElementById("movementChart").getContext("2d");
 
