@@ -12,8 +12,7 @@ Auf dünnen, flexiblen Stoffen reicht es, wenn man ein schmale Schicht des Klebe
 Danach können die Stoffe durch leichtes andrücken zusammengefügt werden. \cite{naehwelt_ht2_textilkleber}
 
 
-\subsection[ESP32 NodeMCU]{ESP32 NodeMCU\authorlinda}
-WLAN Blockiert ADC2!!! offener Tab
+%\subsection[ESP32 NodeMCU]{ESP32 NodeMCU\authorlinda}
 
 \subsection[Drucksensorik]{Drucksensorik\authorlinda}
 \subsubsection{Piezoresistiver Effekt}
@@ -139,8 +138,8 @@ Mikrofonen nur kleiner. \cite{mems_microphone_zoom} Der Aufbau eines MEMS-Mikrof
 
 \subsection[Babybettchen Code]{Babybettchen Code\authorlinda}
 
-\subsubsection[ESP A - Sensordaten]{ESP A - Sensordaten\authorlinda}
-Ein ESP32 erfasst Sensordaten, wie beispielsweise Druck und ist für die Weiterleitung der aufgenommen Daten an einen weiteren ESP32 verantwortlich. Somit bildet der erste ESP32 die erste Schicht der Datenerfassung, innerhalb der Systemarchitektur.
+\subsubsection[Verarbeitung von Sensordaten]{Verarbeitung von Sensordaten\authorlinda}
+Ein ESP32 kann Sensordaten, wie beispielsweise Druck erfassen und diese über die serielle Schnittstelle übertragen. 
 
 %\par\vspace{1em}
 
@@ -168,19 +167,30 @@ In der Abbildung \ref{fig:EBV_adc-funktion} wird dargestellt, wie die Umwandlung
 \label{fig:EBV_adc-funktion}
 \end{figure}
 
-\paragraph{Hauptaufgabe ESP A:}
-Die Hauptaufgabe des ESP A ist die kontinuierliche Aufnahme von Daten. Die Sensoren liefern analoge Werte, weshalb sie, bevor sie vom Mikrokontroller verarbeitet werden können, in digitale Werte umgewandelt werden müssen. Das geschieht intern im ESP32 NodeMCU, denn der ESP32 NodeMCU hat zwei Analog-Digital-Converter (ADC) verbaut und 
-diese wandeln die analogen Werte in digitale Werte, mit denen der Mikrokontroller arbeiten kann. \cite{azdelivery_esp32} \cite{espressif_adc}
-
-%\par\vspace{1em}
+\noindent
+Unsere Datenerfassung besteht aus Sensoren, welche mithilfe von einen Mikrokontroller ausgewertet werden.
+Diese Sensoren liefern analoge Werte, weshalb sie, bevor sie vom Mikrokontroller verarbeitet werden können, in digitale Werte umgewandelt werden müssen. Das geschieht intern im ESP32, denn der ESP32 NodeMCU hat zwei Analog-Digital-Converter (ADC) verbaut und
+wandelt die analogen Werte in digitale Werte, mit denen der Mikrokontroller arbeiten kann. \cite{azdelivery_esp32} \cite{espressif_adc}
 
 \noindent
-Nachdem der ADC die Messwerte in brauchbare Werte umgewandelt hat, kann der ESP A diese weiterleiten. Da die Werte durch den ESP A kontinuierlich erfasst und weitergegeben werden, ist eine Echtzeit-Datenerfassung möglich. Welche ein wichtige Rolle für das System spielt, denn somit kann man den Eltern, den Verlauf der Daten visualisieren und ihnen Live-Updates geben.
+Nachdem der ADC die Messwerte in brauchbare Werte umgewandelt hat, können diese verarbeitet und weitergeleitet werden.
 
-%\par\vspace{1em}
+\paragraph{Verwendung von ADC1 und ADC2 Pins:}
+Der ESP32 hat zwei ADCs, ADC1 und ADC2, diese beiden ADCs verhalten sich während der WLAN Nutzung nicht gleich.
+Die ADC1 Pins können problemlos während der Verwendung der WLAN Funktionalität genutzt werden, 
+die ADC2 Pins hingegegn können während der Aktivierung des WLANs nicht verwendet werden.
+Diese könnnen nicht verwendet werden, da sie vom Treiber für die WLAN Nutzung gebraucht werden. 
+Das bedeutet wenn man die WLAN Funktionalität, für beispielsweise einen Webserver nutzen möchte, 
+sollte man ausschließlich ADC1 Pins verwenden. \cite{espressif_adc2-wlan}
 
 \paragraph{Spannungsteiler:}
-Ein Mikrokontroller kann die Belastungsänderung eines Drucksensors aufnehmen, indem man den Drucksensor in eine Spannungsteiler-Schaltung integriert. Wenn man den Drucksensor mit einem festgelegten Widerstand kombiniert, entsteht eine Spannung, die vom Druck abhängig ist, da der Drucksensor auf dem Prinzip der Widerstandsänderung basiert. 
+Ein Spannugsteiler besteht aus zwei Widerständen, die seriell zwischen der Versorgung und GND verbunden sind, siehe Abbildung \ref{fig:allgemein-spannungsteiler}. 
+Zwischen diesen beiden Widerständen entstehen Teilspannungen, welche abhängig von dem Verhältnis der Widerstände sind.
+Wenn einer dieser Widerstände durch einen widerstandsbasierten Sensor ausgetauscht wird, verändert sich das Verhältnis der Teilspannungen.
+Diese Spannung kann ein Mirkokontroller, wie der ESP32, über seine ADC Eingänge messen.
+
+\noindent
+Wenn man beispielsweise einen Drucksensor mit einem festgelegten Widerstand kombiniert, entsteht eine Spannung, die vom Druck abhängig ist, da der Drucksensor auf dem Prinzip der Widerstandsänderung basiert. 
 Diese Spannung kann der Mikrokontroller messen und auswerten. \cite{wonderfulPCB_spannungsteiler}
 
 \noindent
@@ -196,9 +206,15 @@ Je nachdem wie der Widerstand gewählt wird, ändert sich der Spannungsteiler un
 \par\vspace{1em}
 
 \noindent
-In der Abbildung \ref{fig:allgemein-spannungsteiler} sieht man den Aufbau eines Spannungsteilers. In unserem Falle, wird statt dem Pull-Down Widerstand der Drucksensor eingebaut und der Pin des ESP A kann die Spannung am Drucksensor messen.
+In der Abbildung \ref{fig:allgemein-spannungsteiler} sieht man den Aufbau eines Spannungsteilers. In unserem Falle, wird statt dem Pull-Down Widerstand der Drucksensor eingebaut und der ESP32 kann über seine ADC Eingänge die Spannung messen.
 
-%\par\vspace{1em}
+\subsubsection[Datenübertragung]{Datenübertragung\authorlinda}
+Der Mikrokontroller ESP B ist ein ESP32 NodeMCU Module WLANWiFi Developement Board mit CP2102, 
+da dieser ESP32 die benötigte WLAN Funktionalität anbietet. \cite{azdelivery_esp32}
+Der ESP B ist im System die zentrale Kommunikationseinheit, denn er ist Schnittstelle zwischen der Datenerfassung und der Visualisierung der Daten, mittels Progressive Web App (PWA).
+
+\paragraph{Hauptaufgabe ESP B: (überarbeiten)}
+Die Hauptaufgabe des ESP B besteht darin, die bereitgestellten Messwerte vom ESP A zu empfangen und die Daten an die PWA, für die Weiterverarbeitung, zu übertragen. Während der ESP A für die Datensammlung verantwortlich ist, sorgt der ESP B dafür, dass die Daten im System, mittels Websocket, verteilt werden. Wobei der ESP B als der WebSocket Server fungiert und die PWA als Client.
 
 \paragraph{Übertragung:}
 Nach der Erfassung und Umwandlung der Daten, kann die Übertragung über die serielle UART-Verbindung (Universal Asynchronous Receiver Transmitter) an den ESP B erfolgen. Es wurde eine serielle Kommunikation zwischen den beiden ESP 32 NodeMCU gewählt, da es einfache und verlässliche Verbindung ermöglicht. 
@@ -218,14 +234,6 @@ können 115200 Signaleinheiten pro Sekunde übertragen werden. \cite{riverdi_bau
 
 \noindent
 Eine Baudrate von 115200 ist groß genug, um für unser System Echtzeit-Daten zu liefern. Diese Erkenntnis wurde durch Testen und Beobachtungen bestätigt.
-
-\subsubsection[ESP B - Datenübertragung]{ESP B - Datenübertragung\authorlinda}
-Der Mikrokontroller ESP B ist ein ESP32 NodeMCU Module WLANWiFi Developement Board mit CP2102, 
-da dieser ESP32 die benötigte WLAN Funktionalität anbietet. \cite{azdelivery_esp32}
-Der ESP B ist im System die zentrale Kommunikationseinheit, denn er ist Schnittstelle zwischen der Datenerfassung und der Visualisierung der Daten, mittels Progressive Web App (PWA).
-
-\paragraph{Hauptaufgabe ESP B: (überarbeiten)}
-Die Hauptaufgabe des ESP B besteht darin, die bereitgestellten Messwerte vom ESP A zu empfangen und die Daten an die PWA, für die Weiterverarbeitung, zu übertragen. Während der ESP A für die Datensammlung verantwortlich ist, sorgt der ESP B dafür, dass die Daten im System, mittels Websocket, verteilt werden. Wobei der ESP B als der WebSocket Server fungiert und die PWA als Client.
 
 \paragraph{WLAN Verbindung:}
 Der ESP B  nutzt die WLAN Funktionalität des ESP32 NodeMCU, um sich mit dem Netzwerk zu verbinden, in unserem Fall verbindet sich der ESP B mit einem persönlichen Hotspot. Dadurch übernimmt der ESP B die Rolle des Servers und externe Geräte, wie ein Browser auf einem Laptop oder Handy, 
