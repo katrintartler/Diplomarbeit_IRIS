@@ -857,7 +857,74 @@ Die empfangenen Daten werden als Text über das “event“ Objekt bereitgestell
 \end{lstlisting}
 
 \noindent
-In den nächsten Schritten werden mittels Funktionen die System relevanten Werte ausgegeben und visualisiert.
+In den nächsten Schritten werden mittels Funktionen die System relevanten Werte ausgegeben und visualisiert. 
+\noindent
+Zur Bestimmung der Bewegungsintensität wird die Funktion deltaMovement, siehe \ref{lst:js-deltaMovement}, aufgerufen. Dabei wird nicht der absolute Messwert betrachtet, sondern die Veränderung der Werte. Die Funktion enthält den Parameter „current“, welcher die aktuellen Sensorwerte enthält. Die erste if-Schleife überprüft ob vorherige Messwerte vorhanden sind, ist dies nicht der Fall werden die aktuellen Messwerte übergeben und der Bewegungswert mit einer Null zurückgegeben. Dadurch wird verhindert, dass eine Bewegung erkannt wird, obwohl noch kein Vergleichswert vorhanden ist.
+
+\noindent
+Für jeden Sensor wird die absolute Differenz, zwischen dem aktuellen und vorherigen Messwert berechnet. Danach erfolgt die Berechnung der Delta Summe, diese wird durch das Summieren der einzelnen absoluten Differenzen berechnet. Die Delta Summe entspricht der Intensität der Bewegung, dass bedeutet je größer dieser Wert ist, desto stärker ist die Veränderung.
+
+\begin{lstlisting}[language=JavaScript, caption={Funktion deltaMovement}, label={lst:js-deltaMovement}, firstnumber=91]
+function deltaMovement(current) {
+    if(!lastValues) { 
+        lastValues = current;
+        return 0;
+    }
+
+    let deltaSum = 0;
+
+    for (let key in current) {
+        let delta = Math.abs(current[key] - lastValues[key]); // Math.abs = Betrag
+        deltaSum += delta; 
+    }
+
+    lastValues = current;
+    return deltaSum;
+}
+\end{lstlisting}
+
+\noindent
+Die getStatusMov Funktion, siehe \ref{lst:js-getStatusMov}, welche im Listing \ref{lst:js-onmessage} aufgerufen wird, 
+unterteilt die Bewegungsintensität in drei Untergruppen und weißt ihnen passende Farbe zu:
+\begin{itemize}
+  \item Ruhig = grün
+  \item Leichte Bewegung = orange
+  \item Starke Bewegung = rot
+\end{itemize}
+
+\noindent
+Die Grenzwerte der Untergruppen wurden, noch nicht an den Testroboter angepasst, da kein aussagekräftiger Test durchgeführt werden konnte.
+
+\begin{lstlisting}[language=JavaScript, caption={Funktion getStatusMov}, label={lst:js-getStatusMov}, firstnumber=108]
+function getStatusMov(movementValue) {
+    if (movementValue < 50) {
+        return {text: "Ruhig", color: "green"};
+    }
+    else if (movementValue < 300) {
+        return {text: "Leichte Bewegung", color: "orange"};
+    }
+    else {
+        return {text: "Starke Bewgung",  color: "red"};
+    }
+}
+\end{lstlisting}
+
+\noindent
+Diese Unterteilung der Bewegungsintensität wird als Parameter an die Funktion updateMovementStatus übergeben, 
+welche den berechneten Bewegungsstatus visualisiert, siehe Listing \ref{lst:js-updateMovementStatus}. Das dazugehörige HTML Element wird dabei als Anzeige des Status der Bewegungsintensität verwendet. Der Text, welcher den Zustand der Bewegung beschreibt, befindet sich in einem rechteckigen Anzeigeelement, welches seine Hintergrundfarbe dynamisch an die Bewegungsintensität anpasst. Um die Lesbarkeit des Textes zu garantieren, wird dieser weiß dargestellt.
+
+\begin{lstlisting}[language=JavaScript, caption={Funktion updateMovementStatus}, label={lst:js-updateMovementStatus}, firstnumber=120]
+function updateMovementStatus(statusObject) {
+    const el = document.getElementById("movementStatus");
+
+    el.textContent = statusObject.text;
+    el.style.backgroundColor = statusObject.color;
+    el. style.color = "white";
+    el.style.padding = "10px";  // Innenabstand
+    el.style.borderRadius = "10px"; // abgerundete Ecken
+}
+\end{lstlisting}
+
 
 
 \subsubsection{style.css}
