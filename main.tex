@@ -40,6 +40,42 @@
   framexleftmargin=\parindent
 }
 
+\lstdefinelanguage{CSS}{
+  keywords={color, background, background-color, border, margin, padding,
+    font-size, font-family, font-weight, display, position, top, left, right,
+    bottom, float, clear, width, height, max-width, min-width, max-height,
+    min-height, text-align, text-decoration, line-height, letter-spacing},
+  keywordstyle=\color{blue}\bfseries,
+  sensitive=true,
+  comment=[l]{/*},
+  morecomment=[s]{/*}{*/},
+  commentstyle=\color{gray}\ttfamily,
+  stringstyle=\color{red}\ttfamily,
+  morestring=[b]',
+  morestring=[b]"
+}
+
+\lstdefinelanguage{JavaScript}{
+  keywords={
+    break, case, catch, class, const, continue, debugger, default, delete, do,
+    else, export, extends, finally, for, function, if, import, in, instanceof,
+    let, new, return, super, switch, this, throw, try, typeof, var, void, while, with, yield
+  },
+  keywordstyle=\color{blue}\bfseries,
+  ndkeywords={boolean, number, string, null, undefined, true, false},
+  ndkeywordstyle=\color{teal}\bfseries,
+  identifierstyle=\color{black},
+  sensitive=true,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  commentstyle=\color{gray}\ttfamily,
+  stringstyle=\color{red}\ttfamily,
+  morestring=[b]',
+  morestring=[b]"
+}
+
+
+
 % K und T tiefstellung
 \newcommand{\authorkatrin}{\textsubscript{[T]}} % Tartler 
 \newcommand{\authorlinda}{\textsubscript{[K]}} % Kalcher 

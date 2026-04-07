@@ -648,22 +648,251 @@ Die Hauptaufgabe des ESP B besteht darin, die vom ESP A erhaltenen Sensordaten a
 dies wird im Listing \ref{lst:espB-empfangen-senden} dargestellt. Durch die if-Abfrage if(Serial2.available()) wird überprüft, ob Daten über die serielle Schnittstelle angekommen sind. Falls dies der Fall ist, werden die empfangenen Daten bis zum Ende eingelesen und in den String data gespeichert. Dieser String wird über die WebSocket Verbindung an die PWA weitergeleitet.
 
 \begin{lstlisting}[language=C++, caption={webSocket.loop()}, label={lst:espB-empfangen-senden}, firstnumber=83]
-    if (Serial2.available()) {
+  if (Serial2.available()) {
     String data = Serial2.readStringUntil('\n');
     webSocket.broadcastTXT(data);
   }
-}
 \end{lstlisting}
 
 \subsection[PWA Code]{PWA Code}
-\paragraph{Datenvisualisierung:}
-chart.js
-% Dabei repräsentiert die horizontale Achse (X-Achse) den zeitlichen Verlauf, 
-% während die vertikale Achse (Y-Achse) die gemessene Größe, beispielsweise die Druckintensität, darstellt.
+Die Progressive Web App, abgekürzt PWA, ist die Schnittstelle zum Benutzer unseres Systems und dient der Visualisierung der erfassten Daten. Die PWA ermöglicht es, dass der Benutzer, in unserem Fall die Eltern, Zugriff auf die Echtzeit Daten ihres Babys, über einen Webbrowser, haben und bildet die Verbindung zwischen dem technischen System und der Anwendungsschicht.
+Sie besteht aus:
+\begin{itemize}
+  \item index.html
+  \item script.js
+  \item style.css
+  \item service-worker.js
+  \item manifest.json
+  \item icon.png
+\end{itemize}
+
+\subsubsection{index.html}
+Im HTML Kopf befinden sich die Metadaten, wie die moderne Zeichenkodierung UTF-8 und die automatische Skalierung der PWA, welche sich an die Bildschirmgröße anpasst. Unter anderem werden im Kopf das manifest.json, das icon.png, für das Browser Symbol, und das style.css eingebunden. 
+Dies wird im Listing \ref{lst:html-Kopf} dargestellt.
+
+\begin{lstlisting}[language=HTML, caption={HTML Kopf}, label={lst:html-Kopf}, firstnumber=3]
+<head>
+    <meta charset="UTF-8"> <!-- moderne Zeichenkodierung -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Skalierung auch fuer Handy-->
+    <title>ESP32 Drucksensoren</title> <!-- Titel -->
+
+    <!-- Manifest -->
+    <link rel="manifest" href="manifest.json"> 
+
+    <!-- PWA Icons -->
+    <link rel="icon" href="icon.png"> 
+
+    <!-- Style -->
+    <link rel="stylesheet" href="style.css"> 
+</head>
+\end{lstlisting}
+
+Die Grundstruktur der Anwendung wird durch die index.html Datei definiert. 
+Wie in Listing \ref{lst:html-elemente} dargestellt, enthält der HTML-Körper verschiedene Elemente zur Anzeige des Verbindungsstatus, der aktuellen Sensorwerte sowie des Bewegungszustands. Zusätzlich wurde ein <canvas> Element bereitgestellt, welches für die grafische Darstellung der Bewegungsintensität verantwortlich ist. Die Elemente, welche sich im Körper der HTML Datei befinden sind im Browser sichtbar.
+
+\noindent
+Mithilfe von <!-- --> wurden Kommentare eingefügt.
+
+\begin{lstlisting}[language=HTML, caption={Elemente der index.html Datei}, label={lst:html-elemente}, firstnumber=18]
+<body>
+    <h1>Drucksensoren Live</h1> <!-- h1 = grosse Ueberschrift -->
+    <div id="status">Verbinde ...</div> <!-- Status anzeigen -->
+    <div id="values"></div> <!-- Drucksensorwerte live anzeigen -->
+
+    <h2>Bewegungsstatus:</h2>
+    <div id="movementStatus">Warte auf Daten ...</div>
+
+    <canvas id="movementChart"></canvas>
+\end{lstlisting}
+
+\noindent
+Zur Erweiterung als PWA wird das manifest.json benötigt, welches bereits im HTML Kopf eingebunden wurde, sowie ein Service Worker, welcher im HTML Körper registriert wurde. Dieser kann Funktionen wie Offline-Fähigkeit, Installation auf dem Endgerät und verbesserte Ladezeiten ermöglichen. Ein Manifest sollte den App-Namen, Icons, Startbildschirm Einstellungen und Farben enthalten.
+In Listing \ref{lst:html-serviceworker} wird die Registrierung des Service Workers dargestellt.
+
+\begin{lstlisting}[language=HTML, caption={Elemente der index.html Datei}, label={lst:html-serviceworker}, firstnumber=31]
+    <script>
+    if ("serviceWorker" in navigator) { 
+        navigator.serviceWorker.register("service-worker.js"); 
+    }
+    </script>
+\end{lstlisting}
+
+\subsubsection{script.js}
+Die eigentliche Funktionalität der PWA befindet sich im script.js Code und dieser besteht aus acht großen Funktionen. Die Funktionen wären:
+\begin{itemize}
+  \item connectWebSocket()
+  \item updateStatus()
+  \item deltaMovement()
+  \item getStatusMov()
+  \item updateMovementStatus()
+  \item updateValues()
+  \item updateChart()
+  \item window.onload
+\end{itemize}
+
+\noindent
+In der connectWebSocket() Funktion werden die Listener des WebSockets definiert, mithilfe dieser Listener werden die Daten verarbeitet. 
+
+\par\vspace{1em}
+
+\noindent
+Zu Beginn der connectWebSocket() Funktion wird eine Verbindung zu der IP-Adresse des ESP B aufgebaut. Davor werden bestehende Verbindungen geschlossen, um Konflikte zu vermeiden.
+Dies wird in dem Listing \ref{lst:js-alteVersionen} dargestellt.
+
+\begin{lstlisting}[language=JavaScript, caption={Alte Versionen des WebSockets schließen}, label={lst:js-alteVersionen}, firstnumber=7]
+function connectWebSocket() {
+    if (ws) { // falls noch eine alte Version da ist, wird diese geschlossen
+        ws.onclose = null;
+        ws.close();
+    }
+
+    ws = new WebSocket("ws://172.20.10.6:81"); 
+\end{lstlisting}
+
+\noindent
+Nach dem Herstellen einer Verbindung innerhalb von connectWebSocket() wird der Listener ws.onopen aufgerufen, 
+siehe Listing \ref{lst:js-ws-onopen}. Dieser gibt in der Konsole die Nachricht „Verbunden!“ aus und übergiebt der Funktion updateStatus() den Parameter true.
+Falls zuvor ein automatischer Reconnect geplant war, wird dieser durch clearTimeout abgebrochen und die Variable auf Null gesetzt. Dadurch wird verhindert, dass unnötige oder doppelte Verbindungsversuche stattfinden, sobald die Verbindung bereits erfolgreich hergestellt wurde.
+
+\begin{lstlisting}[language=JavaScript, caption={WebSocket onopen}, label={lst:js-ws-onopen}, firstnumber=16]
+    ws.onopen = () => {
+        console.log("Verbunden!");
+        updateStatus(true);
+
+        if (reconnectTimeout) {
+            clearTimeout(reconnectTimeout);
+            reconnectTimeout = null;
+        }
+    };
+\end{lstlisting}
+
+\noindent
+Falls die Verbindung von entweder, der PWA (Client) oder dem ESP B (Server) geschlossen wurde, 
+wird der Listener ws.onclose aufgerufen, siehe \ref{lst:lst:js-ws-onclose}. Dieser signalisiert innerhalb der Konsole, dass die Verbindung unterbrochen wurde und ein neuer Verbindungsversuch gestartet wird. Ebenfalls wird der updateStatus() Funktion der Parameter false übergeben. Ein wichtiger Aspekt dieser Funktion ist das automatische Wiederverbinden. Es wird überprüft, ob ein Verbindungsaufbau geplant ist, falls das nicht der Fall ist wird ein verzögerter Aufruf der Funktion connectWebSocket durchgeführt. Dieser passiert nach dem reconnectInterval, welches 2 Sekunden beträgt, wodurch die Verbindung zum Server wieder aufgebaut wird.
+
+\begin{lstlisting}[language=JavaScript, caption={WebSocket onclose}, label={lst:js-ws-onclose}, firstnumber=54]
+    ws.onclose = () => {
+        console.log("Verbindung verloren! - neuer Verbindungsversuch ...");
+        updateStatus(false);
+
+        if (!reconnectTimeout) {
+            reconnectTimeout = setTimeout(() => {
+                connectWebSocket();
+            }, reconnectInterval);
+        }
+    };
+\end{lstlisting}
+
+\noindent
+Die Funktion updateStatus dient der visuellen Darstellung des aktuellen Verbindungsstatus des WebSockets innerhalb der Benutzeroberfläche. Sie wird immer bei einer Veränderung des Verbindungsstatus aufgerufen, das bedeutet bei onopen oder onclose.
+
+\noindent
+Wie im Listing \ref{lst:js-updateStatus} dargestellt, wird zuerst das entsprechende HTML Element, über document.getElementById ausgewählt. Dieses Element dient als Anzeige des aktuellen Status.
+
+\par\vspace{1em}
+
+\noindent
+In der ersten if-Schleife wird überprüft ob das Element existiert, falls dies nicht der Fall ist wird die Funktion mit einer Guard Clause beendet.
+\noindent
+Abhängig von dem übergebenem Parameter isConnected, wird der Text und die Farbe angepasst. Bei einer bestehenden Verbindung wird der Text „Verbunden“ in grüner Farbe dargestellt, während bei einer getrennten Verbindung der Text „Getrennt!“ in roter Farbe angezeigt wird.
+
+\begin{lstlisting}[language=JavaScript, caption={Funktion updateStatus}, label={lst:js-updateStatus}, firstnumber=76]
+function updateStatus(isConnected) {
+    const statusElement = document.getElementById("status");
+
+    if (!statusElement) return;
+
+    if (isConnected) {
+        statusElement.textContent = "Verbunden!";
+        statusElement.style.color = "green";
+    }
+    else {
+        statusElement.textContent = "Getrennt!";
+        statusElement.style.color = "red";
+    }
+}
+\end{lstlisting}
+
+\noindent
+Der Listener ws.onerror erfolgt bei dem Aufruf eines Fehlers, dieser gibt der Konsole eine Fehlermeldung aus und schließt die WebSocket Verbindung. Dadurch wird der onclose Listener getriggert. 
+In dem Listening \ref{lst:js-onerror} wird der onerror Listener dargestellt.
+
+\begin{lstlisting}[language=JavaScript, caption={WebSocket onerror}, label={lst:js-onerror}, firstnumber=70]
+    ws.onerror = (err) => {
+        console.error("WebSocket Fehler: ", err);
+        ws.close(); // wichtig, weil dadurch wird onclose getriggert
+    };
+\end{lstlisting}
+
+\noindent
+Der letzte Listener ist der ws.onmessage Listener, siehe Listing \ref{lst:js-onmessage}. Dieser wird immer dann ausgeführt, wenn neue Daten über die WebSocket Verbindung empfangen werden. Diese Funktion ist ein wichtiger Bestandteil der Anwendung, da sie die Verarbeitung der Daten in Echtzeit übernimmt.
+
+\noindent
+Die empfangenen Daten werden als Text über das “event“ Objekt bereitgestellt. Da die Daten als JSON-Format übertragen werden, werden die Daten mit der Funktion JSON.parse() in ein JavaScript Format umgewandelt. Das bedeutet, dass man jetzt auf jeden einzelnen Sensor direkt zugreifen könnte.
+
+\begin{lstlisting}[language=JavaScript, caption={WebSocket onmessage}, label={lst:js-onmessage}, firstnumber=26]
+    ws.onmessage = (event) => {
+        // console.log("Daten vom ESP: ", event.data);
+
+        try {
+            const data = JSON.parse(event.data); 
+            const movementData = data.movement;
+
+            // Bewegungswert berechnen
+            const movementValue = deltaMovement(movementData);
+
+            console.log("Bewegungswert: ", movementValue);
+
+            // Movement Status
+            const statusMov = getStatusMov(movementValue);
+
+            updateMovementStatus(statusMov);    // Status
+            updateValues(movementData);         // Sensorwerte
+            updateChart(movementValue);         // Delta Werte
+        }
+        catch (e) {
+            console.error("JSON Fehler: ", e);
+        }
+    };
+\end{lstlisting}
+
+\noindent
+In den nächsten Schritten werden mittels Funktionen die System relevanten Werte ausgegeben und visualisiert.
 
 
-\paragraph{Dynamische Aktualisierung der Daten:}
+\subsubsection{style.css}
+Die visuelle Gestaltung der PWA erfolgt über die style.css Datei. In dieser wird das grundlegende Erscheinungsbild der gesamten Seite definiert. 
+Wie in Listing \ref{lst:css-body} werden die Schriftart sowie die Außenabstände festgelegt.
 
+\noindent
+Durch die Verwendung einer serifenlosen Schrift wird für eine bessere Lesbarkeit auf digitalen Geräten gesorgt und der definierte Seitenabstand stellt sicher, dass die Inhalte nicht direkt am Rand des Bildschirms dargestellt werden, wodurch die Übersicht verbessert wird.
+
+\begin{lstlisting}[language=CSS, caption={CSS Body}, label={lst:css-body}, firstnumber=1]
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+\end{lstlisting}
+
+\noindent
+Für die Darstellung der Sensordaten, wurde ein eigener Bereich gestaltet, indem die Schriftgröße und Hervorhebung angepasst wurden, um die Sensordaten deutlich sichtbar zu machen. 
+Dies wird in dem Listing \ref{lst:css-sensordaten} dargestellt.
+
+\noindent
+Durch die größere Schriftgröße und dickere Darstellung, wird die Wichtigkeit der Sensordaten hervorgehoben und der zusätzlich Abstand nach oben sorgt dafür, dass sich die Messwerte nicht direkt unter der Überschrift befinden, sondern ein kleiner Abstand dazwischen ist.
+
+\begin{lstlisting}[language=CSS, caption={Darstellung der Sensordaten}, label={lst:css-sensordaten}, firstnumber=6]
+#values {
+    margin-top: 20px;
+    font-size: 24px;
+    font-weight: bold;
+}
+}
+\end{lstlisting}
+
+\subsubsection{service-worker.js}
+
+\subsubsection{potentiell manifest.json}
 
 
 %Testroboter
