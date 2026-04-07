@@ -231,14 +231,9 @@ können 115200 Signaleinheiten pro Sekunde übertragen werden. \cite{riverdi_bau
 Eine Baudrate von 115200 ist groß genug, um für unser System Echtzeit-Daten zu liefern. Diese Erkenntnis wurde durch Testen und Beobachtungen bestätigt.
 
 \paragraph{WLAN Verbindung:}
-
-
-Der ESP B  nutzt die WLAN Funktionalität des ESP32 NodeMCU, um sich mit dem Netzwerk zu verbinden, in unserem Fall verbindet sich der ESP B mit einem persönlichen Hotspot. Dadurch übernimmt der ESP B die Rolle des Servers und externe Geräte, wie ein Browser auf einem Laptop oder Handy, 
-kann sich mit dem ESP B verbinden und die Daten vom ESP B abrufen. \cite{}
-
-
-\noindent
-WLAN Kommunikations Theorie?? % ????????????
+Der ESP32 verfügt über ein vollständig integriertes 2,4GHz WLAN. Der Mikrokontroller, kann sowohl im Station Modus, 
+im Access-Point Modus oder im kombinierten Modus genutzt werden. 
+Die WLAN Kommunikation wird über den WiFi-Mac und PHY Layer, welche sich im integrierten Chip befinden, agbewickelt. \cite{espressif_esp32_wifi}
 
 \paragraph{WebSocket:}
 Für die Kommunikation zwischen ESP B und der PWA wird WebSocket verwendet. WebSocket ist ein Netzwerkprotokoll, basierend auf TCP, welches festlegt wie Daten zwischen zwei Netzwerken gesendet werden. WebSocket ermöglicht eine bidirektionale Verbindung, das bedeutet, dass Daten in beide Richtungen ausgetauscht werden können. Diese bidirektionale Verbindung wird durch TCP ermöglicht, denn TCP baut eine Verbindung zwischen zwei Kommunikationsendpunkten auf, welche als Sockets bezeichnet werden.
@@ -252,7 +247,7 @@ kann es zu Verzögerungen kommen. \cite{ionos_websocket}
 In der Abbildung \ref{fig:ionos-http-request} wird die Anfrage des Clients und die Antwort des Servers dargestellt.
 \begin{figure}[H]
 \centering
-\includegraphics[width = 15cm]{images/ionos-http-request.png}
+\includegraphics[width = 13cm]{images/ionos-http-request.png}
 \caption{HTTP Anfrage und Antwort \cite{ionos_websocket_bild}}
 \label{fig:ionos-http-request}
 \end{figure}
@@ -265,7 +260,7 @@ Durch die offene Kommunikation können neue Informationen vom Server bereitgeste
 
 \begin{figure}[H]
 \centering
-\includegraphics[width = 15cm]{images/ionos-websocket.png}
+\includegraphics[width = 13cm]{images/ionos-websocket.png}
 \caption{Bidirektionale Verbindung zwischen Client und Server mittels WebSocket \cite{ionos_websocket_bild}}
 \label{fig:ionos-websocket}
 \end{figure}
