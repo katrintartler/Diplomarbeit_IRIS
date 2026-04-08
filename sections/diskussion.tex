@@ -13,9 +13,13 @@ Der Plan war es ein Art Box zu entwerfen, in welcher die Platine und die Powerba
 Danach müsste das Gehäuse über Bohrungen mit der Holzplatte, welche sich unter der Matratze des Babybettchens befindet, verbunden werden. Dadurch könnte sich die Platine an der gleichen Stelle unter dem Babybettchen, wie zuvor befinden.
 
 \subsection[weitere Drucksensoren]{weitere Drucksensoren\authorlinda} \label{weitere Drucksensoren}
+Die Genauigkeit des Systems könnte durch die Verwendung von noch mehr Drucksensoren profitieren. Denn dadurch können mehr Messwerte miteinander verglichen und ausgewertet werden.
+
+\noindent
+Was auch noch zu beachten ist, dass ein Baby nicht immer an der gleichen Stelle liegen würde und somit nicht immer alle Drucksensoren abdecken würde. Was dazu führen würde, dass nicht alle Bewegungen des Babys erkannt werden würden.
 
 \subsection[Herzschlag mit Drucksensoren messen]{Herzschlag mit Drucksensoren messen\authorlinda} \label{Herzschlag-Drucksensoren}
-
+Es wurde auch in Betracht gezogen, ob es möglich wäre den Herzschlag des Babys mithilfe von Drucksensoren zu messen. Dafür würde wahrscheinlich eine größere Drucksensor Matrix und Sensoren, welche sehr genaue Messungen durchführen können, benötigt werden. Diese Messung wäre dennoch eine interessante Ergänzung für unser System und würde unsere Grundidee unterstützen. Leider war es uns nicht möglich, diese Messung in unserem System zu inkludieren und fanden auch keine Ansatzpunkte die für uns realisierbar waren. 
 %\subsection[Wärmeerkennung]{Wärmeerkennung\authorkatrin} \label{Wärmeerkennung} maybe 
 
 \subsection[Temperaturmessung mit Körperkontakt]{Temperaturmessung mit Körperkontakt\authorkatrin} \label{Temperaturmessung mit Körperkonkakt}
@@ -35,12 +39,27 @@ Dadurch dass wir schon ein Mikrophon haben, kommt für uns eher der Umbau von di
 notwendig, da das Prinzip ja nicht mit dem Mikrofontyp sondern mit der Positionierung zusammenhängt. Mit ein paar kleinen mechanischen Anpassungen lässt sich eine Konstruktion 
 für unser INMP441 bauen, welche die physikalischen Eigenschaften und Vorteile eines Grenzflächenmikrofons mit sich bringt. Montiert man es zum Beispiel mit der Mikrofonöffung 
 zum Material zeigend, auf einer glatten, festen Oberfläche, könnte dies zur Verbesserung der Datenqualität durch das Grenzflächenprinzip beitragen.
-\section[Babybettchen Code]{Babybettchen Code}
-\subsection[Visualisierung der Messdaten]{Visualisierung der Messdaten\authorlinda}
-Flutter vs. PWA 
 
-\subsection[Ausbauung der PWA]{Ausbauung der PWA\authorlinda}
-nicht nur localhost
+\section[Babybettchen Code]{Babybettchen Code\authorlinda}
+Bei dem Babybettchen Code gibt es noch einige Erweiterungsmöglichkeiten, die sinnvollen wären. Der nächste empfehlenswerte Schritt für die PWA, wär wahrscheinlich die Erweiterung des service-worker.js, da bei diesem aktuell nur die grundlegenden Funktionen inkludiert sind und mit dem Ausbau beispielsweise die Offline Funktion ermöglicht werden könnte.
+
+\par\vspace{1em}
+
+\noindent
+Ebenfalls wäre es wichtig das manifest.json wirklich zu nutzen, um die PWA als installierbare App erscheinen zu lassen. 
+Dadurch könnte die PWA am Handy im App Modus geöffnet werden und die Daten könnten so dargestellt werden, wie es wahrscheinlich die meisten Anwender betrachten würden. 
+Denn als Elternteil wird man nicht immer zum Laptop greifen wollen, um die Bewegungsdaten des Kindes anzuschauen. Da wäre eine installierte App für die Nutzer um einiges ansprechender. 
+
+\par\vspace{1em}
+
+\noindent
+Die visuelle Gestaltung der PWA könnte durch die Erweiterung der style.css Datei ansprechender gemacht werden. Den aktuell ist style.css recht simpel gehalten und hat nicht viel Inhalt.
+
+%\subsection[Visualisierung der Messdaten]{Visualisierung der Messdaten\authorlinda}
+%Flutter vs. PWA 
+
+%\subsection[Ausbauung der PWA]{Ausbauung der PWA\authorlinda}
+%nicht nur localhost
 
 %\subsection{Cloud\authorlinda}
 

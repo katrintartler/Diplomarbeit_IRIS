@@ -3,6 +3,561 @@
 
 \begin{relsize}{-3}
     \begin{verbatim}
+============= ESP A Code main.cpp =============
+#include <Arduino.h>
+#include <ArduinoJson.h>
+
+HardwareSerial SerialESP(2); // notwendig für RX2 und TX2
+
+// ESP_A Code
+const int sensors[6] = {25, 26, 32, 33, 34, 35};
+
+void setup() {
+  Serial.begin(115200); 
+  SerialESP.begin(115200, SERIAL_8N1, 16, 17); // 16 = RXD2, 17 = TXD2
+  // RX2 und TX2 verwenden, weil RX1 und TX1 intern probleme machen
+
+  // ADC konfigurieren
+  analogReadResolution(12);       // 0-4095, 12 Bit Auflösung
+  analogSetAttenuation(ADC_11db); // voller Messbereich
+
+  // ADC initialisieren
+  for (int i = 0; i < 6; i++) {
+    pinMode(sensors[i], INPUT);
+  }
+}
+
+void loop() {
+  static unsigned long lastSend = 0;
+  
+  if (millis() - lastSend > 1000) {
+    int v[6];
+
+    for (int i = 0; i < 6; i++) {
+      // v[i] = analogRead(sensors[i]);
+      long average = 0;
+
+      for (int a = 0; a < 10; a++) {
+        average += analogRead(sensors[i]);
+        delayMicroseconds(200); // verhindert schnelle ADC Spikes
+      }
+
+      v[i] = average/10;
+    }
+
+    // JSON Dokument erstellen
+    StaticJsonDocument<256> doc;
+
+    // Struktur
+    doc["version"] = 2;
+    doc["timestamp"] = millis();
+
+    JsonObject movement = doc.createNestedObject("movement");
+
+    movement["s1_lu"] = v[0];   // links unten
+    movement["s1_lm"] = v[1];   // links mitte
+    movement["s1_lo"] = v[2];   // links oben
+    movement["s1_ru"] = v[3];   // rechts unten
+    movement["s1_rm"] = v[4];   // rechts mitte
+    movement["s1_ro"] = v[5];   // rechts oben
+
+    String json;
+    serializeJson(doc, json);   // wandelt das Objekt in einen String
+
+    SerialESP.println(json);
+
+    lastSend = millis();
+  }
+}
+
+
+
+============= ESP B Code main.cpp =============
+#include <Arduino.h>
+#include <WiFi.h>
+#include <WebSocketsServer.h>
+#include <WebSocketsClient.h>
+
+// persönlicher Hotspot (WLAN Verbindung)
+const char* ssid = "iPhone von Linda";
+const char* password = "Dipo-Iris2026&";
+
+// Wifi Vebindung aus Sicherheitsgründen überprüfen
+// millis() hat ebenfalls unsigned long und int wäre zu klein für die Überprüfung
+unsigned long lastWifiCheck = 0;
+const unsigned long checkInterval = 5000; // alle 5 Sekunden 
+
+#define connectionLED 18
+
+WebSocketsServer webSocket = WebSocketsServer(81);   // bei der localhost Anwendung benötigt da der ESP der Server war, bei der neuen variante wird auch der ESP zum CLient
+
+void webSocketEvent(uint8_t num, WStype_t type, uint8_t * payload, size_t length) {
+  switch (type) {
+    case WStype_CONNECTED:
+      Serial.println("PWA verbunden");
+      break;
+
+    case WStype_DISCONNECTED:
+      Serial.println("PWA getrennt");
+      break;
+
+    case WStype_TEXT:
+      Serial.print("Von PWA empfangen: ");
+      Serial.println((char*)payload);
+      break;
+  }
+}
+
+void setup() {
+  Serial.begin(115200);
+  Serial2.begin(115200, SERIAL_8N1, 17, 16); // 17 = RXD2, 16 = TXD2
+
+  // Kontrollleuchte
+  pinMode(connectionLED, OUTPUT);
+  digitalWrite(connectionLED, LOW);
+
+  // Wifi verbinden
+  WiFi.begin(ssid, password);
+  Serial.print("Aufbau der WLAN Verbindung");
+
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+
+  Serial.println("\nWLAN verbunden!");
+  digitalWrite(connectionLED, HIGH); // Kontrollleuchte für die WLAN Verbindung
+  Serial.print("ESP IP: "); // 172.20.10.5
+  Serial.println(WiFi.localIP());
+
+  // WebSocket starten
+  webSocket.begin();
+  webSocket.onEvent(webSocketEvent);
+
+  Serial.println("WebSocket Server gestartet (Port 81)");
+}
+
+void loop() {
+  if (millis() - lastWifiCheck > checkInterval) {
+    lastWifiCheck = millis();
+
+    if (WiFi.status() != WL_CONNECTED) {
+      Serial.println("WiFi Verbindung getrennt -> Verbindungsaufbau wird versucht ...");
+      digitalWrite(connectionLED, LOW);
+      WiFi.disconnect();
+      WiFi.begin(ssid, password);
+    } 
+    else {
+      digitalWrite(connectionLED, HIGH);
+    }
+  }
+
+  webSocket.loop();
+
+  // Daten von ESP_A empfangen und an PWA senden
+  if (Serial2.available()) {
+    String data = Serial2.readStringUntil('\n');
+    webSocket.broadcastTXT(data);
+  }
+}
+
+
+/* Versuch eines neuen Codes
+// persönlicher Hotspot (WLAN Verbindung)
+const char* ssid = "iPhone von Linda";
+const char* password = "Dipo-Iris2026&";
+
+// Wifi Vebindung aus Sicherheitsgründen überprüfen
+// millis() hat ebenfalls unsigned long und int wäre zu klein für die Überprüfung
+unsigned long lastWifiCheck = 0;
+const unsigned long checkInterval = 5000; // alle 5 Sekunden 
+
+#define connectionLED 18
+
+// WebSocketsServer webSocket = WebSocketsServer(81);   // bei der localhost Anwendung benötigt da der ESP der Server war, bei der neuen variante wird auch der ESP zum CLient
+
+// Node.js Server
+const char* host = "192.168.8.189"; // Laptop IP
+const uint16_t port = 3000;
+
+WebSocketsClient webSocket;
+
+/*    alter Code
+void webSocketEvent(uint8_t num, WStype_t type, uint8_t * payload, size_t length) {
+  switch (type) {
+    case WStype_CONNECTED:
+      Serial.println("PWA verbunden");
+      break;
+
+    case WStype_DISCONNECTED:
+      Serial.println("PWA getrennt");
+      break;
+
+    case WStype_TEXT:
+      Serial.print("Von PWA empfangen: ");
+      Serial.println((char*)payload);
+      break;
+  }
+}*/
+/*
+void setup() {
+  Serial.begin(115200);
+  Serial2.begin(115200, SERIAL_8N1, 17, 16); // 17 = RXD2, 16 = TXD2
+
+  // Kontrollleuchte
+  pinMode(connectionLED, OUTPUT);
+  digitalWrite(connectionLED, LOW);
+
+  // Wifi verbinden
+  WiFi.begin(ssid, password);
+  Serial.print("Aufbau der WLAN Verbindung");
+
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+
+  Serial.println("\nWLAN verbunden!");
+  digitalWrite(connectionLED, HIGH); // Kontrollleuchte für die WLAN Verbindung
+  // Serial.print("ESP IP: "); // 172.20.10.5
+  Serial.print("IP: ");
+  Serial.println(WiFi.localIP());
+
+  /*
+  // WebSocket starten - für alte Version wo der esp der server ist
+  webSocket.begin();
+  webSocket.onEvent(webSocketEvent);
+  Serial.println("WebSocket Server gestartet (Port 81)");
+  */
+/*
+  //Verbindung zum Server herstellen, da der ESP jetzt auch der Client ist
+  webSocket.begin(host, port, "/");
+
+  webSocket.onEvent([](WStype_t type, uint8_t* payload, size_t length) {
+    if (type == WStype_CONNECTED) {
+      Serial.println("Mit Server verbunden");
+    }
+    else if (type == WStype_DISCONNECTED) {
+      Serial.println("Verbindung verloren");
+    }
+  });
+
+}
+
+void loop() {
+  if (millis() - lastWifiCheck > checkInterval) {
+    lastWifiCheck = millis();
+
+    if (WiFi.status() != WL_CONNECTED) {
+      Serial.println("WiFi Verbindung getrennt -> Verbindungsaufbau wird versucht ...");
+      digitalWrite(connectionLED, LOW);
+      WiFi.disconnect();
+      WiFi.begin(ssid, password);
+    } 
+    else {
+      digitalWrite(connectionLED, HIGH);
+    }
+  }
+
+  webSocket.loop();
+  /* alter Code als der ESP noch der Server war
+  // Daten von ESP_A empfangen und an PWA senden
+  if (Serial2.available()) {
+    String data = Serial2.readStringUntil('\n');
+    webSocket.broadcastTXT(data);
+  }*/
+/*
+  // neuer Code für den ESP B als Client
+  // Daten senden
+  if (Serial2.available()) {
+    String data = Serial2.readStringUntil('\n');
+    webSocket.sendTXT(data); // an Server senden
+  }
+}
+*/
+
+
+
+
+=========== PWA ===========
+// index.html
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8"> <!-- moderne Zeichenkodierung -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Skalierung auch für Handy-->
+    <title>ESP32 Drucksensoren</title> <!-- Titel -->
+
+    <!-- Manifest -->
+    <link rel="manifest" href="manifest.json"> <!-- Manifest enthält: App-Name, Icons, Startbildschirm Einstellungen, Farben -->
+                                               <!-- ohne das Manifest gibt es keine pwa-->
+    <!-- PWA Icons -->
+    <link rel="icon" href="icon.png"> <!-- für tab, pwa und homescreen -->
+
+    <!-- Style -->
+    <link rel="stylesheet" href="style.css"> <!-- bindet css datei ein -->
+</head>
+
+<body>
+    <h1>Drucksensoren Live</h1> <!-- h1 = große Überschrift -->
+    <div id="status">Verbinde ...</div> <!-- Status anzeigen -->
+    <div id="values"></div> <!-- Drucksensorwerte live anzeigen -->
+
+    <h2>Bewegungsstatus:</h2>
+    <div id="movementStatus">Warte auf Daten ...</div>
+
+    <canvas id="movementChart"></canvas>
+
+    <script src="script.js"></script> <!-- Java Script laden: WebSocket Verbindung zur pwa, darstellung der Drucksensorwerte -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Chart.js -->
+    <!-- Service Worker registrieren -->
+    <script>
+    if ("serviceWorker" in navigator) { // wenn der Browser Service Worker unterstützt, wird service-worker.js registriert
+        navigator.serviceWorker.register("service-worker.js"); // Service Worker kümmert sich um Caching, Offline Funktionen, Installation als pwa
+    }
+    </script>
+
+</body>
+</html>
+
+
+// script.js 
+let ws;
+let reconnectTimeout = null;
+const reconnectInterval = 2000; // 2 Sekunden Reconnect Interval
+let lastValues = null;
+let chart = null;
+
+function connectWebSocket() {
+    if (ws) { // falls noch eine alte Version da ist, wird diese geschlossen
+        ws.onclose = null;
+        ws.close();
+    }
+
+    ws = new WebSocket("ws://172.20.10.6:81");  // IP von ESP B - localhost Anwendung
+    //ws = new WebSocket("ws://192.168.8.189:3000") // Laptop IP - Server Anwendung
+
+    ws.onopen = () => {
+        console.log("Verbunden!");
+        updateStatus(true);
+
+        if (reconnectTimeout) {
+            clearTimeout(reconnectTimeout);
+            reconnectTimeout = null;
+        }
+    };
+
+    ws.onmessage = (event) => {
+        // console.log("Daten vom ESP: ", event.data);
+
+        try {
+            // JSON.parse() macht aus dem text von event.data ein JavaScriptObjekt
+            const data = JSON.parse(event.data); // bedeutet man kann jetzt auf die Sensoren zugreifen also z.B. data.movement.s1_lu
+            const movementData = data.movement;
+
+            // Bewegungswert berechnen
+            const movementValue = deltaMovement(movementData);
+
+            console.log("Bewegungswert: ", movementValue);
+
+            // Movement Status
+            const statusMov = getStatusMov(movementValue);
+
+            updateMovementStatus(statusMov);    // Status
+            updateValues(movementData);         // Sensorwerte
+            updateChart(movementValue);         // Delta Werte
+        }
+        catch (e) {
+            console.error("JSON Fehler: ", e);
+        }/* 
+        catch ( ... ) {
+
+        }*/
+    };
+
+    ws.onclose = () => {
+        console.log("Verbindung verloren! - neuer Verbindungsversuch ...");
+        updateStatus(false);
+
+        if (!reconnectTimeout) {
+            reconnectTimeout = setTimeout(() => {
+                connectWebSocket();
+            }, reconnectInterval);
+        }
+
+        /* Version 2 Code
+        setTimeout(() => {
+            connectWebSocket();
+        }, reconnectInterval); */
+    };
+
+    ws.onerror = (err) => {
+        console.error("WebSocket Fehler: ", err);
+        ws.close(); // wichtig, weil dadurch wird onclose getriggert
+    };
+}
+
+function updateStatus(isConnected) {
+    const statusElement = document.getElementById("status");
+
+    if (!statusElement) return;
+
+    if (isConnected) {
+        statusElement.textContent = "Verbunden!";
+        statusElement.style.color = "green";
+    }
+    else {
+        statusElement.textContent = "Getrennt!";
+        statusElement.style.color = "red";
+    }
+}
+
+function deltaMovement(current) {
+    if(!lastValues) { // lastValues definieren, falls es nicht definiert ist
+        lastValues = current;
+        return 0;
+    }
+
+    let deltaSum = 0;
+
+    for (let key in current) {
+        let delta = Math.abs(current[key] - lastValues[key]); // Math.abs = Betrag
+        deltaSum += delta; // Änderungen werden addiert
+    }
+
+    lastValues = current;
+    return deltaSum;
+}
+
+function getStatusMov(movementValue) {
+    if (movementValue < 50) {
+        return {text: "Ruhig", color: "green"};
+    }
+    else if (movementValue < 300) {
+        return {text: "Leichte Bewegung", color: "orange"};
+    }
+    else {
+        return {text: "Starke Bewgung",  color: "red"};
+    }
+}
+
+function updateMovementStatus(statusObject) {
+    // document = ganzes html Dokument
+    const el = document.getElementById("movementStatus");
+
+    el.textContent = statusObject.text;
+    el.style.backgroundColor = statusObject.color;
+    el. style.color = "white";
+    el.style.padding = "10px";  // Innenabstand
+    el.style.borderRadius = "10px"; // abgerundete Ecken
+}
+
+function updateValues(values) {
+    const container = document.getElementById("values");
+    let html = "";
+
+    for (let key in values) {
+        html +=`<p>${key}: ${values[key]}</p>`;
+    }
+
+    container.innerHTML = html;
+}
+
+function updateChart(value) {
+    if (!chart) return; // Guard Clause - solange chart nicht existiert wird die Funktion beendet
+
+    chart.data.labels.push("");
+    chart.data.datasets[0].data.push(value); // push hängt die neuen Daten hinten an
+
+    // Chart zeigt die letzten 120 Werte
+    if (chart.data.labels.length > 120) {  
+        chart.data.labels.shift(); // shift() ... entfernt das erste Element
+        chart.data.datasets[0].data.shift();
+    }
+
+    chart.update();
+}
+
+// Chart initialisieren
+window.onload = function () { // window.onload wartet bis html komplett geladen ist
+    const ctx = this.document.getElementById("movementChart").getContext("2d");
+
+    chart = new Chart(ctx, {
+        type: "line",   // Liniendiagramm
+        data: {
+            labels: [], // X-Achse
+            datasets: [{
+                label: "Bewegungsintensität",
+                data: [],   // Y-Achse
+                borderWidth: 2, // Linienstärke
+                fill: false // Fläche unter der Linie nicht gefüllt
+            }]
+        },
+        options: {
+            animation: false,
+            responsive: true    // automatisch Bildschirmgröße anpassen
+        }
+    });
+    
+    // Starten
+    connectWebSocket(); // ist jetzt im window.onload damit der WebSocket erst startet sobald alles bereit ist
+    // davor war es egal dass es am schluss war weil die Textanzeigen sofort existieren aber chart muss erst erstellt werden
+}
+
+
+
+//style.css
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+#values {
+    margin-top: 20px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+
+//service-worker.js 
+self.addEventListener("install", (event) => {
+    console.log("Service Worker installiert");
+    self.skipWaiting();
+});
+
+self.addEventListener("activate", (event) => {
+    console.log("Service Worker aktiviert");
+});
+
+
+//manifest.json
+{ 
+  "name": "ESP32 Sensor Dashboard",
+  "short_name": "Sensoren",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2196f3",
+  "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
+
+
+
+
+
+
+
 //gui.py
 import dearpygui.dearpygui as dpg
 import ble_backend
