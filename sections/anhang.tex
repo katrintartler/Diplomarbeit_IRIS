@@ -1,27 +1,50 @@
 \chapter*{Anhang}
 \markboth{Anhang}{}
 
+\section*{Schaltpläne}
+\begin{figure}[H]
+\centering
+\includegraphics[angle = 90, width = 15cm]{images/PCBs/babybettchen-schaltplan.pdf}
+\caption{Schaltplan der Platine des Babybettchens}
+\label{fig:babybettchen-schaltplan}
+\end{figure}
+\newpage
+
+\begin{figure}[H]
+\centering
+\includegraphics[angle = 90, width = 15cm]{images/PCBs/MP_all.pdf}
+\caption{Schaltplan der Hauptplatine des Testroboters}
+\label{fig:pcb:MP_all}
+\end{figure}
+\newpage
+
+\begin{figure}[H]
+\centering
+\includegraphics[angle= 90, width = 15cm]{images/PCBs/Heat_Platine.pdf}
+\caption{Schaltplan der Heat-Platine des Testroboters}
+\label{fig:pcb:H_all}
+\end{figure}
+\noindent
+
+\section*{Codes}
 \begin{relsize}{-3}
+  \begin{multicols}{2}
     \begin{verbatim}
 ============= ESP A Code main.cpp =============
 #include <Arduino.h>
 #include <ArduinoJson.h>
 
-HardwareSerial SerialESP(2); // notwendig für RX2 und TX2
+HardwareSerial SerialESP(2);
 
-// ESP_A Code
 const int sensors[6] = {25, 26, 32, 33, 34, 35};
 
 void setup() {
   Serial.begin(115200); 
-  SerialESP.begin(115200, SERIAL_8N1, 16, 17); // 16 = RXD2, 17 = TXD2
-  // RX2 und TX2 verwenden, weil RX1 und TX1 intern probleme machen
+  SerialESP.begin(115200, SERIAL_8N1, 16, 17);
 
-  // ADC konfigurieren
-  analogReadResolution(12);       // 0-4095, 12 Bit Auflösung
-  analogSetAttenuation(ADC_11db); // voller Messbereich
+  analogReadResolution(12);       
+  analogSetAttenuation(ADC_11db); 
 
-  // ADC initialisieren
   for (int i = 0; i < 6; i++) {
     pinMode(sensors[i], INPUT);
   }
@@ -39,16 +62,14 @@ void loop() {
 
       for (int a = 0; a < 10; a++) {
         average += analogRead(sensors[i]);
-        delayMicroseconds(200); // verhindert schnelle ADC Spikes
+        delayMicroseconds(200);
       }
 
       v[i] = average/10;
     }
 
-    // JSON Dokument erstellen
     StaticJsonDocument<256> doc;
 
-    // Struktur
     doc["version"] = 2;
     doc["timestamp"] = millis();
 
@@ -62,7 +83,7 @@ void loop() {
     movement["s1_ro"] = v[5];   // rechts oben
 
     String json;
-    serializeJson(doc, json);   // wandelt das Objekt in einen String
+    serializeJson(doc, json);  
 
     SerialESP.println(json);
 
@@ -70,26 +91,20 @@ void loop() {
   }
 }
 
-
-
 ============= ESP B Code main.cpp =============
 #include <Arduino.h>
 #include <WiFi.h>
 #include <WebSocketsServer.h>
 #include <WebSocketsClient.h>
 
-// persönlicher Hotspot (WLAN Verbindung)
 const char* ssid = "iPhone von Linda";
-const char* password = "Dipo-Iris2026&";
+const char* password = "*********";
 
-// Wifi Vebindung aus Sicherheitsgründen überprüfen
-// millis() hat ebenfalls unsigned long und int wäre zu klein für die Überprüfung
 unsigned long lastWifiCheck = 0;
-const unsigned long checkInterval = 5000; // alle 5 Sekunden 
-
+const unsigned long checkInterval = 5000;
 #define connectionLED 18
 
-WebSocketsServer webSocket = WebSocketsServer(81);   // bei der localhost Anwendung benötigt da der ESP der Server war, bei der neuen variante wird auch der ESP zum CLient
+WebSocketsServer webSocket = WebSocketsServer(81);   
 
 void webSocketEvent(uint8_t num, WStype_t type, uint8_t * payload, size_t length) {
   switch (type) {
@@ -110,13 +125,11 @@ void webSocketEvent(uint8_t num, WStype_t type, uint8_t * payload, size_t length
 
 void setup() {
   Serial.begin(115200);
-  Serial2.begin(115200, SERIAL_8N1, 17, 16); // 17 = RXD2, 16 = TXD2
+  Serial2.begin(115200, SERIAL_8N1, 17, 16);
 
-  // Kontrollleuchte
   pinMode(connectionLED, OUTPUT);
   digitalWrite(connectionLED, LOW);
 
-  // Wifi verbinden
   WiFi.begin(ssid, password);
   Serial.print("Aufbau der WLAN Verbindung");
 
@@ -126,11 +139,10 @@ void setup() {
   }
 
   Serial.println("\nWLAN verbunden!");
-  digitalWrite(connectionLED, HIGH); // Kontrollleuchte für die WLAN Verbindung
+  digitalWrite(connectionLED, HIGH); 
   Serial.print("ESP IP: "); // 172.20.10.5
   Serial.println(WiFi.localIP());
 
-  // WebSocket starten
   webSocket.begin();
   webSocket.onEvent(webSocketEvent);
 
@@ -142,7 +154,8 @@ void loop() {
     lastWifiCheck = millis();
 
     if (WiFi.status() != WL_CONNECTED) {
-      Serial.println("WiFi Verbindung getrennt -> Verbindungsaufbau wird versucht ...");
+      Serial.println("WiFi Verbindung getrennt");
+      Serial.println("Verbindungsaufbau starten..."); 
       digitalWrite(connectionLED, LOW);
       WiFi.disconnect();
       WiFi.begin(ssid, password);
@@ -154,166 +167,47 @@ void loop() {
 
   webSocket.loop();
 
-  // Daten von ESP_A empfangen und an PWA senden
   if (Serial2.available()) {
     String data = Serial2.readStringUntil('\n');
     webSocket.broadcastTXT(data);
   }
 }
-
-
-/* Versuch eines neuen Codes
-// persönlicher Hotspot (WLAN Verbindung)
-const char* ssid = "iPhone von Linda";
-const char* password = "Dipo-Iris2026&";
-
-// Wifi Vebindung aus Sicherheitsgründen überprüfen
-// millis() hat ebenfalls unsigned long und int wäre zu klein für die Überprüfung
-unsigned long lastWifiCheck = 0;
-const unsigned long checkInterval = 5000; // alle 5 Sekunden 
-
-#define connectionLED 18
-
-// WebSocketsServer webSocket = WebSocketsServer(81);   // bei der localhost Anwendung benötigt da der ESP der Server war, bei der neuen variante wird auch der ESP zum CLient
-
-// Node.js Server
-const char* host = "192.168.8.189"; // Laptop IP
-const uint16_t port = 3000;
-
-WebSocketsClient webSocket;
-
-/*    alter Code
-void webSocketEvent(uint8_t num, WStype_t type, uint8_t * payload, size_t length) {
-  switch (type) {
-    case WStype_CONNECTED:
-      Serial.println("PWA verbunden");
-      break;
-
-    case WStype_DISCONNECTED:
-      Serial.println("PWA getrennt");
-      break;
-
-    case WStype_TEXT:
-      Serial.print("Von PWA empfangen: ");
-      Serial.println((char*)payload);
-      break;
-  }
-}*/
-/*
-void setup() {
-  Serial.begin(115200);
-  Serial2.begin(115200, SERIAL_8N1, 17, 16); // 17 = RXD2, 16 = TXD2
-
-  // Kontrollleuchte
-  pinMode(connectionLED, OUTPUT);
-  digitalWrite(connectionLED, LOW);
-
-  // Wifi verbinden
-  WiFi.begin(ssid, password);
-  Serial.print("Aufbau der WLAN Verbindung");
-
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
-    Serial.print(".");
-  }
-
-  Serial.println("\nWLAN verbunden!");
-  digitalWrite(connectionLED, HIGH); // Kontrollleuchte für die WLAN Verbindung
-  // Serial.print("ESP IP: "); // 172.20.10.5
-  Serial.print("IP: ");
-  Serial.println(WiFi.localIP());
-
-  /*
-  // WebSocket starten - für alte Version wo der esp der server ist
-  webSocket.begin();
-  webSocket.onEvent(webSocketEvent);
-  Serial.println("WebSocket Server gestartet (Port 81)");
-  */
-/*
-  //Verbindung zum Server herstellen, da der ESP jetzt auch der Client ist
-  webSocket.begin(host, port, "/");
-
-  webSocket.onEvent([](WStype_t type, uint8_t* payload, size_t length) {
-    if (type == WStype_CONNECTED) {
-      Serial.println("Mit Server verbunden");
-    }
-    else if (type == WStype_DISCONNECTED) {
-      Serial.println("Verbindung verloren");
-    }
-  });
-
-}
-
-void loop() {
-  if (millis() - lastWifiCheck > checkInterval) {
-    lastWifiCheck = millis();
-
-    if (WiFi.status() != WL_CONNECTED) {
-      Serial.println("WiFi Verbindung getrennt -> Verbindungsaufbau wird versucht ...");
-      digitalWrite(connectionLED, LOW);
-      WiFi.disconnect();
-      WiFi.begin(ssid, password);
-    } 
-    else {
-      digitalWrite(connectionLED, HIGH);
-    }
-  }
-
-  webSocket.loop();
-  /* alter Code als der ESP noch der Server war
-  // Daten von ESP_A empfangen und an PWA senden
-  if (Serial2.available()) {
-    String data = Serial2.readStringUntil('\n');
-    webSocket.broadcastTXT(data);
-  }*/
-/*
-  // neuer Code für den ESP B als Client
-  // Daten senden
-  if (Serial2.available()) {
-    String data = Serial2.readStringUntil('\n');
-    webSocket.sendTXT(data); // an Server senden
-  }
-}
-*/
-
-
-
 
 =========== PWA ===========
 // index.html
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8"> <!-- moderne Zeichenkodierung -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Skalierung auch für Handy-->
-    <title>ESP32 Drucksensoren</title> <!-- Titel -->
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>ESP32 Drucksensoren</title> 
 
     <!-- Manifest -->
-    <link rel="manifest" href="manifest.json"> <!-- Manifest enthält: App-Name, Icons, Startbildschirm Einstellungen, Farben -->
-                                               <!-- ohne das Manifest gibt es keine pwa-->
+    <link rel="manifest" href="manifest.json"> 
+
     <!-- PWA Icons -->
-    <link rel="icon" href="icon.png"> <!-- für tab, pwa und homescreen -->
+    <link rel="icon" href="icon.png">
 
     <!-- Style -->
-    <link rel="stylesheet" href="style.css"> <!-- bindet css datei ein -->
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <h1>Drucksensoren Live</h1> <!-- h1 = große Überschrift -->
-    <div id="status">Verbinde ...</div> <!-- Status anzeigen -->
-    <div id="values"></div> <!-- Drucksensorwerte live anzeigen -->
+    <h1>Drucksensoren Live</h1> 
+    <div id="status">Verbinde ...</div> 
+    <div id="values"></div> 
 
     <h2>Bewegungsstatus:</h2>
     <div id="movementStatus">Warte auf Daten ...</div>
 
     <canvas id="movementChart"></canvas>
 
-    <script src="script.js"></script> <!-- Java Script laden: WebSocket Verbindung zur pwa, darstellung der Drucksensorwerte -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Chart.js -->
+    <script src="script.js"></script> 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> 
     <!-- Service Worker registrieren -->
     <script>
-    if ("serviceWorker" in navigator) { // wenn der Browser Service Worker unterstützt, wird service-worker.js registriert
-        navigator.serviceWorker.register("service-worker.js"); // Service Worker kümmert sich um Caching, Offline Funktionen, Installation als pwa
+    if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("service-worker.js"); 
     }
     </script>
 
@@ -324,18 +218,17 @@ void loop() {
 // script.js 
 let ws;
 let reconnectTimeout = null;
-const reconnectInterval = 2000; // 2 Sekunden Reconnect Interval
+const reconnectInterval = 2000;
 let lastValues = null;
 let chart = null;
 
 function connectWebSocket() {
-    if (ws) { // falls noch eine alte Version da ist, wird diese geschlossen
+    if (ws) {
         ws.onclose = null;
         ws.close();
     }
 
-    ws = new WebSocket("ws://172.20.10.6:81");  // IP von ESP B - localhost Anwendung
-    //ws = new WebSocket("ws://192.168.8.189:3000") // Laptop IP - Server Anwendung
+    ws = new WebSocket("ws://172.20.10.6:81");  
 
     ws.onopen = () => {
         console.log("Verbunden!");
@@ -351,8 +244,7 @@ function connectWebSocket() {
         // console.log("Daten vom ESP: ", event.data);
 
         try {
-            // JSON.parse() macht aus dem text von event.data ein JavaScriptObjekt
-            const data = JSON.parse(event.data); // bedeutet man kann jetzt auf die Sensoren zugreifen also z.B. data.movement.s1_lu
+            const data = JSON.parse(event.data); 
             const movementData = data.movement;
 
             // Bewegungswert berechnen
@@ -384,16 +276,11 @@ function connectWebSocket() {
                 connectWebSocket();
             }, reconnectInterval);
         }
-
-        /* Version 2 Code
-        setTimeout(() => {
-            connectWebSocket();
-        }, reconnectInterval); */
     };
 
     ws.onerror = (err) => {
         console.error("WebSocket Fehler: ", err);
-        ws.close(); // wichtig, weil dadurch wird onclose getriggert
+        ws.close(); 
     };
 }
 
@@ -413,7 +300,7 @@ function updateStatus(isConnected) {
 }
 
 function deltaMovement(current) {
-    if(!lastValues) { // lastValues definieren, falls es nicht definiert ist
+    if(!lastValues) { 
         lastValues = current;
         return 0;
     }
@@ -421,8 +308,8 @@ function deltaMovement(current) {
     let deltaSum = 0;
 
     for (let key in current) {
-        let delta = Math.abs(current[key] - lastValues[key]); // Math.abs = Betrag
-        deltaSum += delta; // Änderungen werden addiert
+        let delta = Math.abs(current[key] - lastValues[key]); 
+        deltaSum += delta;
     }
 
     lastValues = current;
@@ -442,14 +329,13 @@ function getStatusMov(movementValue) {
 }
 
 function updateMovementStatus(statusObject) {
-    // document = ganzes html Dokument
     const el = document.getElementById("movementStatus");
 
     el.textContent = statusObject.text;
     el.style.backgroundColor = statusObject.color;
     el. style.color = "white";
-    el.style.padding = "10px";  // Innenabstand
-    el.style.borderRadius = "10px"; // abgerundete Ecken
+    el.style.padding = "10px";  
+    el.style.borderRadius = "10px"; 
 }
 
 function updateValues(values) {
@@ -464,14 +350,14 @@ function updateValues(values) {
 }
 
 function updateChart(value) {
-    if (!chart) return; // Guard Clause - solange chart nicht existiert wird die Funktion beendet
+    if (!chart) return; 
 
     chart.data.labels.push("");
-    chart.data.datasets[0].data.push(value); // push hängt die neuen Daten hinten an
+    chart.data.datasets[0].data.push(value); 
 
     // Chart zeigt die letzten 120 Werte
     if (chart.data.labels.length > 120) {  
-        chart.data.labels.shift(); // shift() ... entfernt das erste Element
+        chart.data.labels.shift(); 
         chart.data.datasets[0].data.shift();
     }
 
@@ -479,32 +365,30 @@ function updateChart(value) {
 }
 
 // Chart initialisieren
-window.onload = function () { // window.onload wartet bis html komplett geladen ist
-    const ctx = this.document.getElementById("movementChart").getContext("2d");
+window.onload = function () { 
+    const ctx = this.document.getElementById("movementChart")
+    .getContext("2d");
 
     chart = new Chart(ctx, {
-        type: "line",   // Liniendiagramm
+        type: "line",   
         data: {
-            labels: [], // X-Achse
+            labels: [],
             datasets: [{
                 label: "Bewegungsintensität",
-                data: [],   // Y-Achse
-                borderWidth: 2, // Linienstärke
-                fill: false // Fläche unter der Linie nicht gefüllt
+                data: [],   
+                borderWidth: 2, 
+                fill: false 
             }]
         },
         options: {
             animation: false,
-            responsive: true    // automatisch Bildschirmgröße anpassen
+            responsive: true   
         }
     });
     
     // Starten
-    connectWebSocket(); // ist jetzt im window.onload damit der WebSocket erst startet sobald alles bereit ist
-    // davor war es egal dass es am schluss war weil die Textanzeigen sofort existieren aber chart muss erst erstellt werden
+    connectWebSocket(); 
 }
-
-
 
 //style.css
 body {
@@ -518,7 +402,6 @@ body {
     font-weight: bold;
 }
 
-
 //service-worker.js 
 self.addEventListener("install", (event) => {
     console.log("Service Worker installiert");
@@ -528,7 +411,6 @@ self.addEventListener("install", (event) => {
 self.addEventListener("activate", (event) => {
     console.log("Service Worker aktiviert");
 });
-
 
 //manifest.json
 { 
@@ -556,62 +438,66 @@ self.addEventListener("activate", (event) => {
 
 
 
-
-
-//gui.py
+=========== GUI.PY ===========
 import dearpygui.dearpygui as dpg
 import ble_backend
 
-
 def create_gui():
-    dpg.create_context()
+  dpg.create_context()
 
-    with dpg.window(label="Control Panel", width=800, height=500):
+  with dpg.window(label="Control Panel", width=800, height=500):
 
-        with dpg.table(header_row = False): 
-            dpg.add_table_column(); 
-            dpg.add_table_column(); 
-            dpg.add_table_column(); 
+    with dpg.table(header_row = False): 
+        dpg.add_table_column(); 
+        dpg.add_table_column(); 
+        dpg.add_table_column(); 
 
-            with dpg.table_row(): 
+        with dpg.table_row(): 
 
-                with dpg.group():
-                        dpg.add_text("Heat")
-                        dpg.add_button(label="ON", callback = ble_backend.heat_on)
-                        dpg.add_button(label= "OFF", callback = ble_backend.heat_off)
+          with dpg.group():
+              dpg.add_text("Heat")
+              dpg.add_button(label="ON", callback = ble_backend.heat_on)
+              dpg.add_button(label= "OFF", callback = ble_backend.heat_off)
 
-                with dpg.group():
-                        dpg.add_text("Movement")
-                        dpg.add_button(label="[TW] Twitching ",callback= ble_backend.tw)
-                        dpg.add_button(label="[GM] both legs", callback= ble_backend.gm)
-                        dpg.add_button(label="[LM] left leg", callback= ble_backend.lm_l_left)
-                        dpg.add_button(label="[LM] right leg", callback= ble_backend.lm_l_right)
+          with dpg.group():
+              dpg.add_text("Movement")
+              dpg.add_button(label="[TW] Twitching",
+              callback= ble_backend.tw)
+              dpg.add_button(label="[GM] both legs"
+              ,callback= ble_backend.gm)
+              dpg.add_button(label="[LM] left leg"
+              ,callback= ble_backend.lm_l_left)
+              dpg.add_button(label="[LM] right leg"
+              ,callback= ble_backend.lm_l_right)
 
-                with dpg.group():
-                        dpg.add_text("Audio")
-                        dpg.add_button(label="Baby crying", callback = ble_backend.crying)
-                        dpg.add_button(label="Baby brabbeln", callback = ble_backend.brabbeln)
-                        dpg.add_button(label="Baby coughing", callback = ble_backend.coughing)
-                        dpg.add_button(label="Baby sneezing", callback = ble_backend.sneezing)
+          with dpg.group():
+              dpg.add_text("Audio")
+              dpg.add_button(label="Baby crying", 
+              callback = ble_backend.crying)
+              dpg.add_button(label="Baby brabbeln",
+              callback = ble_backend.brabbeln)
+              dpg.add_button(label="Baby coughing",
+              callback = ble_backend.coughing)
+              dpg.add_button(label="Baby sneezing",
+              callback = ble_backend.sneezing)
 
-    dpg.create_viewport(title="BabyBot Control", width=700, height=300)
-    dpg.setup_dearpygui()
-    dpg.show_viewport()
-    dpg.start_dearpygui()
-    dpg.destroy_context()
+  dpg.create_viewport(title="BabyBot Control",width=700,height=300)
+  dpg.setup_dearpygui()
+  dpg.show_viewport()
+  dpg.start_dearpygui()
+  dpg.destroy_context()
 
-// ble_backend.py
+=========== BLE.PY ===========
 import threading
 import asyncio
 from bleak import BleakClient
 
-ESP_MAC = "a0:b7:65:69:9d:3e" # von ESP Code 
-CHAR_UUID = "abcd1234-ab12-34cd-56ef-1234567890ab" # Character UUID von ESP Code 
+ESP_MAC = "a0:b7:65:69:9d:3e" 
+CHAR_UUID = "abcd1234-ab12-34cd-56ef-1234567890ab" 
 
-ble_loop = asyncio.new_event_loop() # eigener thread für BLE, damit mit GUI nicht blockiert wird 
+ble_loop = asyncio.new_event_loop() 
 client = None
 
-# 
 async def ble_connect():
     global client 
     client = BleakClient(ESP_MAC)
@@ -634,40 +520,48 @@ async def ble_send_cmds(data: bytes):
         print("not connected")
         await client.connect()
     
-    await client.write_gatt_char(CHAR_UUID, data) # befehl an den ESP senden
-    print(f"sent {data} cmd") # debug ausgabe im serialmonitor
-
-
+    await client.write_gatt_char(CHAR_UUID, data) 
+    print(f"sent {data} cmd") 
 
 #movement callbacks
 def tw():
     print("in twitching")
-    asyncio.run_coroutine_threadsafe(ble_send_cmds(bytearray([1])), ble_loop)
+    asyncio.run_coroutine_threadsafe(ble_send_cmds(bytearray([1])),
+    ble_loop)
 def gm():
-    asyncio.run_coroutine_threadsafe(ble_send_cmds(bytearray([2])), ble_loop)
+    asyncio.run_coroutine_threadsafe(ble_send_cmds(bytearray([2])),
+    ble_loop)
 def lm_l_left():
-    asyncio.run_coroutine_threadsafe(ble_send_cmds(bytearray([3])), ble_loop)
+    asyncio.run_coroutine_threadsafe(ble_send_cmds(bytearray([3])),
+    ble_loop)
 def lm_l_right():
-    asyncio.run_coroutine_threadsafe(ble_send_cmds(bytearray([4])), ble_loop)
+    asyncio.run_coroutine_threadsafe(ble_send_cmds(bytearray([4])),
+    ble_loop)
 
 
 #audio callbacks
 def crying():
-    asyncio.run_coroutine_threadsafe(ble_send_cmds(bytearray([5])), ble_loop)
+    asyncio.run_coroutine_threadsafe(ble_send_cmds(bytearray([5])),
+    ble_loop)
 def brabbeln():
-    asyncio.run_coroutine_threadsafe(ble_send_cmds(bytearray([6])), ble_loop)
+    asyncio.run_coroutine_threadsafe(ble_send_cmds(bytearray([6])),
+    ble_loop)
 def coughing():
-    asyncio.run_coroutine_threadsafe(ble_send_cmds(bytearray([7])), ble_loop)
+    asyncio.run_coroutine_threadsafe(ble_send_cmds(bytearray([7])),
+    ble_loop)
 def sneezing():
-    asyncio.run_coroutine_threadsafe(ble_send_cmds(bytearray([8])), ble_loop)
+    asyncio.run_coroutine_threadsafe(ble_send_cmds(bytearray([8])),
+    ble_loop)
 
 #heating callbacks 
 def heat_on():
-    asyncio.run_coroutine_threadsafe(ble_send_cmds(bytearray([9])), ble_loop)
+    asyncio.run_coroutine_threadsafe(ble_send_cmds(bytearray([9])),
+    ble_loop)
 def heat_off():
-    asyncio.run_coroutine_threadsafe(ble_send_cmds(bytearray([10])), ble_loop)
+    asyncio.run_coroutine_threadsafe(ble_send_cmds(bytearray([10])),
+    ble_loop)
 
-//main.py
+=========== MAIN.PY ===========
 #Startpunkt File
 import ble_backend
 import gui
@@ -677,8 +571,7 @@ if __name__ == "__main__":
     gui.create_gui()
  
         
-//main.c
-//#include <functions.hpp>
+=========== MAIN.C ===========
 #include <SchedTask.h>
 #include <SchedTaskT.h>
 #include <ServoEasing.hpp>
@@ -715,10 +608,10 @@ HardwareSerial FPSerial(2);
 DFRobotDFPlayerMini myPlayer;
 
 //for cmd executing 
-volatile bool tw_flag = false; // Twitching mode (Arms and Legs, Servos 1-4)
-volatile bool gm_flag = false; // Gross Movement (both Legs)
-volatile bool lm_l_flag = false; // Localized Movement (left Leg)
-volatile bool lm_r_flag = false; // Localized Movement (right leg)
+volatile bool tw_flag = false; //(Arms and Legs, Servos 1-4)
+volatile bool gm_flag = false; //(both Legs)
+volatile bool lm_l_flag = false; //(left Leg)
+volatile bool lm_r_flag = false; //(right leg)
 
 volatile bool crying_flag = false; 
 volatile bool brabbeln_flag = false; 
@@ -731,7 +624,8 @@ volatile bool heat_off_flag = false;
 // BLE part 
 class CommandCallback : 
   public NimBLECharacteristicCallbacks {
-    void onWrite(NimBLECharacteristic* c, NimBLEConnInfo& coninfo) override {
+    void onWrite(NimBLECharacteristic* c, NimBLEConnInfo& coninfo) 
+    override {
       
       uint8_t cmd = c->getValue()[0];
       //Serial.print("Received BLE command: ");
@@ -779,7 +673,6 @@ class CommandCallback :
           heat_off_flag = true; 
         break; 
       } 
-
   }
 }; 
 
@@ -806,7 +699,8 @@ void setup() {
   Serial.print(addr.toString().c_str()); 
 
   NimBLEServer * server = NimBLEDevice::createServer(); 
-  NimBLEService * service = server->createService("12345678-1234-1234-1234-1234567890ab"); 
+  NimBLEService * service = server->
+  createService("12345678-1234-1234-1234-1234567890ab"); 
 
    NimBLECharacteristic* characteristic =
       service->createCharacteristic(
@@ -814,7 +708,6 @@ void setup() {
           NIMBLE_PROPERTY::READ | NIMBLE_PROPERTY::WRITE
       );
 
-  // Client = Laptop
   characteristic->setCallbacks(new CommandCallback()); 
   characteristic->setValue("ready"); 
 
@@ -831,13 +724,17 @@ void setup() {
   Servo4.attach(12,0); // right arm
 
  
-  Servo1.setTargetPositionReachedHandler(Servo1TargetReachedHandler);
+  Servo1.setTargetPositionReachedHandler
+  (Servo1TargetReachedHandler);
   Servo1.setSpeed(90);                        
-  Servo2.setTargetPositionReachedHandler(Servo2TargetReachedHandler);
+  Servo2.setTargetPositionReachedHandler
+  (Servo2TargetReachedHandler);
   Servo2.setSpeed(90);      
-  Servo3.setTargetPositionReachedHandler(Servo3TargetReachedHandler);
+  Servo3.setTargetPositionReachedHandler
+  (Servo3TargetReachedHandler);
   Servo3.setSpeed(90);      
-  Servo3.setTargetPositionReachedHandler(Servo4TargetReachedHandler);
+  Servo3.setTargetPositionReachedHandler
+  (Servo4TargetReachedHandler);
   Servo3.setSpeed(90);    
 }
 
@@ -847,13 +744,9 @@ SchedBase::dispatcher();
 
 }
 
-
-//Schedueled Tasks
 SchedTask BLECommands(0,50,BleCmd); 
 SchedTask Heatcontrol(0, 300, HeatMonitor); 
 SchedTask Servos(0,200,ServoSM); 
-
-
 
 void HeatMonitor(){
   // Pt100 data 
@@ -863,7 +756,7 @@ void HeatMonitor(){
 //Statemaschine
 typedef enum { 
   IDLE,
-  TWITCHING, // Arms and Legs (4Servos) 
+  TWITCHING,
   GM,
   LM_L_LEFT,
   LM_L_RIGHT,
@@ -876,7 +769,6 @@ typedef enum {
   CMD_LM_L_LEFT,
   CMD_LM_L_RIGHT,
 }t_state_commands; 
-
 typedef enum {
   ENTRY,
   DURING,
@@ -934,7 +826,6 @@ void BleCmd(){
   }
 }
 
-
 //LUTs
 int TWITCHING_lut[SEQUENCES][SERVOS] = {
  //S1 S2 S3 S4 
@@ -943,14 +834,14 @@ int TWITCHING_lut[SEQUENCES][SERVOS] = {
   {50,0,0,50},
   {0,50,50,0}
 }; 
-int GM_lut[SEQUENCES][SERVOS-2] = { // only Servo1 and Servo2 needed
+int GM_lut[SEQUENCES][SERVOS-2] = { 
   {50,0},
   {0,50},
   {50,0},
   {0,50}
 }; 
-int LM_L_LEFT_lut [SEQUENCES] = {50,0,50,0}; // only one (Servo1 Left Leg) needed
-int LM_L_RIGHT_lut[SEQUENCES] = {50,0,50,0}; // Servo2 Right Leg 
+int LM_L_LEFT_lut [SEQUENCES] = {50,0,50,0};
+int LM_L_RIGHT_lut[SEQUENCES] = {50,0,50,0};
 
 int counter1 = 0; //Servo1 Callback
 int counter2 = 0; //Servo2 Callback 
@@ -959,9 +850,6 @@ int counter4 = 0; //Servo4 Callback
 
 void Servo1TargetReachedHandler(ServoEasing *aServoEasingInstance){
   switch(states){
-    // was muss der Servo1 also Linkes Bein machen bei Twitching, wir gehen nach dem LUT
-    // Servo 1 winkel sind in der ersten Spalte des LUT geschrieben 
-
     case TWITCHING:
       if (counter1 < SEQUENCES){
         Servo1.startEaseTo(TWITCHING_lut[counter1][0]);
@@ -1005,7 +893,7 @@ void Servo2TargetReachedHandler(ServoEasing *aServoEasingInstance){
 
     case TWITCHING:
       if(counter2 <= 3){
-        Servo2.setEaseTo(TWITCHING_lut[counter2][1]); // second col for Servo2 deg
+        Servo2.setEaseTo(TWITCHING_lut[counter2][1]); 
         counter2++; 
         state_commands = CMD_IDLE; 
       }
@@ -1074,7 +962,6 @@ void Servo4TargetReachedHandler(ServoEasing *aServoEasingInstance){
     }
   break; 
   }
-
 }
 
 void ServoSM() {
@@ -1151,6 +1038,6 @@ void ServoSM() {
     break; 
   }
 } 
-
     \end{verbatim}
+  \end{multicols}
 \end{relsize}

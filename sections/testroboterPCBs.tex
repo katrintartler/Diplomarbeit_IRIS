@@ -8,16 +8,6 @@ Auf der Hauptplantine sollen der ESP32, das DFPlayer-Modul, Anschlüsse zur Serv
 einen Spannungsregulator, der die 7,4V des Netzteils auf die für die Elektronik benötigten 5V hinunterregeln soll. Der gesamte Schaltplan ist in Abbildung \ref{fig:pcb:MP_all}
 abgebildet. 
 
-\subsection{Schaltplan}
-\begin{figure}[H]
-\centering
-\includegraphics[angle = 90, width = 15cm]{images/PCBs/MP_all.pdf}
-\caption{Schaltplan der Hauptplatine des Testroboters}
-\label{fig:pcb:MP_all}
-\end{figure}
-\newpage
-\noindent
-
 \subsubsection{Allgemeine Informationen zum Designprozess}
 In KiCad ist es möglich eine Platine mit nahezu jeden Bauteilen zu erstellen, da man Symbol- und Footprintdateien benutzerdefinert einfügen kann. 
 Die Symboldateien sind für das Erstellen des Schaltplans, die Footprints für das Layout. Auch beim Erstellen unserer Platinen mussten wir von dieser Anwendung 
@@ -191,15 +181,6 @@ siehe Abschnitt \ref{123}. Wenn der MOSFET also vom ESP angesteuert wird, schlie
 So fließt der Strom dann durch die Keramikwiderstände und Wärme entsteht. Um mehr Sicherheit zu gewährleisten wurde auf dieser Platine auch eine 
 Schaltung zur Wärmedetektion aufgebaut. Mittels PT100 Spannungsteiler soll der Temperturwert der Keramikwiderstände an den ESP weiter gegeben werden, welcher 
 bei zu hohen Temperaturen die Wärmesimulation abschalten kann. 
-
-\subsection{Schaltplan}
-\begin{figure}[H]
-\centering
-\includegraphics[angle= 90, width = 15cm]{images/PCBs/Heat_Platine.pdf}
-\caption{Schaltplan der Heat-Platine des Testroboters}
-\label{fig:pcb:H_all}
-\end{figure}
-\noindent
 
 \subsection{Layout}
 \begin{figure}[H]
