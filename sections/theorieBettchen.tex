@@ -100,10 +100,10 @@ Das kann durch Materialeigenschaften oder Rückverformungen des Sensors entstehe
 \subsection[Wärmesensorik]{Wärmesensorik\authorkatrin}
 Für die Überwachung von Wärmeparametern in dem Babybett kommen verschiedene Methoden in Frage.
 Der für unsere Anwendung wichtigste Bereich der Temperatur liegt, im Bereich der Körpertemperatur. 
-Vor allem der Aspekt einer passablen Erkennung von Unterkühlung bzw. Fieber. Damit bewegen 
-wir uns in einem Temperaturmessbereich von 30 bis 45 Grad Celsius. Da der menschliche Körper ein perfekt abgestimmtes 
+Vor allem der Aspekt einer passablen Erkennung von Unterkühlung bzw. Fieber. Da der menschliche Körper ein perfekt abgestimmtes 
 System ist, ist der ideal Temperaturbereich äußerst gering. Von einer Unterkühlung spricht man ab einer 
-Körpertemperatur von unter 34° C \cite{unterkuehlung_baby}, von Fieber bei Säuglingen in den ersten Monaten schon ab 38°C \cite{fieber_baby}
+Körpertemperatur von unter 34° C \cite{unterkuehlung_baby}, von Fieber bei Säuglingen in den ersten Monaten schon ab 38°C. \cite{fieber_baby}
+Damit liegt der Temperaturmessbereich von 30 bis 45 Grad Celsius.
 Für unsere Anwendung eines wertesammelnden Babybettes kommen zwei Möglichkeiten in Frage, eine Befestigung der Sensorik an der Matratze (siehe \ref{Temperaturmessung mit Körperkonkakt}), für die
 Messung mit Körperkontakt, oder eine optische Messung über eine Wärmebildkamera.
 \subsubsection{Wärmebildkamera}
@@ -125,9 +125,15 @@ MEMS sehr energieeffizient. \cite{elektronikkompendium_mems} \cite{mems_wikipedi
 Das MEMS-Mikrofon, ist ein Micro-Electro-Mechanical System spezialisiert auf Geräusche. Die Schallwellen treffen durch ein kleines Loch ins  Der Kern der Technologie ist eine winzige Membran, 
 ähnlich dem Trommelfell, welche die Schallwellen auf mechnaische Weise aufnimmt. Daraus werden elektrische Signale generiert, also im Prinzip wie bei herkömmlichen 
 Mikrofonen nur kleiner. \cite{mems_microphone_zoom} Der Aufbau eines MEMS-Mikrofons ist in Abbildung \ref{fig:mems} allgemein veranschaulicht. 
+Viele MEMS-Mikrofone sind so konzipiert, dass sie omnidirektional arbeiten können.  
+Omnidirektional bedeutet, das Mikrofon kann aus jeder Richtung Schall aufnehmen \cite{unidirectional_omnidirectional_microphone}.
+Damit die vom Mikrofon aufgenommenen Signale verarbeitet werden können, müssen sie an ein externes Gerät, beispielsweise einen Laptop übermittelt werden. 
+Hierfür eigent sich die $I^2S$-Schnittstelle. 
+Sie wurde speziell für die Übertragung von Audiodateien entwickelt. Die serielle Übertragung erfolgt mittels 3 Leitungen. Daten- Takt und 
+Wortauswahlleitung sind beteiligt \cite{i2s_heinen_elektronik}. 
 \begin{figure}[H]
 \centering
-\includegraphics[width=6cm]{images/MEMS_mikroSchematisch.jpg}
+\includegraphics[width=5cm]{images/MEMS_mikroSchematisch.jpg}
 \caption{Aufbau eines MEMS-Mikrofons \cite{mems_microphone_zoom_bild}}
 \label{fig:mems}
 \end{figure}
@@ -157,11 +163,11 @@ Dieser Zusammenhang der Messwerte bildet die Grundlage für die Interpretation d
 \par\vspace{1em}
 
 \noindent
-In der Abbildung \ref{fig:EBV_adc-funktion} wird dargestellt, wie die Umwandlung eines analogen Signals in ein digitales Signal erfolgt. 
+In der Abbildung \ref{fig:EBV_adc-funktion} ist die schematische Umwandlung eines Signals dargestellt. 
 \begin{figure}[H]
 \centering
 \includegraphics[width = 15cm]{images/EBV_adc-funktion.jpg}
-\caption{ADC wandelt ein analoges Signal in ein digitales Signal \cite{ebv_adc_bild}}
+\caption{Schematische Darstellung eines ADCs\cite{ebv_adc_bild}}
 \label{fig:EBV_adc-funktion}
 \end{figure}
 

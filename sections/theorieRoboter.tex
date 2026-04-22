@@ -4,10 +4,11 @@
 
 \subsubsection{ESP32}
 Der ESP32 ist das zentrale Steuerungselement des Testroboters.
+
 \noindent
 Damit wird die Bewegungs-, Geräusch- und Wärmesimulation angesteuert. Der ESP32 ist ein
 system-on-chip (SOC) Microcontroller. Das bedeutet er umfasst viele Funktionen wie CPU, RAM, Microcontroller und unterstützender Hardware, aufgebaut in einem Dev-Board.
-Wir benutzten den ESP32 DevKit C4.
+In diesem Projekt wird der ESP32 DevKit C4 benutzt. \cite{esp32_devkitc_v4_datasheet}
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=8cm]{images/ChipVSSoc.jpg}
@@ -43,7 +44,7 @@ Abbildung \ref{fig:ble_architektur}veranschaulicht diesen Aufbau.
 \end{figure}
 
 \noindent
-In der Application Layer können wir unsere Anwendung mit BLE realisieren.
+In der Application Layer wird die individuelle Anwendung mit BLE realisiert.
 Hier implementiert man die Anforderungen. In der Host Layer findet die Kommunikation zwischen Benutzeranwendung und Controllinterface
 der Hardware statt. Man nennt diese Ebene auch Host Stack, kombieniert mit dem Controller Stack bilden sie den Bluetooth Stack.
 Alle relevanten BLE Protokolle der Hostseite sind hier implementiert.
@@ -54,29 +55,32 @@ Sie interagieren direkt mit der Hardware. Die BLE-Protokolle der Host Schicht si
 \subsubsection{GAP (Generic Access Profile)} \label{GAP}
 GAP ist für die Verbindung von zwei BLE-Geräten verantwortlich. 
 Das Protokoll ist in drei verschiedene Modi geteilt, je nachdem welcher Verbindungsgrad erfüllt ist. 
-Innerhalb dieser gibt es Rollen, die den Geräten zugeteilt sind. Dies wird in Abbildung \ref{fig:ble_gap} veranschaulicht.\cite{espressif_ble_intro}
- 
-\begin{figure}[h]
+Innerhalb dieser gibt es Rollen, die den Geräten zugeteilt sind. Dies wird in Abbildung \ref{fig:ble_gap_bsp_und_aufbau} (a) veranschaulicht.\cite{espressif_ble_intro}
+
+\begin{figure}[H]
 \centering
-\includegraphics[width = 12cm]{images/ble-gap.png}
-\caption{BLE GAP \cite{espressif_ble_intro_bild}}
-\label{fig:ble_gap}
-\end{figure}
+\begin{subfigure}{0.45\textwidth}
+ \centering
+ \includegraphics[width=\linewidth]{images/ble-gap.png}
+ \vspace*{4cm}
+ \caption{schematischer Verbindungsaufbau \cite{espressif_ble_intro_bild}}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.45\textwidth}
+ \centering
+ \includegraphics[width=\linewidth]{images/ble-gap_bsp.png}
+ \caption{beispielbezogener Verbindungsaufbau}
+\end{subfigure}
+\caption{GAP Verbindungsaufbau}
+\label{fig:ble_gap_bsp_und_aufbau}
+\end{figure} 
+
 \noindent
 In unserem Projekt übernimmt der ESP32 die Rolle des Servers und der Laptop fungiert als Client. 
 Im GAP werden diese Rollen mit Peripheral (Server) und Central (Client) bezeichnet. \cite{espressif_ble_intro}
-Anhand von Abbildung \ref{fig:ble_gap_bsp} lässt sich der Verbindungsaufbau und die unterschiedlichen Rollen welche die Teilnehmener dabei annehmen nachvollziehen. 
-\newpage 
+Anhand von Abbildung \ref{fig:ble_gap_bsp_und_aufbau} (b) lässt sich der Verbindungsaufbau und die unterschiedlichen Rollen welche die Teilnehmener dabei annehmen nachvollziehen. 
+%\newpage 
 
-\vspace*{\fill}
-\begin{figure}[htbp]
-\centering
-\includegraphics[width = 7cm]{images/ble-gap_bsp.png}
-\caption{GAP Verbindungsaufbau}
-\label{fig:ble_gap_bsp}
-\end{figure}
-\vspace*{\fill}
-\newpage
 
 \subsubsection{GATT (Generic Attribute Profile)} \label{GATT}
 Das GATT Protokoll basiert auf einer hierarchischen Einteilung von Characteristic, Service und Profile.
