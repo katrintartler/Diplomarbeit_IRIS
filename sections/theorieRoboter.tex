@@ -8,7 +8,7 @@ Der ESP32 ist das zentrale Steuerungselement des Testroboters.
 \noindent
 Damit wird die Bewegungs-, Geräusch- und Wärmesimulation angesteuert. Der ESP32 ist ein
 system-on-chip (SOC) Microcontroller. Das bedeutet er umfasst viele Funktionen wie CPU, RAM, Microcontroller und unterstützender Hardware, aufgebaut in einem Dev-Board.
-In diesem Projekt wird der ESP32 DevKit C4 benutzt. \cite{esp32_devkitc_v4_datasheet}
+In diesem Projekt wird der ESP32 DevKit C4 benutzt. \cite{esp32_devkitc_v4_datasheet} \cite{microprocessor_microcontroller_soc}
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=8cm]{images/ChipVSSoc.jpg}
@@ -133,7 +133,15 @@ Mit der Python Bibliothek Dear PyGui (DPG) lassen sich einfache GUI (Graphical U
 Man nutzt sie zur Erstellung von Diagrammen, Tabellen und einfachen bis komplexen User Interfaces.
 DPG ist dynamisch, GPU-beschleunigt und sehr anwenderfreundlich. \cite{dpg_docu}
 
-%\subsection{Realtime System} %1.6.2 in Methodik 
+\subsection{PlatformIO} %1.6.2 in Methodik 
+PlatformIO ist eine Entwicklungsumgebung welche die wesentlichen Schritte für das Programmieren eines Mikrocontrollers, wie Kompilieren, Bibliotheksverwaltung und 
+Hochladen auf diesen in einer Umgebung zusammenfasst \cite{platformio}. Die Anforderungen um ein Projekt zu erstellen sind die Auswahl eines
+gewünschten Frameworks und des Boards welches man verwendet. Der Framework beschreibt die Softwaregrundlage, die für die Programmierung 
+genutzt werden soll. Damit ist ein großer Teil der Struktur des Projekts konfiguriert \cite{software_framework_wikipedia}. Wird unser ESP als DevBoard eingestellt, stehen zwei Frameworkoptionen
+zur Auswahl. Der Arduino Framework, welcher auch in der ArduinoIDE genutzt wird
+oder der offizielle Framework von Espressif, ESP-IDF \cite{platformio_frameworks}. Der Framework Arduino stellt die Grundvoraussetzungen bereit, 
+mit einer Optimierung auf ESP-IDF hat man Zugriff auf eine genauer auf den Mikrocontroller abgestimmte Funktion, aber es ist viel komplexer \cite{espidf_framework}.
+In diesem Fall wird der Arduino Framework genutzt \cite{arduino_framework}. 
 
 \subsection{Bewegungssimulation} %1.6.3
 \subsubsection{Bewegungsabläufe} \label{Bewegungstheorie}
@@ -210,10 +218,14 @@ Aus dem Datenblatt des DFPlayer Moduls kann man die commands für die einzelnen
 Funktionen des Moduls herauslesen. Zur Programmierung ist es jedoch nicht erforderlich die commands manuell 
 zu codieren da die Library DFRobotDFPlayerMini \cite{dfplayer_lib} diese in Funktionen implementiert hat. 
 \subsubsection{Lautsprecher}
-Die Audioausgabe erfolgt über einen 8 Ohm Lautsprecher. Dieser wandelt die eletrischen
-Audiosignale in mechanische Signale (Schallwellen) um, die den Ton übertragen. 
-%Modul erklären oder is das mehr Methodik? 
-%Lautsprecher Theorie
+Die Audioausgabe erfolgt über einen 8 Ohm Lautsprecher. Die Audioausgabe erfolgt über einen 8-Ohm-Lautsprecher.
+Dieser wandelt elektrische Audiosignale in mechanische Schwingungen (Schallwellen) um, die anschließend als hörbarer Ton übertragen werden.
+Das Funktionsprinzip basiert dabei auf dem elektrodynamischen Effekt: Ein stromdurchflossener Leiter (Schwingspule) befindet sich in einem
+Magnetfeld und wird durch die wirkende Lorentzkraft in Schwingung versetzt. Diese Bewegung wird auf eine Membran übertragen, die die Luft in Schwingung versetzt und somit Schall erzeugt.
+
+\noindent
+Die Impedanz von 8 Ohm stellt einen typischen Wert für Kleinlautsprecher dar und ist entscheidend für die Auslegung der Ansteuerelektronik.
+Um eine ausreichende Lautstärke zu erzielen, wird der Lautsprecher in der Regel über einen Verstärker angesteuert, da Mikrocontroller alleine meist nicht genügend Leistung liefern können.
 
 \subsection{Wärmesimulation} %1.6.5
 \subsubsection{Keramikwiderstände}

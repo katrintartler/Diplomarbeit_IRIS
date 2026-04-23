@@ -76,13 +76,21 @@ und eine stablilisiernede Innenkonstruktion wurden mithilfe dieses Verfahrens an
 \subsection[KiCad]{KiCad\authorkatrin}
 KiCad ist ein kostenloses open-source Schaltplan- und Layoutdesigntool.
 Es kann betriebssystemübergreifend genutzt werden.
-KiCad ermöglicht eine Schritt für Schritt Projektentwicklung, vom Einbeziehen der individuellen
-Bauteile bis zum 3D-modellierten Abbild der erstellten Platine. 
+KiCad ermöglicht eine Schritt für Schritt Projektentwicklung, vom Einbeziehen der individuellen Bauteile bis zum 3D-modellierten Abbild der erstellten Platine. 
 Es gibt viele verschiedene Plugins, die kombiniert wertvolle Features ergeben. 
-Ein besonderer Vorteil ist die große Sammlung an Symbolen, Footprints oder 3D-Modellen und 
-das einfache Konfigurieren oder Einbeziehen individueller Komponenten. 
-Für die weitere Fertigung der Platine lassen sich ganz leicht, benötigte Gerber
-und Bohrdateien exportieren. \cite{kicad_docs}
+Ein besonderer Vorteil ist die große Sammlung an Symbolen, Footprints oder 3D-Modellen und das einfache Konfigurieren oder Einbeziehen individueller Komponenten.
+Diese können eigens erstellt werden oder auf Drittanbieter Websites wie SnapMagic heruntergeladen und einbezogen werden.
+Für die weitere Fertigung der Platine lassen sich ganz leicht benötigte Gerber und Bohrdateien exportieren. \cite{kicad_docs}
+\par\vspace{1em}
+\noindent
+Damit der Schaltplan besserer strukturiert ist, kann man Labels verwenden.
+Statt einer optischen Verbindung, verbindet man Bauteile, indem man den Pins den gleichen Namen zuweist, wenn sie miteinander verbunden werden sollen. 
+Dadurch entstehen weniger Überkreuzungen von Verbindungen, welche Verwirrungen aufbringen können und Untergruppen.
+\par\vspace{1em}
+\noindent
+Bei der Erstellung eines Schaltplanes in KiCad müssen mehrere Aspekte beachtet werden, damit der ERC (Electrical Rule Check) erfolgreich ist und man mit dem Layouten weitermachen kann.
+Wenn man Pins eines Mikrokontrollers oder anderer Bauteil nicht benötigt, muss man ein Kreuz setzen und damit kennzeichnen, dass diese Pins nicht verwendet werden. Ein weiteres Kriterium für den ERC sind die Powerflags.
+Diese kennzeichnen in KiCad, dass diese Netze mit Spannung versorgt werden, obwohl keine für KiCad erkennbare Spannungsquelle angeschlossen ist.
 
 \subsection[Ätzen]{Ätzen\authorlinda}
 Ätzen ist ein Verfahren, welches in der Leiterplattenfertigung verwendet wird, um das überschüssige Kupfer der Platine abzutragen. 

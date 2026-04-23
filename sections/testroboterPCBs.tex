@@ -8,20 +8,6 @@ Auf der Hauptplantine sollen der ESP32, das DFPlayer-Modul, Anschlüsse zur Serv
 einen Spannungsregulator, der die 7,4V des Netzteils auf die für die Elektronik benötigten 5V hinunterregeln soll. Der gesamte Schaltplan ist in Abbildung \ref{fig:pcb:MP_all}
 abgebildet. 
 
-\subsubsection{Allgemeine Informationen zum Designprozess}
-In KiCad ist es möglich eine Platine mit nahezu jeden Bauteilen zu erstellen, da man Symbol- und Footprintdateien benutzerdefinert einfügen kann. 
-Die Symboldateien sind für das Erstellen des Schaltplans, die Footprints für das Layout. Auch beim Erstellen unserer Platinen mussten wir von dieser Anwendung 
-Gebrauch machen. Die Symbole und Footprints von ESP und DFPlayer-Modul wurden von der Website SnapMagic \cite{snapeda_platform} heruntergeladen. SnapMagic bietet eine 
-große Auswahl an Footprint- und Symboldateien zum freien Herunterladen an. 
-\par\vspace{1em}
-\noindent
-Die Kreuze an den Pins von ESP und DFPlayer-Modul sind eine Kennzeichnung in KiCad, dass diese Pins nicht benutzt werden. Diese zu setzten ist sehr wichtig, 
-damit man von Schaltplan- ins Layoutdesign übergehen kann. 
-\noindent
-Das zweite Kriterium dafür sind die Powerflags, wie sie zum Beispiel bei Verbindungen wie V\_ESP, 3V3 und VCC zu sehen sind. Diese kennzeichnen in KiCad, 
-dass diese Netze mit Spannung versorgt werden, obwohl keine für KiCad erkennbare Spannungsquelle angeschlossen ist. Sind diese nicht gegeben, kann kein erfolgreicher 
-ERC (Electrical Rule Checker) gemacht werden. 
-
 \subsubsection{ESP32}
 Der ESP32 wird mit einer Spannung von 5V am Pin für externe 5V versorgt. Das ist möglich, weil der ESP an disem GPIO-Pin einen internen Spannungsregler eingebaut hat welcher 
 die 5V auf die 3V3, die der ESP braucht, regelt \cite{esp32_devkitc_schematic}. Zusätzlich wurden noch drei Stützkondensatoren zum Schutz des ESPs verbaut. 

@@ -3,14 +3,7 @@
 \section[Drucksensorik testen]{Drucksensorik testen\authorlinda}
 Für die Erfassung der Bewegung des Kindes wurden im Babybettchen sechs 
 flexible Dünnschicht Drucksensoren (RP-S40-ST \cite{dfrobot_drucksensor}) verbaut. Um die Messwerte der Drucksensoren auszuwerten, muss für jeden Drucksensor ein Spannungsteiler aufgebaut werden. Da der Drucksensor unter Belastung, 
-seinen Widerstand verringert, siehe Abbildung \ref{fig:rp-s40-st_drucksensor-kennlinie}, und sich somit die Spannung am Drucksensor verändert.
-
-\begin{figure}[H]
-\centering
-\includegraphics[width = 15cm]{images/drucksensor-kennlinie.png}
-\caption{RP--S40--ST Widerstandskennlinie \cite{dfrobot_drucksensor-kennline_bild}}
-\label{fig:rp-s40-st_drucksensor-kennlinie}
-\end{figure}
+seinen Widerstand verringert, siehe Abbildung \ref{fig:drucksensor-kennlinie}, und sich somit die Spannung am Drucksensor verändert.
 
 \noindent
 Wir haben uns dazu entschieden einen Spannungsteiler mit einem Pull-up Widerstand aufzubauen, wodurch wenn der Widerstand des Drucksensors sinkt, auch die Spannung sinkt.
@@ -28,7 +21,7 @@ wurde ein 10k$\Omega$ Widerstand gewählt. Dieser wurde mithilfe, eines Multimet
 
 \begin{figure}[H]
 \centering
-\includegraphics[width = 10cm]{images/drucksensor-testen_methodik.jpg}
+\includegraphics[width = 6cm]{images/drucksensor-testen_methodik.jpg}
 \caption{Spannungsteiler des Drucksensors}
 \label{fig:drucksensor-testen_spannungsteiler}
 \end{figure}
@@ -87,7 +80,7 @@ Für die Verkabelung der Drucksensoren sind isolierte Kupferkabel, in den Farben
 
 \begin{figure}[H]
 \centering
-\includegraphics[width = 11cm]{images/babybett-drucksensoren-matratze.jpeg}
+\includegraphics[width = 6.5cm]{images/babybett-drucksensoren-matratze.jpeg}
 \caption{Babybettchen Matratze mit Drucksensoren }
 \label{fig:babybett-drucksensoren-matratze}
 \end{figure}
@@ -118,7 +111,7 @@ In Theorie ist das Babybettchen ein medizintechnisches Gerät, da über Sensoren
 \noindent
 Da unser System, durch die geplanten Sensoren einen hohen Stromverbrauch gehabt hätte, wäre es nicht sinnvoll gewesen eine Standard 9V Batterie zu verwenden. Der Stromverbrauch des geplanten Systems wurde überschlagsmäßig auf annähernd 1A geschätzt und würde eine 9V Batterie in etwa einer halben Stunde vollständig entleeren. Außerdem ist zu beachten, dass eine 9V Batterie für derartig hohe Ströme nicht ausgelegt ist. Weshalb wir uns dazu entschieden haben eine Powerbank, von der Marke Varta, zu verwenden. Der Hauptvorteil der Powerbank war, dass selbst wenn diese leer war, wieder aufgeladen werden konnte.
 
-\section{Grundlegende Systemarchitektur\authorlinda}
+\section[Grundlegende Systemarchitektur]{Grundlegende Systemarchitektur\authorlinda}
 Für die grundlegende Systemarchitektur des Babybettchens war es geplant, dass Sensoren die Bewegung, Temperatur und Geräusche des Babys messen und diese Messwerte mit einem Mikrokontroller verarbeitet werden. Nach der Auswertung der Daten, sollten diese mit dem Mikrokontroller an die nächste Stufe des Systems weitergeleitet werden, in dieser nächsten Stufe sollten die Daten und Erkenntnisse für die Eltern visualisiert werden. 
 In der Abbildung \ref{fig:methodik_grundlegende-Systemarchitektur} wird die grundlegende Systemarchitektur dargestellt.
 
@@ -189,25 +182,6 @@ sondern wurde eigenständig in der Schulwerkstatt durchgeführt.
 Auf der Platine befinden sich die beiden ESP32, die Anschlüsse der Drucksensoren und deren dazugehörigen Pull-Up Widerstände, nicht verwendete Pinheader, welche für das Mikrofon gedacht waren und eine Kontrollleuchte für die WLAN Verbindung des ESP32.
 
 \subsection{Schaltplan} \label{pcb123}
-\subsubsection{Allgemeine Informationen zu Designprozess}
-Bei der Erstellung eines Schaltplanes in KiCad müssen mehrere Aspekte beachtet werden, damit der Electrical Rule Check erfolgreich ist und man mit dem Layouten weitermachen kann. 
-
-\noindent
-Wenn man Pins eines Mikrokontrollers oder anderer Bauteil nicht benötigt, muss man ein Kreuz setzen und damit kennzeichnen, dass diese Pins nicht verwendet werden. Ein weiterer Aspekt ist, dass wenn man eine Spannungsquelle verwendet, welche von KiCad nicht als solche erkannt wird, eine PowerFlag nutzen muss.
-
-\par\vspace{1em}
-
-\noindent
-Um einen das Erstellen des Schaltplans zu erleichtern und einen besseren Überblick zu verschaffen, kann man Labels verwenden. Statt einer optischen Verbindung, verbindet man Bauteile, indem man den Pins den gleichen Namen zuweist, wenn sie miteinander verbunden werden sollen. 
-\noindent
-Dadurch entstehen weniger Überkreuzungen von Verbindungen, welche Verwirrungen aufbringen können und Untergruppen, wie beispielsweise Drucksensorik, können erstellt werden, welche zu einer besseren Übersicht führen. In diesen Untergruppen platziert man all die Bauteile, welche für diesen Part des Schaltplanes verwendet werden und verbindet sie nur durch Labels mit den anderen Untergruppen.
-
-\par\vspace{1em}
-
-\noindent
-KiCad hat ein breites Spektrum an Bauteilen, welches für die Erstellung des Schaltplans verwendet werden kann, aber nicht all unsere Bauteile waren in KiCad enthalten. Für diesen Schaltplan und später das Layout mussten wir 
-die Symbol- und Footprintdatein des ESP32 NodeMCU von der Webseite SnapMagic\cite{snapeda_platform} herunterladen und in KiCad einbinden.
-
 \subsubsection{ESP32}
 Auf der Platine befinden sich zwei ESP32, siehe Abbildung \ref{fig:schaltplan-zweiESP32}, der linke ESP32 ist der von uns bezeichnete ESP B, welcher die Kommunikationsschnittstelle des Systems bildet. Der rechte ESP32 ist der von uns bezeichnete ESP A, welcher für die Erfassung der Sensordaten verantwortlich ist.
 
@@ -1242,7 +1216,6 @@ der einen Seite anschrauben und die Scheibe dann an dem Plastik der Arme und Bei
 So werden die Gliedmaßen wieder mit dem Rumpf verbunden. 
 Abbildung \ref{fig:3d:scheibeB} und Abbildung \ref{fig:3d:ringB} zeigen diese Montageteile für die Beine. Auf Abbildung \ref{fig:3d:scheibeA} und \ref{fig:3d:ringA} sieht man 
 die Version für die Arme. 
-\newpage
 
 \begin{figure}[H] %beine /scheibe
 \centering
@@ -1588,17 +1561,6 @@ unzuwandeln. Hier ist es auch von Vorteil mit einem venv zu arbeiten.
 \subsection{Server Code} \label{Server Code}
 Nachdem die Kommandos gesendet wurden, ist es die Aufgabe des ESPs die entsprechenden Kompontenten anzusteuern. 
 Für die Programmierung des ESP verwenden wir VS-Code mit der Extension PlatformIO.
-\par\vspace{1em}
-\noindent
-PlatformIO ist eine Entwicklungsumgebung 
-welche die wesentlichen Schritte für das Programmieren eines Mikrocontrolers, wie Kompilieren, Bibliotheksverwaltung und 
-Hochladen auf diesen in einer Umgebung zusammenfasst \cite{platformio}. Die Anforderungen um ein Projekt zu erstellen sind die Auswahl eines
-gewünschten Frameworks und des Boards welches man verwendet. Der Framework beschreibt die Softwaregrundlage, die für die Programmierung 
-genutzt werden soll. Damit ist ein großer Teil der Struktur des Projekts konfiguriert \cite{software_framework_wikipedia}. Wird unser ESP als DevBoard eingestellt, stehen zwei Frameworkoptionen
-zur Auswahl. Der Arduino Framework, welcher auch in der ArduinoIDE genutzt wird
-oder der offizielle Framework von Espressif, ESP-IDF \cite{platformio_frameworks}. Der Framework Arduino stellt die Grundvoraussetzungen bereit, 
-mit einer Optimierung auf ESP-IDF hat man Zugriff auf eine genauer auf den Mikrocontroller abgestimmte Funktion, aber es ist viel komplexer \cite{espidf_framework}.
-In diesem Fall wird der Arduino Framework genutzt \cite{arduino_framework}. 
 \par\vspace{1em}
 \noindent
 Die Aufgaben des Server Codes können in fünf unterschiedliche Sektionen geteilt werden. Drei davon entsprechen der Ansteuerung der drei 
