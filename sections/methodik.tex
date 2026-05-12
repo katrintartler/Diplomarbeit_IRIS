@@ -39,7 +39,7 @@ $I^2$S-Schnittstelle.
 Aufgrund einer Unterschätzung des Aufwands beim Bau des Testroboters konnte die Geräuschsensorik im Babybett nicht mehr finalisiert werden.
 Der Einbau des Mikrofons ist auf der Main Platine vorgemerkt und kann zu einem späteren Zeitpunkt umgesetzt werden, siehe \ref{pcb123}.
 Ein Testcode zur Überprüfung der Mikrofonfunktion ist vorhanden, allerdings werden derzeit keine korrekten Daten empfangen, sodass eine sinnvolle Nutzung aktuell nicht möglich ist. 
-Sehr spät im Projektverlauf wurde uns der Tipp gegeben, die Geräuscherkennung mittels Grenzflächenmikrofon zu realisiern. Dieser Punkt wird in Abschnitt \ref{grenzflächenmic}
+Sehr spät im Projektverlauf wurde der Tipp gegeben, die Geräuscherkennung mittels Grenzflächenmikrofon zu realisiern. Dieser Punkt wird in Abschnitt \ref{grenzflächenmic}
 genauer behandelt. 
 \subsection{Wärmesensorik}
 Auch die Wärmesensorik musste unter dem Zeitdruck und der Fehleinschätzung der Arbeit am Testroboter aufgegeben werden. Der ursprüngliche Plan war es mittels Wärmebildkamera 
@@ -1097,7 +1097,7 @@ einem Ausschnitt des Schaltplans der Platine aus \ref{Heat Platinen}. Somit ergi
 P &= \frac{7,4^2}{1,5} = 36,507 W \notag \\ 
 I &= \sqrt{\frac{36,507}{1,5}} = 5,0004 A
 \end{align*}
-Der benötigte Strombedarf liegt bei unserer Leistung von 36,507W also bei ca 5A. 
+Der benötigte Strombedarf liegt bei der Leistung von 36,507W also bei ca 5A. 
 Dieser Bedarf wird von einem 20A Labornetzteil gedeckt. Aufgrund der Wahl dieser Spannungsversorgung wurde beschlossen, die weiteren 
 Komponenten des Testroboters ebenfalls mit dem Netzteil zu betreiben, siehe \ref{Spannungversorgung}.
 
@@ -1109,8 +1109,7 @@ Daher gab es einen Austausch und wir haben den RC Digital Servo 14KG mit DC Moto
 
 \subsection{Spannungsversorgung des Testroboters} \label{Spannungversorgung}
 Die Spannungsversorgung des Testroboters gestaltete sich anfangs etwas schwierig. Nach ersten Tests mit der Wärmequelle wurde uns das Ausmaß der 
-benötigten Energie bewusst, siehe \ref{Wärmequelle}. In Abstimmung mit unserem Betreuungslehrer wurde sich darauf geeinigt, die Versorgung des Testroboters ausschließlich mit der
-Verwendung eines externen 20A Netzteils zu realisieren. Da der Testroboter nur als Simulationsobjekt für die Funktion des Babybettchens entwickelt wurde, 
+benötigten Energie bewusst, siehe \ref{Wärmequelle}. Der Testroboter wird deshalb mittels 20A- Netzteil versorgt. Da der Testroboter nur als Simulationsobjekt für die Funktion des Babybettchens entwickelt wurde, 
 gibt es dementsprechend keine Auflagen bezüglich medizinisch-technischer Aspekte, siehe \ref{medizinischtechnisch}. Die Erweiterung auf eine Spannungsversorgung 
 mittels Lithium-Ionen Akku könnte in Zukunft dennoch realisiert werden \ref{Spannungsversorgung Optimierung}.
 
@@ -1473,8 +1472,8 @@ CHAR_UUID = "abcd1234-ab12-34cd-56ef-1234567890ab"
 ble_loop = asyncio.new_event_loop()     
 \end{lstlisting}
 \noindent
-asyncio.new\_event\_loop() erstellt uns eine Eventloop mit dem Namen ble\_loop. Diese ist keine Funktion der threading library
-sondern hilft uns bei der Anwendung der threading Funktionen für unseren Zweck. 
+asyncio.new\_event\_loop() erstellt eine Eventloop mit dem Namen ble\_loop. Diese ist keine Funktion der threading library
+sondern hilft bei der Anwendung der threading Funktionen für den individuellen Zweck. 
 
 \noindent
 Als nächstes wird mit den Funktionen der bleak library eine Verbindungsfunktion erstellt, siehe Listing \ref{lst:ble.py:connect}.
@@ -1506,7 +1505,7 @@ def ble_start_thread():
 \noindent
 Die Funktion ble\_start\_thread (Listing \ref{lst:ble.py:thread}) ist entscheident für die parallel laufenden 
 Eigenschaften des Programms. Zuerst wird eine run() Funktion definiert, welche dann dem Thread in Zeile 23 als 
-Argument übergeben werden kann. Zuerst wird hier dem Term event\_loop unsere zuvor erstellte ble\_loop übergeben. 
+Argument übergeben werden kann. Zuerst wird hier dem Term event\_loop die zuvor erstellte ble\_loop übergeben. 
 Zusätzlich wird sichergestellt das ble\_loop immer läuft. Mit der letzten Zeile der Funktion ble\_start\_thread wird
 der Thread zur BLE Kommunikation schließlich gestartet. 
 Das nicht blockierende, parallele System ist ab diesem Punkt fertig initialisiert und gestartet. Ab diesem Moment
@@ -1607,7 +1606,7 @@ Diese Konfiguration ist in Listing \ref{lst:main.c:blesetup} abgebildet.
   adv->start(); 
 \end{lstlisting}
 Die Sektion BLE Setup folgt dem allgemeinen Standard zur Initialisierung eines BLE-Gerätes. Mit NimBLEDevice::init("Robo"), wird dem Gerät
-der von uns gewählte Name Robo zugewiesen. Das Auslesen der MAC-Adresse des ESPs in weiterer Folge ist um die richtige Adresse im ble\_backend.py Code eintragen zu können, wie in Listing 
+der gewählte Name Robo zugewiesen. Das Auslesen der MAC-Adresse des ESPs in weiterer Folge ist um die richtige Adresse im ble\_backend.py Code eintragen zu können, wie in Listing 
 \ref{lst:ble.py:macusw} angegeben.
 Danach wird (Zeile 128 und 129) auf GATT Ebene ein Server erstellt und diesem ein Service zugeschrieben.
 Die Erstellung von einem Service ist wichtig für die Funktion der BLE Verbindung (die Funktion eines Services ist in \ref{GATT} nachzulesen), der Service ist mit 12345678-1234-1234-1234-1234567890ab,
@@ -1622,7 +1621,7 @@ ausgeführt werden soll wenn der Server eine Nachricht empfängt.
 characteristic->setValue("ready") ist eine Nachricht an den Client, sollte dieser die Characteristic lesen, empfängt er "ready".
 Mit der Funktion service->start() ist die Konfiguration des Services abgeschlossen, er ist nun auf GATT-Ebene registiert und gestartet. 
 In den Zeile 142 bis 144 wir nun die GAP-Ebene angesprochen. Zu Beginn wir der GAP-Zugriff mit  NimBLEAdvertising* adv = NimBLEDevice::getAdvertising() gestartet. Dann der 
-Service für den Client dargestellt und dann beginnt der ESP zu werben (adverting), um die Verbindung mit dem Client einzugehen. Verbindungsaufbau in unserem Projekt auch in Abbildung (\ref{fig:ble_gap_bsp})
+Service für den Client dargestellt und dann beginnt der ESP zu werben (adverting), um die Verbindung mit dem Client einzugehen. Der Verbindungsaufbau ist auch in Abbildung (\ref{fig:ble_gap_bsp})
 veranschaulicht. 
 \par\vspace{1em}
 \noindent
@@ -1662,7 +1661,7 @@ aus SchedTaskT können die einzelnen Anwendungen in verschiedene Tasks ausgelage
 So werden die Aufgaben zeitlich und ereignisbasiert ausgeführt.\cite{schedtask_lib}
 Dies ist die einfachere Methode im Vergleich zur Optimierung auf ein Real-Time System mit FreeRTOS,
 mehr dazu in \ref{RTOS}. 
-In Listing \ref{lst:main.c:SchedTasks} kann man sehen, wie einzelne Tasks erstellt werden. In unserem Fall gibt es
+In Listing \ref{lst:main.c:SchedTasks} kann man sehen, wie einzelne Tasks erstellt werden. Es gibt 
 einen Task zur Überprüfung und Auswertung gesendeter Kommandos (dieser beinhaltet auch Audio- und Wärmeansteuerung),
 einen Task zur Ansteuerung der Servos und einen der die Temperaturwerte der Wärmequelle überwacht. Dieser ist eine 
 Vorsichtsmaßnahme welche nicht zur Gänze fertiggestellt werden konnte. 
@@ -1720,6 +1719,8 @@ eine State Machine aufgebaut, siehe Abbildung \ref{fig:statediagramm}.
 \caption{Statediagramm Servo-Steuerung}
 \label{fig:statediagramm}
 \end{figure}
+
+\newpage
 \noindent
 Jeder Zustand beschreibt eine Bewegungsequenz. Wobei es jederzeit möglich ist mehr Bewegungsmuster zu implementieren. Die Bedingung um einen State zu erreichen sind die 
 state\_commands, die mit CMD\_x beschrieben sind. 
@@ -1727,8 +1728,8 @@ state\_commands, die mit CMD\_x beschrieben sind.
 \paragraph{twitching (TW)} entspricht einer diagonalen Bewegung von einem Arm und einem Bein, abwechselnd mit dem anderen Paar. Es werden also alle vier Servomotoren benötigt.
 \paragraph{gross movement (GM)} stellt die Bewegung beider Beine dar. 
 \paragraph{localized movement (LM)} hier gibt es einmal die Variante der Bewegung des rechten Beins und einmal die der Bewegung des linken Beins. 
-\newpage
 
+\par\vspace{1em}
 \noindent
 Die Statemachine wird in der Funktion BleCmd() sobald eine der bewegungsbezogenen Kommandoflags gesetzt wurde gestartet indem ein state\_command gesetzt wird, siehe 
 Listing \ref{lst:main.c:statecmd}
@@ -1765,7 +1766,7 @@ Hier wird die Bewegung der Servos mit der dem triggern der ServoCallback-Funktio
 \noindent
 Um die Ansteuerung der Servos mit dem Bewegungssequenzen
 abstimmen zu können wurden die Zielwinkel in Look-Up-Tables (LUT) geschrieben. Am Beispiel des Zustands TW ist dies in Listing \ref{lst:main.c:LUT} beschrieben. 
-\newpage
+
 \begin{lstlisting}[language=C++, caption={Zielwinkel Ansteuerung mit LUT}, label={lst:main.c:LUT}, firstnumber=277]
 int TWITCHING_lut[SEQUENCES][SERVOS] = {
  //S1 S2 S3 S4 
@@ -1797,7 +1798,6 @@ void Servo1TargetReachedHandler(ServoEasing *aServoEasingInstance){
   }
 }
 \end{lstlisting} 
-\newpage 
 
 \subsubsection{Audio Ansteuerung}
 Die Steuerung der Audiodateien läuft im BleCmd() SchedTask, mithilfe der Bibliothek DFRobotDFPlayerMini siehe Listing \ref{lst:main.c:audio}

@@ -1,7 +1,6 @@
 
 \subsection{Prinzip}
 Die Hauptplatine des Testroboters hat den Zweck den Großteil der benötigten Elektronik abzudecken. Das Erstellen von Schaltplan und Layout wurde mithilfe von KiCad realisiert. 
-Da KiCad davor noch nie von uns verwendet wurde, begann ein umfangreicher Lernprozess mit vielen Stolpersteinen. 
 \par\vspace{1em}
 \noindent
 Auf der Hauptplantine sollen der ESP32, das DFPlayer-Modul, Anschlüsse zur Servoansteuerung und Anschlüsse zur Wärmeansteuerung untergebracht werden. Zudem gibt es noch 
@@ -147,7 +146,7 @@ Auch das DFPlayer-Modul ist nur mittels Stiftleisten auf der Platine befestigt.
 \noindent
 Die Spannungsreglerschaltung im Layout wurde auf den LM2596Adj (adjustable) angepasst. Sie beeinhaltet das 50k$\Omega$ Potentiometer, welches dann einen 
 variablen Spannungswert am Ausgang einstellen kann. Bei der Auswahl der zu bestückenden Teile wurde darauf vergessen. Es wurde fälschlicherweise der 
-LM2596-5 von JLCPCB bestückt, welcher aztomatisch auf 5V regelt. Die Spannung brach so bei den Testdurchläufen immer wieder ein, und es konnte keine konstante Spannungsversorgung 
+LM2596-5 von JLCPCB bestückt, welcher automatisch auf 5V regelt. Die Spannung brach so bei den Testdurchläufen immer wieder ein, und es konnte keine konstante Spannungsversorgung 
 garantiert werden. Diese ist vor allem für die BLE Verbindung unbedingt notwendig, gibt es keine konstante oder zu wenig Spannung kann der Laptop 
 den ESP nicht als Verbindungspartner wahrnehmen. Zur Lösung wurde das Potentiometer mit einem Stück Draht überbrückt, siehe Abbildung \ref{fig:pcb:draht}.
 
@@ -172,7 +171,7 @@ bei zu hohen Temperaturen die Wärmesimulation abschalten kann.
 \begin{figure}[H]
 \centering
 \includegraphics[width = 10cm]{images/PCBs/H_layout.png}
-\caption{Layout der Heat-Platine des Testroboters}
+\caption{Layout der Heat-Platine}
 \label{fig:pcb:H_layout}
 \end{figure}
 Das Layout der Heat-Platine, siehe Abbildung \ref{fig:pcb:H_layout} muss nicht so vielen Anforderungen entsprechen wie das der Haupplatine. Der wichtigste Askpekt war es, die Versorgungsleiterbahnen 
@@ -204,9 +203,9 @@ erleichtern. In Abbildung \ref{fig:pcb:mainH} ist die von JLCPCB gefertigte Plat
 
 \par\vspace{1em}
 \noindent
-Beim Testen ist uns eine Diskrepanz zwischen dem Verlauf der Leiterbahnen der gefertigten 
-Heat-Platine und dem Verlauf der selben Leiterbahnen in unserem KiCad-Projektordner aufgefallen. Es muss versehentlich eine ältere Version des Layouts gefertigt worden sein. 
-Dieser Fehler gestaletet sich aber nicht weiter schlimm, da er keine Auswirkungen auf die Funktion der Leiterplatte hatte. Es mussten nur die Schraubklemmen neu beschriftet werden.
+Beim Testen ist eine Diskrepanz zwischen dem Verlauf der Leiterbahnen der gefertigten 
+Heat-Platine und dem Verlauf der selben Leiterbahnen im KiCad-Projektordner aufgedeckt worden. Es muss versehentlich eine ältere Version des Layouts gefertigt worden sein. 
+Dieser Fehler ist nicht weiter schlimm, da er keine Auswirkungen auf die Funktion der Leiterplatte hat. Es mussten nur die Schraubklemmen neu beschriftet werden.
 In Abbildung \ref{fig:pcb:schaubild} ist dieser Fehler dargestellt.
 
 \begin{figure}[H]

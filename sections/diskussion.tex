@@ -1,8 +1,8 @@
-\chapter{Diskussion}
+ \chapter{Diskussion}
 
 \section[Babybettchen]{Babybettchen}
 \subsection[Gehäuse für die Platine]{Gehäuse für die Platine\authorlinda} \label{Platinen-Gehäuse}
-Da die Platine kein wirkliches Gehäuse hat, wäre es sinnvoll ein solches zu designen und fertigen. Wir haben uns dazu bereits Gedanken gemacht und unser Ansatz wäre es mittels 3D-Druck ein Gehäuse zu fertigen. 
+Da die Platine kein wirkliches Gehäuse hat, wäre es sinnvoll ein solches zu designen und fertigen. Der Gedanken ist mittels 3D-Druck ein Gehäuse zu fertigen. 
 
 \par\vspace{1em}
 
@@ -12,14 +12,16 @@ Der Plan war es ein Art Box zu entwerfen, in welcher die Platine und die Powerba
 \noindent
 Danach müsste das Gehäuse über Bohrungen mit der Holzplatte, welche sich unter der Matratze des Babybettchens befindet, verbunden werden. Dadurch könnte sich die Platine an der gleichen Stelle unter dem Babybettchen, wie zuvor befinden.
 
-\subsection[weitere Drucksensoren]{weitere Drucksensoren\authorlinda} \label{weitere Drucksensoren}
+\subsection[Weitere Drucksensoren]{weitere Drucksensoren\authorlinda} \label{weitere Drucksensoren}
 Die Genauigkeit des Systems könnte durch die Verwendung von noch mehr Drucksensoren profitieren. Denn dadurch können mehr Messwerte miteinander verglichen und ausgewertet werden.
 
 \noindent
 Was auch noch zu beachten ist, dass ein Baby nicht immer an der gleichen Stelle liegen würde und somit nicht immer alle Drucksensoren abdecken würde. Was dazu führen würde, dass nicht alle Bewegungen des Babys erkannt werden würden.
 
 \subsection[Herzschlag mit Drucksensoren messen]{Herzschlag mit Drucksensoren messen\authorlinda} \label{Herzschlag-Drucksensoren}
-Es wurde auch in Betracht gezogen, ob es möglich wäre den Herzschlag des Babys mithilfe von Drucksensoren zu messen. Dafür würde wahrscheinlich eine größere Drucksensor Matrix und Sensoren, welche sehr genaue Messungen durchführen können, benötigt werden. Diese Messung wäre dennoch eine interessante Ergänzung für unser System und würde unsere Grundidee unterstützen. Leider war es uns nicht möglich, diese Messung in unserem System zu inkludieren und fanden auch keine Ansatzpunkte die für uns realisierbar waren. 
+Es wurde auch in Betracht gezogen, ob es möglich wäre den Herzschlag des Babys mithilfe von Drucksensoren zu messen. Dafür würde wahrscheinlich eine größere Drucksensor Matrix und Sensoren,
+welche sehr genaue Messungen durchführen können, benötigt werden. Diese Messung wäre dennoch eine interessante Ergänzung für das System
+und würde die Grundidee unterstützen. Leider war es uns nicht möglich, diese Messung ins System zu inkludieren und fanden auch keine Ansatzpunkte die für uns realisierbar waren. 
 %\subsection[Wärmeerkennung]{Wärmeerkennung\authorkatrin} \label{Wärmeerkennung} maybe 
 
 \subsection[Temperaturmessung mit Körperkontakt]{Temperaturmessung mit Körperkontakt\authorkatrin} \label{Temperaturmessung mit Körperkonkakt}
@@ -35,9 +37,9 @@ der Grenzflächenakustik genutzt. Dieses sagt aus, dass die Druckschwankung, als
 festen Materials ein Maximum erreicht. So werden Interferenzen und Refelxionen reduziert und man bekommt nahezu störfreie 
 Audiosignale. \cite{grenzflaechenmikrofon_wikipedia}
 \subsubsection{Umbau auf ein Grenzflächenmikrofon}
-Dadurch dass wir schon ein Mikrophon haben, kommt für uns eher der Umbau von diesem in Frage. Der komplette Umstieg auf ein gekaufetes Grenzflächenmikrofon ist nicht unbedingt 
+Da das Mikrophon schon gekauft und im Schaltplan vermerkt ist, kommt eher der Umbau von diesem in Frage. Der komplette Umstieg auf ein gekaufetes Grenzflächenmikrofon ist nicht unbedingt 
 notwendig, da das Prinzip ja nicht mit dem Mikrofontyp sondern mit der Positionierung zusammenhängt. Mit ein paar kleinen mechanischen Anpassungen lässt sich eine Konstruktion 
-für unser INMP441 bauen, welche die physikalischen Eigenschaften und Vorteile eines Grenzflächenmikrofons mit sich bringt. Montiert man es zum Beispiel mit der Mikrofonöffung 
+für das INMP441-Mikrophon bauen, welche die physikalischen Eigenschaften und Vorteile eines Grenzflächenmikrofons mit sich bringt. Montiert man es zum Beispiel mit der Mikrofonöffung 
 zum Material zeigend, auf einer glatten, festen Oberfläche, könnte dies zur Verbesserung der Datenqualität durch das Grenzflächenprinzip beitragen.
 
 \section[Babybettchen Code]{Babybettchen Code\authorlinda}
@@ -85,5 +87,5 @@ nicht tolerierbar ist.
 Das Betriebssystem des ESP32 ist ein Real Time System, namens FreeRTOS. Es ist open-source und wird in vielen 
 Mikrocontrolersystemen eingesetzt. Es ist möglich aus einem eigenen Programm eine Real Time Anwendung zu erzeugen, indem man 
 den 2 Kernen des ESP32 verschiedene Tasks zuteilt. Dies funktioniert mittels FreeRTOS.
-Unser System könnte mit dieser Technik von einem Task-Scheduling zu einem Echtzeitsystem optimiert werden. Welches auch Priorätisierung und 
+Das System könnte mit dieser Technik von einem Task-Scheduling zu einem Echtzeitsystem optimiert werden. Welches auch Priorätisierung und 
 Zeitrahmenvorgaben steuern kann. \cite{freertos_esp_idf} \cite{echtzeitsystem_heinen_elektronik} 
