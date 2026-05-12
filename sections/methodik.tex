@@ -26,7 +26,6 @@ wurde ein 10k$\Omega$ Widerstand gewählt. Dieser wurde mithilfe, eines Multimet
 \label{fig:drucksensor-testen_spannungsteiler}
 \end{figure}
 
-
 \section[Geräusch- und Wärmesensorik ]{Geräusch- und Wärmesensorik\authorkatrin}
 \subsection{Geräuschsensorik} \label{INMP441}
 Für die Erkennung von Geräuschen des Kindes war der Einsatz des INMP441 MEMPS-Mikrofons \cite{inmp441_datasheet} geplant.
@@ -46,7 +45,7 @@ Auch die Wärmesensorik musste unter dem Zeitdruck und der Fehleinschätzung der
 optisch Informationen zu sammeln und diese weiterzugeben. 
 
 \section[Aufbau des Babybettchens]{Aufbau des Babybettchens\authorlinda}
-Für unser Projekt benötigten wird ein Babybettchen, welches wir mit den notwendigen Sensoren ausstatten konnten. Es wurde in Erwägung gezogen das Babybettchen eigenständig zu bauen, weil das Bettchen relativ transportabel sein sollte und nicht immer am gleichen Ort stehen konnte. Was mit einem Standard Babybettchen nicht gewährleistet ist. 
+Für das Projekt wurde ein Babybettchen benötigt, welches mit den notwendigen Sensoren ausgestattet wurde. Es wurde in Erwägung gezogen das Babybettchen eigenständig zu bauen, weil das Bettchen relativ transportabel sein sollte und nicht immer am gleichen Ort stehen konnte. Was mit einem Standard Babybettchen nicht gewährleistet ist. 
 Wir haben uns aber gegen den Bau des Babybettchen entschieden, da dieser einiges an Zeit beansprucht hätte und den Fokus von den System relevanteren Funktionen abgezogen hätte. 
 Der Kompromiss war es ein Reisebabybettchen, siehe Abbildung \ref{fig:ganzes-Babybett}, zu bestellen, 
 da dieses die gewünschten Anforderungen erfüllen konnte. \cite{costway_reisebett} 
@@ -70,8 +69,8 @@ befestigt geworden, siehe Abbildung \ref{fig:babybett-drucksensoren-matratze}. F
 \par\vspace{1em}
 
 \noindent
-Die Erhöhung der Anzahl der Drucksensoren ist empfehlenswert, siehe \ref{weitere Drucksensoren}, ist in unserem Fall aus finanzieller Betrachtung nicht sinnvoll und realisierbar, 
-da eine 2er Packung der Drucksensoren 11,09EUR gekostet hat. \cite{amazon_drucksensor} Aufgrund dessen haben wir uns für sechs Sensoren entschieden, welche entsprechend der Bewegungsmuster, des Testroboters, platziert geworden sind. 
+Die Erhöhung der Anzahl der Drucksensoren ist empfehlenswert, siehe \ref{weitere Drucksensoren}, ist in diesem Fall aus finanzieller Betrachtung aber nicht sinnvoll und realisierbar, 
+da eine 2er Packung der Drucksensoren 11,09EUR gekostet hat. \cite{amazon_drucksensor} Aufgrund dessen wurde entschieden nur sechs Sensoren zu verwenden, welche entsprechend der Bewegungsmuster, des Testroboters, platziert geworden sind. 
 In der Abbildung \ref{fig:babybett-drucksensoren-matratze} wird die Matratze des Babybettchens dargestellt und zeigt die Platzierungen der Drucksensoren. 
 Die beiden Drucksensoren, welche sich in der Abbildung \ref{fig:babybett-drucksensoren-matratze} in der untersten „Zeile“ befinden, decken die Strampelbewegungen der Beine ab und die restlichen 4 Drucksensoren sind für die Bewegungen der Arme verantwortlich.
 
@@ -98,18 +97,23 @@ Aufgrund dieser Erkenntnisse haben wir uns für den Textilkleber entschieden. De
 In das Netz, des Babybettchens, sind zwei kleine Schlitze, mit einer Breite von 4cm, geschnitten worden, um die Verkabelung zur Platine zu führen. Die Platine befindet sich auf der Unterseite des Babybettchens, damit sie sich nicht mit dem Kind im Babybettchen befindet.
 
 \noindent
-Die Befestigung der Platine, hat unter den Zeitproblemen gelitten und wurde nur provisorisch aufgebaut, 
-siehe Abbildung \ref{fig:ganzes-Babybett}. Dieser provisorische Aufbau dient dazu, dass die Verkabelung des Babybettchens nicht unter der Bewegung der Platine leidet. Denn ohne diesen würde die Platine in der Luft schweben und durch die Verkabelung gehalten werden, was wiederum einen Belastung für die Verkabelung darstellt. 
+Die Befestigung der Platine, hat unter den Zeitproblemen gelitten und wurde nur provisorisch aufgebaut, siehe Abbildung \ref{fig:ganzes-Babybett}. 
+Diese provisorische Befestigung, mittels Nanotape am Babybettchen, dient dazu, dass die Verkabelung des Babybettchens nicht unter der Bewegung der Platine leidet. 
+Denn ohne diese, würde die Platine in der Luft schweben und durch die Verkabelung gehalten werden, was wiederum einen Belastung für die Verkabelung darstellt. 
 Im Punkt \ref{Platinen-Gehäuse} wird dieser Aspekt genauer behandelt.
 
 \subsection{Spannungsversorgung} 
 %und dann bei deim PCB punkt nur wie man es dann quasi umgesetzt hat  
-In Theorie ist das Babybettchen ein medizintechnisches Gerät, da über Sensoren Werte eines Babys erfasst und ausgewertet werden sollen. Unser System erfüllt nicht die hohen Anforderungen eines tatsächlichen medizintechnischen Produktes, dennoch versuchten wir uns  bei der Spannungsversorgung an den grundlegenden Richtlinien zu orientieren, indem das Babybettchen nicht direkt an das öffentliche Spannungsnetz angeschlossen wurde.
+In Theorie ist das Babybettchen ein medizintechnisches Gerät, da über Sensoren Werte eines Babys erfasst und ausgewertet werden sollen. 
+Unser System erfüllt nicht die hohen Anforderungen eines tatsächlichen medizintechnischen Produktes, dennoch versuchten wir uns bei der Spannungsversorgung an den grundlegenden Richtlinien zu orientieren, indem das Babybettchen nicht direkt an das öffentliche Spannungsnetz angeschlossen wurde.
 
 \par\vspace{1em}
 
 \noindent
-Da unser System, durch die geplanten Sensoren einen hohen Stromverbrauch gehabt hätte, wäre es nicht sinnvoll gewesen eine Standard 9V Batterie zu verwenden. Der Stromverbrauch des geplanten Systems wurde überschlagsmäßig auf annähernd 1A geschätzt und würde eine 9V Batterie in etwa einer halben Stunde vollständig entleeren. Außerdem ist zu beachten, dass eine 9V Batterie für derartig hohe Ströme nicht ausgelegt ist. Weshalb wir uns dazu entschieden haben eine Powerbank, von der Marke Varta, zu verwenden. Der Hauptvorteil der Powerbank war, dass selbst wenn diese leer war, wieder aufgeladen werden konnte.
+Da unser System durch die geplanten Sensoren einen hohen Stromverbrauch gehabt hätte, wäre es nicht sinnvoll gewesen, eine Standard 9V Batterie zu verwenden. 
+Der Stromverbrauch des geplanten Systems wurde überschlagsmäßig auf annähernd 1A geschätzt und würde eine 9V Batterie in etwa einer halben Stunde vollständig entleeren. 
+Außerdem ist zu beachten, dass eine 9V Batterie für derartige hohe Ströme nicht ausgelegt ist. Deshalb wurde entschieden, eine Powerbank von der Marke Varta zu verwenden. 
+Die gelieferten 5V der Powerbank sind vollkommen ausreichend und passend für die Versorgung der beiden ESP32 und den dazugehörigen Sensoren, da ein ESP32 NodeMCU über einen internen Spannungsregler verfügt, welcher die 5V auf die benötigten 3,3V herunterregelt. Der Hauptvorteil der Powerbank war, dass selbst wenn diese leer war, wieder aufgeladen werden konnte.
 
 \section[Grundlegende Systemarchitektur]{Grundlegende Systemarchitektur\authorlinda}
 Für die grundlegende Systemarchitektur des Babybettchens war es geplant, dass Sensoren die Bewegung, Temperatur und Geräusche des Babys messen und diese Messwerte mit einem Mikrokontroller verarbeitet werden. Nach der Auswertung der Daten, sollten diese mit dem Mikrokontroller an die nächste Stufe des Systems weitergeleitet werden, in dieser nächsten Stufe sollten die Daten und Erkenntnisse für die Eltern visualisiert werden. 
@@ -170,10 +174,11 @@ Da der ESP32 bereits bestellt war, suchten wir nach keinem alternativen Mikrokon
 Wir haben das Problem gelöst, indem wir einen der beiden ESPs ausschließlich für die Aufnahme der Sensordaten verwendet haben. Der zweite ESP übernimmt somit die WLAN Funktion und bildet die Schnittstelle zwischen der Datenerfassung und der Visualisierung der Daten. Dadurch dass nur der zweite ESP die WLAN Funktionalität nutzt, konnte am ersten ESP, welcher für die Erfassung zuständig ist,  ADC1 und ADC2 Pins verwendet werden.
 
 \newpage
+
 \section[Babybettchen PCB]{Babybettchen PCB\authorlinda}
 \subsection{Prinzip}
 Der Hauptanteil der Elektronik befindet sich auf der Platine des Babybettchens, siehe Abbildung \ref{fig:babybettchen-schaltplan}, die Sensoren, welche sich nicht direkt auf der Platine befinden,
- werden durch eine Verkabelung und Schraubklemmen mit der Platine verbunden. Der Schaltplan und das Layout der Platine wurden mittels KiCad erstellt. Die Fertigung der Platine erfolgte nicht über einen externen Hersteller,
+werden durch eine Verkabelung und Schraubklemmen mit der Platine verbunden. Der Schaltplan und das Layout der Platine wurden mittels KiCad erstellt. Die Fertigung der Platine erfolgte nicht über einen externen Hersteller,
 sondern wurde eigenständig in der Schulwerkstatt durchgeführt. 
 
 \par\vspace{1em}
@@ -182,6 +187,7 @@ sondern wurde eigenständig in der Schulwerkstatt durchgeführt.
 Auf der Platine befinden sich die beiden ESP32, die Anschlüsse der Drucksensoren und deren dazugehörigen Pull-Up Widerstände, nicht verwendete Pinheader, welche für das Mikrofon gedacht waren und eine Kontrollleuchte für die WLAN Verbindung des ESP32.
 
 \subsection{Schaltplan} \label{pcb123}
+
 \subsubsection{ESP32}
 Auf der Platine befinden sich zwei ESP32, siehe Abbildung \ref{fig:schaltplan-zweiESP32}, der linke ESP32 ist der von uns bezeichnete ESP B, welcher die Kommunikationsschnittstelle des Systems bildet. Der rechte ESP32 ist der von uns bezeichnete ESP A, welcher für die Erfassung der Sensordaten verantwortlich ist.
 
@@ -214,7 +220,8 @@ Bei der UART Schnittstelle, werden RX2 und TX2 verwendet, da bei der Benutzung v
 \par\vspace{1em}
 
 \noindent
-Da uns mit den Labeln aber ein Fehler passiert ist, wurde Pin 17 von ESP A mit Pin 17 von ESP B und Pin 16 von ESP A mit Pin 16 von ESP B verbunden. Das Problem konnte durch eine kleine Anpassung im Code behoben werden und führten zu keinen weiteren Problemen.
+Da bei den Labeln aber ein Fehler passiert ist, wurde Pin 17 von ESP A mit Pin 17 von ESP B und Pin 16 von ESP A mit Pin 16 von ESP B verbunden. 
+Das Problem konnte durch eine kleine Anpassung im Code behoben werden und führten zu keinen weiteren Problemen.
 
 \subsubsection{Drucksensoren}
 In der Abbildung \ref{fig:schaltplan-drucksensorik-babybettchen} sieht man den Aufbau der sechs Drucksensoren im Schaltplan. Die Drucksensoren sind über Labels mit den dazugehörigen Pull-Up Widerständen und Ground verbunden. Der ESP A kann somit, die Spannungsänderung jedes einzelnen Drucksensors messen und weiterleiten. 
@@ -258,7 +265,6 @@ Die Kontrollleuchte ist über einen Vorwiderstand von 300$\Omega$ mit dem ESP B 
 \label{fig:schaltplan-kontrollleuchte-babybettchen}
 \end{figure}
 
-
 \subsection{Layout}
 \begin{figure}[H]
 \centering
@@ -274,11 +280,11 @@ In der Abbildung \ref{fig:layout-babybettchen-platine} wird das ganze Layout dar
 \par\vspace{1em}
 
 \noindent
-Während dem Designen des Layouts, versuchten wir ein paar Aspekte des hochfrequenzsicheren Layoutens umzusetzen. Wir haben die Leiterbahnen, so gut wie uns möglich war, kurz gehalten und den Abstand zwischen den Leiterbahnen erhöht, wo der Platz drumherum es zugelassen hat. Darüber hinaus haben wir eine Ground-Plane eingefügt und wollten es vermeiden Leiterbahnen direkt unter den ESP32 Antenne durchzuführen.
-Dieser Punkt ist uns bei dieser Platine weniger gelungen, da wir oftmals keine andere Option gesehen haben, wie wir die Leiterbahnen führen sollten.
+Während des Designens des Layouts wurde versucht, ein paar Aspekte des hochfrequenzsicheren Layoutens umzusetzen. Die Leiterbahnen wurden so gut wie möglich kurz gehalten und der Abstand zwischen den Leiterbahnen wurde so groß wie es nur gegangen ist gewählt, um Störungen zu vermeiden. 
+Darüber hinaus wurde eine Ground-Plane eingefügt und es wurde versucht, Leiterbahnen direkt unter den ESP32 Antennen zu vermeiden. Dieser Punkt ist bei dieser Platine weniger gelungen, da oftmals keine andere Option gegeben war.
 
 \subsection{Ätzen der Platine}
-Die doppeltseitige Platine des Babybettchens wurde von uns, in der schuleigenen Werkstatt, gefertigt. Um die Maske für unsere Platine zu erstellen, mussten wir den Bottom Layer sowie danach den Top Layer mit den benötigten Pads ausdrucken. 
+Die doppeltseitige Platine des Babybettchens wurde in der schuleigenen Werkstatt gefertigt. Um die Maske für unsere Platine zu erstellen, mussten wir den Bottom Layer sowie danach den Top Layer mit den benötigten Pads ausdrucken. 
 
 \par\vspace{1em}
 
