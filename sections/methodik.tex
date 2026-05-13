@@ -985,36 +985,37 @@ window.onload = function () {
 }
 \end{lstlisting}
 
-
 \subsubsection{style.css}
 Die visuelle Gestaltung der PWA erfolgt über die style.css Datei. In dieser wird das grundlegende Erscheinungsbild der gesamten Seite definiert. 
-Wie in Listing \ref{lst:css-body} werden die Schriftart sowie die Außenabstände festgelegt.
+Im CSS Body werden die Schriftart sowie die Außenabstände festgelegt.
 
 \noindent
 Durch die Verwendung einer serifenlosen Schrift wird für eine bessere Lesbarkeit auf digitalen Geräten gesorgt und der definierte Seitenabstand stellt sicher, dass die Inhalte nicht direkt am Rand des Bildschirms dargestellt werden, wodurch die Übersicht verbessert wird.
 
-\begin{lstlisting}[language=CSS, caption={CSS Body}, label={lst:css-body}, firstnumber=1]
-body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
-}
-\end{lstlisting}
+%\begin{lstlisting}[language=CSS, caption={CSS Body}, label={lst:css-body}, firstnumber=1]
+%body {
+%    font-family: Arial, sans-serif;
+%    margin: 20px;
+%}
+%\end{lstlisting}
+
+\par\vspace{1em}
 
 \noindent
 Für die Darstellung der Sensordaten, wurde ein eigener Bereich gestaltet, indem die Schriftgröße und Hervorhebung angepasst wurden, um die Sensordaten deutlich sichtbar zu machen. 
-Dies wird in dem Listing \ref{lst:css-sensordaten} dargestellt.
+%Dies wird in dem Listing \ref{lst:css-sensordaten} dargestellt.
 
 \noindent
 Durch die größere Schriftgröße und dickere Darstellung, wird die Wichtigkeit der Sensordaten hervorgehoben und der zusätzlich Abstand nach oben sorgt dafür, dass sich die Messwerte nicht direkt unter der Überschrift befinden, sondern ein kleiner Abstand dazwischen ist.
 
-\begin{lstlisting}[language=CSS, caption={Darstellung der Sensordaten}, label={lst:css-sensordaten}, firstnumber=6]
-#values {
-    margin-top: 20px;
-    font-size: 24px;
-    font-weight: bold;
-}
-}
-\end{lstlisting}
+%\begin{lstlisting}[language=CSS, caption={Darstellung der Sensordaten}, label={lst:css-sensordaten}, firstnumber=6]
+%#values {
+%    margin-top: 20px;
+%    font-size: 24px;
+%    font-weight: bold;
+%}
+%}
+%\end{lstlisting}
 
 \subsubsection{service-worker.js}
 Im Service Worker Code befinden sich nur zwei grundlegende Ereignisbehandler, die den Lebenszyklus des Service Worker steuern:
@@ -1026,46 +1027,46 @@ Im Service Worker Code befinden sich nur zwei grundlegende Ereignisbehandler, di
 \noindent
 Diese dienen nur dazu den Service Worker korrekt zu registrieren und aktivieren.
 
-\begin{lstlisting}[language=JavaScript, caption={Service Worker}, label={lst:js-serviceworker}, firstnumber=1]
-self.addEventListener("install", (event) => {
-    console.log("Service Worker installiert");
-    self.skipWaiting();
-});
-
-self.addEventListener("activate", (event) => {
-    console.log("Service Worker aktiviert");
-});
-\end{lstlisting}
+%\begin{lstlisting}[language=JavaScript, caption={Service Worker}, label={lst:js-serviceworker}, firstnumber=1]
+%self.addEventListener("install", (event) => {
+%    console.log("Service Worker installiert");
+%    self.skipWaiting();
+%});
+%
+%self.addEventListener("activate", (event) => {
+%    console.log("Service Worker aktiviert");
+%});
+%\end{lstlisting}
 
 \subsubsection{manifest.json}
 Das manifest.json wird verwendet um PWA als installierbare App erscheinen zu lassen. Es definiert die Eigenschaften der Anwendung, damit sie als PWA installiert und im App Modus genutzt werden kann.
 
 \noindent
 Der Stand der PWA war noch nicht soweit, damit wir das manifest.json wirklich verwenden konnten, 
-aber wir haben die grundlegende Struktur definiert, siehe Listing \ref{lst:js-manifest}.
+aber die grundlegende Struktur wurde definiert.
 
-\begin{lstlisting}[language=JavaScript, caption={Manifest}, label={lst:js-manifest}, firstnumber=1]
-{ 
-  "name": "ESP32 Sensor Dashboard",
-  "short_name": "Sensoren",
-  "start_url": "/index.html",
-  "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#2196f3",
-  "icons": [
-    {
-      "src": "icon.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "icon.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    }
-  ]
-}
-\end{lstlisting}
+%\begin{lstlisting}[language=JavaScript, caption={Manifest}, label={lst:js-manifest}, firstnumber=1]
+%{ 
+%  "name": "ESP32 Sensor Dashboard",
+%  "short_name": "Sensoren",
+%  "start_url": "/index.html",
+%  "display": "standalone",
+%  "background_color": "#ffffff",
+%  "theme_color": "#2196f3",
+%  "icons": [
+%    {
+%      "src": "icon.png",
+%      "sizes": "192x192",
+%      "type": "image/png"
+%    },
+%    {
+%      "src": "icon.png",
+%      "sizes": "512x512",
+%      "type": "image/png"
+%    }
+%  ]
+%}
+%\end{lstlisting}
 
 
 %Testroboter
