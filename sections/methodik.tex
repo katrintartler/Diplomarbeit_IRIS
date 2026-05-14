@@ -284,48 +284,28 @@ Während des Designens des Layouts wurde versucht, ein paar Aspekte des hochfreq
 Darüber hinaus wurde eine Ground-Plane eingefügt und es wurde versucht, Leiterbahnen direkt unter den ESP32 Antennen zu vermeiden. Dieser Punkt ist bei dieser Platine weniger gelungen, da oftmals keine andere Option gegeben war.
 
 \subsection{Ätzen der Platine}
-Die doppeltseitige Platine des Babybettchens wurde in der schuleigenen Werkstatt gefertigt. Um die Maske für unsere Platine zu erstellen, mussten wir den Bottom Layer sowie danach den Top Layer mit den benötigten Pads ausdrucken. 
+Die doppeltseitige Platine des Babybettchens wurde in der schuleigenen Werkstatt gefertigt. 
+Nach dem Positionieren und Überprüfen der Top- und Bottom-Maske wurde die Platine drei Minuten belichtet.
 
 \par\vspace{1em}
 
 \noindent 
-Nach dem entfernen der Schutzfolien, platzierten wir die Platine, mit beiden Masken, in der Belichtungsmaschine. Dabei mussten wir besonders darauf achten, dass die beiden Masken korrekt übereinander platziert wurden, da ansonsten die Pads der Bauteile nicht zusammenpassen würden. 
-
-\noindent
-Um den Prozess vorzubereiten, wurde die Platine zwischen zwei durchsichtigen „Platten“ ins Vakuum versetzt. Bevor der Belichtungsprozess begann, wurde nochmals überprüft, ob sich die Masken an der richtigen Stelle befanden. Erst dann wurde die Belichtungsmaschine geschlossen und die Platine für drei Minuten belichtet.
+Anschließend wurde die Platine im Entwicklungsbad entwickelt, wodurch der unbelichtete Photolack entfernt wurde.
+Die Entwicklungsdauer betrug abhängig von der Frische des Entwicklungsbades etwa 90 Sekunden.
 
 \par\vspace{1em}
 
 \noindent 
-Anschließend wurde die Platine eingespannt und kam für etwa 90 Sekunden in das Entwicklerbad, um den nicht benötigten Photolack zu entfernen. Durch optisches Überprüfen wurde entschieden wie lange sich die Platine im Entwicklungsbad befinden musste, da dieser Zeitraum abhängig von der frische des Entwicklungsbades ist und somit nicht immer gleich ist. Wenn man die Platine aus dem Entwicklerbad holt, um den Stand der Platine zu überprüfen, muss man die Platine in ein Wasserbad tauchen, damit die Entwicklerflüssigkeit nicht mehr mit der Platine reagieren kann. Sobald der Photolack entfernt und die Entwicklerflüssigkeit abgespült wurde, war dieser Schritt fertig.
+Der nächste Schritt war bereits das Ätzbad, bei welchem aufgrund der zunächst noch zu niedrigen Temperatur der Ätzflüssigkeit die Ätzdauer auf etwa 23 Minuten verlängert wurde.
+Sobald das nicht benötigte Kupfer entfernt wurde, wurde die Platine in das Wasserbecken getaucht, um die Ätzflüssigkeit abzuspülen und der Prozess war fertig.
 
-\par\vspace{1em}
+%\par\vspace{1em}
 
-\noindent 
-Der nächste Schritt war bereits das Ätzbad, welches zu Beginn des Prozesses noch nicht die richtige Temperatur hatte, da die Heizung erst dabei war die Ätzflüssigkeit zu erhitzen. Das war aber kein wirkliches Problem, sondern verursachte nur, dass das Ätzen etwas länger dauerte. Die Platine wurde eingespannt und befand sich für ca. 23 Minuten im Ätzbad. 
-
-\noindent
-Während dem Ätzen wurde der Prozess zwischendurch gestoppt, um zu überprüfen wie lange sich die Platine noch im Ätzbad befinden musste. Da das Ätzen kein so zeitkritischer Prozess, wie das Entwickeln ist, wurde die Platine nicht aus dem Ätzbad entfernt und in Wasser getaucht, sondern nur durch die Glasscheibe beobachtet. Während dem Ätzen konnte man den Fortschritt gut beobachten, da sich die Platine durch das Entfernen des Kupfers „verfärbt“. Sobald das nicht benötigte Kupfer entfernt wurde, wurde die Platine in das Wasserbecken getaucht, um das Ätzmittel abzuspülen und Prozess war fertig.
-
-\par\vspace{1em}
-
-\noindent 
-Theoretisch könnte man die die Platine danach nochmal ohne Maske belichten und durch erneutes Entwickeln den Photolack vollständig entfernen. Dadurch würde die Option entstehen, dass man die Platine versilbern kann. Wir haben uns dagegen entschieden, da das Kupfer der Leiterbahnen komplett freigelegt werden würde und diese zu oxidieren beginnen würden.
+%\noindent 
+%Theoretisch könnte man die die Platine danach nochmal ohne Maske belichten und durch erneutes Entwickeln den Photolack vollständig entfernen. Dadurch würde die Option entstehen, dass man die Platine versilbern kann. Wir haben uns dagegen entschieden, da das Kupfer der Leiterbahnen komplett freigelegt werden würde und diese zu oxidieren beginnen würden.
 
 \subsection{Bestücken der Platine}
 Die Platine des Babybettchens wurde vollkommen eigenständig bestückt. Während dem Löten sind aber Probleme aufgetreten, welche dazu führten, dass die Platine neu geätzt werden musste. 
-
-\par\vspace{1em}
-
-\noindent
-In der Abbildung \ref{fig:bestückte-babybettchen-platine} sieht man die bestückte Platine des Babybettchens, welche im finalen Aufbau verwendet wurde. 
-
-\begin{figure}[H]
-\centering
-\includegraphics[width = 10cm]{images/bestückte-babybettchen-platine.jpeg}
-\caption{Bestückte Platine des Babybettchens}
-\label{fig:bestückte-babybettchen-platine}
-\end{figure}
 
 \par\vspace{1em}
 
@@ -350,11 +330,24 @@ Aufgrund dessen wurde entschieden, die Pads der Stiftleisten oval zu machen und 
 \noindent
 Bei der neuen Platine blieb das Problem weiterhin bestehen, aber die etwas größeren Pads waren trotzdem hilfreich. Dennoch blieb es schwierig die Stiftleisten anzulöten und beanspruchte mehr Zeit als normal nötig, um die Platine fertig zu bestücken.
 
+\noindent
+In der Abbildung \ref{fig:bestückte-babybettchen-platine} sieht man die bestückte Platine des Babybettchens, welche im finalen Aufbau verwendet wurde. 
+
+\begin{figure}[H]
+\centering
+\includegraphics[width = 5cm]{images/bestückte-babybettchen-platine.jpeg}
+\caption{Bestückte Platine des Babybettchens}
+\label{fig:bestückte-babybettchen-platine}
+\end{figure}
+
+\par\vspace{1em}
+
+
 %\subsection{Versorgung der Platine}
 %Medizintechnische Aspekte
 %is glaub ich schon in einer anderen Section abgehandelt worden (?)
 
-\newpage
+%\newpage
 \section[Code Babybettchen]{Code Babybettchen\authorlinda}
 Das System des Babybettchens besteht aus der Datenerfassung, der Kommunikationsschnittstelle und der Datenvisualisierung. Diese Aufgaben werden durch die jeweiligen Programme des ESP A, ESP B und der PWA übernommen.
 
@@ -443,7 +436,7 @@ Ein wichtiger Bestandteil der Messwertverarbeitung ist die Mittelwertbildung, we
 Durch diese Mittelwertbildung, wird das Rauschen der Messungen reduziert, sowie eine Glättung von kurzzeitigen Spannungsschwankungen durchgeführt. Trotz der Mittelwertbildung gehen keine Bewegungsdaten verloren, da sie im Vergleich zum Sendeintervall  sehr schnell ist.
 
 \begin{itemize}
-  \item 10 Messungen mit jeweils einem Abstand von 200µs = insgesamt ca. 2ms pro Sensor
+  \item 10 Messungen mit jeweils einem Abstand von 200µs (plus Einlesedauer der Sensordaten in Zeile 34 im Listing \ref{lst:espA-zeitintervall-mittelwertbildung})
   \item Sendeintervall beträgt 1000ms
 \end{itemize}
 
@@ -971,7 +964,7 @@ window.onload = function () {
                 label: "Bewegungsintensitaet",
                 data: [],   // Y-Achse
                 borderWidth: 2, // Linienstaerke
-                fill: false // Flaeche unter der Linie nicht gefuellt
+                fill: false // Flaeche unter der Linie
             }]
         },
         options: {
@@ -979,7 +972,6 @@ window.onload = function () {
             responsive: true   
         }
     });
-    
     // Starten
     connectWebSocket(); 
 }
@@ -1126,13 +1118,13 @@ Das Designen der 3D-Komponenten erfolgte mittels Fusion360. Die erste Konstrukti
 \begin{figure}[H]
 \centering
 
-\begin{subfigure}{0.45\textwidth}
+\begin{subfigure}{0.35\textwidth}
     \centering
     \includegraphics[width=\linewidth]{images/3d/KonZ_StepperHalterung.png}
     \caption{Konstruktionszeichnung: Schrittmotor Halterung}
 \end{subfigure}
 \hfill
-\begin{subfigure}{0.45\textwidth}
+\begin{subfigure}{0.35\textwidth}
     \centering
     \includegraphics[width=\linewidth]{images/3d/3d_StepperHalterung.png}
     \caption{3D-Abbildung: Schrittmotor Halterung}
@@ -1151,13 +1143,13 @@ die Halterungskonstruktion der Bein Motoren in Abbildung \ref{fig:3d:motorbein} 
 \begin{figure}[htbp]
 \centering
 
-\begin{subfigure}{0.45\textwidth}
+\begin{subfigure}{0.35\textwidth}
     \centering
     \includegraphics[width=\linewidth]{images/3d/KonZ_ServoH-arme.png}
     \caption{Konstruktionszeichnung: Servomotorenhalterung- Arme}
 \end{subfigure}
 \hfill
-\begin{subfigure}{0.45\textwidth}
+\begin{subfigure}{0.35\textwidth}
     \centering
     \includegraphics[width=\linewidth]{images/3d/3d_ServoH_arme.png}
     \caption{3D-Abbildung: Servomotorenhalterung- Arme}
@@ -1171,13 +1163,13 @@ die Halterungskonstruktion der Bein Motoren in Abbildung \ref{fig:3d:motorbein} 
 \begin{figure}[htbp]
 \centering
 
-\begin{subfigure}{0.45\textwidth}
+\begin{subfigure}{0.35\textwidth}
     \centering
     \includegraphics[width=\linewidth]{images/3d/KonZ_ServoH_beine.png}
     \caption{Konstruktionszeichnung: Servomtorenhalterung- Beine}
 \end{subfigure}
 \hfill
-\begin{subfigure}{0.45\textwidth}
+\begin{subfigure}{0.35\textwidth}
     \centering
     \includegraphics[width=\linewidth]{images/3d/3d_ServoH_beine.png}
     \caption{3D-Abbildung: Servomtorenhalterung- Beine}
@@ -1194,13 +1186,13 @@ Die Konstruktion wird stabiler und es erleichtert den Einbau. Der Rahmen ist in 
 \begin{figure}[H]
 \centering
 
-\begin{subfigure}{0.45\textwidth}
+\begin{subfigure}{0.35\textwidth}
     \centering
     \includegraphics[width=\linewidth]{images/3d/KonZ_Servoframe.png}
     \caption{Konstruktionszeichnung: Rahmen}
 \end{subfigure}
 \hfill
-\begin{subfigure}{0.45\textwidth}
+\begin{subfigure}{0.35\textwidth}
     \centering
     \includegraphics[width=\linewidth]{images/3d/3d_Frame.png}
     \caption{3D-Abbildung: Rahmen}
@@ -1227,13 +1219,13 @@ die Version für die Arme.
 \begin{figure}[H] %beine /scheibe
 \centering
 
-\begin{subfigure}{0.45\textwidth}
+\begin{subfigure}{0.35\textwidth}
     \centering
     \includegraphics[width=\linewidth]{images/3d/KonZ_ScheibeB.png}
     \caption{Konstruktionszeichnung: Scheibe für Beine}
 \end{subfigure}
 \hfill
-\begin{subfigure}{0.45\textwidth}
+\begin{subfigure}{0.35\textwidth}
     \centering
     \includegraphics[width=\linewidth]{images/3d/3d_scheibeB.png}
     \caption{3D-Abbildung: Scheibe für Beine}
@@ -1246,13 +1238,13 @@ die Version für die Arme.
 \begin{figure}[H] % beine /ring 
 \centering
 
-\begin{subfigure}{0.45\textwidth}
+\begin{subfigure}{0.35\textwidth}
     \centering
     \includegraphics[width=\linewidth]{images/3d/KonZ_RingB.png}
     \caption{Konstruktionszeichnung: Ring für Beine}
 \end{subfigure}
 \hfill
-\begin{subfigure}{0.45\textwidth}
+\begin{subfigure}{0.35\textwidth}
     \centering
     \includegraphics[width=\linewidth]{images/3d/3d_ringB.png}
     \caption{3D-Abbildung: Ring für beine}
@@ -1265,13 +1257,13 @@ die Version für die Arme.
 \begin{figure}[H] %arme /scheibe
 \centering
 
-\begin{subfigure}{0.45\textwidth}
+\begin{subfigure}{0.35\textwidth}
     \centering
     \includegraphics[width=\linewidth]{images/3d/KonZ_ScheibeA.png}
     \caption{Konstruktionszeichnung: Scheibe für Arme}
 \end{subfigure}
 \hfill
-\begin{subfigure}{0.45\textwidth}
+\begin{subfigure}{0.35\textwidth}
     \centering
     \includegraphics[width=\linewidth]{images/3d/3d_scheibeA.png}
     \caption{3D-Abbildung: Scheibe für Arme}
@@ -1284,13 +1276,13 @@ die Version für die Arme.
 \begin{figure}[H] % arme /ring 
 \centering
 
-\begin{subfigure}{0.45\textwidth}
+\begin{subfigure}{0.35\textwidth}
     \centering
     \includegraphics[width=\linewidth]{images/3d/KonZ_RingA.png}
     \caption{Konstruktionszeichnung: Ring für Arme}
 \end{subfigure}
 \hfill
-\begin{subfigure}{0.45\textwidth}
+\begin{subfigure}{0.35\textwidth}
     \centering
     \includegraphics[width=\linewidth]{images/3d/3d_ringA.png}
     \caption{3D-Abbildung: Ring für Arme}
@@ -1302,19 +1294,20 @@ die Version für die Arme.
 \noindent
 Das Befestigen der Scheiben an den Plastikarmen gestaltete sich etwas schwerer als bei den Beinen. Da das Plasitk bei den Beinen dicker und somit besser für das Verschrauben geeignet war.
 Bei den Armen war es dünner und so war es etwas schwieriger die Arme mit den Motoren zu verbinden. Die Verbindungsstelle ist dementsprechend auch nicht so stabil. 
-\newpage
+
+%\newpage
 \noindent
 Damit der Lautsprecher im Kopf gut sitzt, wurde ebenfalls eine Halterungskonstruktion gedruckt, siehe Abbildung \ref{fig:3d:speaker}.
 \begin{figure}[htbp] % speaker 
 \centering
 
-\begin{subfigure}{0.45\textwidth}
+\begin{subfigure}{0.35\textwidth}
     \centering
     \includegraphics[width=\linewidth]{images/3d/KonZ_speaker.png}
     \caption{Konstruktionszeichnung: Lautsprecherhalterung}
 \end{subfigure}
 \hfill
-\begin{subfigure}{0.45\textwidth}
+\begin{subfigure}{0.35\textwidth}
     \centering
     \includegraphics[width=\linewidth]{images/3d/3d_speaker.png}
     \caption{3D-Abbildung: Lautsprecherhalterung}
@@ -1324,6 +1317,7 @@ Damit der Lautsprecher im Kopf gut sitzt, wurde ebenfalls eine Halterungskonstru
 \label{fig:3d:speaker}
 \end{figure}
 
+\newpage
 \section{Zusammenbau und Verkabelung} \label{Testroboterverkabelung}
 Nachdem die 3D-Konstruktion vorlag, begann der Zusammenbau. Die Motoren wurden an die Motorenhalterungen geschraubt und diese wiederderum an die Arme und Beine. 
 Der Stabilisationsrahmen wurde ebensfalls verbunden. Der Lautsprecher in der Halterung im Kopf montiert. Dieser skelettartige Aufbau ist in Abbildung \ref{fig:bby:skelett} abbgebildet. 
@@ -1371,7 +1365,7 @@ Der Anschluss ans Netzteil kann mithilfe der 2m langen, isiolierten Kupferkabel 
 \section[Testroboter Main-PCBs]{Testroboter Main-PCBs \authorkatrin} \label{TR:MainPCB}
 \input{sections/testroboterPCBs.tex}
 
-\newpage 
+%\newpage 
 \section[Code Testroboter]{Code Testroboter\authorkatrin} %fertig nur mehr formatieren
 Der Code zur Steuerung des Testroboters besteht aus zwei pythonbasierten Programmen, siehe \ref{Client Code}.
 Sie übernehmen die Darstellung des Graphical User Interface (gui.py) und die BLE Backend Kommunikation (ble\_backend.py). Damit werden die
