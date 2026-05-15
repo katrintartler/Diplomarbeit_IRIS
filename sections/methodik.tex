@@ -141,12 +141,12 @@ Ein zentrales Kriterium für unser Projekt war es, dass der ESP32 über WLAN Dat
 \par\vspace{1em}
 
 \noindent
-Ein weiterer entscheidender Vorteil des ESP32 ist die Rechenleistung, denn dieser kann die eingehenden Daten verarbeiten und die Verwaltung der Netzwerkverbindung übernehmen. Wodurch der ESP gleichzeitig als Kommunikationsschnittstelle und Server für eine WebSocket Verbindung fungieren kann.
-
-\par\vspace{1em}
-
-\noindent
-Zusätzlich verfügt der ESP32 über eine integrierte UART Schnittstelle und zwei Analog-Digital-Converter (ADC). Durch diese Eigenschaften, ermöglicht der ESP32 die einfache Anbindung von Sensoren und die Kommunikation zwischen zwei ESPs. Diese Funktion wird benötigt, da ein ESP32 die Erfassung der Sensordaten übernimmt und diese dann über die UART Schnittstelle an den zweiten ESP32 weiterleitet, welcher die zentrale Kommunikationseinheit des Systems bildet.
+%Ein weiterer entscheidender Vorteil des ESP32 ist die Rechenleistung, denn dieser kann die eingehenden Daten verarbeiten und die Verwaltung der Netzwerkverbindung übernehmen. 
+Ein weiterer Vorteil des ESP32 NodeMCU ist die ausreichende Rechenleistung des integrierten Dual-Core-Prozessors mit bis zu 240 MHz. Dadurch können die Sensordaten verarbeitet sowie die WLAN- und WebSocket-Kommunikation verwaltet werden.
+Wodurch der ESP gleichzeitig als Kommunikationsschnittstelle und Server für eine WebSocket Verbindung fungieren kann. \cite{azdelivery_esp32}
+%\par\vspace{1em}
+%\noindent
+%Zusätzlich verfügt der ESP32 über eine integrierte UART Schnittstelle und zwei Analog-Digital-Converter (ADC). Durch diese Eigenschaften, ermöglicht der ESP32 die einfache Anbindung von Sensoren und die Kommunikation zwischen zwei ESPs. Diese Funktion wird benötigt, da ein ESP32 die Erfassung der Sensordaten übernimmt und diese dann über die UART Schnittstelle an den zweiten ESP32 weiterleitet, welcher die zentrale Kommunikationseinheit des Systems bildet.
 
 \subsection{Warum zwei ESP32?}
 Wie bereits zuvor erwähnt, verwenden wir beim Babybettchen zwei ESP32 und das nicht ohne Grund. Denn man sollte, wenn man die WLAN Funktion des ESP32 nutzt, was wir in unserem Fall für die Übertragung verwendet haben, nur ADC1 Pins verwenden. ADC2 Pins können potentiell die WLAN Verbindung blockieren, was dazu führen würde, dass die Daten nicht kontinuierlich an die Visualisierungsstufe übertragen werden.
@@ -1621,7 +1621,8 @@ ausgeführt werden soll wenn der Server eine Nachricht empfängt.
 characteristic->setValue("ready") ist eine Nachricht an den Client, sollte dieser die Characteristic lesen, empfängt er "ready".
 Mit der Funktion service->start() ist die Konfiguration des Services abgeschlossen, er ist nun auf GATT-Ebene registiert und gestartet. 
 In den Zeile 142 bis 144 wir nun die GAP-Ebene angesprochen. Zu Beginn wir der GAP-Zugriff mit  NimBLEAdvertising* adv = NimBLEDevice::getAdvertising() gestartet. Dann der 
-Service für den Client dargestellt und dann beginnt der ESP zu werben (adverting), um die Verbindung mit dem Client einzugehen. Der Verbindungsaufbau ist auch in Abbildung (\ref{fig:ble_gap_bsp})
+Service für den Client dargestellt und dann beginnt der ESP zu werben (adverting), um die Verbindung mit dem Client einzugehen. 
+Der Verbindungsaufbau ist auch in Abbildung (\ref{fig:ble_gap_bsp_und_aufbau}) %fig:ble_gap_bsp_und_aufbau
 veranschaulicht. 
 \par\vspace{1em}
 \noindent

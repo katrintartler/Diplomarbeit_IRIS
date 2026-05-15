@@ -27,7 +27,7 @@ Diese Verformung der Dehnmessstreifen führt zu einer Widerstandsveränderung. \
 
 \begin{figure}[h]
 \centering
-\includegraphics[width = 10cm]{images/dms_dehnung-stauchung.jpg}
+\includegraphics[width = 12cm]{images/dms_dehnung-stauchung.jpg}
 \caption{Dehnung und Stauchung eines piezoresistiven Drucksensors \cite{piezoresistive_druckmesstechnik_bild}}
 \label{fig:dms_dehnung-stauchung}
 \end{figure}
@@ -55,8 +55,12 @@ Punktuelle Belastungen, wie kurzes Tippen und Drücken, sorgen für kurzzeitige 
 % leer
 
 \subsubsection{Anwendung}
-Durch die hohe Empfindlichkeit und Genauigkeit der piezoresistiven Drucksensoren können sie bei zahlreichen technischen Anwendungen verbaut werden. Aufgrund ihrer Fähigkeit bereits die kleinsten Druckänderungen zu erkennen und diese in elektrische Signale zu wandeln, finden sie in präzisionsorientieren Bereichen ihre Verwendung. 
+Durch die hohe Empfindlichkeit und Genauigkeit der piezoresistiven Drucksensoren können sie bei zahlreichen technischen Anwendungen verbaut werden. 
+Sie können typischerweise eine Genauigkeit von etwa 0,05 Prozent erreichen, während ein DMS (Dehnungsmessstreifen) eine kleinere Empfindlichkeit und Genauigkeit von etwa 0,1 Prozent aufweist.
+Der Messbereich eines piezoresistiven Drucksensors liegt standardmäßig in einem Bereich von etwa 100 mbar bis 200 bar und bei einem DMS bei etwa 10 bar bis 1000 bar. Dadurch eignen sich piezoresistive Drucksensoren für kleinere bis mittlere Drucke, während DMS häufiger bei hohen Druckbelastungen eingesetzt werden. 
+Aufgrund ihrer Fähigkeit bereits die kleinsten Druckänderungen zu erkennen und diese in elektrische Signale zu wandeln, finden sie in präzisionsorientieren Bereichen ihre Verwendung. 
 In der Automobilindustrie dienen sie beispielhaft der Drucküberwachung der Bremssysteme und Motoren und in der Medizintechnik ermöglichen sie die Erfassung von Parametern wie Blutdruck oder der Atmung.
+\cite{ddm_piezoresistive_sensor}
 
 \noindent
 Trotz ihrer Sensitivität gegenüber den Messwerten, bieten piezoresistive Drucksensoren eine gute Langezeitstabilität und zeigen keine starken Reaktionen gegenüber Umwelteinflüssen, wie Temperatur und Feuchtigkeit. 
@@ -67,7 +71,7 @@ Die elektrischen Eigenschaften von piezoresistiven Drucksensoren lassen sich dur
 Dieses Verhältnis hat keinen linearen Verlauf, sondern einen logarithmischen oder exponentiellen Verlauf.\cite{fraden_handbook} (siehe Abbildung \ref{fig:drucksensor-kennlinie}) 
 \begin{figure}[H]
 \centering
-\includegraphics[width = 15cm]{images/drucksensor-kennlinie.png}
+\includegraphics[width = 13cm]{images/drucksensor-kennlinie.png}
 \caption{Drucksensor Kennlinie - Widerstand in Abhängigkeit der Kraft \cite{dfrobot_drucksensor-kennline_bild}}
 \label{fig:drucksensor-kennlinie}
 \end{figure}
@@ -166,7 +170,7 @@ Dieser Zusammenhang der Messwerte bildet die Grundlage für die Interpretation d
 In der Abbildung \ref{fig:EBV_adc-funktion} ist die schematische Umwandlung eines Signals dargestellt. 
 \begin{figure}[H]
 \centering
-\includegraphics[width = 15cm]{images/EBV_adc-funktion.jpg}
+\includegraphics[width = 9cm]{images/EBV_adc-funktion.jpg}
 \caption{Schematische Darstellung eines ADCs\cite{ebv_adc_bild}}
 \label{fig:EBV_adc-funktion}
 \end{figure}
@@ -271,6 +275,7 @@ Durch die offene Kommunikation können neue Informationen vom Server bereitgeste
 \label{fig:ionos-websocket}
 \end{figure}
 
+\newpage
 \noindent
 WebSocket ist kein Ersatz für HTTP, sondern kann verwendet werden, wenn man schnelle Ladezeiten und Echtzeit Anwendungen benötigt, was bei HTTP nicht immer garantiert ist, 
 da der Client zuerst eine Anfrage senden muss und dann auf die Antwort warten muss. \cite{ionos_websocket} \cite{heise_websocket} Da bei unserem System eine Echtzeit Übertragung benötigt wird, bietet es sich an WebSocket zu verwenden.
