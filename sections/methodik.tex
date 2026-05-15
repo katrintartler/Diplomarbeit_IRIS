@@ -1340,6 +1340,8 @@ Diese Verkablung musste mittels Lochrasterplatine aufgebaut werden. In Abbildung
 \caption{Lochrasteraufbau}
 \label{fig:bby:lochraster}
 \end{figure}
+
+\newpage
 \noindent
 Die Stecker der Motoren können hier verbunden werden, die dünnen Kabel werden zu den ServoPWM Schraubklemmen auf der Hauptplatine verlegt.
 Die gesamte Verkabelung im Babyroboter ist in der Abbildung \ref{fig:bby:verkabelung} abbgebildet.
@@ -1456,8 +1458,7 @@ Das ist nicht möglich, weil ein await nur in einer asynchronen Funktion in Pyth
 Die Callback-Funktion ist aber def.
 Daher ist es am Besten mit den Modulen threading und asyncio, als Ergänzung der verwendeten bleak Library 
 zu arbeiten, siehe Listing \ref{lst:ble.py:module}.
-\newpage
-\begin{lstlisting}[language=Python, caption={verwendete Module im Client Code}, label={lst:ble.py:module}, firstnumber=1]
+\begin{lstlisting}[language=Python, caption={Verwendete Module im Client Code}, label={lst:ble.py:module}, firstnumber=1]
 import threading
 import asyncio
 from bleak import BleakClient
@@ -1486,14 +1487,12 @@ async def ble_connect():
     await client.connect()
     print("client_connected") 
 \end{lstlisting}
+
 \noindent
 Zuerst wird eine Variable client erstellt, diesem client wird mit der Funktion BleakClient(ESP\_MAC), ein Gerät zugewiesen 
 (über die MAC-Adresse) mit dem es Verbindung aufnehmen soll. Dementsprechend wird der Laptop im BLE Frequenzbereich nach diesem 
 Gerät suchen und dann über das GAP-Protokoll(siehe \ref{GAP}) eine Verbindung aufbauen. Dieser Verbindungsaufbau wird über
 await client.connect() initialisiert.Das debugging comment am Ende ist optional. 
-\newpage
-
-
 \begin{lstlisting}[language=Python, caption={Erstellen und Starten des BLE Threads},label={lst:ble.py:thread},firstnumber=16]
 def ble_start_thread():
     def run():
@@ -1532,7 +1531,6 @@ die entsprechende Characteristic des Servers (ESPs) geschickt.
 
 \noindent
 Die verschiedenen Kommdandos die die Callback-Funktionen der Buttons darstellen, sind so definiert (Listing \ref{lst:ble.py:callbacks}).
-\newpage
 \begin{lstlisting}[language=Python, caption={Beispiel einer Callback-Funktionen der Buttons},label={lst:ble.py:callbacks},firstnumber=35]
 def heat_on():
     asyncio.run_coroutine_threadsafe(ble_send_cmds(bytearray([9])), ble_loop)
